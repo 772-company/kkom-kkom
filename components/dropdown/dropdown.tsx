@@ -1,3 +1,4 @@
+import useClickOutside from "@/hooks/use-click-outside";
 import {
   ReactNode,
   createContext,
@@ -44,26 +45,14 @@ interface DropdownProps {
 export function Dropdown({ children, defaultSelected }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selected, setSelected] = useState<ReactNode>(defaultSelected);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: ReactNode) => setSelected(value);
   const handleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
   // NOTE - 드롭다운이 열려있는 경우 외부 영역 클릭하면 닫히도록 하는 함수
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsDropdownOpen(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const dropdownRef = useClickOutside<HTMLDivElement>((event) => {
+    setIsDropdownOpen(false);
+  });
 
   return (
     <DropdownState.Provider

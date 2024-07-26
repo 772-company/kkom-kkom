@@ -10,10 +10,10 @@ interface LinkButtonProps {
 }
 
 const GREEN_COLOR =
-  "text-white bg-[#10B981] hover:bg-[#059669] active:bg-[#047857] disabled:bg-[#94A3B8]";
+  "flex justify-center items-center text-white bg-[#10B981] hover:bg-[#059669] active:bg-[#047857] disabled:bg-[#94A3B8]";
 
 const GREEN_GRADIENT_COLOR =
-  "bg-gradient-to-r from-[#10B981] to-[#A3E635] text-white hover:from-[#059669] hover:to-[#98d832] active:from-[#0d906b] active:to-[#98c353]";
+  "flex justify-center items-center bg-gradient-to-r from-[#10B981] to-[#A3E635] text-white hover:from-[#059669] hover:to-[#98d832] active:from-[#0d906b] active:to-[#98c353]";
 
 const BUTTON_STYLE = {
   green: GREEN_COLOR,

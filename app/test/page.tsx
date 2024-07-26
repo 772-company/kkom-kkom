@@ -1,69 +1,60 @@
-import Button from "@/components/Button";
-import IconButton from "@/components/IconButton";
-import LinkButton from "@/components/LinkButton";
-import Hamster from "@/components/hamster.jpg";
+"use client";
+
+import IconButton from "@/components/Icon-button";
+import Button from "@/components/button";
+import LinkButton from "@/components/link-button";
+import hamster from "@/public/hamster.jpg";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-[5px]">
       <div className="flex gap-[10px]">
+        <Button color="white" type="button" className="h-[30px] w-[100px]">
+          text
+        </Button>
         <Button
-          text="white"
           color="white"
           type="button"
           className="h-[30px] w-[100px]"
-        />
-        <Button
-          text="disabled"
-          color="white"
-          type="button"
-          className="h-[30px] w-[100px]"
-          disabled={true}
-        />
+          disabled
+        >
+          disabled
+        </Button>
       </div>
       <div className="flex gap-[10px]">
+        <Button color="green" type="button" className="h-[30px] w-[100px]">
+          green
+        </Button>
         <Button
-          text="green"
           color="green"
           type="button"
           className="h-[30px] w-[100px]"
-        />
-        <Button
-          text="disabled"
-          color="green"
-          type="button"
-          className="h-[30px] w-[100px]"
-          disabled={true}
-        />
+          disabled
+        >
+          disabled
+        </Button>
       </div>
-      <Button
-        text="red"
-        color="red"
-        type="button"
-        className="h-[30px] w-[100px]"
-      />
-      <Button
-        text="white/gray"
-        color="white/gray"
-        type="button"
-        className="h-[30px] w-[100px]"
-      />
+      <Button color="red" type="button" className="h-[30px] w-[100px]">
+        red
+      </Button>
+      <Button color="white/gray" type="button" className="h-[30px] w-[100px]">
+        white/gray
+      </Button>
+      <LinkButton href="/merong" color="green" className="h-[30px] w-[200px]">
+        LinkButton - green
+      </LinkButton>
       <LinkButton
-        text="LinkButton - green"
-        link="/merong"
-        color="green"
-        className="h-[30px] w-[200px]"
-      />
-      <LinkButton
-        text="LinkButton - green/gradient"
-        link="/merong"
+        href="/merong"
         color="green/gradient"
         className="h-[30px] w-[300px]"
-      />
+      >
+        LinkButton - green/gradient
+      </LinkButton>
       <IconButton
-        src={Hamster}
+        src={hamster}
         alt="햄스터"
-        className="h-[50px] w-[50px] object-cover"
+        onClick={() => console.log("난 햄스터다.")}
+        className="h-[100px] w-[100px] object-cover"
       />
     </div>
   );

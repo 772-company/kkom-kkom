@@ -6,7 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "solid_red"
     | "outlined_green"
     | "outlined_gray";
-  size: "large" | "X-small";
+  size: "large" | "x-small";
   className?: string;
 }
 
@@ -41,7 +41,7 @@ const X_SMALL = "w-[72px] h-[32px]";
 
 const BUTTON_SIZE = {
   large: LARGE,
-  "X-small": X_SMALL,
+  "x-small": X_SMALL,
 };
 
 /**

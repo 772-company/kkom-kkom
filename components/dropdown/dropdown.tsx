@@ -32,17 +32,24 @@ export function useDropdown() {
 
 interface DropdownProps {
   children: ReactNode;
+  defaultSelected: ReactNode;
 }
 
-export function Dropdown({ children }: DropdownProps) {
+/**
+ * @author 김서영
+ * @param children : 드롭다운과 관련된 컴포넌트들이 해당됩니다.
+ * @param defaultSelected : 기본적으로 드롭다운 버튼에 보일 내용입니다.
+ * @example    <Dropdown defaultSelected="항목을 선택하세요">...</Dropdown>
+ **/
+export function Dropdown({ children, defaultSelected }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selected, setSelected] = useState<ReactNode>("dropdown");
+  const [selected, setSelected] = useState<ReactNode>(defaultSelected);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: ReactNode) => setSelected(value);
   const handleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
-  // NOTE - 드롭다운이 열려있는 경우 외부 영역시 닫히도록 하는 함수
+  // NOTE - 드롭다운이 열려있는 경우 외부 영역 클릭하면 닫히도록 하는 함수
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -67,7 +74,9 @@ export function Dropdown({ children }: DropdownProps) {
         handleSelect,
       }}
     >
-      <div ref={dropdownRef}>{children}</div>
+      <div ref={dropdownRef} className="relative">
+        {children}
+      </div>
     </DropdownState.Provider>
   );
 }

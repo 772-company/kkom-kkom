@@ -1,8 +1,7 @@
 "use client";
 
-import Button from "@/components/button";
+import Button, { LinkButton } from "@/components/button";
 import IconButton from "@/components/button/Icon-button";
-import LinkButton from "@/components/button/link-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import hamster from "@/public/hamster.jpg";
 import { useState } from "react";
@@ -26,48 +25,62 @@ export default function Home() {
         </Dropdown>
       </div>
       <div className="mx-60">요소 밀리는지 확인!!</div>
-      <div className="flex flex-col gap-[5px]">
-        <div className="flex gap-[10px]">
-          <Button color="solid_white" size="large" type="button">
-            SOLID_WHITE
+      <div>
+        <h2>버튼</h2>
+        <div>
+          <Button btnSize="large" btnStyle="solid" className="w-[280px]">
+            solid large
           </Button>
-          <Button color="solid_white" size="large" type="button" disabled>
+          <Button btnSize="x-small" btnStyle="solid" className="">
+            solid x-small
+          </Button>
+          <Button btnSize="large" btnStyle="outlined" className="w-[280px]">
+            outlined large
+          </Button>
+          <Button btnSize="x-small" btnStyle="outlined" className="">
+            outlined x-small
+          </Button>
+          <Button btnSize="large" btnStyle="danger" className="w-[280px]">
+            danger large
+          </Button>
+          <Button disabled btnSize="x-small" btnStyle="solid" className="">
             disabled
+          </Button>
+          <Button
+            btnSize="large"
+            btnStyle="outlined_secondary"
+            className="w-[280px]"
+          >
+            outlined_secondary large
+          </Button>
+          <Button btnSize="x-small" btnStyle="outlined_secondary" className="">
+            outlined_secondary x-small
           </Button>
         </div>
         <div className="flex gap-[10px]">
-          <Button color="solid_green" size="large" type="button">
-            SOLID_GREEN
-          </Button>
-          <Button color="solid_green" size="large" type="button" disabled>
-            disabled
-          </Button>
+          <LinkButton
+            btnSize="x-small"
+            btnStyle="outlined_secondary"
+            href="/merong"
+            className="w-[280px]"
+          >
+            outlined_secondary x-small
+          </LinkButton>
+          <LinkButton
+            btnSize="large"
+            btnStyle="gradient"
+            href="/merong"
+            className="w-[280px]"
+          >
+            gradient
+          </LinkButton>
+          <IconButton
+            src={hamster}
+            alt="햄스터"
+            onClick={() => console.log("난 햄스터다.")}
+            className="h-[100px] w-[100px] object-cover"
+          />
         </div>
-        <Button color="solid_red" size="large" type="button">
-          SOLID_RED
-        </Button>
-        <Button color="outlined_green" size="large" type="button">
-          OUTLINED_GREEN
-        </Button>
-        <Button color="outlined_gray" size="large" type="button">
-          OUTLINED_GRAY
-        </Button>
-        <LinkButton href="/merong" color="green" className="h-[30px] w-[200px]">
-          LinkButton - green
-        </LinkButton>
-        <LinkButton
-          href="/merong"
-          color="green/gradient"
-          className="h-[30px] w-[300px]"
-        >
-          LinkButton - green/gradient
-        </LinkButton>
-        <IconButton
-          src={hamster}
-          alt="햄스터"
-          onClick={() => console.log("난 햄스터다.")}
-          className="h-[100px] w-[100px] object-cover"
-        />
       </div>
     </>
   );

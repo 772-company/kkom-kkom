@@ -19,10 +19,10 @@ type ToastType = "success" | "error" | "info" | "warning" | "default";
  * 함수 형태로 사용합니다.
  * 
  * @author 이승현
- * @param {ToastType} type
- * @param {ToastContent} content
- * @param {ToastOptions} [options=defaultToastOption]
- * @return {Id}
+ * @param type 토스트 타입
+ * @param content 토스트에 넣을 내용
+ * @param options 토스트 옵션 (선택)
+ * @return 토스트 생성
  * @example
  *  <button onClick={() => showToast("warning", <p>토스트</p>)}>
           warning toast 열기

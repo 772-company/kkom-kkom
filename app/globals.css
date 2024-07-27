@@ -8,13 +8,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@font-face {
-  font-family: "Pretendard";
-  src: url("/public/fonts/PretendardVariable.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

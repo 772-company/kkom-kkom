@@ -1,10 +1,5 @@
 "use client";
 
-// import {
-//   Popover as PopOver,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/popover/popover-setting";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import classNames from "classnames";
 import Image, { StaticImageData } from "next/image";

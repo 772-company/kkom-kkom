@@ -1,11 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useModal } from ".";
+import { TwoButtonSection } from "./components/two-button-section";
 
 interface ModalTwoButtonProps {
   title: string;
   description: string;
   placeholder: string;
+  inputType?: string;
   handleConfirm: (value: string) => void;
   buttonDescription: string;
 }
@@ -17,6 +19,7 @@ interface ModalTwoButtonProps {
  * @param title 모달의 제목
  * @param description 모달의 설명
  * @param placeholder input의 placeholder
+ * @param inputType input의 type
  * @param handleConfirm 확인 버튼을 눌렀을 때 실행할 함수
  * @param buttonDescription 버튼의 설명
  * @returns
@@ -39,6 +42,7 @@ export function ModalTwoButton({
   title,
   description,
   placeholder,
+  inputType = "text",
   handleConfirm,
   buttonDescription,
 }: ModalTwoButtonProps) {
@@ -67,6 +71,7 @@ export function ModalTwoButton({
         <form onSubmit={handleSubmit(onSubmit)} className="text-left">
           <input
             placeholder={placeholder}
+            type={inputType}
             className="block h-11 w-full min-w-[280px] rounded-xl border border-text-default bg-background-secondary px-4 py-[13.5px] text-[14px] font-medium text-text-primary placeholder-text-default"
             {...register("content", { required: true })}
           />
@@ -75,18 +80,11 @@ export function ModalTwoButton({
               필수 입력 사항입니다.
             </aside>
           )}
-          <section className="mb-8 mt-6 flex w-full gap-2">
-            <button
-              type="button"
-              className="h-12 flex-1 bg-white"
-              onClick={handleClose}
-            >
-              닫기
-            </button>
-            <button className="h-12 flex-1 bg-green-50">
-              {buttonDescription}
-            </button>
-          </section>
+          <TwoButtonSection
+            btnStyle1="outlined"
+            btnStyle2="solid"
+            buttonDescription={buttonDescription}
+          />
         </form>
       </section>
     </section>

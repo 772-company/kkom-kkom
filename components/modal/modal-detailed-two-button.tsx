@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useModal } from ".";
+import { TwoButtonSection } from "./components/two-button-section";
 
 interface ModalDetailedTwoButtonProps {
   title: string;
@@ -8,6 +9,8 @@ interface ModalDetailedTwoButtonProps {
   label2: string;
   placeholder1: string;
   placeholder2: string;
+  inputType1?: string;
+  inputType2?: string;
   handleConfirm: (value1: string, value2: string) => void;
   buttonDescription: string;
 }
@@ -26,6 +29,8 @@ interface ModalDetailedFormType {
  * @param label2 두 번째 input의 label
  * @param placeholder1 첫 번째 input의 placeholder
  * @param placeholder2 두 번째 input의 placeholder
+ * @param inputType1 첫 번째 input의 type
+ * @param inputType2 두 번째 input의 type
  * @param handleConfirm 확인 버튼을 눌렀을 때 실행할 함수
  * @param buttonDescription 버튼의 설명
  * @returns {React.ReactElement}
@@ -36,6 +41,8 @@ interface ModalDetailedFormType {
           title="비밀번호 변경하기"
           label1="새 비밀번호"
           label2="새 비밀번호 확인"
+          inputType1="password"
+          inputType2="password"
           placeholder1="새 비밀번호를 입력해주세요."
           placeholder2="새 비밀번호를 다시 입력해주세요."
           handleConfirm={(value1: string, value2: string) => {
@@ -52,6 +59,8 @@ export function ModalDetailedTwoButton({
   label2,
   placeholder1,
   placeholder2,
+  inputType1 = "password",
+  inputType2 = "password",
   handleConfirm,
   buttonDescription,
 }: ModalDetailedTwoButtonProps) {
@@ -79,6 +88,7 @@ export function ModalDetailedTwoButton({
             {label1}
           </label>
           <input
+            type={inputType1}
             placeholder={placeholder1}
             className="mt-2 h-11 w-full min-w-[280px] rounded-xl border border-text-default bg-background-secondary px-4 py-[13.5px] text-[14px] font-medium text-text-primary placeholder-text-default"
             {...register("content1", { required: true })}
@@ -95,6 +105,7 @@ export function ModalDetailedTwoButton({
             {label2}
           </label>
           <input
+            type={inputType2}
             placeholder={placeholder2}
             className="mt-2 block w-full min-w-[280px] resize-none rounded-xl border border-text-default bg-background-secondary px-4 py-[13.5px] text-[14px] font-medium text-text-primary placeholder-text-default"
             {...register("content2", { required: true })}
@@ -104,18 +115,11 @@ export function ModalDetailedTwoButton({
               필수 입력 사항입니다.
             </aside>
           )}
-          <section className="mb-8 mt-6 flex w-full gap-2">
-            <button
-              type="button"
-              className="h-12 flex-1 bg-white"
-              onClick={handleClose}
-            >
-              닫기
-            </button>
-            <button className="h-12 flex-1 bg-green-50">
-              {buttonDescription}
-            </button>
-          </section>
+          <TwoButtonSection
+            btnStyle1="outlined"
+            btnStyle2="solid"
+            buttonDescription={buttonDescription}
+          />
         </form>
       </section>
     </section>

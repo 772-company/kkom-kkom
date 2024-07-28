@@ -1,6 +1,7 @@
 import CloseButton from "@/app/public/icons/x.svg";
 
 import { useModal } from ".";
+import { OneButtonSection } from "./components/one-button-section";
 
 interface PopupOneButtonProps {
   title: string;
@@ -56,12 +57,14 @@ export function PopupOneButton({
         <h2 className="mb-2 text-base font-medium text-slate-50 md:text-text-primary">
           {title}
         </h2>
-        <p className="mb-6 text-[14px] font-medium text-slate-400 md:mb-10 md:text-text-secondary">
+        <p className="break-keep text-[14px] font-medium text-slate-400 md:mb-4 md:text-text-secondary">
           {description}
         </p>
-        <button className="mb-8 h-12 w-[280px]" onClick={handleClick}>
-          {buttonDescription}
-        </button>
+        <OneButtonSection
+          btnStyle="solid"
+          buttonDescription={buttonDescription}
+          onClick={handleClick}
+        />
       </div>
     </section>
   );

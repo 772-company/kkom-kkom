@@ -1,6 +1,7 @@
 import Alert from "@/app/public/icons/alert.svg";
 
 import { useModal } from ".";
+import { TwoButtonSection } from "./components/two-button-section";
 
 interface ModalWarningProps {
   title: string;
@@ -37,6 +38,11 @@ export function ModalWarning({
   buttonDescription,
 }: ModalWarningProps) {
   const { handleClose } = useModal();
+  const handleClick = () => {
+    handleConfirm();
+    handleClose();
+  };
+
   return (
     <>
       <header className="flex h-20 justify-center pt-10">
@@ -49,22 +55,12 @@ export function ModalWarning({
         <h3 className="mb-4 break-keep text-sm font-medium text-text-secondary">
           {description}
         </h3>
-        <section className="mb-8 mt-6 flex w-full gap-2">
-          <button
-            type="button"
-            className="h-12 flex-1 bg-white"
-            onClick={handleClose}
-          >
-            닫기
-          </button>
-          <button
-            className="h-12 flex-1 bg-red-500"
-            type="button"
-            onClick={handleConfirm}
-          >
-            {buttonDescription}
-          </button>
-        </section>
+        <TwoButtonSection
+          btnStyle1="outlined_secondary"
+          btnStyle2="danger"
+          buttonDescription={buttonDescription}
+          onClick={handleClick}
+        />
       </div>
     </>
   );

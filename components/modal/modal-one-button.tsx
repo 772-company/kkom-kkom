@@ -2,10 +2,12 @@ import CloseButton from "@/app/public/icons/x.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useModal } from ".";
+import { OneButtonSection } from "./components/one-button-section";
 
 interface ModalOneButtonProps {
   title: string;
   placeholder: string;
+  inputType?: string;
   handleConfirm: (value: string) => void;
   buttonDescription: string;
 }
@@ -34,6 +36,7 @@ interface ModalOneButtonProps {
 export function ModalOneButton({
   title,
   placeholder,
+  inputType = "text",
   handleConfirm,
   buttonDescription,
 }: ModalOneButtonProps) {
@@ -69,6 +72,7 @@ export function ModalOneButton({
         </h2>
         <input
           placeholder={placeholder}
+          type={inputType}
           className="h-11 w-full min-w-[280px] rounded-xl border border-text-default bg-background-secondary px-4 py-[13.5px] text-[14px] font-medium text-text-primary placeholder-text-default"
           {...register("content", { required: true })}
         />
@@ -77,9 +81,10 @@ export function ModalOneButton({
             필수 입력 사항입니다.
           </aside>
         )}
-        <button className="mb-8 mt-6 h-12 w-[280px]">
-          {buttonDescription}
-        </button>
+        <OneButtonSection
+          btnStyle="solid"
+          buttonDescription={buttonDescription}
+        />
       </form>
     </section>
   );

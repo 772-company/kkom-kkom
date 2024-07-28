@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useModal } from ".";
+import { OneButtonSection } from "./components/one-button-section";
 
 interface ModalDetailedOneButtonProps {
   title: string;
@@ -112,9 +113,10 @@ export function ModalDetailedOneButton({
               필수 입력 사항입니다.
             </aside>
           )}
-          <button className="mb-8 mt-6 h-12 w-[280px]">
-            {buttonDescription}
-          </button>
+          <OneButtonSection
+            btnStyle="solid"
+            buttonDescription={buttonDescription}
+          />
         </form>
       </section>
     </section>

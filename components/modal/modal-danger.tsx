@@ -1,4 +1,5 @@
 import { useModal } from ".";
+import { TwoButtonSection } from "./components/two-button-section";
 
 interface ModalDangerProps {
   title: string;
@@ -31,6 +32,11 @@ export function ModalDanger({
   buttonDescription,
 }: ModalDangerProps) {
   const { handleClose } = useModal();
+
+  const handleClick = () => {
+    handleConfirm();
+    handleClose();
+  };
   return (
     <>
       <header className="h-12 px-6 pt-4"></header>
@@ -38,22 +44,12 @@ export function ModalDanger({
         <h2 className="text-base font-medium text-slate-50 md:text-text-primary">
           {title}
         </h2>
-        <section className="mb-8 mt-6 flex w-full gap-2">
-          <button
-            type="button"
-            className="h-12 flex-1 bg-white"
-            onClick={handleClose}
-          >
-            닫기
-          </button>
-          <button
-            className="h-12 flex-1 bg-red-500"
-            type="button"
-            onClick={handleConfirm}
-          >
-            {buttonDescription}
-          </button>
-        </section>
+        <TwoButtonSection
+          btnStyle1="outlined_secondary"
+          btnStyle2="danger"
+          buttonDescription={buttonDescription}
+          onClick={handleClick}
+        />
       </div>
     </>
   );

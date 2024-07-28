@@ -6,10 +6,18 @@ import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import Modal from "@/components/modal";
+import { ModalDanger } from "@/components/modal/modal-danger";
+import { ModalDetailedOneButton } from "@/components/modal/modal-detailed-one-button";
+import { ModalDetailedTwoButton } from "@/components/modal/modal-detailed-two-button";
+import { ModalOneButton } from "@/components/modal/modal-one-button";
+import { ModalTwoButton } from "@/components/modal/modal-two-button";
+import { ModalWarning } from "@/components/modal/modal-warning";
+import { PopupOneButton } from "@/components/modal/popup-one-button";
 import Popover from "@/components/popover/popover";
 import { showToast } from "@/lib/show-toast";
 import { useModalStore } from "@/providers/modal-store-provider";
-import hamster from "@/public/images/hamster.jpg";
+import hamster from "@/public/hamster.jpg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -57,6 +65,78 @@ export default function Home() {
 
   return (
     <>
+      <Modal button={<button>modalDanger 열기</button>}>
+        <ModalDanger
+          title="로그아웃 하시겠어요?"
+          handleConfirm={() => console.log("삭제")}
+          buttonDescription="삭제하기"
+        />
+      </Modal>
+      <Modal button={<button>ModalDetailedOneButton 열기</button>}>
+        <ModalDetailedOneButton
+          title="할 일 만들기"
+          description="할 일을 실제로 행동 가능한 작업 중심으로 작성해주시면 좋습니다."
+          label1="할 일 제목"
+          label2="할 일 메모"
+          placeholder1="할 일 제목을 입력해주세요."
+          placeholder2="메모를 입력해주세요."
+          handleConfirm={(value1, value2) => {
+            console.log(value1, value2);
+          }}
+          buttonDescription="만들기"
+        />
+      </Modal>
+      <Modal button={<button>modalDetailedTwoButton 열기</button>}>
+        <ModalDetailedTwoButton
+          title="비밀번호 변경하기"
+          label1="새 비밀번호"
+          label2="새 비밀번호 확인"
+          placeholder1="새 비밀번호를 입력해주세요."
+          placeholder2="새 비밀번호를 다시 입력해주세요."
+          inputType1="password"
+          inputType2="password"
+          handleConfirm={(value1: string, value2: string) => {
+            console.log(value1, value2);
+          }}
+          buttonDescription="변경하기"
+        />
+      </Modal>
+      <Modal button={<button>ModalOneButton 열기</button>}>
+        <ModalOneButton
+          title="그룹 이름 변경"
+          placeholder="그룹 이름을 입력해주세요."
+          handleConfirm={(value) => console.log(value)}
+          buttonDescription="변경하기"
+        />
+      </Modal>
+      <Modal button={<button>ModalTwoButton 열기</button>}>
+        <ModalTwoButton
+          buttonDescription="링크 보내기"
+          description="비밀번호 재설정 링크를 보내드립니다."
+          inputType="email"
+          handleConfirm={(value) => {
+            console.log(value);
+          }}
+          placeholder="이메일을 입력하세요."
+          title="비밀번호 재설정"
+        />
+      </Modal>
+      <Modal button={<button>ModalWarning 열기</button>}>
+        <ModalWarning
+          title="회원 탈퇴를 진행하시겠어요?"
+          description="그룹장으로 있는 그룹은 자동으로 삭제되고, 모든 그룹에서 나가집니다."
+          handleConfirm={() => console.log("회원 탈퇴")}
+          buttonDescription="회원 탈퇴"
+        />
+      </Modal>
+      <Modal button={<button>PopupOneButton 열기</button>}>
+        <PopupOneButton
+          description="그룹에 참여할 수 있는 링크를 복사합니다."
+          title="멤버 초대"
+          handleConfirm={() => console.log("복사")}
+          buttonDescription="복사하기"
+        />
+      </Modal>
       <div className="flex flex-col items-center justify-center gap-5">
         <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
           floating-solid-large

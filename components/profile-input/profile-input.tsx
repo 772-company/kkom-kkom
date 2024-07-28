@@ -57,4 +57,6 @@ const ProfileInput = forwardRef<HTMLInputElement, profileInputProps>(
   },
 );
 
+ProfileInput.displayName = "ProfileInput";
+
 export default ProfileInput;

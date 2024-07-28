@@ -42,7 +42,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   btnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
   btnSize: "large" | "x-small";
-  className?: string;
 }
 
 /**
@@ -53,7 +52,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * 버튼의 너비는 min-width로 설정되어 있습니다.
  * @author 정지현, 이승현
  * @param children : 버튼 안에 담을 내용을 적습니다. (ex. "버튼")
- * @param className : 추가적인 css를 넣습니다.
  * @param btnStyle : 버튼의 스타일을 결정합니다.
  * @param btnSize : 버튼의 크기를 결정합니다.
  * @returns 버튼 컴포넌트를 반환합니다.

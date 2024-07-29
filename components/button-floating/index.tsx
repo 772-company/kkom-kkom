@@ -33,6 +33,18 @@ interface ButtonFloatingProps {
   className: string;
 }
 
+/**
+ * @author 이승현, 정지현
+ * @param btnStyle : 버튼의 스타일을 결정합니다.
+ * @param btnSize : 버튼의 사이즈를 결정합니다.
+ * @param children : 버튼 안에 담을 내용을 작성합니다.
+ * @param className : 추가적인 스타일링을 작성합니다.
+ * @returns 플로팅 버튼을 반환합니다.
+ * @example
+ * <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
+          floating-solid-large
+  </ButtonFloating>
+ */
 export default function ButtonFloating({
   btnStyle,
   btnSize,

@@ -1,5 +1,5 @@
-import Check from "@/app/public/icons/check.svg";
-import Plus from "@/app/public/icons/plus.svg";
+import Check from "@/public/icons/check.svg";
+import Plus from "@/public/icons/plus.svg";
 
 const FUNDAMENTAL_STYLE =
   "z-50 px-[21px] py-[14px] flex cursor-pointer items-center justify-center font-semibold transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:scale-100 gap-1 rounded-[40px] shadow-xl";

@@ -1,3 +1,4 @@
+import Header from "@/components/header/header";
 import { ModalStoreProvider } from "@/providers/modal-store-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
+        <Header />
         <ModalStoreProvider>{children}</ModalStoreProvider>
       </body>
     </html>

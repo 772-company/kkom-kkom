@@ -26,7 +26,7 @@ const ProfileInput = ({
 }: profileInputProps) => {
   const [isImgError, setIsImgError] = useState<boolean>(false);
   return (
-    <>
+    <div className="h-16 w-16">
       <label htmlFor="profileInput" className="cursor-pointer">
         {type === "teamProfile" &&
           (isImgError && !previewImage ? (
@@ -62,7 +62,7 @@ const ProfileInput = ({
         className="hidden"
         onChange={onChange}
       />
-    </>
+    </div>
   );
 };
 export default ProfileInput;

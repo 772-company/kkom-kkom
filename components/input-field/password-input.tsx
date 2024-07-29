@@ -3,6 +3,7 @@ import EyeOn from "@/public/icons/eye-on.svg";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 
+import Button from "../button";
 import { BasicInput, BasicInputProps } from "./basic-input";
 
 interface PasswordInputProps<TFormInput extends FieldValues>
@@ -34,6 +35,9 @@ export default function PasswordInput<TFormInput extends FieldValues>({
 }: PasswordInputProps<TFormInput>) {
   const [showPassword, setShowPassword] = useState(false);
 
+  // NOTE - readOnly 속성이 rest에 포함되어 있는지 확인(변경하기 버튼이 있는 경우)
+  const isReadOnly = rest.readOnly === true;
+
   const handleToggleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -48,17 +52,29 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         error={error}
         {...rest}
       />
-      <button
-        type="button"
-        onClick={handleToggleShowPassword}
-        className="absolute right-4 top-[48px]"
-      >
-        {showPassword ? (
-          <EyeOn width={24} height={24} />
-        ) : (
-          <EyeOff width={24} height={24} />
-        )}
-      </button>
+      {/* TODO - 클릭 시 모달 열기 */}
+      {isReadOnly ? (
+        <Button
+          btnSize="x-small"
+          btnStyle="solid"
+          className="absolute right-4 top-[45px]"
+          onClick={() => alert("비밀번호 변경 모달")}
+        >
+          변경하기
+        </Button>
+      ) : (
+        <button
+          type="button"
+          onClick={handleToggleShowPassword}
+          className="absolute right-4 top-[48px]"
+        >
+          {showPassword ? (
+            <EyeOn width={24} height={24} />
+          ) : (
+            <EyeOff width={24} height={24} />
+          )}
+        </button>
+      )}
     </div>
   );
 }

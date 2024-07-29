@@ -1,5 +1,6 @@
 import TeamProfile from "@/public/icons/img.svg";
 import MyProfile from "@/public/icons/my-profile.svg";
+import X from "@/public/icons/x.svg";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import React from "react";
@@ -16,6 +17,7 @@ interface profileInputProps {
   image: string;
   type: "teamProfile" | "myProfile";
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
 }
 
 const ProfileInput = ({
@@ -23,11 +25,16 @@ const ProfileInput = ({
   image,
   type,
   onChange,
+  onClick,
 }: profileInputProps) => {
   const [isImgError, setIsImgError] = useState<boolean>(false);
+  const handleError = () => {
+    setIsImgError(true);
+  };
+
   return (
     <div className="h-16 w-16">
-      <label htmlFor="profileInput" className="cursor-pointer">
+      <label htmlFor="profileInput" className="relative cursor-pointer">
         {type === "teamProfile" &&
           (isImgError && !previewImage ? (
             <TeamProfile width={64} height={64} />
@@ -35,8 +42,9 @@ const ProfileInput = ({
             <Image
               width={64}
               height={64}
+              className="rounded-full"
               src={image}
-              onError={() => setIsImgError(true)}
+              onError={handleError}
               alt="팀이미지"
             />
           ))}
@@ -48,12 +56,22 @@ const ProfileInput = ({
             <Image
               width={64}
               height={64}
+              className="rounded-full"
               src={previewImage ? previewImage : image}
-              onError={() => setIsImgError(true)}
+              onError={handleError}
               alt="나의이미지"
             />
           ))}
       </label>
+
+      {previewImage && (
+        <button
+          className="radi h-30 w-30 borde absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
+          onClick={onClick}
+        >
+          <X width={18} height={18} />
+        </button>
+      )}
 
       <input
         id="profileInput"

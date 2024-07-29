@@ -2,13 +2,23 @@
 
 import ProfileInput from "@/components/profile-input/profile-input";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
+interface profileImage {
+  preview: string;
+  image: File;
+}
 export default function DropdownTestPage() {
-  const [previewImage, setPreviewImage] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null); // server에 업로드할 파일
+  const {
+    watch,
+    formState: { errors },
+    setValue,
+  } = useForm<profileImage>({ mode: "onChange" });
+
+  const preview = watch("preview");
   useEffect(() => {
     return () => {
-      URL.revokeObjectURL(previewImage);
+      URL.revokeObjectURL(preview);
     };
   }, []);
 
@@ -17,18 +27,18 @@ export default function DropdownTestPage() {
       <ProfileInput
         type="myProfile"
         image=""
-        previewImage={previewImage}
+        previewImage={preview}
         onClick={() => {
-          URL.revokeObjectURL(previewImage);
-          setPreviewImage("");
+          URL.revokeObjectURL(preview);
+          setValue("preview", "");
         }}
         onChange={(e) => {
           if (e.target.files) {
             const file = e.target.files[0];
             if (file) {
               const preview = URL.createObjectURL(e.target.files[0]);
-              setImage(e.target.files[0]);
-              setPreviewImage(preview);
+              setValue("image", e.target.files[0]);
+              setValue("preview", preview);
             }
           }
         }}

@@ -36,7 +36,7 @@ const config: Config = {
           focus: "#10B981",
         },
         border: {
-          primary: "rgba(248, 250, 252, 0.5)",
+          primary: "#F8FAFC",
         },
         text: {
           primary: "#F8FAFC",
@@ -61,6 +61,8 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         gradient: "linear-gradient(to right, #10B981, #A3E635)",
       },
+
+      fontFamily: { Pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
     },
   },
   plugins: [],

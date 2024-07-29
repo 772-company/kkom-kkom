@@ -7,6 +7,7 @@ export interface BasicInputProps<TFormInput extends FieldValues>
   register: UseFormRegister<TFormInput>;
   label?: string;
   error?: string;
+  isModal?: boolean;
 }
 
 /**
@@ -16,6 +17,7 @@ export interface BasicInputProps<TFormInput extends FieldValues>
  * @param id: 해당 input에 대한 id 입니다.(=name)
  * @param label: 라벨이 사용되지 않는 경우가 있어 옵셔널을 주었습니다.
  * @param error: 유효성 검사에 어긋나는 경우 나타나는 에러 메세지입니다.
+ * @param isModal: 모달에서 사용하는 경우 true로 지정하여 스타일을 다르게 줍니다.
  * @example
  * <BasicInput<ExampleInput>
           register={register}
@@ -31,13 +33,17 @@ export function BasicInput<TFormInput extends FieldValues>({
   id,
   label,
   error,
+  isModal,
   ...rest
 }: BasicInputProps<TFormInput>) {
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className={`flex flex-col ${isModal ? "gap-2" : "gap-3"}`}>
         {label && (
-          <label htmlFor={id} className="text-base font-semibold">
+          <label
+            htmlFor={id}
+            className="text-base font-semibold text-text-primary"
+          >
             {label}
           </label>
         )}

@@ -8,9 +8,22 @@ export default function DropdownTestPage() {
   const [example, setExample] = useState("드롭다운");
   return (
     <>
-      <ButtonFloating style="solid" size="large">
-        floating
-      </ButtonFloating>
+      <div className="flex flex-col items-center justify-center gap-5">
+        <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
+          floating-solid-large
+        </ButtonFloating>
+        <ButtonFloating btnStyle="solid" btnSize="medium" className="w-[300px]">
+          floating-solid-medium
+        </ButtonFloating>
+        <ButtonFloating
+          btnStyle="outlined"
+          btnSize="large"
+          className="w-[300px]"
+        >
+          floating-outlined-large
+        </ButtonFloating>
+      </div>
+
       <div className="m-auto mt-14 w-44 bg-blue-200">
         <Dropdown defaultSelected={example}>
           <Dropdown.Button>▽</Dropdown.Button>

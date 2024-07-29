@@ -21,9 +21,11 @@ export default function DropdownTestPage() {
         onChange={(e) => {
           if (e.target.files) {
             const file = e.target.files[0];
-            const preview = URL.createObjectURL(file);
-            setImage(file);
-            setPreviewImage(preview);
+            if (file) {
+              const preview = URL.createObjectURL(e.target.files[0]);
+              setImage(e.target.files[0]);
+              setPreviewImage(preview);
+            }
           }
         }}
       />

@@ -5,6 +5,7 @@ import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import { useModalStore } from "@/providers/modal-store-provider";
 import hamster from "@/public/images/hamster.jpg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
@@ -41,6 +42,8 @@ export default function Home() {
   const onSubmit: SubmitHandler<ExampleInput> = (data) => {
     console.log(data);
   };
+  const { isOpen, openModal, closeModal } = useModalStore((store) => store);
+
   return (
     <>
       <form
@@ -67,6 +70,9 @@ export default function Home() {
         </button>
       </form>
       <div className="m-auto mt-14 w-44 bg-blue-200">
+        {isOpen && <div>모달 열림</div>}
+        <button onClick={openModal}>모달 열기</button>
+        <button onClick={closeModal}>모달 닫기</button>
         <Dropdown defaultSelected={example}>
           <Dropdown.Button>▽</Dropdown.Button>
           <Dropdown.Body styles="w-36 bg-blue-200">

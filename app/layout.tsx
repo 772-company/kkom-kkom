@@ -1,3 +1,4 @@
+import { ModalStoreProvider } from "@/providers/modal-store-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -22,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={myFont.className}>{children}</body>
+      <body className={myFont.className}>
+        <ModalStoreProvider>{children}</ModalStoreProvider>
+      </body>
     </html>
   );
 }

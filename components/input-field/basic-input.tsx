@@ -36,11 +36,16 @@ export function BasicInput<TFormInput extends FieldValues>({
   return (
     <>
       <div className="flex flex-col gap-3">
-        {label && <label className="text-base font-semibold"> {label} </label>}
+        {label && (
+          <label htmlFor={id} className="text-base font-semibold">
+            {label}
+          </label>
+        )}
         <input
           className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-sm font-normal placeholder:text-text-default focus:border-2 focus:outline-none ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"}`}
           {...register(id)}
           {...rest}
+          id={id}
         />
       </div>
       {error && (

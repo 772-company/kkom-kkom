@@ -24,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <ModalStoreProvider>{children}</ModalStoreProvider>
+        <ModalStoreProvider>
+          <div className="bg-background-primary">{children}</div>
+        </ModalStoreProvider>
       </body>
     </html>
   );

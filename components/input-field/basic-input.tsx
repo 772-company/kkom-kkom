@@ -7,6 +7,7 @@ export interface BasicInputProps<TFormInput extends FieldValues>
   register: UseFormRegister<TFormInput>;
   label?: string;
   error?: string;
+  isModal?: boolean;
 }
 
 /**
@@ -31,13 +32,17 @@ export function BasicInput<TFormInput extends FieldValues>({
   id,
   label,
   error,
+  isModal,
   ...rest
 }: BasicInputProps<TFormInput>) {
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className={`flex flex-col ${isModal ? "gap-2" : "gap-3"}`}>
         {label && (
-          <label htmlFor={id} className="text-base font-semibold">
+          <label
+            htmlFor={id}
+            className="text-base font-semibold text-text-primary"
+          >
             {label}
           </label>
         )}

@@ -13,7 +13,7 @@ interface PasswordInputProps<TFormInput extends FieldValues>
  * @author 김서영
  * 비밀번호 토글 기능이 있는 input입니다.
  * BasicInput 컴포넌트에서 눈 버튼과 토글 기능이 추가된 컴포넌트입니다.
- * @param rest: placeholder, type 등이 옵니다.
+ * @param rest: placeholder, type 등이 옵니다. readOnly 속성이 있는 경우 변경하기 버튼이 보여집니다.
  * @param id: 해당 input에 대한 id 입니다.(=name)
  * @param label: 라벨이 사용되지 않는 경우가 있어 옵셔널을 주었습니다.
  * @param error: 유효성 검사에 어긋나는 경우 나타나는 에러 메세지입니다.
@@ -57,7 +57,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         <Button
           btnSize="x-small"
           btnStyle="solid"
-          className="absolute right-4 top-[45px]"
+          className="absolute right-4 top-[px]"
           onClick={() => alert("비밀번호 변경 모달")}
         >
           변경하기

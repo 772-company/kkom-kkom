@@ -30,7 +30,7 @@ interface ButtonFloatingProps {
   btnStyle: "solid" | "outlined";
   btnSize: "large" | "medium";
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 /**

@@ -1,5 +1,5 @@
-import TeamProfile from "@/app/public/icons/img.svg";
-import MyProfile from "@/app/public/icons/my-profile.svg";
+import TeamProfile from "@/public/icons/img.svg";
+import MyProfile from "@/public/icons/my-profile.svg";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import React from "react";

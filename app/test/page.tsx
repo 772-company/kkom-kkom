@@ -1,5 +1,6 @@
 "use client";
 
+import ButtonFloating from "@/components/button-floating";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { useState } from "react";
 
@@ -7,6 +8,9 @@ export default function DropdownTestPage() {
   const [example, setExample] = useState("드롭다운");
   return (
     <>
+      <ButtonFloating style="solid" size="large">
+        floating
+      </ButtonFloating>
       <div className="m-auto mt-14 w-44 bg-blue-200">
         <Dropdown defaultSelected={example}>
           <Dropdown.Button>▽</Dropdown.Button>

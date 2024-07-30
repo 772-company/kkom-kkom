@@ -1,6 +1,7 @@
 "use client";
 
 import Button, { LinkButton } from "@/components/button";
+import ButtonFloating from "@/components/button-floating";
 import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
@@ -52,6 +53,22 @@ export default function Home() {
 
   return (
     <>
+      <div className="flex flex-col items-center justify-center gap-5">
+        <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
+          floating-solid-large
+        </ButtonFloating>
+        <ButtonFloating btnStyle="solid" btnSize="medium" className="w-[300px]">
+          floating-solid-medium
+        </ButtonFloating>
+        <ButtonFloating
+          btnStyle="outlined"
+          btnSize="large"
+          className="w-[300px]"
+        >
+          floating-outlined-large
+        </ButtonFloating>
+      </div>
+
       <form
         className="mt-6 flex flex-col gap-2 px-14"
         onSubmit={handleSubmit(onSubmit)}

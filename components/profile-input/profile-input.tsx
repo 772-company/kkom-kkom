@@ -16,8 +16,8 @@ interface profileInputProps {
 /**
  * @author : 이동규
  * @typedef {Object} ProfileInputProps
- * @property {string} image - 서버에서 받아온 유저 이미지 URL
- * @property {string} preview - 미리보기 이미지 URL
+ * @param {string} image - 서버에서 받아온 유저 이미지 URL
+ * @param {string} preview - 미리보기 이미지 URL
  **/
 
 const ProfileInput = ({

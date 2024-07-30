@@ -17,12 +17,12 @@ export default function DropdownTestPage() {
 
   const preview = watch("preview");
 
-  const handleClickInputHandler = () => {
+  const handleClickProfileInput = () => {
     URL.revokeObjectURL(preview);
     setValue("preview", "");
   };
 
-  const handleProfileInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProfileInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (file) {
@@ -44,8 +44,8 @@ export default function DropdownTestPage() {
         type="myProfile"
         image=""
         previewImage={preview}
-        onClick={handleClickInputHandler}
-        onChange={handleProfileInput}
+        onClick={handleClickProfileInput}
+        onChange={handleChangeProfileInput}
       />
     </>
   );

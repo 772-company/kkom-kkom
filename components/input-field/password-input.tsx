@@ -7,7 +7,10 @@ import Button from "../button";
 import { BasicInput, BasicInputProps } from "./basic-input";
 
 interface PasswordInputProps<TFormInput extends FieldValues>
-  extends BasicInputProps<TFormInput> {}
+  extends BasicInputProps<TFormInput> {
+  // TODO - 함수에 맞게 수정
+  onOpenModal?: () => void;
+}
 
 /**
  * @author 김서영

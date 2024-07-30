@@ -1,3 +1,4 @@
+import Header from "@/components/header/header";
 import { ModalStoreProvider } from "@/providers/modal-store-provider";
 import ToastProvider from "@/providers/toast-provider";
 import "@/styles/globals.css";
@@ -26,7 +27,10 @@ export default function RootLayout({
     <html lang="ko">
       <body className={myFont.className}>
         <ToastProvider>
-          <ModalStoreProvider>{children}</ModalStoreProvider>
+          <ModalStoreProvider>
+            <Header />
+            {children}
+          </ModalStoreProvider>
         </ToastProvider>
       </body>
     </html>

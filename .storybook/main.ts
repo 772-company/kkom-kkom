@@ -11,12 +11,14 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
+    //NOTE - next addon 추가
     "storybook-addon-next",
   ],
   framework: {
     name: "@storybook/nextjs",
     options: {},
   },
+  //NOTE - Storybook의 SVGR 연동 설정
   webpackFinal: async (config) => {
     if (!config.module || !config.module.rules) {
       return config;

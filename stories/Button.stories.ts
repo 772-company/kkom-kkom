@@ -1,89 +1,52 @@
-import Button from "@/components/button";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
+import { Button } from './Button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Example/Button",
+  title: 'Example/Button',
   component: Button,
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: 'centered',
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  argTypes: {},
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
+  args: { onClick: fn() },
 } satisfies Meta<typeof Button>;
 
 export default meta;
-
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Solid: Story = {
+export const Primary: Story = {
   args: {
-    children: "solid large",
-    btnSize: "large",
-    btnStyle: "solid",
+    primary: true,
+    label: 'Button',
   },
 };
 
-export const Outlined: Story = {
+export const Secondary: Story = {
   args: {
-    children: "outlined large",
-    btnSize: "large",
-    btnStyle: "outlined",
+    label: 'Button',
   },
 };
 
-export const OutlinedSecondary: Story = {
+export const Large: Story = {
   args: {
-    children: "outlined_secondary large",
-    btnSize: "large",
-    btnStyle: "outlined_secondary",
+    size: 'large',
+    label: 'Button',
   },
 };
 
-export const Danger: Story = {
+export const Small: Story = {
   args: {
-    children: "danger large",
-    btnSize: "large",
-    btnStyle: "danger",
-  },
-};
-
-export const DisabledLarge: Story = {
-  args: {
-    children: "disabled large",
-    btnSize: "large",
-    btnStyle: "solid",
-    disabled: true,
-  },
-};
-
-export const SolidSmall: Story = {
-  args: {
-    children: "solid small",
-    btnSize: "x-small",
-    btnStyle: "solid",
-  },
-};
-
-export const OutlinedSmall: Story = {
-  args: {
-    children: "outlined small",
-    btnSize: "x-small",
-    btnStyle: "outlined",
-  },
-};
-
-export const OutlinedSecondarySmall: Story = {
-  args: {
-    children: "outlined secondary small",
-    btnSize: "x-small",
-    btnStyle: "outlined_secondary",
-  },
-};
-
-export const DisabledSmall: Story = {
-  args: {
-    children: "solid small",
-    btnSize: "x-small",
-    btnStyle: "solid",
-    disabled: true,
+    size: 'small',
+    label: 'Button',
   },
 };

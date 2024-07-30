@@ -29,7 +29,7 @@ export default function RootLayout({
         <ToastProvider>
           <ModalStoreProvider>
             <Header />
-            <div className="bg-background-primary">{children}</div>
+            <div className="h-screen bg-background-primary">{children}</div>
           </ModalStoreProvider>
         </ToastProvider>
       </body>

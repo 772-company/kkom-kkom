@@ -53,12 +53,12 @@ export function BasicInput<TFormInput extends FieldValues>({
           {...rest}
           id={id}
         />
+        {error && (
+          <p className="ml-[13.5px] text-sm font-medium text-status-danger">
+            {error}
+          </p>
+        )}
       </div>
-      {error && (
-        <p className="ml-[13.5px] mt-2 text-sm font-medium text-status-danger">
-          {error}
-        </p>
-      )}
     </>
   );
 }

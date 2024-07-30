@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const BUTTON_STYLE = cva(
+export const buttonVariants = cva(
   [
     "flex",
     "cursor-pointer",
@@ -22,8 +22,8 @@ export const BUTTON_STYLE = cva(
   {
     variants: {
       btnSize: {
-        large: ["h-[48px]", "min-w-[280px]", "text-base", "py-3"],
-        "x-small": ["h-[32px]", "min-w-[74px]", "text-sm", "py-1.5"],
+        large: ["h-[48px]", "text-base", "py-3"],
+        "x-small": ["h-[32px]", "text-sm", "py-1.5"],
       },
       btnStyle: {
         solid: [

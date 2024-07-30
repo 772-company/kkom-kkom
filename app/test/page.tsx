@@ -1,10 +1,12 @@
 "use client";
 
 import Button, { LinkButton } from "@/components/button";
+import ButtonFloating from "@/components/button-floating";
 import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import { showToast } from "@/lib/show-toast";
 import { useModalStore } from "@/providers/modal-store-provider";
 import hamster from "@/public/images/hamster.jpg";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +19,7 @@ export default function Home() {
   interface ExampleInput {
     email: string;
     password: string;
+    passwordConfirm: string;
   }
   // NOTE - yup 스키마 정의 예시
   const exampleSchema = yup.object().shape({
@@ -25,6 +28,11 @@ export default function Home() {
       .email("email 형식을 입력해주세요")
       .required("이메일을 입력해 주세요"),
     password: yup
+      .string()
+      .min(8, "비밀번호는 최소 8자리 이상이어야 합니다")
+      .max(15, "비밀번호는 최대 15자리 이하여야 합니다")
+      .required("비밀번호를 입력해 주세요"),
+    passwordConfirm: yup
       .string()
       .min(8, "비밀번호는 최소 8자리 이상이어야 합니다")
       .max(15, "비밀번호는 최대 15자리 이하여야 합니다")
@@ -46,6 +54,22 @@ export default function Home() {
 
   return (
     <>
+      <div className="flex flex-col items-center justify-center gap-5">
+        <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
+          floating-solid-large
+        </ButtonFloating>
+        <ButtonFloating btnStyle="solid" btnSize="medium" className="w-[300px]">
+          floating-solid-medium
+        </ButtonFloating>
+        <ButtonFloating
+          btnStyle="outlined"
+          btnSize="large"
+          className="w-[300px]"
+        >
+          floating-outlined-large
+        </ButtonFloating>
+      </div>
+
       <form
         className="mt-6 flex flex-col gap-2 px-14"
         onSubmit={handleSubmit(onSubmit)}
@@ -65,11 +89,33 @@ export default function Home() {
           label="비밀번호"
           error={errors.password?.message}
         />
+        <PasswordInput<ExampleInput>
+          register={register}
+          id="passwordConfirm"
+          readOnly
+          value={123456789}
+          label="비밀번호 변경"
+        />
         <button type="submit" className="bg-amber-200">
           Submit
         </button>
       </form>
       <div className="m-auto mt-14 w-44 bg-blue-200">
+        <button onClick={() => showToast("warning", <p>토스트</p>)}>
+          warning toast 열기
+        </button>
+        <button onClick={() => showToast("default", <p>토스트</p>)}>
+          default toast 열기
+        </button>
+        <button onClick={() => showToast("info", <p>토스트</p>)}>
+          info toast 열기
+        </button>
+        <button onClick={() => showToast("success", <p>토스트</p>)}>
+          success toast 열기
+        </button>
+        <button onClick={() => showToast("error", <p>토스트</p>)}>
+          error toast 열기
+        </button>
         {isOpen && <div>모달 열림</div>}
         <button onClick={openModal}>모달 열기</button>
         <button onClick={closeModal}>모달 닫기</button>

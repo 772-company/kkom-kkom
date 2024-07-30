@@ -1,4 +1,4 @@
-import ButtonFloating from "@/components/button-floating";
+import ButtonFloating from "@/components/button-floating/button-floating";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta = {

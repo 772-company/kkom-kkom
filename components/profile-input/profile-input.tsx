@@ -5,13 +5,6 @@ import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import React from "react";
 
-/**
- * @author : 이동규
- * @typedef {Object} ProfileInputProps
- * @property {string} image - 서버에서 받아온 유저 이미지 URL
- * @property {string} preview - 미리보기 이미지 URL
- **/
-
 interface profileInputProps {
   previewImage: string;
   image: string;
@@ -19,6 +12,13 @@ interface profileInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick: () => void;
 }
+
+/**
+ * @author : 이동규
+ * @typedef {Object} ProfileInputProps
+ * @property {string} image - 서버에서 받아온 유저 이미지 URL
+ * @property {string} preview - 미리보기 이미지 URL
+ **/
 
 const ProfileInput = ({
   previewImage,
@@ -31,12 +31,13 @@ const ProfileInput = ({
   const handleError = () => {
     setIsImgError(true);
   };
+  const errorImage = isImgError && !previewImage;
 
   return (
     <div className="h-16 w-16">
       <label htmlFor="profileInput" className="relative cursor-pointer">
         {type === "teamProfile" &&
-          (isImgError && !previewImage ? (
+          (errorImage ? (
             <TeamProfile width={64} height={64} />
           ) : (
             <Image
@@ -50,7 +51,7 @@ const ProfileInput = ({
           ))}
 
         {type === "myProfile" &&
-          (isImgError && !previewImage ? (
+          (errorImage ? (
             <MyProfile width={64} height={64} />
           ) : (
             <Image
@@ -66,7 +67,7 @@ const ProfileInput = ({
 
       {previewImage && (
         <button
-          className="radi h-30 w-30 borde absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
+          className="h-30 w-30 borde absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
           onClick={onClick}
         >
           <X width={18} height={18} />

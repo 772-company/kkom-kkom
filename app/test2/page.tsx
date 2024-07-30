@@ -1,7 +1,7 @@
 "use client";
 
 import ProfileInput from "@/components/profile-input/profile-input";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface profileImage {
@@ -16,6 +16,22 @@ export default function DropdownTestPage() {
   } = useForm<profileImage>({ mode: "onChange" });
 
   const preview = watch("preview");
+
+  const handleClickInputHandler = () => {
+    URL.revokeObjectURL(preview);
+    setValue("preview", "");
+  };
+
+  const handleProfileInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      if (file) {
+        const preview = URL.createObjectURL(e.target.files[0]);
+        setValue("image", e.target.files[0]);
+        setValue("preview", preview);
+      }
+    }
+  };
   useEffect(() => {
     return () => {
       URL.revokeObjectURL(preview);
@@ -28,20 +44,8 @@ export default function DropdownTestPage() {
         type="myProfile"
         image=""
         previewImage={preview}
-        onClick={() => {
-          URL.revokeObjectURL(preview);
-          setValue("preview", "");
-        }}
-        onChange={(e) => {
-          if (e.target.files) {
-            const file = e.target.files[0];
-            if (file) {
-              const preview = URL.createObjectURL(e.target.files[0]);
-              setValue("image", e.target.files[0]);
-              setValue("preview", preview);
-            }
-          }
-        }}
+        onClick={handleClickInputHandler}
+        onChange={handleProfileInput}
       />
     </>
   );

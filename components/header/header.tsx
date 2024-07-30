@@ -5,7 +5,7 @@ import LoginButton from "./login-button";
 
 export default function Header() {
   // TODO - cookie 토근 여부 확인하는 로직
-  const loggedIn = false;
+  const isLoggedIn = false;
 
   return (
     <header className="h-[60px] w-full bg-background-secondary px-4">
@@ -16,7 +16,7 @@ export default function Header() {
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
         </Link>
-        {loggedIn ? (
+        {isLoggedIn ? (
           // TODO - 로그인 상태 시 헤더
           <p>로그인 상태</p>
         ) : (

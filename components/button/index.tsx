@@ -1,42 +1,6 @@
 import Link, { LinkProps } from "next/link";
 
-// NOTE: 버튼의 기본 스타일입니다.
-export const FUNDAMENTAL_STYLE =
-  "flex cursor-pointer items-center justify-center rounded-xl font-semibold transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:scale-100";
-
-const OUTLINED =
-  "border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:text-interaction-pressed disabled:border-interaction-inactive disabled:text-interaction-inactive border border-solid bg-white";
-
-const SOLID =
-  "bg-brand-primary text-white hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive";
-
-const DANGER =
-  "bg-status-danger text-white hover:bg-[#f50808] active:bg-[#c22020]";
-
-const OUTLINED_SECONDARY =
-  "border-text-secondary text-text-default border border-solid";
-
-// NOTE: 버튼의 스타일입니다.
-export const BUTTON_STYLE = {
-  solid: SOLID,
-  outlined: OUTLINED,
-  danger: DANGER,
-  outlined_secondary: OUTLINED_SECONDARY,
-};
-
-// NOTE: 버튼의 크기입니다.
-export const BUTTON_SIZE = {
-  large: "h-[48px] min-w-[280px] text-base py-3",
-  "x-small": "h-[32px] min-w-[74px] text-sm py-1.5",
-};
-
-const GREEN_GRADIENT_COLOR = "bg-gradient text-white";
-
-// NOTE: 링크 버튼의 스타일입니다.
-export const LINK_STYLE = {
-  ...BUTTON_STYLE,
-  gradient: GREEN_GRADIENT_COLOR,
-};
+import { BUTTON_STYLE } from "./schema";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -72,7 +36,11 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`${FUNDAMENTAL_STYLE} ${BUTTON_STYLE[btnStyle]} ${BUTTON_SIZE[btnSize]} ${className}`}
+      className={BUTTON_STYLE({
+        btnStyle,
+        btnSize,
+        className,
+      })}
       {...rest}
     >
       {children}
@@ -88,7 +56,7 @@ interface LinkButtonProps extends LinkProps {
 }
 
 /**
- * 피그마에 정의된 대로 구성되어 있는 링크 컴포넌트입니다. 
+ * 피그마에 정의된 대로 구성되어 있는 링크 컴포넌트입니다.
  * className으로 추가적인 링크의 스타일을 결정할 수 있습니다.
  * 기본 링크 태그의 속성 전부 들어갈 수 있습니다.
  * 버튼의 색상은 테마에 맞게 설정되어 있습니다.
@@ -123,10 +91,7 @@ export function LinkButton({
   ...rest
 }: LinkButtonProps) {
   return (
-    <Link
-      className={`${FUNDAMENTAL_STYLE} ${LINK_STYLE[btnStyle]} ${BUTTON_SIZE[btnSize]} ${className}`}
-      {...rest}
-    >
+    <Link className={BUTTON_STYLE({ className, btnStyle, btnSize })} {...rest}>
       {children}
     </Link>
   );

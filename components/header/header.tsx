@@ -1,11 +1,9 @@
-"use client";
-
 import Logo from "@/public/icons/logo.svg";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+
+import LoginButton from "./login-button";
 
 export default function Header() {
-  const pathname = usePathname();
   // TODO - cookie 토근 여부 확인하는 로직
   const loggedIn = false;
 
@@ -22,14 +20,7 @@ export default function Header() {
           // TODO - 로그인 상태 시 헤더
           <p>로그인 상태</p>
         ) : (
-          pathname === "/" && (
-            <Link
-              href="/login"
-              className="text-base font-semibold text-text-primary"
-            >
-              로그인
-            </Link>
-          )
+          <LoginButton />
         )}
       </div>
     </header>

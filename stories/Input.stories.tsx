@@ -56,8 +56,6 @@ const passwordInputMeta = {
   argTypes: {},
 } satisfies Meta<typeof PasswordInput>;
 
-export { passwordInputMeta };
-
 type PasswordStory = StoryObj<typeof PasswordInput>;
 
 // PasswordInput 기본 템플릿 생성
@@ -81,7 +79,7 @@ export const PasswordWithError: PasswordStory = {
   args: {
     id: "input",
     placeholder: "Enter your password",
-    error: "에러메세지",
+    error: "에러 메세지",
   },
 };
 

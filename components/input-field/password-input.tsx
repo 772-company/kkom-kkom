@@ -69,7 +69,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         <button
           type="button"
           onClick={handleToggleShowPassword}
-          className="absolute right-4 top-[48px]"
+          className={`absolute right-4 ${error ? "bottom-[42.5px]" : "bottom-[14px]"}`}
         >
           {showPassword ? (
             <EyeOn width={24} height={24} />

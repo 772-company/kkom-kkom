@@ -1,7 +1,4 @@
-import Popover from "@/components/popover";
-
 export default function Home() {
-  const content = ["칠칠이 파이팅", "칠칠 투 꼼꼼", "렛츠고"];
   return (
     <div className="w-full py-5">
       <div className="flex flex-col items-center gap-1">
@@ -43,14 +40,6 @@ export default function Home() {
         <p className="text-xl text-icon-primary">color</p>
         <p className="text-xl text-icon-inverse">color</p>
         <p className="text-xl text-icon-brand">color</p>
-      </div>
-      <div className="flex h-[200px] flex-col items-center">
-        <Popover
-          triggerText="팝오버 테스트"
-          content={content}
-          triggerClassName="bg-pink-200 w-[150px] h-[50px]"
-          contentClassName="left-[-76px] h-[100px] w-[200px] bg-yellow-200"
-        />
       </div>
     </div>
   );

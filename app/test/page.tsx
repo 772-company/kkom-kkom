@@ -1,11 +1,12 @@
 "use client";
 
 import Button, { LinkButton } from "@/components/button";
-import ButtonFloating from "@/components/button-floating";
+import ButtonFloating from "@/components/button-floating/button-floating";
 import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import Popover from "@/components/popover/popover";
 import { showToast } from "@/lib/show-toast";
 import { useModalStore } from "@/providers/modal-store-provider";
 import hamster from "@/public/images/hamster.jpg";
@@ -15,6 +16,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export default function Home() {
+  const content = ["칠칠이 파이팅", "칠칠 투 꼼꼼", "렛츠고"];
+
   const [example, setExample] = useState("드롭다운");
   interface ExampleInput {
     email: string;
@@ -69,7 +72,6 @@ export default function Home() {
           floating-outlined-large
         </ButtonFloating>
       </div>
-
       <form
         className="mt-6 flex flex-col gap-2 px-14"
         onSubmit={handleSubmit(onSubmit)}
@@ -100,6 +102,14 @@ export default function Home() {
           Submit
         </button>
       </form>
+      <div className="flex h-[150px] flex-col items-center pt-[20px]">
+        <Popover
+          triggerText="팝오버 테스트"
+          content={content}
+          triggerClassName="bg-pink-200 w-[150px] h-[50px]"
+          contentClassName="left-[-76px] h-[100px] w-[200px] bg-yellow-200"
+        />
+      </div>
       <div className="m-auto mt-14 w-44 bg-blue-200">
         <button onClick={() => showToast("warning", <p>토스트</p>)}>
           warning toast 열기

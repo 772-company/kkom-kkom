@@ -1,7 +1,7 @@
 "use client";
 
 import Button, { LinkButton } from "@/components/button";
-import ButtonFloating from "@/components/button-floating";
+import ButtonFloating from "@/components/button-floating/button-floating";
 import IconButton from "@/components/button/Icon-button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";

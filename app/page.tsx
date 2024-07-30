@@ -1,4 +1,4 @@
-import Popover from "@/components/popover";
+import Popover from "@/components/popover/popover";
 
 export default function Home() {
   const content = ["칠칠이 파이팅", "칠칠 투 꼼꼼", "렛츠고"];

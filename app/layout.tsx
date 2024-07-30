@@ -1,4 +1,6 @@
+import Header from "@/components/header/header";
 import { ModalStoreProvider } from "@/providers/modal-store-provider";
+import ToastProvider from "@/providers/toast-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -24,7 +26,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <ModalStoreProvider>{children}</ModalStoreProvider>
+        <ToastProvider>
+          <ModalStoreProvider>
+            <Header />
+            {children}
+          </ModalStoreProvider>
+        </ToastProvider>
       </body>
     </html>
   );

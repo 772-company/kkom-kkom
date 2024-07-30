@@ -1,11 +1,12 @@
 "use client";
 
-import Button, { LinkButton } from "@/components/button";
 import ButtonFloating from "@/components/button-floating/button-floating";
 import IconButton from "@/components/button/Icon-button";
+import Button, { LinkButton } from "@/components/button/button";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import Modal from "@/components/modal/modal";
 import Popover from "@/components/popover/popover";
 import { showToast } from "@/lib/show-toast";
 import { useModalStore } from "@/providers/modal-store-provider";
@@ -57,6 +58,32 @@ export default function Home() {
 
   return (
     <>
+      <div className="flex justify-end">
+        <Modal
+          button={
+            <Button
+              btnSize="large"
+              btnStyle="solid"
+              className="mx-auto w-[280px]"
+            >
+              버튼
+            </Button>
+          }
+        >
+          <Modal.HeaderWithClose />
+          <Modal.Title>멤버 초대</Modal.Title>
+          <Modal.Description className="mb-8 mt-10">
+            그룹에 참여할 수 있는 링크를 복사합니다.
+          </Modal.Description>
+          <Button
+            btnSize="large"
+            btnStyle="solid"
+            className="mx-auto w-[280px]"
+          >
+            버튼
+          </Button>
+        </Modal>
+      </div>
       <div className="flex flex-col items-center justify-center gap-5">
         <ButtonFloating btnStyle="solid" btnSize="large" className="w-[300px]">
           floating-solid-large

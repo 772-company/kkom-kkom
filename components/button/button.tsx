@@ -1,6 +1,6 @@
 import Link, { LinkProps } from "next/link";
 
-import { BUTTON_STYLE } from "./schema";
+import { buttonVariants } from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -36,7 +36,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={BUTTON_STYLE({
+      className={buttonVariants({
         btnStyle,
         btnSize,
         className,
@@ -91,7 +91,10 @@ export function LinkButton({
   ...rest
 }: LinkButtonProps) {
   return (
-    <Link className={BUTTON_STYLE({ className, btnStyle, btnSize })} {...rest}>
+    <Link
+      className={buttonVariants({ className, btnStyle, btnSize })}
+      {...rest}
+    >
       {children}
     </Link>
   );

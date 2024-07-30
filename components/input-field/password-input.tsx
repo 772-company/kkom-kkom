@@ -3,7 +3,7 @@ import EyeOn from "@/public/icons/eye-on.svg";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 
-import Button from "../button";
+import Button from "../button/button";
 import { BasicInput, BasicInputProps } from "./basic-input";
 
 interface PasswordInputProps<TFormInput extends FieldValues>

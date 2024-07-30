@@ -1,7 +1,7 @@
 import CloseButton from "@/app/public/icons/x.svg";
 
-import { useModal } from ".";
 import { OneButtonSection } from "./components/one-button-section";
+import { useModal } from "./modal";
 
 interface PopupOneButtonProps {
   title: string;

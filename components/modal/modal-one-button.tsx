@@ -1,8 +1,8 @@
 import CloseButton from "@/app/public/icons/x.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useModal } from ".";
 import { OneButtonSection } from "./components/one-button-section";
+import { useModal } from "./modal";
 
 interface ModalOneButtonProps {
   title: string;

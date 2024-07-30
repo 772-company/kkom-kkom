@@ -1,7 +1,7 @@
 import Alert from "@/app/public/icons/alert.svg";
 
-import { useModal } from ".";
 import { TwoButtonSection } from "./components/two-button-section";
+import { useModal } from "./modal";
 
 interface ModalWarningProps {
   title: string;

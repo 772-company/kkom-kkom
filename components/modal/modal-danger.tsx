@@ -1,5 +1,5 @@
-import { useModal } from ".";
 import { TwoButtonSection } from "./components/two-button-section";
+import { useModal } from "./modal";
 
 interface ModalDangerProps {
   title: string;

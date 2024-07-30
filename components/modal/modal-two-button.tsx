@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useModal } from ".";
 import { TwoButtonSection } from "./components/two-button-section";
+import { useModal } from "./modal";
 
 interface ModalTwoButtonProps {
   title: string;

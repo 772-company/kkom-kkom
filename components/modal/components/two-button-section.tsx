@@ -1,6 +1,6 @@
-import Button from "@/components/button";
+import Button from "@/components/button/button";
 
-import { useModal } from "..";
+import { useModal } from "../modal";
 
 interface TwoButtonSectionProps {
   buttonDescription: string;

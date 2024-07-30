@@ -60,7 +60,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         <Button
           btnSize="x-small"
           btnStyle="solid"
-          className="absolute right-4 top-[45px]"
+          className="absolute bottom-[9.8px] right-4"
           onClick={() => alert("비밀번호 변경 모달")}
         >
           변경하기

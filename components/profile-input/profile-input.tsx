@@ -63,16 +63,15 @@ const ProfileInput = ({
               alt="나의이미지"
             />
           ))}
+        {previewImage && (
+          <button
+            className="h-30 w-30 absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
+            onClick={onClick}
+          >
+            <X width={18} height={18} />
+          </button>
+        )}
       </label>
-
-      {previewImage && (
-        <button
-          className="h-30 w-30 borde absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
-          onClick={onClick}
-        >
-          <X width={18} height={18} />
-        </button>
-      )}
 
       <input
         id="profileInput"

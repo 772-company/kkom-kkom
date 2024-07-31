@@ -4,9 +4,12 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { login } from "@/lib/apis/auth";
+import { gerUserGroups } from "@/lib/apis/user";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface LoginInputValue {
@@ -15,6 +18,7 @@ export interface LoginInputValue {
 }
 
 export default function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -37,7 +41,18 @@ export default function LoginForm() {
         setError("password", { type: "manual", message: response });
       }
     } else {
+      // NOTE - 로그인 성공
       console.log("로그인 성공", response);
+      setCookie("accessToken", response.accessToken);
+
+      const getUserGroupsResponse = await gerUserGroups();
+      // NOTE - 그룹 없는 경우
+      if (getUserGroupsResponse.length === 0) {
+        router.push("/addteam");
+      } else {
+        // NOTE - 그룹이 존재하는 경우 첫 번째 그룹의 id로 이동
+        router.push(`/${getUserGroupsResponse[0].id}`);
+      }
     }
   };
 

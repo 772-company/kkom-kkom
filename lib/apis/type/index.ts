@@ -26,6 +26,15 @@ export type PatchTeamIdUserResponse = {
 
 export type DeleteTeamIdUserResponse = {};
 
+export type GetTeamIdUserGroups = {
+  id: number;
+  teamId: string | null;
+  name: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
+}[];
+
 export type GetTeamIdUserHistoryResponse = {
   tasksDone: {
     userId: number;

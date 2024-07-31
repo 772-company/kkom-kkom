@@ -3,16 +3,14 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import { login } from "@/lib/apis/auth";
+import { LoginInputValue } from "@/lib/apis/type/request";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function LoginFrom() {
-  interface LoginInputValue {
-    email: string;
-    password: string;
-  }
   const {
     register,
     handleSubmit,
@@ -22,9 +20,17 @@ export default function LoginFrom() {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<LoginInputValue> = (data) => {
+  const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
     console.log(data);
+    const response = await login(data);
+
+    if (typeof response === "string") {
+      console.log(response);
+    } else {
+      console.log("로그인 성공", response);
+    }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-6">

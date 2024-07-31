@@ -171,7 +171,17 @@ export type GetTeamIdGroupsIdResponse = {
     createdAt: string;
     name: string;
     id: number;
-    tasks: string[];
+    tasks: {
+      id: number;
+      name: string;
+      date: string;
+      doneAt: string | null;
+      updatedAt: string;
+      userId: number | null;
+      recurringId: number;
+      deletedAt: string | null;
+      frequency: string;
+    }[];
   }[];
 };
 

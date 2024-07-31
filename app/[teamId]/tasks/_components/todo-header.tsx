@@ -30,7 +30,6 @@ const TodoHeader = ({
     <div className="mt-6 flex justify-between">
       <div className="flex items-center">
         <h2 className="inline-block h-6 w-28">{convertedDate}</h2>
-
         <div className="flex h-3 items-center gap-1">
           <CalendarButton type="left" onClick={onClickButton} />
           <CalendarButton type="right" onClick={onClickButton} />

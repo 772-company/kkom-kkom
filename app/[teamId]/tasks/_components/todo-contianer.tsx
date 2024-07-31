@@ -1,6 +1,7 @@
 import { covertDate } from "@/utils/convert-date";
 import React, { useState } from "react";
 
+import TodoContents from "./todo-contents";
 import TodoHeader from "./todo-header";
 
 const TodoContainer = () => {
@@ -18,13 +19,15 @@ const TodoContainer = () => {
   ) => {
     switch (e.currentTarget.name) {
       case "left":
-        const yesterDay = new Date(date.setDate(date.getDate() - 1));
-        setDate(yesterDay);
+        const beforeMonth = new Date(date.setMonth(date.getMonth() - 1));
+        console.log(beforeMonth);
+
+        setDate(beforeMonth);
         break;
 
       case "right":
-        const tomorrow = new Date(date.setDate(date.getDate() + 1));
-        setDate(tomorrow);
+        const nextMonth = new Date(date.setMonth(date.getMonth() + 1));
+        setDate(nextMonth);
         break;
 
       default:
@@ -40,6 +43,7 @@ const TodoContainer = () => {
         convertedDate={convertedDate}
         onChangeDate={handleChangeDate}
       />
+      <TodoContents list={[]} />
     </>
   );
 };

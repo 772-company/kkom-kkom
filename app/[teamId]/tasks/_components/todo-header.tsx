@@ -1,0 +1,59 @@
+import Calendar from "@/public/icons/calendar.svg";
+import { ko } from "date-fns/locale";
+import React, { useRef } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import CalendarButton from "./calendar-button";
+
+interface TodoHeaderUIProps {
+  date: Date;
+  convertedDate: string;
+  onChangeDate: (date: Date | null) => void;
+  onClickButton: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+const TodoHeader = ({
+  date,
+  convertedDate,
+  onChangeDate,
+  onClickButton,
+}: TodoHeaderUIProps) => {
+  const datePickerRef = useRef<DatePicker | null>(null);
+  const handleClick = () => {
+    if (datePickerRef.current) {
+      datePickerRef.current.setFocus();
+    }
+  };
+
+  return (
+    <div className="flex justify-between">
+      <div className="flex items-center gap-3">
+        <h2>{convertedDate}</h2>
+
+        <div className="flex gap-1">
+          <CalendarButton type="left" onClick={onClickButton} />
+          <CalendarButton type="right" onClick={onClickButton} />
+        </div>
+
+        <button
+          onClick={handleClick}
+          className="relative flex h-6 w-6 items-center justify-center rounded-full bg-background-secondary"
+        >
+          <Calendar width={12} height={12} />
+
+          <DatePicker
+            className="h-0 w-0"
+            selected={date}
+            locale={ko}
+            onChange={onChangeDate}
+            ref={datePickerRef}
+          />
+        </button>
+      </div>
+      <button>+ 새로운 목록 추가하기</button>
+    </div>
+  );
+};
+
+export default TodoHeader;

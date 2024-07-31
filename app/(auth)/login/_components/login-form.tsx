@@ -43,7 +43,7 @@ export default function LoginForm() {
     } else {
       // NOTE - 로그인 성공
       console.log("로그인 성공", response);
-      setCookie("accessToken", response.accessToken);
+      setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
 
       const getUserGroupsResponse = await gerUserGroups();
       // NOTE - 그룹 없는 경우

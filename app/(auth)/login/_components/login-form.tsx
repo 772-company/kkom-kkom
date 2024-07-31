@@ -4,17 +4,21 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { login } from "@/lib/apis/auth";
-import { LoginInputValue } from "@/lib/apis/type/request";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-export default function LoginFrom() {
+export interface LoginInputValue {
+  email: string;
+  password: string;
+}
+
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginInputValue>({
     resolver: yupResolver(loginSchema),
     mode: "onChange",
@@ -56,7 +60,12 @@ export default function LoginFrom() {
       >
         비밀번호를 잊으셨나요?
       </Link>
-      <Button btnSize="large" btnStyle="solid" className="mt-10 w-full">
+      <Button
+        btnSize="large"
+        btnStyle="solid"
+        className="mt-10 w-full"
+        disabled={!isValid}
+      >
         로그인
       </Button>
     </form>

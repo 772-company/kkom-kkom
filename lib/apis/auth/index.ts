@@ -1,5 +1,6 @@
-import { PostTeamIdAuthSignupResponse } from "./type";
-import { LoginInputValue } from "./type/request";
+import { LoginInputValue } from "@/app/(auth)/login/_components/login-form";
+
+import { PostTeamIdAuthSignupResponse } from "../type";
 
 // NOTE - 로그인
 export async function login(
@@ -19,17 +20,10 @@ export async function login(
 
     if (!response.ok) {
       const errorData = await response.json();
-      let errorMessage = "로그인을 다시 시도해 주세요";
-      switch (response.status) {
-        case 400:
-          errorMessage =
-            errorData.message || "이메일 혹은 비밀번호를 확인해주세요.";
-          break;
-        default:
-          errorMessage;
-          break;
+      if (response.status === 400) {
+        return errorData.message;
       }
-      return errorMessage;
+      throw new Error("로그인을 다시 시도해 주세요");
     }
     const result: PostTeamIdAuthSignupResponse = await response.json();
     return result;

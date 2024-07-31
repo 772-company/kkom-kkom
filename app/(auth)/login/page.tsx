@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import EasyLogin from "../_components/easy-login";
-import LoginFrom from "./_components/login-form";
+import LoginForm from "./_components/login-form";
 
 export default function LoginPage() {
   return (
@@ -9,7 +9,7 @@ export default function LoginPage() {
       <h2 className="mx-auto mb-6 text-center text-2xl font-medium text-text-primary md:mb-[80px] xl:text-[40px]">
         로그인
       </h2>
-      <LoginFrom />
+      <LoginForm />
       <div className="mt-6">
         <section className="mb-[25px] flex items-center justify-center gap-3">
           <p className="text-sm font-medium text-text-primary">

@@ -18,6 +18,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm<LoginInputValue>({
     resolver: yupResolver(loginSchema),
@@ -30,6 +31,11 @@ export default function LoginForm() {
 
     if (typeof response === "string") {
       console.log(response);
+      if (response.slice(0, 4) === "존재하지") {
+        setError("email", { type: "manual", message: response });
+      } else if (response.slice(0, 4) === "비밀번호") {
+        setError("password", { type: "manual", message: response });
+      }
     } else {
       console.log("로그인 성공", response);
     }

@@ -6,8 +6,8 @@ interface AuthLayout {
 
 export default function AuthLayout({ children }: AuthLayout) {
   return (
-    <div className="w-full px-4 pt-6 md:pt-[100px] xl:pt-[140px]">
-      <div className="mx-auto min-w-[343px] max-w-[460px]">{children}</div>
+    <div className="mx-auto w-full max-w-[343px] pt-6 md:max-w-[460px] md:pt-[100px] xl:pt-[140px]">
+      {children}
     </div>
   );
 }

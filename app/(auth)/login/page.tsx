@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import EasyLogin from "../_components/easy-login";
+import EasyAuth from "../_components/easy-auth";
 import LoginForm from "./_components/login-form";
 
 export default function LoginPage() {
@@ -16,13 +16,13 @@ export default function LoginPage() {
             아직 계정이 없으신가요 ?
           </p>
           <Link
-            href="/signin"
+            href="/signup"
             className="text-sm font-medium text-brand-primary underline"
           >
             가입하기
           </Link>
         </section>
-        <EasyLogin variant="로그인" />
+        <EasyAuth variant="로그인" />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ interface EasyLoginProps {
   variant: string;
 }
 
-export default function EasyLogin({ variant }: EasyLoginProps) {
+export default function EasyAuth({ variant }: EasyLoginProps) {
   return (
     <>
       <div>

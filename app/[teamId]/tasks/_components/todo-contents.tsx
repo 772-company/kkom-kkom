@@ -1,17 +1,43 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
+
+import NoTodo from "./noTodo";
+import TodoBox from "./todo-box";
+import TodoBoxContainer from "./todo-box-Container";
+import TodoListName from "./todo-list-name";
 
 interface TodoContentsProps {
   list: string[];
 }
-const TodoContents = ({ list = [] }: TodoContentsProps) => {
+const TodoContents = ({ list }: TodoContentsProps) => {
+  const [selectedButton, setSelectedButton] = useState(list[0]);
+  const handleClickName = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setSelectedButton(e.currentTarget.name);
+  };
   if (!list.length) {
-    return (
-      <p className="mx-auto mt-3 h-[34px] w-[156px] text-text-default">
-        아직 할 일이 목록이없습니다.
-        <br />할 일을 추가해보세요.
-      </p>
-    );
+    return <NoTodo />;
   }
+  return (
+    <>
+      <div className="flex gap-3">
+        {list.map((element, i) => (
+          <TodoListName
+            key={i}
+            selectedButton={selectedButton}
+            name={element}
+            buttonName={element}
+            onClick={handleClickName}
+          />
+        ))}
+      </div>
+      <div className="flex flex-col gap-4">
+        {list.map((e, i) => (
+          <TodoBoxContainer key={i} />
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default TodoContents;

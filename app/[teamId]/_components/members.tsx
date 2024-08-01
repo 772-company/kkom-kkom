@@ -38,7 +38,7 @@ const Member = ({ member }: MemberProps) => {
 //TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
 const Members = ({ members }: MembersProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-[24px]">
       <div className="flex items-center justify-between">
         <div className="flex gap-[8px]">
           <p className="text-[16px] font-[500] text-text-primary">멤버</p>
@@ -59,7 +59,7 @@ const Members = ({ members }: MembersProps) => {
           <p className="text-text-primary">아직 멤버가 없습니다</p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

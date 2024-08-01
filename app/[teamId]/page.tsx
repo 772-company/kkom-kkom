@@ -19,13 +19,9 @@ export default function TeamPage({ params }: { params: { teamId: string } }) {
   useEffect(() => {
     const getTeamInfo = async () => {
       const teamInfo = await fetchData({ teamId: params.teamId });
-      if (teamInfo && teamInfo.name) {
+      if (teamInfo) {
         setTeamName(teamInfo.name);
-      }
-      if (teamInfo && teamInfo.taskLists) {
         setTaskLists(teamInfo.taskLists);
-      }
-      if (teamInfo && teamInfo.members) {
         setMembers(teamInfo.members);
       }
     };
@@ -33,10 +29,12 @@ export default function TeamPage({ params }: { params: { teamId: string } }) {
   }, [params.teamId]);
 
   return (
-    <div className="flex flex-col justify-center gap-[20px] pt-[100px]">
+    <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
       <Team teamName={teamName} />
-      <TaskLists taskLists={taskLists} />
-      <MemberList members={members} />
+      <div className="flex flex-col gap-[64px]">
+        <TaskLists taskLists={taskLists} />
+        <MemberList members={members} />
+      </div>
     </div>
   );
 }

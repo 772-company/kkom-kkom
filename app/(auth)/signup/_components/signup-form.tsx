@@ -3,8 +3,11 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import { signUp } from "@/lib/apis/auth";
+import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface SignUpInputValue {
@@ -15,6 +18,7 @@ export interface SignUpInputValue {
 }
 
 export default function SignUpForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -25,8 +29,17 @@ export default function SignUpForm() {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<SignUpInputValue> = (data) => {
+  const onSubmit: SubmitHandler<SignUpInputValue> = async (data) => {
     console.log(data);
+    const response = await signUp(data);
+
+    // NOTE - 이미 존재하는 이메일인 경우 해당
+    if (typeof response === "string") {
+      setError("email", { type: "manual", message: response });
+    } else {
+      showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
+      router.push("/login");
+    }
   };
 
   return (
@@ -58,7 +71,7 @@ export default function SignUpForm() {
         <PasswordInput<SignUpInputValue>
           register={register}
           id="passwordConfirmation"
-          placeholder="비밀번호를 입력해 주세요"
+          placeholder="비밀번호를 다시 한 번 입력해 주세요"
           label="비밀번호 확인"
           error={errors.passwordConfirmation?.message}
         />

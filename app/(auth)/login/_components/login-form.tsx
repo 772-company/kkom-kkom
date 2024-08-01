@@ -44,11 +44,14 @@ export default function LoginForm() {
       // NOTE - 로그인 성공
       console.log("로그인 성공", response);
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
+      setCookie("refreshToken", response.refreshToken, {
+        maxAge: 60 * 60 * 24 * 7,
+      });
 
       const getUserGroupsResponse = await gerUserGroups();
       // NOTE - 그룹 없는 경우
       if (getUserGroupsResponse.length === 0) {
-        router.push("/addteam");
+        router.push("/no-team");
       } else {
         // NOTE - 그룹이 존재하는 경우 첫 번째 그룹의 id로 이동
         router.push(`/${getUserGroupsResponse[0].id}`);

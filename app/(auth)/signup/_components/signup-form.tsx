@@ -30,7 +30,6 @@ export default function SignUpForm() {
   });
 
   const onSubmit: SubmitHandler<SignUpInputValue> = async (data) => {
-    console.log(data);
     const response = await signUp(data);
 
     // NOTE - 이미 존재하는 이메일인 경우 해당

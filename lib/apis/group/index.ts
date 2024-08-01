@@ -6,7 +6,7 @@ interface FetchDataProps {
 
 const fetchData = async ({ teamId }: FetchDataProps) => {
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNDQ1OTM0LCJleHAiOjE3MjI0NDk1MzQsImlzcyI6InNwLWNvd29ya2VycyJ9.frE0nwxGr8j-Rag0T3wDvTFSpHRo9hC-LqFiCFFW-tk";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNDk5NTg2LCJleHAiOjE3MjI1MDMxODYsImlzcyI6InNwLWNvd29ya2VycyJ9.kHENC17oc-chAtBJkUbRwUGMqgb0GwvH6D_XPtViejg";
 
   try {
     const response = await fetch(

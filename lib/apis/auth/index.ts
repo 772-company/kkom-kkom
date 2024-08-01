@@ -12,7 +12,7 @@ export async function login(
 ): Promise<PostTeamIdAuthSigninResponse | string> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn`,
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signin`,
       {
         method: "POST",
         headers: {

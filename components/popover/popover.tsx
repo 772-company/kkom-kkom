@@ -30,10 +30,12 @@ PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 interface popoverProps {
   triggerImage?: string | StaticImageData;
   triggerImageAlt?: string;
+  triggerSvg?: React.FC<React.SVGProps<SVGSVGElement>>;
   triggerText?: string;
   triggerWidth?: number;
   triggerHeight?: number;
   content: string[];
+  className?: string;
   triggerClassName?: string;
   contentClassName?: string;
 }
@@ -65,41 +67,48 @@ interface popoverProps {
 const Popover = ({
   triggerImage,
   triggerImageAlt,
+  triggerSvg: TriggerSvg,
   triggerText,
   triggerWidth,
   triggerHeight,
   content,
+  className,
   triggerClassName,
   contentClassName,
 }: popoverProps) => {
   return (
     <PopOver>
-      <PopoverTrigger>
-        <div
-          className={`${triggerClassName} flex items-center justify-center gap-[5px]`}
+      <div className={`${className}`}>
+        <PopoverTrigger>
+          <div
+            className={`${triggerClassName} flex items-center justify-center gap-[5px]`}
+          >
+            {triggerImage && triggerImageAlt && (
+              <Image
+                src={triggerImage}
+                alt={triggerImageAlt}
+                width={triggerWidth}
+                height={triggerHeight}
+                className="object-cover"
+                layout="fixed"
+              />
+            )}
+            {TriggerSvg && (
+              <TriggerSvg width={triggerWidth} height={triggerHeight} />
+            )}
+            <p>{triggerText}</p>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent
+          className={`${contentClassName} flex flex-col items-center justify-center border-0 shadow-none`}
         >
-          {triggerImage && triggerImageAlt && (
-            <Image
-              src={triggerImage}
-              alt={triggerImageAlt}
-              width={triggerWidth}
-              height={triggerHeight}
-              className="object-cover"
-              layout="fixed"
-            />
-          )}
-          <p>{triggerText}</p>
-        </div>
-      </PopoverTrigger>
-      <PopoverContent
-        className={`${contentClassName} absolute flex flex-col items-center justify-center border-0 shadow-none`}
-      >
-        {content.map((item, index) => (
-          <button className="h-full w-full" key={index}>
-            {item}
-          </button>
-        ))}
-      </PopoverContent>
+          {content.map((item, index) => (
+            <button className="h-full w-full" key={index}>
+              {item}
+            </button>
+          ))}
+        </PopoverContent>
+      </div>
     </PopOver>
   );
 };

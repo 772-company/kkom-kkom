@@ -1,12 +1,14 @@
 import { GetTeamIdGroupsIdResponse } from "../type";
 
-interface FetchDataProps {
+interface GetGroupInfoProps {
   teamId: string;
 }
 
-const fetchData = async ({ teamId }: FetchDataProps) => {
+export async function getGroupInfo({
+  teamId,
+}: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTE1Nzc1LCJleHAiOjE3MjI1MTkzNzUsImlzcyI6InNwLWNvd29ya2VycyJ9.VDTJOocWhD7pJxdFz_0Uu3e8m5Lzno7KIwv6uoqayu8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTE5Njk4LCJleHAiOjE3MjI1MjMyOTgsImlzcyI6InNwLWNvd29ya2VycyJ9.elbC3v-gPdS5cMCwXeN6X8VdLjQwzE3hiU-1Dq4Fhvw";
 
   try {
     const response = await fetch(
@@ -20,14 +22,17 @@ const fetchData = async ({ teamId }: FetchDataProps) => {
       },
     );
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      if (response.status === 401) {
+        alert("해당 팀에 권한이 없습니다.");
+      }
+      throw new Error("다시 시도해 주세요.");
     }
-    const data: GetTeamIdGroupsIdResponse = await response.json();
-    console.log(data);
-    return data;
+    const result: GetTeamIdGroupsIdResponse = await response.json();
+    console.log(result);
+    return result;
   } catch (error) {
-    console.error("Fetch error:", error);
+    throw new Error("팀 정보를 받아오는 데에 실패하였습니다.");
   }
-};
+}
 
-export default fetchData;
+export default getGroupInfo;

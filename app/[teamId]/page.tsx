@@ -17,7 +17,9 @@ export default function TeamPage({ params }: { params: { teamId: string } }) {
   useEffect(() => {
     const getTeamInfo = async () => {
       const teamInfo = await fetchData({ teamId: params.teamId });
-      setTeamName(teamInfo.name);
+      if (teamInfo && teamInfo.name) {
+        setTeamName(teamInfo.name);
+      }
       if (teamInfo && teamInfo.taskLists) {
         setTaskLists(teamInfo.taskLists);
       }

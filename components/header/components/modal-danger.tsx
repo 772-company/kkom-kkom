@@ -1,10 +1,8 @@
-import { TwoButtonSection } from "./components/two-button-section";
-import { useModal } from "./modal";
+import Modal from "../../modal/modal";
 
 interface ModalDangerProps {
-  title: string;
   handleConfirm: () => void;
-  buttonDescription: string;
+  close: () => void;
 }
 
 /**
@@ -26,31 +24,24 @@ interface ModalDangerProps {
       </Modal>
  * ```
  */
-export function ModalDanger({
-  title,
-  handleConfirm,
-  buttonDescription,
-}: ModalDangerProps) {
-  const { handleClose } = useModal();
-
+export function ModalDanger({ handleConfirm, close }: ModalDangerProps) {
   const handleClick = () => {
     handleConfirm();
-    handleClose();
+    close();
   };
   return (
-    <>
-      <header className="h-12 px-6 pt-4"></header>
-      <div className="mx-12 text-center md:mx-[52px]">
-        <h2 className="text-base font-medium text-slate-50 md:text-text-primary">
-          {title}
-        </h2>
-        <TwoButtonSection
-          btnStyle1="outlined_secondary"
-          btnStyle2="danger"
-          buttonDescription={buttonDescription}
+    <Modal closeOnFocusOut close={close}>
+      <section className="mx-9 mt-8 text-center">
+        <Modal.Title>로그아웃 하시겠어요?</Modal.Title>
+        <Modal.TwoButtonSection
+          className="mt-6"
+          closeBtnStyle="outlined_secondary"
+          confirmBtnStyle="danger"
+          close={close}
+          buttonDescription="로그아웃"
           onClick={handleClick}
         />
-      </div>
-    </>
+      </section>
+    </Modal>
   );
 }

@@ -15,8 +15,6 @@ const useCalender = () => {
     switch (e.currentTarget.name) {
       case "left":
         const beforeMonth = new Date(date.setMonth(date.getMonth() - 1));
-        console.log(beforeMonth);
-
         setDate(beforeMonth);
         break;
 

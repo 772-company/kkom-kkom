@@ -1,4 +1,5 @@
-import { covertDate } from "@/utils/convert-date";
+"use client";
+
 import React, { useState } from "react";
 
 import useCalender from "../_hooks/use-calendar";

@@ -8,15 +8,12 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const hasRefreshToken = request.cookies.has("refreshToken");
   const { pathname } = request.nextUrl;
 
-  // NOTE - 로그인 후 랜딩, 로그인, 회원가입 페이지에 접근하는 경우
+  // NOTE - 로그인 후 로그인, 회원가입 페이지에 접근하는 경우
   if (
     hasAccessToken &&
-    (pathname.startsWith("/login") ||
-      pathname.startsWith("/signup") ||
-      pathname === "/")
+    (pathname.startsWith("/login") || pathname.startsWith("/signup"))
   ) {
-    // TODO - 어디로 리다이렉트 ??
-    return NextResponse.redirect(new URL("/addteam", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // NOTE - 로그인 전에 랜딩, 로그인, 회원가입 페이지 외에 다른 페이지에 접근하는 경우
@@ -68,7 +65,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     event.waitUntil(fetchPromise);
 
     // 비동기 작업이 완료된 후 요청을 계속 진행하도록 합니다.
-    // 이때 `fetchPromise`에서 반환한 `NextResponse` 객체 사용
+    // 이때 fetchPromise에서 반환한 NextResponse 객체 사용
     return new Promise((resolve) => {
       fetchPromise.then((nextResponse) => {
         resolve(nextResponse);

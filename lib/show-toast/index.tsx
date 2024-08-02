@@ -2,10 +2,10 @@ import { Id, Slide, ToastContent, ToastOptions, toast } from "react-toastify";
 
 export const defaultToastOptions: ToastOptions = {
   position: "top-center",
-  autoClose: 3000,
+  autoClose: 1000,
   hideProgressBar: false,
   closeOnClick: true,
-  pauseOnHover: true,
+  pauseOnHover: false,
   draggable: true,
   progress: undefined,
   theme: "colored",

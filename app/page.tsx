@@ -2,6 +2,7 @@
 
 import Modal from "@/components/modal/modal";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import { showToast } from "@/lib/show-toast";
 
 export default function Home() {
   const overlay1 = useCustomOverlay(({ close }) => (
@@ -27,6 +28,9 @@ export default function Home() {
     <div className="w-full py-5">
       <div className="flex flex-col items-center gap-1">
         <button onClick={overlay1.open}>나 버튼임 ㅎㅇ</button>
+        <button onClick={() => showToast("success", "성공했다.")}>
+          토스트
+        </button>
         <h1 className="text-3xl">랜딩페이지</h1>
         <p className="text-xl text-brand-primary">color</p>
         <p className="text-xl text-brand-secondary">color</p>

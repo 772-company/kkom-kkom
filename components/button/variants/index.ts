@@ -21,7 +21,7 @@ export const buttonVariants = cva(
         danger:
           "bg-status-danger text-white hover:bg-[#f50808] active:bg-[#c22020]",
         outlined_secondary:
-          "border-text-secondary text-text-default border border-solid",
+          "border-text-secondary text-text-default bg-white border border-solid",
         gradient: "bg-gradient text-white",
         none_background: "border border-slate-50",
       },

@@ -2,18 +2,17 @@ import ArrowLeft from "@/public/icons/arrow-left.svg";
 import ArrowRight from "@/public/icons/arrow-right.svg";
 import React from "react";
 
-interface CalendarButtonProps {
-  type: "left" | "right";
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+interface ButtonProps extends React.DOMAttributes<HTMLButtonElement> {
+  type: "left" | "right" | "cancel";
 }
 
-const CalendarButton = ({ type, onClick }: CalendarButtonProps) => {
+const Button = ({ type, ...rest }: ButtonProps) => {
   if (type === "left")
     return (
       <button
+        {...rest}
         name="left"
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
-        onClick={onClick}
       >
         <ArrowLeft width={12} height={12} />
       </button>
@@ -21,13 +20,14 @@ const CalendarButton = ({ type, onClick }: CalendarButtonProps) => {
   else if (type === "right")
     return (
       <button
+        {...rest}
         name="right"
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
-        onClick={onClick}
       >
         <ArrowRight width={12} height={12} />
       </button>
     );
+  else if (type === "cancel") return <button>x</button>;
 };
 
-export default CalendarButton;
+export default Button;

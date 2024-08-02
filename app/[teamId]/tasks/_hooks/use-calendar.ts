@@ -20,6 +20,8 @@ const useCalender = () => {
 
       case "right":
         const nextMonth = new Date(date.setMonth(date.getMonth() + 1));
+        console.log("test");
+
         setDate(nextMonth);
         break;
 

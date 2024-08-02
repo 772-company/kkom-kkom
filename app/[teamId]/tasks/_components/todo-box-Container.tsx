@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 
+import SideBar from "./side-bar";
 import TodoBox from "./todo-box";
 
 const TodoBoxContainer = () => {
   const [isDone, setisDone] = useState<boolean>(false);
-  const handleClickDoneButton = () => {
-    setisDone(!isDone);
+  const [isSideBarOpen, setIsSiderOpen] = useState<boolean>(false);
+
+  const handleClickTodoBox = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    setIsSiderOpen(true);
   };
   return (
-    <TodoBox isdone={isDone} handleClickDoneButton={handleClickDoneButton} />
+    <>
+      <TodoBox handleClickTodoBox={handleClickTodoBox} isdone={isDone} />
+
+      {isSideBarOpen && <SideBar />}
+    </>
   );
 };
 

@@ -1,20 +1,20 @@
 import CheckBoxActive from "@/public/icons/checkbox-active.svg";
 import CheckboxDefault from "@/public/icons/checkbox-default.svg";
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
 
-interface CheckButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface CheckBoxProps {
   isActive: boolean;
 }
-const CheckButton = ({ isActive, ...rest }: CheckButtonProps) => {
+const CheckBox = ({ isActive }: CheckBoxProps) => {
   return (
-    <button {...rest}>
+    <div>
       {isActive ? (
         <CheckBoxActive width={16} height={16} />
       ) : (
         <CheckboxDefault width={16} height={16} />
       )}
-    </button>
+    </div>
   );
 };
 
-export default CheckButton;
+export default CheckBox;

@@ -6,22 +6,25 @@ import Time from "@/public/icons/time.svg";
 import classNames from "classnames";
 import React from "react";
 
-import CheckButton from "./check-button";
+import CheckBox from "./check-box";
 
 interface TodoBoxProps {
   isdone: boolean;
-  handleClickDoneButton: () => void;
+  handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
-const TodoBox = ({ isdone, handleClickDoneButton }: TodoBoxProps) => {
+const TodoBox = ({ isdone, handleClickTodoBox }: TodoBoxProps) => {
   const todoNameClass = classNames("text-sm font-normal text-text-primary", {
     "line-through": isdone,
   });
 
   return (
-    <div className="flex h-[74px] flex-col justify-center rounded-lg bg-background-secondary px-3">
+    <div
+      onClick={handleClickTodoBox}
+      className="flex h-[74px] cursor-pointer flex-col justify-center rounded-lg bg-background-secondary px-3"
+    >
       <div className="ml-1 flex justify-between">
         <div className="flex items-center gap-3">
-          <CheckButton isActive={isdone} onClick={handleClickDoneButton} />
+          <CheckBox isActive={isdone} />
           <p className={todoNameClass}>휴가 내기</p>
           <div className="flex items-center">
             <Comment width={16} height={16} />

@@ -26,14 +26,12 @@ const COLORS = [
 const TaskList = ({ taskList }: TaskListProps) => {
   const COLOR_INDEX = taskList.displayIndex % 7;
   const POINT_COLOR = COLORS[COLOR_INDEX];
-  const DONE = taskList.tasks.filter((tasks) => tasks.doneAt != null).length;
+  const NUMBER_OF_DONE = taskList.tasks.filter(
+    (tasks) => tasks.doneAt != null,
+  ).length;
 
-  let PROGRESS_ICON;
-  if (DONE === taskList.tasks.length) {
-    PROGRESS_ICON = ProgressDone;
-  } else {
-    PROGRESS_ICON = ProgressOngoing;
-  }
+  const PROGRESS_ICON =
+    NUMBER_OF_DONE === taskList.tasks.length ? ProgressDone : ProgressOngoing;
 
   return (
     <div className="flex h-[40px] items-center justify-between bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
@@ -45,7 +43,7 @@ const TaskList = ({ taskList }: TaskListProps) => {
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
           <PROGRESS_ICON className="h-[16px] w-[16px]" />
           <p>
-            {DONE} / {taskList.tasks.length}
+            {NUMBER_OF_DONE} / {taskList.tasks.length}
           </p>
         </div>
         <Kebab className="h-[16px] w-[16px]" />

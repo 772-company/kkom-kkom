@@ -26,6 +26,15 @@ export type PatchTeamIdUserResponse = {
 
 export type DeleteTeamIdUserResponse = {};
 
+export type GetTeamIdUserGroups = {
+  id: number;
+  teamId: string | null;
+  name: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
+}[];
+
 export type GetTeamIdUserHistoryResponse = {
   tasksDone: {
     userId: number;
@@ -150,6 +159,18 @@ export type PostTeamIdImagesUploadResponse = {
   url: string;
 };
 
+export type Tasks = {
+  id: number;
+  name: string;
+  date: string;
+  doneAt: string | null;
+  updatedAt: string;
+  userId: number | null;
+  recurringId: number;
+  deletedAt: string | null;
+  frequency: string;
+};
+
 export type GetTeamIdGroupsIdResponse = {
   updatedAt: string;
   createdAt: string;
@@ -171,17 +192,7 @@ export type GetTeamIdGroupsIdResponse = {
     createdAt: string;
     name: string;
     id: number;
-    tasks: {
-      id: number;
-      name: string;
-      date: string;
-      doneAt: string | null;
-      updatedAt: string;
-      userId: number | null;
-      recurringId: number;
-      deletedAt: string | null;
-      frequency: string;
-    }[];
+    tasks: Tasks[];
   }[];
 };
 

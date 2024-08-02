@@ -30,19 +30,16 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
-    console.log(data);
     const response = await login(data);
 
     if (typeof response === "string") {
-      console.log(response);
-      if (response.slice(0, 4) === "존재하지") {
+      if (response.includes("존재하지")) {
         setError("email", { type: "manual", message: response });
-      } else if (response.slice(0, 4) === "비밀번호") {
+      } else if (response.includes("비밀번호")) {
         setError("password", { type: "manual", message: response });
       }
     } else {
       // NOTE - 로그인 성공
-      console.log("로그인 성공", response);
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
       setCookie("refreshToken", response.refreshToken, {
         maxAge: 60 * 60 * 24 * 7,

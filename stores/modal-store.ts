@@ -1,28 +1,41 @@
+import { ReactNode, use } from "react";
 import { createStore } from "zustand/vanilla";
 
-export type ModalState = {
-  isOpen: boolean;
+export type OverlayState = {
+  ElementsInMemory: Map<string, ReactNode>;
 };
 
-export type ModalActions = {
-  openModal: () => void;
-  closeModal: () => void;
+export type OverlayActions = {
+  mount: (id: string, element: ReactNode) => void;
+  unmount: (id: string) => void;
 };
 
-export type ModalStore = ModalState & ModalActions;
+export type OverlayStore = OverlayState & OverlayActions;
 
-export const initModalStore = (): ModalState => {
-  return { isOpen: false };
+export const initOverlayStore = (): OverlayState => {
+  return { ElementsInMemory: new Map() };
 };
 
-export const defaultInitState: ModalState = {
-  isOpen: false,
+export const defaultInitState: OverlayState = {
+  ElementsInMemory: new Map(),
 };
 
-export const createModalStore = (initState: ModalState = defaultInitState) => {
-  return createStore<ModalStore>()((set) => ({
+export const createOverlayStore = (
+  initState: OverlayState = defaultInitState,
+) => {
+  return createStore<OverlayStore>()((set) => ({
     ...initState,
-    openModal: () => set((state) => ({ isOpen: true })),
-    closeModal: () => set((state) => ({ isOpen: false })),
+    mount: (id, element) => {
+      set((state) => {
+        state.ElementsInMemory.set(id, element);
+        return { ElementsInMemory: state.ElementsInMemory };
+      });
+    },
+    unmount: (id) => {
+      set((state) => {
+        state.ElementsInMemory.delete(id);
+        return { ElementsInMemory: state.ElementsInMemory };
+      });
+    },
   }));
 };

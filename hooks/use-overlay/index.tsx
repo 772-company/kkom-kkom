@@ -1,7 +1,7 @@
 "use client";
 
 import { useOverlayStore } from "@/providers/modal-store-provider";
-import { useEffect, useId, useMemo, useRef } from "react";
+import { useId, useMemo, useRef } from "react";
 
 import {
   OverlayControlRef,
@@ -17,12 +17,6 @@ export function useOverlay() {
 
   // overlayRef를 생성, useImperativeHandle을 사용하여 close 함수를 제공
   const overlayRef = useRef<OverlayControlRef | null>(null);
-
-  useEffect(() => {
-    return () => {
-      unmount(id);
-    };
-  }, [id, unmount]);
 
   // useMemo를 사용하여 객체를 캐싱
   return useMemo(
@@ -40,9 +34,6 @@ export function useOverlay() {
       },
       close: () => {
         overlayRef.current?.close();
-      },
-      exit: () => {
-        unmount(id);
       },
     }),
     [id, mount, unmount],

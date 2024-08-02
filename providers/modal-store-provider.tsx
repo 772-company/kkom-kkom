@@ -8,7 +8,6 @@ import {
 import {
   Fragment,
   PropsWithChildren,
-  type ReactNode,
   createContext,
   useContext,
   useRef,
@@ -20,10 +19,6 @@ export type OverlayStoreApi = ReturnType<typeof createOverlayStore>;
 export const OverlayStoreContext = createContext<OverlayStoreApi | undefined>(
   undefined,
 );
-
-export interface OverlayStoreProviderProps {
-  children: ReactNode;
-}
 
 export const OverlayStoreProvider = ({ children }: PropsWithChildren) => {
   const storeRef = useRef<OverlayStoreApi>();
@@ -38,11 +33,10 @@ export const OverlayStoreProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const OverlayProvider = () => {
-  const ElementsInMemory = useOverlayStore((store) => store.ElementsInMemory);
-
+  const store = useOverlayStore((store) => store);
   return (
     <>
-      {[...ElementsInMemory.entries()].map(([id, element]) => (
+      {[...store.ElementsInMemory.entries()].map(([id, element]) => (
         <Fragment key={id}>{element}</Fragment>
       ))}
     </>

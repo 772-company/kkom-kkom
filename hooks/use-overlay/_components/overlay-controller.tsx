@@ -1,4 +1,3 @@
-/** @tossdocs-ignore */
 import {
   Ref,
   forwardRef,
@@ -28,7 +27,12 @@ export const OverlayController = forwardRef(function OverlayController(
   const [isOpenOverlay, setIsOpenOverlay] = useState(false);
 
   // DOM에서 Overlay를 닫는 함수
-  const handleOverlayClose = useCallback(() => setIsOpenOverlay(false), []);
+  const handleOverlayClose = useCallback(() => {
+    setIsOpenOverlay(() => false);
+    setTimeout(() => {
+      onExit();
+    }, 1000);
+  }, [onExit]);
 
   // ref로 전달된 객체에 close 함수를 추가
   useImperativeHandle(ref, () => {
@@ -46,11 +50,5 @@ export const OverlayController = forwardRef(function OverlayController(
 
   // OverlayElement를 렌더링
   // OverlayElement는 반드시 해당 Props만을 전달받아서 렌더링하는 컴포넌트
-  return (
-    <OverlayElement
-      isOpen={isOpenOverlay}
-      close={handleOverlayClose}
-      exit={onExit}
-    />
-  );
+  return <OverlayElement isOpen={isOpenOverlay} close={handleOverlayClose} />;
 });

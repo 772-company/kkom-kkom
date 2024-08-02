@@ -169,7 +169,7 @@ interface TwoButtonSectionProps {
   className?: string;
 }
 
-export function TwoButtonSection({
+function TwoButtonSection({
   buttonDescription,
   close,
   closeBtnStyle,

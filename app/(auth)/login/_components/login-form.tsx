@@ -33,9 +33,9 @@ export default function LoginForm() {
     const response = await login(data);
 
     if (typeof response === "string") {
-      if (response.slice(0, 4) === "존재하지") {
+      if (response.includes("존재하지")) {
         setError("email", { type: "manual", message: response });
-      } else if (response.slice(0, 4) === "비밀번호") {
+      } else if (response.includes("비밀번호")) {
         setError("password", { type: "manual", message: response });
       }
     } else {

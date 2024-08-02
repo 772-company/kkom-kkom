@@ -39,7 +39,6 @@ export default function SignUpForm() {
       } else if (response.includes("닉네임")) {
         setError("nickname", { type: "manual", message: response });
       }
-      showToast("error", <p>{response}</p>);
     } else {
       showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
       router.push("/login");

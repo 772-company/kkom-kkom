@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
 
 import { buttonVariants } from "./variants";
@@ -41,11 +42,13 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={buttonVariants({
-        btnStyle,
-        btnSize,
-        className,
-      })}
+      className={cn(
+        buttonVariants({
+          btnStyle,
+          btnSize,
+          className,
+        }),
+      )}
       {...rest}
     >
       {children}
@@ -103,7 +106,7 @@ export function LinkButton({
 }: LinkButtonProps) {
   return (
     <Link
-      className={buttonVariants({ className, btnStyle, btnSize })}
+      className={cn(buttonVariants({ className, btnStyle, btnSize }))}
       {...rest}
     >
       {children}

@@ -7,6 +7,10 @@ import { twMerge } from "tailwind-merge";
  * clsx + cva + twMerge 를 모두 사용할 수 있습니다.
  * @param inputs cva variants
  * @returns 조건부 처리 완료 및 우선순위 충돌 해결된 tailwind 코드
+ * @example
+ *   // 공통 버튼 컴포넌트
+ *   // variants: cva로 정의한 버튼 조건부 스타일
+ *   className={cn(variants({ btnStyle, btnSize, className }))}
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

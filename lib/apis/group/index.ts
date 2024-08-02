@@ -8,11 +8,11 @@ export async function getGroupInfo({
   teamId,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTE5Njk4LCJleHAiOjE3MjI1MjMyOTgsImlzcyI6InNwLWNvd29ya2VycyJ9.elbC3v-gPdS5cMCwXeN6X8VdLjQwzE3hiU-1Dq4Fhvw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTgzMzU4LCJleHAiOjE3MjI1ODY5NTgsImlzcyI6InNwLWNvd29ya2VycyJ9.n_HWS9MXVabCejm83HyRkBXdE71AOHQc_K9PteGr9Io";
 
   try {
     const response = await fetch(
-      `https://fe-project-cowokers.vercel.app/6-7/groups/${teamId}`,
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${teamId}`,
       {
         method: "GET",
         headers: {

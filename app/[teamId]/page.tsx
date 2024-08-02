@@ -1,32 +1,22 @@
-"use client";
+"use Client";
 
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
-import { useEffect, useState } from "react";
-
-import fetchData from "../../lib/apis/group";
 import MemberList from "./_components/members";
 import TaskLists from "./_components/task-lists";
 import Team from "./_components/team";
+import { fetchGroupInfo } from "./action";
 
-export default function TeamPage({ params }: { params: { teamId: string } }) {
-  const [teamName, setTeamName] = useState("");
-  const [taskLists, setTaskLists] = useState<
-    GetTeamIdGroupsIdResponse["taskLists"]
-  >([]);
-  const [members, setMembers] = useState<GetTeamIdGroupsIdResponse["members"]>(
-    [],
-  );
-  useEffect(() => {
-    const getTeamInfo = async () => {
-      const teamInfo = await fetchData({ teamId: params.teamId });
-      if (teamInfo) {
-        setTeamName(teamInfo.name);
-        setTaskLists(teamInfo.taskLists);
-        setMembers(teamInfo.members);
-      }
-    };
-    getTeamInfo();
-  }, [params.teamId]);
+export default async function TeamPage({
+  params,
+}: {
+  params: { teamId: string };
+}) {
+  const GROUP_INFO = await fetchGroupInfo(params.teamId);
+
+  if (!GROUP_INFO) {
+    return <p className="text-white">팀 정보가 존재하지 않습니다 ??</p>;
+  }
+
+  const { name: teamName, taskLists, members } = GROUP_INFO;
 
   return (
     <div className="flex flex-col justify-center gap-[24px] pt-[24px]">

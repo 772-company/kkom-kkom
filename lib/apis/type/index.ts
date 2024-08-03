@@ -159,6 +159,18 @@ export type PostTeamIdImagesUploadResponse = {
   url: string;
 };
 
+export type Tasks = {
+  id: number;
+  name: string;
+  date: string;
+  doneAt: string | null;
+  updatedAt: string;
+  userId: number | null;
+  recurringId: number;
+  deletedAt: string | null;
+  frequency: string;
+};
+
 export type GetTeamIdGroupsIdResponse = {
   updatedAt: string;
   createdAt: string;
@@ -180,17 +192,7 @@ export type GetTeamIdGroupsIdResponse = {
     createdAt: string;
     name: string;
     id: number;
-    tasks: {
-      id: number;
-      name: string;
-      date: string;
-      doneAt: string | null;
-      updatedAt: string;
-      userId: number | null;
-      recurringId: number;
-      deletedAt: string | null;
-      frequency: string;
-    }[];
+    tasks: Tasks[];
   }[];
 };
 

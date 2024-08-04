@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import Button, { LinkButton } from "../button/button";
+import { LinkButton } from "../button/button";
 import { Dropdown } from "../dropdown/dropdown";
 
 interface GroupDropdownProps {
@@ -32,10 +32,10 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   return (
     <div className="hidden md:block">
       <Dropdown defaultSelected={`${memberships[0].group.name} 팀`}>
-        <Dropdown.Button styles="gap-[11px] font-medium text-text-primary text-base">
+        <Dropdown.Button className="gap-[11px] text-base font-medium text-text-primary">
           <Check width={16} height={16} />
         </Dropdown.Button>
-        <Dropdown.Body styles="bg-background-secondary p-4 w-[218px] rounded-xl mt-7 flex flex-col gap-2">
+        <Dropdown.Body className="mt-7 flex w-[218px] flex-col gap-2 rounded-xl bg-background-secondary p-4">
           {memberships.map((membership) => (
             <Dropdown.Item
               key={membership.group.id}

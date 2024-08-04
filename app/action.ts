@@ -16,7 +16,6 @@ export async function getUser(): Promise<GetTeamIdUserResponse> {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
         },
       },
     );

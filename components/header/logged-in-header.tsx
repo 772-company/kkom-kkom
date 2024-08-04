@@ -24,7 +24,7 @@ export default async function LoggedInHeader() {
         ) : (
           <Link
             href="/addteam"
-            className="text-base font-medium text-text-primary"
+            className="hidden text-base font-medium text-text-primary md:block"
           >
             팀 생성하기
           </Link>

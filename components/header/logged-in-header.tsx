@@ -22,8 +22,12 @@ export default async function LoggedInHeader() {
         {memberships.length !== 0 ? (
           <GroupDropdown memberships={memberships} />
         ) : (
-          // TODO - 팀 생성하기 페이지로 이동
-          <p className="text-base font-medium text-text-primary">팀 생성하기</p>
+          <Link
+            href="/addteam"
+            className="text-base font-medium text-text-primary"
+          >
+            팀 생성하기
+          </Link>
         )}
       </div>
       <PopoverTrigger nickname={nickname} />

@@ -9,7 +9,7 @@ interface PopoverTriggerProps {
   nickname: string;
 }
 
-const PopoverTrigger = ({ nickname }: PopoverTriggerProps) => {
+export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
   return (
     <div className="flex cursor-pointer items-center gap-2">
       <Popover
@@ -23,5 +23,4 @@ const PopoverTrigger = ({ nickname }: PopoverTriggerProps) => {
       />
     </div>
   );
-};
-export default PopoverTrigger;
+}

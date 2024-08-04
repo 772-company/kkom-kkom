@@ -1,10 +1,7 @@
 import { getUser } from "@/app/action";
-import { LOGGED_IN_USER_CONTENT } from "@/constants/popover-content";
 import Logo from "@/public/icons/logo.svg";
-import UserIcon from "@/public/icons/user.svg";
 import Link from "next/link";
 
-import Popover from "../popover/popover";
 import GroupDropdown from "./group-dropdown";
 import PopoverTrigger from "./popover-trigger";
 import SideMenu from "./side-menu";
@@ -29,10 +26,7 @@ export default async function LoggedInHeader() {
           <p className="text-base font-medium text-text-primary">팀 생성하기</p>
         )}
       </div>
-      <Popover
-        content={LOGGED_IN_USER_CONTENT}
-        triggerComponent={<PopoverTrigger nickname={nickname} />}
-      />
+      <PopoverTrigger nickname={nickname} />
     </>
   );
 }

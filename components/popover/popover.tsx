@@ -37,7 +37,6 @@ interface PopoverProps {
   className?: string;
   triggerClassName?: string;
   contentClassName?: string;
-  triggerComponent?: React.ReactNode;
 }
 
 /**

@@ -29,6 +29,12 @@ export default async function LoggedInHeader() {
             팀 생성하기
           </Link>
         )}
+        <Link
+          href="/boards"
+          className="hidden text-base font-medium text-text-primary md:block"
+        >
+          자유게시판
+        </Link>
       </div>
       <PopoverTrigger nickname={nickname} />
     </>

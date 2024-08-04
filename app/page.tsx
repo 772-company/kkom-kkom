@@ -3,6 +3,7 @@
 import Modal from "@/components/modal/modal";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { showToast } from "@/lib/show-toast";
+import Link from "next/link";
 
 export default function Home() {
   const overlay1 = useCustomOverlay(({ close }) => (
@@ -32,6 +33,9 @@ export default function Home() {
           토스트
         </button>
         <h1 className="text-3xl">랜딩페이지</h1>
+        <Link href="/myhistory" className="text-text-primary">
+          마이 히스토리로 이동
+        </Link>
         <p className="text-xl text-brand-primary">color</p>
         <p className="text-xl text-brand-secondary">color</p>
         <p className="text-xl text-brand-tertiary">color</p>

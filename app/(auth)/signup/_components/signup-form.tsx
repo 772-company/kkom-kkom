@@ -3,12 +3,13 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
-import { signUp } from "@/lib/apis/auth";
 import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import { signUp } from "../../action";
 
 export interface SignUpInputValue {
   email: string;

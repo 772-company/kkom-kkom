@@ -3,14 +3,14 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
-import { login } from "@/lib/apis/auth";
-import { gerUserGroups } from "@/lib/apis/user";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import { login } from "../../action";
 
 export interface LoginInputValue {
   email: string;
@@ -45,14 +45,9 @@ export default function LoginForm() {
         maxAge: 60 * 60 * 24 * 7,
       });
 
-      const getUserGroupsResponse = await gerUserGroups();
-      // NOTE - 그룹 없는 경우
-      if (getUserGroupsResponse.length === 0) {
-        router.push("/no-team");
-      } else {
-        // NOTE - 그룹이 존재하는 경우 첫 번째 그룹의 id로 이동
-        router.push(`/${getUserGroupsResponse[0].id}`);
-      }
+      // NOTE - 로그인 후 랜딩으로 리다이렉트를 위해 push 헤더 업데이트를 위해 refresh
+      router.push("/");
+      router.refresh();
     }
   };
 

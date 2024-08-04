@@ -5,7 +5,7 @@ interface DropdownState {
   isDropdownOpen: boolean;
   handleDropdown: () => void;
   selected: ReactNode;
-  handleSelect: (value: ReactNode) => void;
+  handleSelect: (display: ReactNode, value: ReactNode) => void;
 }
 
 // NOTE - 컨텍스트 생성
@@ -35,7 +35,9 @@ export function Dropdown({ children, defaultSelected }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selected, setSelected] = useState<ReactNode>(defaultSelected);
 
-  const handleSelect = (value: ReactNode) => setSelected(value);
+  const handleSelect = (display: ReactNode | undefined, value: ReactNode) => {
+    setSelected(display || value);
+  };
   const handleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
   // NOTE - 드롭다운이 열려있는 경우 외부 영역 클릭하면 닫히도록 하는 함수
@@ -67,6 +69,7 @@ Dropdown.Item = Item;
 
 interface DropdownButtonProps {
   children: ReactNode;
+  styles?: string;
 }
 
 /**
@@ -79,12 +82,15 @@ interface DropdownButtonProps {
  * @returns : 버튼 컴포넌트를 반환합니다.
  * @example : <Dropdown.Button>▽</Dropdown.Button>
  **/
-function Button({ children }: DropdownButtonProps) {
+function Button({ children, styles }: DropdownButtonProps) {
   const { handleDropdown, selected } = useDropdown();
 
   return (
-    <button onClick={handleDropdown} className="flex w-full justify-between">
-      <div>{selected}</div>
+    <button
+      onClick={handleDropdown}
+      className={`${styles} flex w-full items-center`}
+    >
+      {selected}
       {children}
     </button>
   );
@@ -93,7 +99,7 @@ function Button({ children }: DropdownButtonProps) {
 // NOTE - Body
 interface BodyProps {
   children: ReactNode;
-  styles: string;
+  styles?: string;
 }
 
 /**
@@ -107,13 +113,14 @@ function Body({ children, styles }: BodyProps) {
   const { isDropdownOpen } = useDropdown();
 
   return isDropdownOpen ? (
-    <ul className={`${styles} absolute z-50 mt-2`}>{children}</ul>
+    <ul className={`${styles} absolute z-50`}>{children}</ul>
   ) : null;
 }
 
 // NOTE - Item
 interface ItemProps {
   children: ReactNode;
+  display?: ReactNode;
 }
 
 /**
@@ -121,13 +128,14 @@ interface ItemProps {
  * 드롭다운 선택 항목에 대한 컴포넌트입니다.
  * @param children : li 안에 포함될 내용을 적습니다
  * @param styles : 너비 및 배경색 등 추가적으로 적용될 스타일을 지정해주는 프롭입니다.
+ * @param display : 선택 항목에 표시할 내용입니다. 없는 경우 children을 사용합니다.
  * @example  <Dropdown.Item><div className="flex gap-2"><p>Seo</p><span>Young</span></div></Dropdown.Item>
  **/
-function Item({ children }: ItemProps) {
+function Item({ children, display }: ItemProps) {
   const { handleSelect, handleDropdown } = useDropdown();
 
   const onSelect = () => {
-    handleSelect(children);
+    handleSelect(display, children);
     handleDropdown();
   };
   return (

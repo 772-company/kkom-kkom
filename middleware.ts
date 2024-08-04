@@ -8,21 +8,24 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const hasRefreshToken = request.cookies.has("refreshToken");
   const { pathname } = request.nextUrl;
 
-  // NOTE - 로그인 후 로그인, 회원가입 페이지에 접근하는 경우
+  // NOTE - 로그인 후 로그인, 회원가입, 비밀번호 재설정 페이지에 접근하는 경우
   if (
     hasAccessToken &&
-    (pathname.startsWith("/login") || pathname.startsWith("/signup"))
+    (pathname.startsWith("/login") ||
+      pathname.startsWith("/signup") ||
+      pathname.startsWith("/reset"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // NOTE - 로그인 전에 랜딩, 로그인, 회원가입 페이지 외에 다른 페이지에 접근하는 경우
+  // NOTE - 로그인 전에 랜딩, 로그인, 회원가입, 비밀번호 재설정 페이지 외에 다른 페이지에 접근하는 경우
   if (
     !hasAccessToken &&
     !(
       pathname.startsWith("/login") ||
       pathname.startsWith("/signup") ||
-      pathname === "/"
+      pathname === "/" ||
+      pathname.startsWith("/reset")
     )
   ) {
     return NextResponse.redirect(new URL("/login", request.url));

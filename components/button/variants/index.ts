@@ -29,7 +29,7 @@ export const buttonVariants = cva(
         solid: [
           "bg-brand-primary",
           "text-white",
-          " hover:bg-interaction-hover",
+          "hover:bg-interaction-hover",
           "active:bg-interaction-pressed",
           "disabled:bg-interaction-inactive",
         ],
@@ -57,6 +57,7 @@ export const buttonVariants = cva(
           "border",
           "border-solid",
         ],
+        none_background: ["border", "border-slate-50"],
         gradient: ["bg-gradient", "text-white"],
       },
     },

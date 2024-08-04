@@ -3,12 +3,14 @@
 import { Membership } from "@/lib/apis/type";
 import Check from "@/public/icons/dropdown-check.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
+import Plus from "@/public/icons/plus.svg";
 import hamster from "@/public/images/hamster.jpg";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Button, { LinkButton } from "../button/button";
 import { Dropdown } from "../dropdown/dropdown";
 
 interface GroupDropdownProps {
@@ -60,7 +62,14 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               </div>
             </Dropdown.Item>
           ))}
-          <button>팀 추가하기</button>
+          <LinkButton
+            btnSize="large"
+            btnStyle="none_background"
+            className="mt-2"
+            href="/addteam"
+          >
+            <Plus width={16} height={16} className="mr-1" /> 팀 추가하기
+          </LinkButton>
         </Dropdown.Body>
       </Dropdown>
     </div>

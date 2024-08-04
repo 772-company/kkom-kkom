@@ -34,12 +34,12 @@ const TaskList = ({ taskList }: TaskListProps) => {
     NUMBER_OF_DONE === taskList.tasks.length ? ProgressDone : ProgressOngoing;
 
   return (
-    <div className="flex h-[40px] items-center justify-between bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
+    <div className="flex h-[40px] items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${POINT_COLOR}`}></div>
         <p className="">{taskList.name}</p>
       </div>
-      <div className="flex items-center gap-[10px]">
+      <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
           <PROGRESS_ICON className="h-[16px] w-[16px]" />
           <p>

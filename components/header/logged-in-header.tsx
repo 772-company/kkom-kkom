@@ -1,9 +1,12 @@
 import { getUser } from "@/app/action";
+import { LOGGED_IN_USER_CONTENT } from "@/constants/popover-content";
 import Logo from "@/public/icons/logo.svg";
 import UserIcon from "@/public/icons/user.svg";
 import Link from "next/link";
 
+import Popover from "../popover/popover";
 import GroupDropdown from "./group-dropdown";
+import PopoverTrigger from "./popover-trigger";
 import SideMenu from "./side-menu";
 
 export default async function LoggedInHeader() {
@@ -22,18 +25,14 @@ export default async function LoggedInHeader() {
         {memberships.length !== 0 ? (
           <GroupDropdown memberships={memberships} />
         ) : (
-          // TODO - 팀 생성하기 모달
+          // TODO - 팀 생성하기 페이지로 이동
           <p className="text-base font-medium text-text-primary">팀 생성하기</p>
         )}
       </div>
-      <div className="flex items-center gap-2">
-        <div className="size-6 xl:size-4">
-          <UserIcon width={"100%"} height={"100%"} />
-        </div>
-        <p className="hidden text-sm font-medium text-text-primary xl:block">
-          {nickname}
-        </p>
-      </div>
+      <Popover
+        content={LOGGED_IN_USER_CONTENT}
+        triggerComponent={<PopoverTrigger nickname={nickname} />}
+      />
     </>
   );
 }

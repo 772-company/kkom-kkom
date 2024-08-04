@@ -50,7 +50,7 @@ const Members = ({ members }: MembersProps) => {
           + 새로운 멤버 초대하기
         </p>
       </div>
-      <div className="grid h-[170px] grid-cols-3 gap-[24px] overflow-y-scroll">
+      <div className="grid h-[170px] grid-cols-3 gap-[24px] overflow-y-scroll scrollbar-custom">
         {members.length > 0 ? (
           members.map((member) => (
             <Member key={member.userId} member={member} />

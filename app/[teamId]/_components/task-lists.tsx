@@ -66,7 +66,7 @@ const TaskLists = ({ taskLists }: TaskListsProps) => {
           + 새로운 목록 추가하기
         </p>
       </div>
-      <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll">
+      <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom">
         {taskLists.length > 0 ? (
           taskLists.map((taskList) => (
             <TaskList taskList={taskList} key={taskList.id} />

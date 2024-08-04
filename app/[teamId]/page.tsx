@@ -1,5 +1,3 @@
-"use Client";
-
 import MemberList from "./_components/members";
 import TaskLists from "./_components/task-lists";
 import Team from "./_components/team";

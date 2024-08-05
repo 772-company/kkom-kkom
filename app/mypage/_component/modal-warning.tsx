@@ -28,7 +28,8 @@ export function ModalWarning({ handleConfirm, close }: ModalWarningProps) {
           회원 탈퇴를 진행하시겠어요?
         </Modal.Title>
         <Modal.Description className="mb-4">
-          그룹장에 있는 모든 그룹은 삭제되고, 모든 그룹에서 나가집니다.
+          그룹장에 있는 모든 그룹은 삭제되고,
+          <br /> 모든 그룹에서 나가집니다.
         </Modal.Description>
         <Modal.TwoButtonSection
           closeBtnStyle="outlined_secondary"

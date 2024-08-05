@@ -104,6 +104,7 @@ const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
       </div>
 
       <ButtonFloating
+        btnSize="medium"
         btnStyle="solid"
         className="fixed right-3 top-[85%] w-[111px] text-sm"
       >

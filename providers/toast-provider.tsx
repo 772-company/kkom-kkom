@@ -1,6 +1,6 @@
 "use client";
 
-import { Bounce, ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface ToastProviderProps {
@@ -12,17 +12,18 @@ export default function ToastProvider({ children }: ToastProviderProps) {
     <>
       {children}
       <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
+        position="top-center"
+        autoClose={1000}
+        limit={1}
         hideProgressBar={false}
-        newestOnTop
+        newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
+        pauseOnFocusLoss={false}
         draggable
-        pauseOnHover
+        pauseOnHover={false}
         theme="colored"
-        transition={Bounce}
+        transition={Slide}
       />
     </>
   );

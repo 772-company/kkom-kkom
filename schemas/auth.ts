@@ -52,3 +52,10 @@ export const resetPasswordSchema = yup.object().shape({
     .oneOf([yup.ref("password"), undefined], "비밀번호가 일치하지 않습니다.")
     .required("비밀번호 확인을 입력해 주세요"),
 });
+
+export const sendEmailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("이메일 형식으로 작성해 주세요")
+    .required("이메일을 입력해 주세요"),
+});

@@ -167,6 +167,7 @@ interface TwoButtonSectionProps {
   confirmBtnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
   onClick?: () => void;
   className?: string;
+  confirmBtnDisabled?: boolean;
 }
 
 function TwoButtonSection({
@@ -176,6 +177,7 @@ function TwoButtonSection({
   confirmBtnStyle,
   onClick,
   className,
+  confirmBtnDisabled,
 }: TwoButtonSectionProps) {
   return (
     <section className={cn(twoButtonVariants({ className }))}>
@@ -193,6 +195,7 @@ function TwoButtonSection({
         btnStyle={confirmBtnStyle}
         className="flex-1"
         onClick={onClick}
+        disabled={confirmBtnDisabled}
       >
         {buttonDescription}
       </Button>

@@ -9,7 +9,6 @@ import TodoHeader from "./todo-header";
 const TodoContainer = () => {
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
-
   return (
     <>
       <TodoHeader
@@ -18,7 +17,6 @@ const TodoContainer = () => {
         convertedDate={convertedDate}
         onChangeDate={handleChangeDate}
       />
-
       <TodoContents list={["테스트", "주주총회", "문서관리"]} />
     </>
   );

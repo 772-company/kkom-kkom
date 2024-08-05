@@ -31,7 +31,12 @@ const TodoBox = ({ isdone, handleClickTodoBox }: TodoBoxProps) => {
             <p className="text-xs font-normal text-text-default">3</p>
           </div>
         </div>
-        <button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("test");
+          }}
+        >
           <Kebab width={16} height={16} />
         </button>
       </div>

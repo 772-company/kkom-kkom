@@ -7,13 +7,13 @@ interface CheckBoxProps {
 }
 const CheckBox = ({ isActive }: CheckBoxProps) => {
   return (
-    <div>
+    <button>
       {isActive ? (
         <CheckBoxActive width={16} height={16} />
       ) : (
         <CheckboxDefault width={16} height={16} />
       )}
-    </div>
+    </button>
   );
 };
 

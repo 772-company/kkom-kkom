@@ -29,7 +29,7 @@ export default function RootLayout({
         <ToastProvider>
           <ModalStoreProvider>
             <Header />
-            <main className="relative mt-[60px] min-h-screen bg-background-primary">
+            <main className="mt-[60px] min-h-screen bg-background-primary">
               {children}
             </main>
           </ModalStoreProvider>

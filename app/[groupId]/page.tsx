@@ -6,9 +6,9 @@ import { fetchGroupInfo } from "./action";
 export default async function TeamPage({
   params,
 }: {
-  params: { teamId: string };
+  params: { groupId: string };
 }) {
-  const GROUP_INFO = await fetchGroupInfo(params.teamId);
+  const GROUP_INFO = await fetchGroupInfo(params.groupId);
 
   if (!GROUP_INFO) {
     return <p className="text-white">데이터 없음</p>;

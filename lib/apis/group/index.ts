@@ -4,16 +4,16 @@ import { cookies } from "next/headers";
 import { GetTeamIdGroupsIdResponse } from "../type";
 
 interface GetGroupInfoProps {
-  teamId: string;
+  groupId: string;
 }
 
 export async function getGroupInfo({
-  teamId,
+  groupId,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
   const accessToken = getCookie("accessToken", { cookies });
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${teamId}`,
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "GET",
         headers: {

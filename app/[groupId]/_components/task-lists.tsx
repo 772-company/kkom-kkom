@@ -30,8 +30,7 @@ const TaskList = ({ taskList }: TaskListProps) => {
     (tasks) => tasks.doneAt != null,
   ).length;
 
-  const PROGRESS_ICON =
-    NUMBER_OF_DONE === taskList.tasks.length ? ProgressDone : ProgressOngoing;
+  const IS_DONE = NUMBER_OF_DONE === taskList.tasks.length ? true : false;
 
   return (
     <div className="flex h-[40px] items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
@@ -41,7 +40,11 @@ const TaskList = ({ taskList }: TaskListProps) => {
       </div>
       <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
-          <PROGRESS_ICON className="h-[16px] w-[16px]" />
+          {IS_DONE ? (
+            <ProgressDone className="h-[16px] w-[16px]" />
+          ) : (
+            <ProgressOngoing className="h-[16px] w-[16px] animate-spin" />
+          )}
           <p>
             {NUMBER_OF_DONE} / {taskList.tasks.length}
           </p>

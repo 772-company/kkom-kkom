@@ -2,12 +2,9 @@
 
 import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
-import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import ModalSendEmail from "./modal-send-email";
 
 export interface ResetPasswordInputValue {
   passwordConfirmation: string;
@@ -15,9 +12,6 @@ export interface ResetPasswordInputValue {
 }
 
 export default function ResetPasswordForm() {
-  const modalSendEmailOverlay = useCustomOverlay(({ close }) => (
-    <ModalSendEmail close={close} />
-  ));
   const {
     register,
     handleSubmit,
@@ -32,8 +26,7 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    // <form onSubmit={handleSubmit(onSubmit)}>
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-6">
         <PasswordInput<ResetPasswordInputValue>
           id="password"
@@ -55,8 +48,6 @@ export default function ResetPasswordForm() {
         btnStyle="solid"
         className="mt-10 w-full"
         disabled={!isValid}
-        type="button"
-        onClick={modalSendEmailOverlay.open}
       >
         재설정
       </Button>

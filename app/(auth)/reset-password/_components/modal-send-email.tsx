@@ -1,5 +1,7 @@
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
+import { sendEmail } from "@/lib/apis/user";
+import { showToast } from "@/lib/show-toast";
 import { sendEmailSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -25,8 +27,15 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
 
   const handleClick: SubmitHandler<SendEmailInputValue> = async (data) => {
     console.log(data);
-    //const response = await login(data);
-    close();
+    const response = await sendEmail(data);
+    if (typeof response === "string") {
+      if (response.includes("이메일")) {
+        showToast("warning", <p>{response}</p>);
+      }
+    } else {
+      showToast("success", <p>{response.message}</p>);
+      close();
+    }
   };
   return (
     <Modal close={close} closeOnFocusOut>

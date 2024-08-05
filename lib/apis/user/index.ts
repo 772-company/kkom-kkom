@@ -109,6 +109,7 @@ export async function getUserHistory(accessToken: string | undefined) {
 export async function sendEmail(
   data: SendEmailInputValue,
 ): Promise<PostTeamIdUserSendResetPasswordEmailResponse | string> {
+  console.log(">>>> sendEmail 실행");
   const payload = {
     ...data,
     redirectUrl: "http://localhost:3000",

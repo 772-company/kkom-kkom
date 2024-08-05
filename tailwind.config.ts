@@ -71,11 +71,11 @@ const config: Config = {
     },
   },
   plugins: [
-    function ({ addUtilities }) {
+    function ({ addUtilities }: any) {
       addUtilities({
         ".scrollbar-custom": {
           "&::-webkit-scrollbar": {
-            width: "8px",
+            width: "5px",
           },
           "&::-webkit-scrollbar-thumb": {
             backgroundColor: "rgba(255, 255, 255, 0.8)",

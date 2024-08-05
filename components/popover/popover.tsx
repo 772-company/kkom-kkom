@@ -1,5 +1,4 @@
-"use client";
-
+// "use client";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import classNames from "classnames";
 import Image, { StaticImageData } from "next/image";
@@ -27,7 +26,7 @@ const PopoverContent = React.forwardRef<
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-interface popoverProps {
+interface PopoverProps {
   triggerImage?: string | StaticImageData;
   triggerImageAlt?: string;
   triggerSvg?: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -75,7 +74,7 @@ const Popover = ({
   className,
   triggerClassName,
   contentClassName,
-}: popoverProps) => {
+}: PopoverProps) => {
   return (
     <PopOver>
       <div className={`${className}`}>

@@ -2,15 +2,26 @@
 // Desc: Type definition for API response
 // Path: lib/apis/type/index.ts
 
+export type Group = {
+  id: number;
+  teamId: string | null;
+  name: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Membership = {
+  userId: number;
+  groupId: number;
+  userName: string;
+  userEmail: string;
+  userImage: string | null;
+  role: "ADMIN" | "MEMBER";
+  group: Group;
+};
+
 export type GetTeamIdUserResponse = {
-  groups: {
-    role: string;
-    userImage: string;
-    userEmail: string;
-    userName: string;
-    groupId: number;
-    userId: number;
-  }[];
   teamId: string;
   image: string | null;
   nickname: string;
@@ -18,6 +29,7 @@ export type GetTeamIdUserResponse = {
   createdAt: string;
   email: string;
   id: number;
+  memberships: Membership[];
 };
 
 export type PatchTeamIdUserResponse = {
@@ -38,6 +50,7 @@ export type GetTeamIdUserGroups = {
 export type GetTeamIdUserHistoryResponse = {
   tasksDone: {
     userId: number;
+    deletedAt: string;
     recurringId: number;
     frequency: string;
     date: string;
@@ -159,6 +172,18 @@ export type PostTeamIdImagesUploadResponse = {
   url: string;
 };
 
+export type Tasks = {
+  id: number;
+  name: string;
+  date: string;
+  doneAt: string | null;
+  updatedAt: string;
+  userId: number | null;
+  recurringId: number;
+  deletedAt: string | null;
+  frequency: string;
+};
+
 export type GetTeamIdGroupsIdResponse = {
   updatedAt: string;
   createdAt: string;
@@ -180,17 +205,7 @@ export type GetTeamIdGroupsIdResponse = {
     createdAt: string;
     name: string;
     id: number;
-    tasks: {
-      id: number;
-      name: string;
-      date: string;
-      doneAt: string | null;
-      updatedAt: string;
-      userId: number | null;
-      recurringId: number;
-      deletedAt: string | null;
-      frequency: string;
-    }[];
+    tasks: Tasks[];
   }[];
 };
 

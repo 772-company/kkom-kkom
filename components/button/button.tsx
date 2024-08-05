@@ -1,10 +1,16 @@
+import { cn } from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
 
 import { buttonVariants } from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  btnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
+  btnStyle:
+    | "solid"
+    | "outlined"
+    | "outlined_secondary"
+    | "danger"
+    | "none_background";
   btnSize: "large" | "x-small";
 }
 
@@ -36,11 +42,13 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={buttonVariants({
-        btnStyle,
-        btnSize,
-        className,
-      })}
+      className={cn(
+        buttonVariants({
+          btnStyle,
+          btnSize,
+          className,
+        }),
+      )}
       {...rest}
     >
       {children}
@@ -50,7 +58,13 @@ export default function Button({
 
 interface LinkButtonProps extends LinkProps {
   children: React.ReactNode;
-  btnStyle: "solid" | "outlined" | "outlined_secondary" | "danger" | "gradient";
+  btnStyle:
+    | "solid"
+    | "outlined"
+    | "outlined_secondary"
+    | "danger"
+    | "gradient"
+    | "none_background";
   btnSize: "large" | "x-small";
   className?: string;
 }
@@ -92,7 +106,7 @@ export function LinkButton({
 }: LinkButtonProps) {
   return (
     <Link
-      className={buttonVariants({ className, btnStyle, btnSize })}
+      className={cn(buttonVariants({ className, btnStyle, btnSize }))}
       {...rest}
     >
       {children}

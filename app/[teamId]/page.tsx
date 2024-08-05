@@ -11,7 +11,7 @@ export default async function TeamPage({
   const GROUP_INFO = await fetchGroupInfo(params.teamId);
 
   if (!GROUP_INFO) {
-    return <p className="text-white">팀에 접근 권한이 없습니다.</p>;
+    return <p className="text-white">데이터 없음</p>;
   }
 
   const { name: teamName, taskLists, members } = GROUP_INFO;

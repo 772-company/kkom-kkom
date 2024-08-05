@@ -1,3 +1,6 @@
+import { getCookie } from "cookies-next";
+import { cookies } from "next/headers";
+
 import { GetTeamIdGroupsIdResponse } from "../type";
 
 interface GetGroupInfoProps {
@@ -7,16 +10,14 @@ interface GetGroupInfoProps {
 export async function getGroupInfo({
   teamId,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyODQ0NDk0LCJleHAiOjE3MjI4NDgwOTQsImlzcyI6InNwLWNvd29ya2VycyJ9.ULx0nJfCmAj8v9l28eRWk8Fo61qRtcAfEbAhXAtobBY";
-
+  const accessToken = getCookie("accessToken", { cookies });
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${teamId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 추가
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
         cache: "no-store",

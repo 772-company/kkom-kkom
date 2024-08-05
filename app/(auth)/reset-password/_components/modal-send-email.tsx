@@ -26,11 +26,12 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
   });
 
   const handleClick: SubmitHandler<SendEmailInputValue> = async (data) => {
-    console.log(data);
     const response = await sendEmail(data);
     if (typeof response === "string") {
       if (response.includes("이메일")) {
-        showToast("warning", <p>{response}</p>);
+        // NOTE - setError는 버튼 disabled 처리 위함
+        showToast("error", <p>{response}</p>);
+        setError("email", { type: "manual" });
       }
     } else {
       showToast("success", <p>{response.message}</p>);

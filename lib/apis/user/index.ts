@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import {
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
+  PatchTeamIdUserResetPasswordResponse,
   PostTeamIdUserSendResetPasswordEmailResponse,
 } from "../type";
 
@@ -109,9 +110,9 @@ export async function getUserHistory(accessToken: string | undefined) {
 export async function sendEmail(
   data: SendEmailInputValue,
 ): Promise<PostTeamIdUserSendResetPasswordEmailResponse | string> {
-  console.log(">>>> sendEmail 실행");
   const payload = {
     ...data,
+    // TODO - 빌드 환경에서만 됨 배포 후 바꾸기
     redirectUrl: "http://localhost:3000",
   };
   try {
@@ -134,6 +135,40 @@ export async function sendEmail(
     }
     const result: PostTeamIdUserSendResetPasswordEmailResponse =
       await response.json();
+    return result;
+  } catch (error) {
+    if (error instanceof Error) {
+      return error.message;
+    }
+    return "다시 시도해 주세요";
+  }
+}
+
+export async function resetPassword(data: {
+  password: string;
+  passwordConfirmation: string;
+  token: string;
+}): Promise<PatchTeamIdUserResetPasswordResponse | string> {
+  console.log("ddds", data);
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/reset-password`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    if (!response.ok) {
+      if (response.status === 400) {
+        return "토큰이 만료 되었습니다. 다시 시도해 주세요";
+      }
+      throw new Error("다시 시도해 주세요");
+    }
+    const result: PatchTeamIdUserResetPasswordResponse = await response.json();
     return result;
   } catch (error) {
     if (error instanceof Error) {

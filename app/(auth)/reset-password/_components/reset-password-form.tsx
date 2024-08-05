@@ -2,8 +2,11 @@
 
 import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
+import { resetPassword } from "@/lib/apis/user";
+import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface ResetPasswordInputValue {
@@ -12,6 +15,9 @@ export interface ResetPasswordInputValue {
 }
 
 export default function ResetPasswordForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const {
     register,
     handleSubmit,
@@ -22,7 +28,21 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
-    console.log(data);
+    if (token) {
+      const response = await resetPassword({ ...data, token });
+      if (typeof response === "string") {
+        if (response.includes("토큰")) {
+          showToast("error", <p>{response}</p>);
+          router.push("/login");
+        }
+      } else {
+        showToast("success", <p>비밀번호가 변경되었습니다.</p>);
+        router.push("/login");
+      }
+    } else {
+      // NOTE - 메일에 첨부된 링크가 아닌 강제로 들어온 경우
+      router.push("/login");
+    }
   };
 
   return (

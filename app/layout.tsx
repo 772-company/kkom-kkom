@@ -8,6 +8,8 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+import QueryProviders from "./providers";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | 꼼꼼",
@@ -29,15 +31,17 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <ToastProvider>
-          <OverlayStoreProvider>
-            <Header />
-            <main className="min-h-screen bg-background-primary pt-[60px]">
-              {children}
-            </main>
-            <OverlayProvider />
-          </OverlayStoreProvider>
-        </ToastProvider>
+        <QueryProviders>
+          <ToastProvider>
+            <OverlayStoreProvider>
+              <Header />
+              <main className="min-h-screen bg-background-primary pt-[60px]">
+                {children}
+              </main>
+              <OverlayProvider />
+            </OverlayStoreProvider>
+          </ToastProvider>
+        </QueryProviders>
       </body>
     </html>
   );

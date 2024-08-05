@@ -1,3 +1,5 @@
+"use client";
+
 // QueryClient는 useContext기반이기 때문에 클라이언트 컴포넌트여야 한다.
 import {
   QueryClient,
@@ -5,8 +7,6 @@ import {
   isServer,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-("use client");
 
 function makeQueryClient() {
   return new QueryClient({

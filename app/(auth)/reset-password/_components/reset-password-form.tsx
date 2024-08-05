@@ -49,7 +49,7 @@ export default function ResetPasswordForm() {
         className="mt-10 w-full"
         disabled={!isValid}
       >
-        로그인
+        재설정
       </Button>
     </form>
   );

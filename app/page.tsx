@@ -1,37 +1,9 @@
-"use client";
-
-import Modal from "@/components/modal/modal";
-import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import { showToast } from "@/lib/show-toast";
 import Link from "next/link";
 
 export default function Home() {
-  const overlay1 = useCustomOverlay(({ close }) => (
-    <Modal close={close} closeOnFocusOut={false}>
-      <Modal.HeaderWithClose />
-      <Modal.Title>제목</Modal.Title>
-      <Modal.Description>난 예시다.</Modal.Description>
-      <Modal.Description>해냈다.</Modal.Description>
-      <button
-        onClick={() => {
-          setTimeout(() => {
-            // 패치
-            close();
-          }, 300);
-        }}
-      >
-        패치 후 닫기
-      </button>
-    </Modal>
-  ));
-
   return (
     <div className="w-full py-5">
       <div className="flex flex-col items-center gap-1">
-        <button onClick={overlay1.open}>나 버튼임 ㅎㅇ</button>
-        <button onClick={() => showToast("success", "성공했다.")}>
-          토스트
-        </button>
         <h1 className="text-3xl">랜딩페이지</h1>
         <Link href="/myhistory" className="text-text-primary">
           마이 히스토리로 이동

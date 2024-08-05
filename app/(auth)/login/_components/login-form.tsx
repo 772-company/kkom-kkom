@@ -70,7 +70,7 @@ export default function LoginForm() {
         />
       </div>
       <Link
-        href="/login"
+        href="/reset-password"
         className="mt-3 flex justify-end text-sm font-medium text-brand-primary underline"
       >
         비밀번호를 잊으셨나요?

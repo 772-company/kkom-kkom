@@ -26,11 +26,11 @@ export const BUTTON_SIZE = {
   medium: MEDIUM,
 };
 
-interface ButtonFloatingProps {
+interface ButtonFloatingProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btnStyle: "solid" | "outlined";
   btnSize: "large" | "medium";
   children: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
 }
 
@@ -39,7 +39,6 @@ interface ButtonFloatingProps {
  * @param btnStyle : 버튼의 스타일을 결정합니다.
  * @param btnSize : 버튼의 사이즈를 결정합니다.
  * @param children : 버튼 안에 담을 내용을 작성합니다.
- * @param onClick : 버튼 클릭 시 발생할 클릭 이벤트를 작성합니다.
  * @param className : 추가적인 스타일링을 작성합니다.
  * @returns 플로팅 버튼을 반환합니다.
  * @example
@@ -51,13 +50,13 @@ export default function ButtonFloating({
   btnStyle,
   btnSize,
   children,
-  onClick,
   className,
+  ...rest
 }: ButtonFloatingProps) {
   return (
     <button
-      onClick={onClick}
       className={`${FUNDAMENTAL_STYLE} ${BUTTON_STYLE[btnStyle]} ${BUTTON_SIZE[btnSize]} ${className}`}
+      {...rest}
     >
       {btnStyle === "solid" && btnSize === "large" ? (
         <Plus className="h-[16px] w-[16px]" />

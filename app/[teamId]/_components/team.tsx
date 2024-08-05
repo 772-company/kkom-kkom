@@ -12,7 +12,7 @@ const Team = ({ teamName }: TeamProps) => {
   return (
     <div className="flex h-[64px] w-full items-center justify-between rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 pl-[24px]">
       <p className="w-full text-[20px] font-[700] leading-[64px] text-white">
-        {teamName}
+        {teamName}팀
       </p>
       <div className="absolute flex items-center justify-center gap-[30px] pl-[58px] md:pl-[411px] xl:pl-[915px]">
         <Image src={Thumbnail} alt="썸네일" height={64} />

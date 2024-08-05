@@ -30,7 +30,7 @@ const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
   return (
     <div
       onMouseDown={handleClickOutside}
-      className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "invisible translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
+      className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
     >
       <div
         ref={modalRef}

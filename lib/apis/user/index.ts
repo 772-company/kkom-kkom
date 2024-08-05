@@ -2,9 +2,9 @@ import { getCookie } from "cookies-next";
 
 import { GetTeamIdUserGroups } from "../type";
 
+// NOTE - 유저가 포함한 그룹 조회
 export async function gerUserGroups(): Promise<GetTeamIdUserGroups> {
   const accessToken = getCookie("accessToken");
-
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/groups`,

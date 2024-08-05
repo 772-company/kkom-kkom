@@ -4,7 +4,12 @@ import { buttonVariants } from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  btnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
+  btnStyle:
+    | "solid"
+    | "outlined"
+    | "outlined_secondary"
+    | "danger"
+    | "none_background";
   btnSize: "large" | "x-small";
 }
 
@@ -50,7 +55,13 @@ export default function Button({
 
 interface LinkButtonProps extends LinkProps {
   children: React.ReactNode;
-  btnStyle: "solid" | "outlined" | "outlined_secondary" | "danger" | "gradient";
+  btnStyle:
+    | "solid"
+    | "outlined"
+    | "outlined_secondary"
+    | "danger"
+    | "gradient"
+    | "none_background";
   btnSize: "large" | "x-small";
   className?: string;
 }

@@ -2,15 +2,26 @@
 // Desc: Type definition for API response
 // Path: lib/apis/type/index.ts
 
+export type Group = {
+  id: number;
+  teamId: string | null;
+  name: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Membership = {
+  userId: number;
+  groupId: number;
+  userName: string;
+  userEmail: string;
+  userImage: string | null;
+  role: "ADMIN" | "MEMBER";
+  group: Group;
+};
+
 export type GetTeamIdUserResponse = {
-  groups: {
-    role: string;
-    userImage: string;
-    userEmail: string;
-    userName: string;
-    groupId: number;
-    userId: number;
-  }[];
   teamId: string;
   image: string | null;
   nickname: string;
@@ -18,6 +29,7 @@ export type GetTeamIdUserResponse = {
   createdAt: string;
   email: string;
   id: number;
+  memberships: Membership[];
 };
 
 export type PatchTeamIdUserResponse = {

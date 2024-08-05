@@ -11,10 +11,11 @@ export default async function TeamPage({
   const GROUP_INFO = await fetchGroupInfo(params.teamId);
 
   if (!GROUP_INFO) {
-    return <p className="text-white">팀 정보가 존재하지 않습니다 ??</p>;
+    return <p className="text-white">팀에 접근 권한이 없습니다.</p>;
   }
 
   const { name: teamName, taskLists, members } = GROUP_INFO;
+  console.log(GROUP_INFO);
 
   return (
     <div className="flex flex-col justify-center gap-[24px] pt-[24px]">

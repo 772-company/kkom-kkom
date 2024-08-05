@@ -13,9 +13,7 @@ interface MemberListProps {
 }
 
 const MemberCard = ({ member }: MemberCardProps) => {
-  const MemberProfileImage = member.userImage
-    ? member.userImage
-    : DefaultProfile;
+  const MemberProfileImage = DefaultProfile;
 
   return (
     <div className="flex h-[73px] max-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:max-w-[216px] lg:max-w-[384px]">

@@ -8,7 +8,7 @@ export async function getGroupInfo({
   teamId,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTgzMzU4LCJleHAiOjE3MjI1ODY5NTgsImlzcyI6InNwLWNvd29ya2VycyJ9.n_HWS9MXVabCejm83HyRkBXdE71AOHQc_K9PteGr9Io";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyODQ0NDk0LCJleHAiOjE3MjI4NDgwOTQsImlzcyI6InNwLWNvd29ya2VycyJ9.ULx0nJfCmAj8v9l28eRWk8Fo61qRtcAfEbAhXAtobBY";
 
   try {
     const response = await fetch(
@@ -19,6 +19,7 @@ export async function getGroupInfo({
           Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 추가
           "Content-Type": "application/json",
         },
+        cache: "no-store",
       },
     );
     if (!response.ok) {

@@ -1,5 +1,3 @@
-"use Server";
-
 import getGroupInfo from "@/lib/apis/group";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 

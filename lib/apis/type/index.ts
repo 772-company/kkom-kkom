@@ -50,6 +50,7 @@ export type GetTeamIdUserGroups = {
 export type GetTeamIdUserHistoryResponse = {
   tasksDone: {
     userId: number;
+    deletedAt: string;
     recurringId: number;
     frequency: string;
     date: string;

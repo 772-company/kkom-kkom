@@ -16,7 +16,7 @@ const MemberCard = ({ member }: MemberCardProps) => {
   const MemberProfileImage = DefaultProfile;
 
   return (
-    <div className="flex h-[73px] max-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:max-w-[216px] lg:max-w-[384px]">
+    <div className="flex h-[73px] max-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:max-w-[216px] xl:max-w-[384px]">
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         <MemberProfileImage className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />
         <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">

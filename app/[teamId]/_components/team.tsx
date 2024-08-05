@@ -14,7 +14,7 @@ const Team = ({ teamName }: TeamProps) => {
       <p className="w-full text-[20px] font-[700] leading-[64px] text-white">
         {teamName}
       </p>
-      <div className="absolute flex items-center justify-center gap-[30px] pl-[58px] md:pl-[411px] lg:pl-[915px]">
+      <div className="absolute flex items-center justify-center gap-[30px] pl-[58px] md:pl-[411px] xl:pl-[915px]">
         <Image src={Thumbnail} alt="썸네일" height={64} />
         <Popover
           triggerSvg={Gear}

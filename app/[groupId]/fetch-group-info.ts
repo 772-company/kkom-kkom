@@ -8,7 +8,6 @@ export const fetchGroupInfo = async (
     const groupInfo = await getGroupInfo({ groupId });
     return groupInfo;
   } catch (error) {
-    console.error("Failed to fetch group Info:", error);
-    return null;
+    throw error;
   }
 };

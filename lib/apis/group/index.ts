@@ -26,6 +26,8 @@ export async function getGroupInfo({
     if (!response.ok) {
       if (response.status === 401) {
         alert("해당 팀에 권한이 없습니다.");
+      } else if (response.status === 404) {
+        alert("존재하지 않는 팀입니다.");
       }
       throw new Error("다시 시도해 주세요.");
     }

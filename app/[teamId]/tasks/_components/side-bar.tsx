@@ -1,10 +1,11 @@
 import ButtonFloating from "@/components/button-floating/button-floating";
 import ProfileIcon from "@/components/profile-Icon/profile-icon";
+import useClickOutside from "@/hooks/use-click-outside";
 import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
-import React, { useRef } from "react";
+import React from "react";
 
 import Comment from "./comment";
 import Commentinput from "./comment-input";
@@ -16,24 +17,14 @@ interface SideBarProps {
 }
 
 const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const handleClickOutside = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
-    if (e.target instanceof Node) {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        handleCancelButton();
-      }
-    }
-  };
+  const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
 
   return (
     <div
-      onMouseDown={handleClickOutside}
       className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
     >
       <div
-        ref={modalRef}
+        ref={ref}
         className="xg: w-[779px] overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px]"
       >
         <PageButton

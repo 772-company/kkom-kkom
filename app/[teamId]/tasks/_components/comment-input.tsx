@@ -14,7 +14,7 @@ const Commentinput = () => {
         value={value}
         onChange={handleChangeInput}
         placeholder="댓글을 달아주세요"
-        className="bg-b h-[24px] w-full bg-background-secondary text-sm text-text-default text-text-primary placeholder:font-normal"
+        className="h-[24px] w-full bg-background-secondary text-sm text-text-default text-text-primary placeholder:font-normal"
       />
       <TaskButton types="submit" disable={value.length === 0 ? true : false} />
     </div>

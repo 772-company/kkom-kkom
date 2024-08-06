@@ -5,7 +5,12 @@ import useClickOutside from "@/hooks/use-click-outside";
 import { cn } from "@/lib/cn";
 import CloseButton from "@/public/icons/x.svg";
 import { motion } from "framer-motion";
-import { LegacyRef, createContext, useContext } from "react";
+import {
+  ButtonHTMLAttributes,
+  LegacyRef,
+  createContext,
+  useContext,
+} from "react";
 
 import {
   descriptionVariants,
@@ -160,14 +165,14 @@ function HeaderWithClose({ className }: HeaderWithCloseProps) {
 
 HeaderWithClose.displayName = "Modal.HeaderWithClose";
 
-interface TwoButtonSectionProps {
+interface TwoButtonSectionProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonDescription: string;
   close: () => void;
   closeBtnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
   confirmBtnStyle: "solid" | "outlined" | "outlined_secondary" | "danger";
   onClick?: () => void;
   className?: string;
-  confirmBtnDisabled?: boolean;
 }
 
 function TwoButtonSection({
@@ -177,7 +182,7 @@ function TwoButtonSection({
   confirmBtnStyle,
   onClick,
   className,
-  confirmBtnDisabled,
+  ...rest
 }: TwoButtonSectionProps) {
   return (
     <section className={cn(twoButtonVariants({ className }))}>
@@ -195,7 +200,7 @@ function TwoButtonSection({
         btnStyle={confirmBtnStyle}
         className="flex-1"
         onClick={onClick}
-        disabled={confirmBtnDisabled}
+        {...rest}
       >
         {buttonDescription}
       </Button>

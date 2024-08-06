@@ -59,7 +59,7 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
             buttonDescription="링크 보내기"
             close={close}
             className="mt-6"
-            confirmBtnDisabled={!isValid}
+            disabled={!isValid}
           />
         </form>
       </div>

@@ -1,6 +1,7 @@
 import { LoginInputValue } from "@/app/(auth)/login/_components/login-form";
 import { SignUpInputValue } from "@/app/(auth)/signup/_components/signup-form";
 
+import { ResponseError, getErrorMessage, myFetch } from "..";
 import {
   PostTeamIdAuthSigninResponse,
   PostTeamIdAuthSignupResponse,
@@ -14,7 +15,7 @@ export async function login(
   | { details: Record<string, { message: string }> }
 > {
   try {
-    const response = await fetch(
+    const response = await myFetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn`,
       {
         method: "POST",
@@ -25,21 +26,16 @@ export async function login(
       },
     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      if (response.status === 400) {
-        return errorData;
-      }
-      throw new Error("로그인을 다시 시도해 주세요");
-    }
-
     const result: PostTeamIdAuthSigninResponse = await response.json();
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
+    const errorMessage = await getErrorMessage(error, [400]);
+
+    if (error instanceof ResponseError && error.response.status === 400) {
+      return errorMessage;
     }
-    throw new Error("로그인을 다시 시도해 주세요");
+
+    throw new Error(errorMessage || "로그인을 다시 시도해 주세요");
   }
 }
 

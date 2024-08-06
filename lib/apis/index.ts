@@ -2,7 +2,7 @@
  * 임시 에러 클래스입니다. 실제 API가 완성되면 수정해야 합니다.
  * @returns
  */
-class ResponseError extends Error {
+export class ResponseError extends Error {
   response: Response;
   constructor(message: string, res: Response) {
     // Error(message)를 만듭니다.

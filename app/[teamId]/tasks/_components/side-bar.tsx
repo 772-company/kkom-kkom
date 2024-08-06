@@ -25,7 +25,7 @@ const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
     >
       <div
         ref={ref}
-        className="xg: w-[779px] overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px]"
+        className="xl: w-[779px] overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px]"
       >
         <PageButton
           className="mb-6"

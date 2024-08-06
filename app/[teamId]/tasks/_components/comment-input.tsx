@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from "react";
 
 import TaskButton from "./tasks-button";
 
-type CommentInputProps = React.HtmlHTMLAttributes<HTMLInputElement>;
 const Commentinput = () => {
   const [value, setValue] = useState<string>("");
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

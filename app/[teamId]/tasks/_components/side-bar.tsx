@@ -6,9 +6,9 @@ import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import React, { useRef } from "react";
 
-import PageButton from "./button";
 import Comment from "./comment";
 import Commentinput from "./comment-input";
+import PageButton from "./tasks-button";
 
 interface SideBarProps {
   handleCancelButton: () => void;
@@ -38,7 +38,7 @@ const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
       >
         <PageButton
           className="mb-6"
-          type="cancel"
+          types="cancel"
           onClick={handleCancelButton}
         />
 

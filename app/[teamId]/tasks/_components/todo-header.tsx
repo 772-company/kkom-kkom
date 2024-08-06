@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import Button from "./button";
+import TaskButton from "./tasks-button";
 
 interface TodoHeaderUIProps {
   date: Date;
@@ -31,8 +31,8 @@ const TodoHeader = ({
       <div className="flex items-center">
         <h2 className="inline-block h-6 w-28">{convertedDate}</h2>
         <div className="flex h-3 items-center gap-1">
-          <Button type="left" onClick={onClickButton} />
-          <Button type="right" onClick={onClickButton} />
+          <TaskButton types="arrow" name="left" onClick={onClickButton} />
+          <TaskButton types="arrow" name="right" onClick={onClickButton} />
 
           <button
             onClick={handleClick}

@@ -1,7 +1,7 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
 import { getCookie } from "cookies-next";
 
-import { getErrorMessage, myFetch } from "..";
+import { ResponseError, getErrorMessage, myFetch } from "..";
 import {
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
@@ -65,7 +65,7 @@ export async function sendEmail(
     redirectUrl: "http://localhost:3000",
   };
   try {
-    const response = await fetch(
+    const response = await myFetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/send-reset-password-email`,
       {
         method: "POST",
@@ -75,21 +75,17 @@ export async function sendEmail(
         body: JSON.stringify(payload),
       },
     );
-    if (!response.ok) {
-      const errorData = await response.json();
-      if (response.status === 400) {
-        return "존재하지 않는 이메일입니다.";
-      }
-      throw new Error("네트워크 에러 발생");
-    }
+
     const result: PostTeamIdUserSendResetPasswordEmailResponse =
       await response.json();
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message;
+    const errorMessage = await getErrorMessage(error, [400]);
+    if (error instanceof ResponseError && error.response.status === 400) {
+      return "존재하지 않는 이메일입니다.";
     }
-    return "다시 시도해 주세요";
+
+    return errorMessage || "다시 시도해 주세요";
   }
 }
 

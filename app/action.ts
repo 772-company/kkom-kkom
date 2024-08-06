@@ -1,5 +1,6 @@
 "use server";
 
+import { getErrorMessage, myFetch } from "@/lib/apis";
 import { GetTeamIdUserResponse } from "@/lib/apis/type";
 import { getCookie } from "cookies-next";
 import { cookies } from "next/headers";
@@ -10,7 +11,7 @@ export async function getUser(): Promise<GetTeamIdUserResponse> {
   const accessToken = getAccessToken();
 
   try {
-    const response = await fetch(
+    const response = await myFetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
       {
         method: "GET",
@@ -20,13 +21,11 @@ export async function getUser(): Promise<GetTeamIdUserResponse> {
       },
     );
 
-    if (!response.ok) {
-      throw new Error("네트워크 오류 발생");
-    }
-
     const data: GetTeamIdUserResponse = await response.json();
     return data;
   } catch (error) {
-    throw error;
+    const errorMessage = await getErrorMessage(error, []);
+
+    throw new Error(errorMessage || "네트워크 오류 발생");
   }
 }

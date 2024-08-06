@@ -6,7 +6,6 @@ import Kebab from "@/public/icons/kebab-small.svg";
 import Plus from "@/public/icons/plus.svg";
 import hamster from "@/public/images/hamster.jpg";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -18,7 +17,6 @@ interface GroupDropdownProps {
 }
 
 export default function GroupDropdown({ memberships }: GroupDropdownProps) {
-  const pathname = usePathname();
   const router = useRouter();
   const [selectedGroupId, setSelectedGroupId] = useState(
     memberships[0].group.id,

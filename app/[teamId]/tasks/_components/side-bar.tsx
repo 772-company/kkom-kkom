@@ -103,13 +103,11 @@ const SideBar = ({ handleCancelButton, isOpen }: SideBarProps) => {
         </div>
       </div>
 
-      <ButtonFloating
-        btnSize="medium"
-        btnStyle="solid"
-        className="fixed right-3 top-[85%] w-[111px] text-sm"
-      >
-        완료하기
-      </ButtonFloating>
+      <div className="fixed right-3 top-[85%] w-[111px]">
+        <ButtonFloating btnSize="medium" btnStyle="solid" className="text-sm">
+          완료하기
+        </ButtonFloating>
+      </div>
     </div>
   );
 };

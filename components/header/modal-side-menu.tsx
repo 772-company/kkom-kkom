@@ -8,6 +8,7 @@ import hamster from "@/public/images/hamster.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { LegacyRef } from "react";
 
 interface ModalSideMenuProps {
@@ -18,9 +19,16 @@ export default function ModalSideMenu({
   close,
   memberships,
 }: ModalSideMenuProps) {
+  const router = useRouter();
   const modalRef = useClickOutside(() => {
     close();
   });
+
+  const handleRoute = (id: number) => {
+    router.push(`/${id}`);
+    close();
+  };
+
   return (
     <section className="fixed inset-0 z-40 flex bg-black bg-opacity-50">
       <motion.div
@@ -32,7 +40,11 @@ export default function ModalSideMenu({
         </button>
         <ul className="mt-[75px] flex flex-col gap-6 px-4 text-sm font-medium text-text-primary">
           {memberships.map((membership) => (
-            <li key={membership.group.id} className="flex items-center gap-3">
+            <li
+              key={membership.group.id}
+              className="flex items-center gap-3"
+              onClick={() => handleRoute(membership.group.id)}
+            >
               <div className="relative size-6 rounded-md">
                 {/* TODO - 기본 이미지 바꾸기 */}
                 <Image

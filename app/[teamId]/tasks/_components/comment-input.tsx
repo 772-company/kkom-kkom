@@ -5,12 +5,14 @@ import TaskButton from "./tasks-button";
 
 const Commentinput = () => {
   const {
+    watch,
     formState: { isDirty },
     setValue,
+    getValues,
     register,
     handleSubmit,
   } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { value: "" },
   });
   const serveData = (
@@ -20,8 +22,8 @@ const Commentinput = () => {
     if (!data.value) {
       return;
     }
-    console.log(data.value);
-    setValue("value", "");
+    setValue("value", "", { shouldDirty: true });
+    isDirty;
   };
 
   return (

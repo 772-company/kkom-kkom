@@ -6,7 +6,7 @@ import { resetPassword } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface ResetPasswordInputValue {
@@ -14,10 +14,12 @@ export interface ResetPasswordInputValue {
   password: string;
 }
 
-export default function ResetPasswordForm() {
+interface ResetPasswordFormProps {
+  token: string;
+}
+
+export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
   const {
     register,
     handleSubmit,
@@ -27,13 +29,13 @@ export default function ResetPasswordForm() {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
-    // NOTE - 메일에 첨부된 링크가 아닌 강제로 들어온 경우
-    if (!token) {
-      router.push("/login");
-      return;
-    }
+  // NOTE - 이메일로 전송된 링크가 아닌 /reset-password로 접근하는 경우
+  if (!token) {
+    router.push("/login");
+    return;
+  }
 
+  const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
     const response = await resetPassword({ ...data, token });
 
     // NOTE - 토큰 요휴시간(1시간)이 지난 경우

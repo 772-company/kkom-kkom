@@ -9,14 +9,14 @@ export default async function TeamPage({
 }: {
   params: { groupId: string };
 }) {
-  const GROUP_INFO = await getGroupInfo({ groupId: params.groupId });
+  const groupInfo = await getGroupInfo({ groupId: params.groupId });
 
-  if (!GROUP_INFO) {
+  if (!groupInfo) {
     return <p className="text-white">데이터 없음</p>;
   }
 
-  const { name: teamName, taskLists, members } = GROUP_INFO;
-  console.log(GROUP_INFO);
+  const { name: teamName, taskLists, members } = groupInfo;
+  console.log(groupInfo);
 
   return (
     <div className="flex flex-col justify-center gap-[24px] pt-[24px]">

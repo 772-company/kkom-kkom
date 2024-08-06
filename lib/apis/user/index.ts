@@ -96,7 +96,7 @@ export async function resetPassword(data: {
 }): Promise<PatchTeamIdUserResetPasswordResponse | string> {
   console.log("ddds", data);
   try {
-    const response = await fetch(
+    const response = await myFetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/reset-password`,
       {
         method: "PATCH",
@@ -107,18 +107,14 @@ export async function resetPassword(data: {
       },
     );
 
-    if (!response.ok) {
-      if (response.status === 400) {
-        return "토큰이 만료 되었습니다. 다시 시도해 주세요";
-      }
-      throw new Error("다시 시도해 주세요");
-    }
     const result: PatchTeamIdUserResetPasswordResponse = await response.json();
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message;
+    const errorMessage = await getErrorMessage(error, [400]);
+    if (error instanceof ResponseError && error.response.status === 400) {
+      return "토큰이 만료 되었습니다. 다시 시도해 주세요";
     }
-    return "다시 시도해 주세요";
+
+    return errorMessage || "다시 시도해 주세요";
   }
 }

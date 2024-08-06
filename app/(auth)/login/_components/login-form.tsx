@@ -3,8 +3,8 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
-import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
+import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setCookie } from "cookies-next";
@@ -12,17 +12,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import ModalSendEmail from "../../reset-password/_components/modal-send-email";
-
 export interface LoginInputValue {
   email: string;
   password: string;
 }
 
 export default function LoginForm() {
-  const modalSendEmailOverlay = useCustomOverlay(({ close }) => (
-    <ModalSendEmail close={close} />
-  ));
   const router = useRouter();
   const {
     register,
@@ -37,16 +32,21 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
     const response = await login(data);
 
-    if (typeof response === "string") {
-      if (response.includes("존재하지")) {
-        setError("email", { type: "manual", message: response });
-      } else if (response.includes("비밀번호")) {
-        setError("password", { type: "manual", message: response });
+    // NOTE - 400인 경우
+    if ("details" in response) {
+      const details = response.details;
+
+      for (const [key, { message }] of Object.entries(details)) {
+        if (message) {
+          setError(key as keyof LoginInputValue, { type: "manual", message });
+        }
       }
     } else {
       // NOTE - 로그인 성공
-      setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
-      setCookie("refreshToken", response.refreshToken, {
+      const result = response as PostTeamIdAuthSigninResponse;
+
+      setCookie("accessToken", result.accessToken, { maxAge: 60 * 60 });
+      setCookie("refreshToken", result.refreshToken, {
         maxAge: 60 * 60 * 24 * 7,
       });
 
@@ -75,13 +75,12 @@ export default function LoginForm() {
           error={errors.password?.message}
         />
       </div>
-      <button
-        type="button"
-        className="ml-auto mt-3 flex text-sm font-medium text-brand-primary underline"
-        onClick={modalSendEmailOverlay.open}
+      <Link
+        href="/login"
+        className="mt-3 flex justify-end text-sm font-medium text-brand-primary underline"
       >
         비밀번호를 잊으셨나요?
-      </button>
+      </Link>
       <Button
         btnSize="large"
         btnStyle="solid"

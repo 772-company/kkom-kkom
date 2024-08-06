@@ -9,7 +9,10 @@ import {
 // NOTE - 로그인
 export async function login(
   data: LoginInputValue,
-): Promise<PostTeamIdAuthSigninResponse | string> {
+): Promise<
+  | PostTeamIdAuthSigninResponse
+  | { details: Record<string, { message: string }> }
+> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn`,
@@ -25,17 +28,18 @@ export async function login(
     if (!response.ok) {
       const errorData = await response.json();
       if (response.status === 400) {
-        return errorData.details;
+        return errorData;
       }
-      throw new Error("로그인을 다시 시도해 주세요");
+      throw new Error("로그인을 다시 시도해 주세요"); // 다른 에러는 던지기
     }
-    const result: PostTeamIdAuthSignupResponse = await response.json();
-    return result;
+
+    const result: PostTeamIdAuthSigninResponse = await response.json();
+    return result; // 로그인 성공 시 응답
   } catch (error) {
     if (error instanceof Error) {
-      return error.message;
+      throw new Error(error.message);
     }
-    return "무슨 메세지를 리턴해야 함";
+    throw new Error("로그인을 다시 시도해 주세요");
   }
 }
 

@@ -1,3 +1,5 @@
+import getGroupInfo from "@/lib/apis/group";
+
 import MemberList from "./_components/member-list";
 import TaskLists from "./_components/task-lists";
 import Team from "./_components/team";
@@ -8,7 +10,7 @@ export default async function TeamPage({
 }: {
   params: { groupId: string };
 }) {
-  const GROUP_INFO = await fetchGroupInfo(params.groupId);
+  const GROUP_INFO = await getGroupInfo({ groupId: params.groupId });
 
   if (!GROUP_INFO) {
     return <p className="text-white">데이터 없음</p>;

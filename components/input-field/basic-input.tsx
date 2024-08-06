@@ -8,6 +8,7 @@ export interface BasicInputProps<TFormInput extends FieldValues>
   label?: string;
   error?: string;
   isModal?: boolean;
+  className?: string;
 }
 
 /**
@@ -34,6 +35,7 @@ export function BasicInput<TFormInput extends FieldValues>({
   label,
   error,
   isModal,
+  className,
   ...rest
 }: BasicInputProps<TFormInput>) {
   return (
@@ -48,7 +50,7 @@ export function BasicInput<TFormInput extends FieldValues>({
           </label>
         )}
         <input
-          className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default read-only:cursor-not-allowed read-only:bg-background-tertiary focus:border-2 focus:outline-none ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"}`}
+          className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default read-only:cursor-not-allowed read-only:bg-background-tertiary focus:border-2 focus:outline-none ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"} ${className}`}
           {...register(id)}
           {...rest}
           id={id}

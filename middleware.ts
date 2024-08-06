@@ -8,23 +8,20 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const hasRefreshToken = request.cookies.has("refreshToken");
   const { pathname } = request.nextUrl;
 
-  // NOTE - 로그인 후 로그인, 회원가입 페이지에 접근하는 경우
-  if (
-    hasAccessToken &&
-    (pathname.startsWith("/login") || pathname.startsWith("/signup"))
-  ) {
+  const isAuthPage =
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/signup") ||
+    pathname.startsWith("/reset");
+
+  const isLandingPageOrAuthPage = pathname === "/" || isAuthPage;
+
+  // NOTE - 로그인 후 로그인, 회원가입, 비밀번호 재설정 페이지에 접근하는 경우
+  if (hasAccessToken && isAuthPage) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // NOTE - 로그인 전에 랜딩, 로그인, 회원가입 페이지 외에 다른 페이지에 접근하는 경우
-  if (
-    !hasAccessToken &&
-    !(
-      pathname.startsWith("/login") ||
-      pathname.startsWith("/signup") ||
-      pathname === "/"
-    )
-  ) {
+  // NOTE - 로그인 전에 랜딩, 로그인, 회원가입, 비밀번호 재설정 페이지 외에 다른 페이지에 접근하는 경우
+  if (!hasAccessToken && !isLandingPageOrAuthPage) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -53,7 +50,11 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
 
         // NextResponse 객체를 만들어 쿠키를 설정
         const nextResponse = NextResponse.next();
-        nextResponse.cookies.set("accessToken", data.accessToken);
+        nextResponse.cookies.set({
+          name: "accessToken",
+          value: data.accessToken,
+          maxAge: 60 * 60,
+        });
 
         return nextResponse;
       })

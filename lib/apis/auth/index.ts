@@ -44,7 +44,7 @@ export async function signUp(
   data: SignUpInputValue,
 ): Promise<PostTeamIdAuthSignupResponse | string> {
   try {
-    const response = await fetch(
+    const response = await myFetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signUp`,
       {
         method: "POST",
@@ -55,19 +55,15 @@ export async function signUp(
       },
     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      if (response.status === 400) {
-        return errorData.message;
-      }
-      throw new Error("회원가입을 다시 시도해 주세요");
-    }
     const result: PostTeamIdAuthSignupResponse = await response.json();
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message;
+    const errorMessage = await getErrorMessage(error, [400]);
+
+    if (error instanceof ResponseError && error.response.status === 400) {
+      return errorMessage.message;
     }
-    return "회원가입을 다시 시도해 주세요";
+
+    return errorMessage || "회원가입을 다시 시도해 주세요";
   }
 }

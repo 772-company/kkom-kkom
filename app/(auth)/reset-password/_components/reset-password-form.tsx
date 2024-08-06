@@ -28,19 +28,20 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
-    if (token) {
-      const response = await resetPassword({ ...data, token });
-      if (typeof response === "string") {
-        if (response.includes("토큰")) {
-          showToast("error", <p>{response}</p>);
-          router.push("/login");
-        }
-      } else {
-        showToast("success", <p>비밀번호가 변경되었습니다.</p>);
-        router.push("/login");
-      }
+    // NOTE - 메일에 첨부된 링크가 아닌 강제로 들어온 경우
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    const response = await resetPassword({ ...data, token });
+
+    // NOTE - 토큰 요휴시간(1시간)이 지난 경우
+    if (typeof response === "string" && response.includes("토큰")) {
+      showToast("error", <p>{response}</p>);
+      router.push("/login");
     } else {
-      // NOTE - 메일에 첨부된 링크가 아닌 강제로 들어온 경우
+      showToast("success", <p>비밀번호가 변경되었습니다.</p>);
       router.push("/login");
     }
   };

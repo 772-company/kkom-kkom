@@ -35,7 +35,7 @@ export default function RootLayout({
           <ToastProvider>
             <OverlayStoreProvider>
               <Header />
-              <main className="min-h-screen bg-background-primary pt-[60px]">
+              <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
                 {children}
               </main>
               <OverlayProvider />

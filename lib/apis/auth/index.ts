@@ -30,11 +30,11 @@ export async function login(
       if (response.status === 400) {
         return errorData;
       }
-      throw new Error("로그인을 다시 시도해 주세요"); // 다른 에러는 던지기
+      throw new Error("로그인을 다시 시도해 주세요");
     }
 
     const result: PostTeamIdAuthSigninResponse = await response.json();
-    return result; // 로그인 성공 시 응답
+    return result;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);

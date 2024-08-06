@@ -74,8 +74,8 @@ async function getErrorMessage(error: unknown, statusCode: number[]) {
   if (error instanceof ResponseError) {
     // 내가 지정해놓은 에러 코드이고 통신이 온 경우
     if (statusCode.includes(error.response.status)) {
-      const data: { message: string } = await error.response.json();
-      return data.message;
+      const data = await error.response.json();
+      return data;
     }
     // 에러 코드로 지정되어 있지 않는데 통신은 온 경우
     return error.message;

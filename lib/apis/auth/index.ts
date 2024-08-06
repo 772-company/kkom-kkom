@@ -25,7 +25,7 @@ export async function login(
     if (!response.ok) {
       const errorData = await response.json();
       if (response.status === 400) {
-        return errorData.message;
+        return errorData.details;
       }
       throw new Error("로그인을 다시 시도해 주세요");
     }

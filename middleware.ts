@@ -50,7 +50,11 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
 
         // NextResponse 객체를 만들어 쿠키를 설정
         const nextResponse = NextResponse.next();
-        nextResponse.cookies.set("accessToken", data.accessToken);
+        nextResponse.cookies.set({
+          name: "accessToken",
+          value: data.accessToken,
+          maxAge: 60 * 60,
+        });
 
         return nextResponse;
       })

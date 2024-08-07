@@ -27,7 +27,7 @@ PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 interface PopoverContentItem {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 interface PopoverProps {
   triggerImage?: string | StaticImageData;
@@ -125,7 +125,7 @@ const Popover = ({
               className="h-full w-full"
               key={index}
               onClick={() => {
-                item.onClick();
+                item.onClick && item.onClick();
                 handleClose();
               }}
             >

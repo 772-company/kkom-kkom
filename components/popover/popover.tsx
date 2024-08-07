@@ -25,6 +25,10 @@ const PopoverContent = React.forwardRef<
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
+interface PopoverContentItem {
+  text: string;
+  onClick: () => void;
+}
 interface PopoverProps {
   triggerImage?: string | StaticImageData;
   triggerImageAlt?: string;
@@ -32,7 +36,7 @@ interface PopoverProps {
   triggerText?: string;
   triggerWidth?: number;
   triggerHeight?: number;
-  content: string[];
+  content: PopoverContentItem[];
   className?: string;
   triggerClassName?: string;
   contentClassName?: string;
@@ -46,11 +50,21 @@ interface PopoverProps {
    * @param triggerText : trigger 텍스트를 입력합니다.
    * @param triggerWidth : trigger image의 width를 입력합니다.
    * @param triggerHeight : trigger image의 height를 입력합니다.
-   * @param content : content에 들어갈 텍스트를 입력합니다.
+   * @param content : content에 들어갈 텍스트와 각 content의 onClick 이벤트를 입력합니다.
    * @param triggerClassName : trigger에 필요한 추가적인 css를 입력합니다.
    * @param contentClassName : content에 필요한 추가적인 css를 입력합니다.
    * @returns 팝오버 컴포넌트를 반환합니다.
    * @example
+   * const content = [
+      {
+        text: "수정하기",
+        onClick: () => console.log("수정하기 클릭"),
+      },
+      {
+        text: "삭제하기",
+        onClick: () => console.log("삭제하기 클릭"),
+      },
+    ];
    * <Popover
             triggerImage={hamster}
             triggerImageAlt="hamster"
@@ -74,8 +88,14 @@ const Popover = ({
   triggerClassName,
   contentClassName,
 }: PopoverProps) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <PopOver>
+    <PopOver open={open} onOpenChange={setOpen}>
       <div className={`${className}`}>
         <PopoverTrigger>
           <div
@@ -101,8 +121,15 @@ const Popover = ({
           className={`${contentClassName} flex flex-col items-center justify-center border-0 shadow-none`}
         >
           {content.map((item, index) => (
-            <button className="h-full w-full" key={index}>
-              {item}
+            <button
+              className="h-full w-full"
+              key={index}
+              onClick={() => {
+                item.onClick();
+                handleClose();
+              }}
+            >
+              {item.text}
             </button>
           ))}
         </PopoverContent>

@@ -1,11 +1,7 @@
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
-import dynamic from "next/dynamic";
 
+import TodayTaskProgress from "./today-task-progress";
 import TodayTaskSummary from "./today-task-summary";
-
-const TodayTaskProgress = dynamic(() => import("./today-task-progress"), {
-  ssr: false,
-});
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 

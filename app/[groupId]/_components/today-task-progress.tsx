@@ -26,6 +26,12 @@ const TodayTaskProgress = ({
     <div className="flex items-center gap-[64px]">
       <div className="relative">
         <div className="h-[170px] w-[170px] rounded-full border-[30px] border-background-tertiary bg-background-secondary" />
+        <div className="absolute bottom-[64px] left-[64px] flex flex-col items-center justify-center md:hidden">
+          <p className="text-[12px] font-[500] text-text-primary">오늘</p>
+          <p className="bg-gradient-to-r from-brand-primary to-brand-tertiary bg-clip-text text-[20px] font-[700] text-brand-primary text-transparent">
+            {progressPercent}%
+          </p>
+        </div>
         <div className="absolute bottom-0">
           <TodayTaskProgressChart
             numberOfTasks={numberOfTasks}
@@ -33,7 +39,7 @@ const TodayTaskProgress = ({
           />
         </div>
       </div>
-      <div>
+      <div className="hidden md:block">
         <p className="text-[14px] font-[500] text-text-primary">
           오늘의<br></br>진행 상황
         </p>

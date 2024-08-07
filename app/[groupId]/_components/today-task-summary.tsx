@@ -9,7 +9,7 @@ interface TodayTaskSummaryProps {
 
 const TodayTaskSummary = ({ type, number }: TodayTaskSummaryProps) => {
   return (
-    <div className="flex h-[76.5px] w-[400px] items-center justify-between rounded-[12px] bg-background-tertiary p-[16px]">
+    <div className="flex h-[76.5px] w-[142px] items-center justify-between rounded-[12px] bg-background-tertiary p-[16px] md:w-[280px] xl:w-[400px]">
       <div className="flex flex-col justify-center">
         <p className="text-[12px] font-[500] text-text-secondary">
           {type === "TODO" ? "오늘의 할 일" : "오늘의 완료한 일"}

@@ -101,7 +101,10 @@ const Popover = ({
           className={`${contentClassName} flex flex-col items-center justify-center border-0 shadow-none`}
         >
           {content.map((item, index) => (
-            <button className="h-full w-full" key={index}>
+            <button
+              className="h-full w-full text-[14px] font-[400] hover:text-[15px]"
+              key={index}
+            >
               {item}
             </button>
           ))}

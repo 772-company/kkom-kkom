@@ -1,4 +1,5 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
+import { REDIRECT_URL } from "@/constants/redirect-url";
 import { getCookie } from "cookies-next";
 import { cookies } from "next/headers";
 
@@ -75,7 +76,7 @@ export async function sendEmail(
   const payload = {
     ...data,
     // TODO - 빌드 환경에서만 됨 배포 후 바꾸기
-    redirectUrl: "http://localhost:3000",
+    redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}`,
   };
   try {
     const response = await fetch(

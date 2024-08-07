@@ -3,6 +3,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
@@ -13,12 +14,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import ModalSendEmail from "../../reset-password/_components/modal-send-email";
+
 export interface LoginInputValue {
   email: string;
   password: string;
 }
 
 export default function LoginForm() {
+  const modalSendEmailOverlay = useCustomOverlay(({ close }) => (
+    <ModalSendEmail close={close} />
+  ));
   const router = useRouter();
   const {
     register,
@@ -85,12 +91,13 @@ export default function LoginForm() {
           error={errors.password?.message}
         />
       </div>
-      <Link
-        href="/login"
-        className="mt-3 flex justify-end text-sm font-medium text-brand-primary underline"
+      <button
+        type="button"
+        className="ml-auto mt-3 flex text-sm font-medium text-brand-primary underline"
+        onClick={modalSendEmailOverlay.open}
       >
         비밀번호를 잊으셨나요?
-      </Link>
+      </button>
       <Button
         btnSize="large"
         btnStyle="solid"

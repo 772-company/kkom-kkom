@@ -26,7 +26,7 @@ const PopoverContent = React.forwardRef<
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 interface PopoverContentItem {
-  text: string;
+  text: string | string[];
   onClick?: () => void;
 }
 interface PopoverProps {
@@ -55,23 +55,16 @@ interface PopoverProps {
    * @param contentClassName : content에 필요한 추가적인 css를 입력합니다.
    * @returns 팝오버 컴포넌트를 반환합니다.
    * @example
-   * const content = [
-      {
-        text: "수정하기",
-        onClick: () => console.log("수정하기 클릭"),
-      },
-      {
-        text: "삭제하기",
-        onClick: () => console.log("삭제하기 클릭"),
-      },
-    ];
    * <Popover
             triggerImage={hamster}
             triggerImageAlt="hamster"
             triggerText="나는야햄스터"
             triggerWidth={30}
             triggerHeight={30}
-            content={content}
+            content={[
+            { text: "수정하기", onClick: () => console.log("수정하기 클릭") },
+            { text: "삭제하기", onClick: () => console.log("삭제하기 클릭") },
+            ]}
             triggerClassName="bg-pink-200 w-[150px] h-[50px]"
             contentClassName="left-[-77px] h-[100px] w-[200px] bg-yellow-200"
           />

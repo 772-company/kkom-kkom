@@ -9,17 +9,6 @@ interface TeamProps {
   teamName: string;
 }
 
-const content = [
-  {
-    text: "수정하기",
-    onClick: () => console.log("수정하기 클릭"),
-  },
-  {
-    text: "삭제하기",
-    onClick: () => console.log("삭제하기 클릭"),
-  },
-];
-
 const Team = ({ teamName }: TeamProps) => {
   return (
     <div className="flex h-[64px] w-full items-center justify-between rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 pl-[24px]">
@@ -32,7 +21,10 @@ const Team = ({ teamName }: TeamProps) => {
           triggerSvg={Gear}
           triggerHeight={24}
           triggerWidth={24}
-          content={content}
+          content={[
+            { text: "수정하기", onClick: () => console.log("수정하기 클릭") },
+            { text: "삭제하기", onClick: () => console.log("삭제하기 클릭") },
+          ]}
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />
       </div>

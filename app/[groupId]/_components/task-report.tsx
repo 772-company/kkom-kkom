@@ -1,5 +1,8 @@
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 
+import TodayTaskProgress from "./today-task-progress";
+import TodayTaskSummary from "./today-task-summary";
+
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
 interface TaskReportProps {
@@ -17,10 +20,18 @@ const TaskReport = ({ taskLists }: TaskReportProps) => {
   );
 
   return (
-    <div className="text-text-primary">
-      <p>리포트</p>
-      <p>오늘의 할 일 : {NUMBER_OF_TASKS} </p>
-      <p>완료한 일 : {NUMBER_OF_DONE}</p>
+    <div className="flex flex-col gap-[16px]">
+      <p className="text-[16px] font-[500] text-text-primary">리포트</p>
+      <div className="flex w-full justify-between rounded-[12px] bg-background-secondary p-[24px]">
+        <TodayTaskProgress
+          numberOfTasks={NUMBER_OF_TASKS}
+          numberOfDone={NUMBER_OF_DONE}
+        />
+        <div className="flex flex-col gap-[16px]">
+          <TodayTaskSummary type="TODO" number={NUMBER_OF_TASKS} />
+          <TodayTaskSummary type="DONE" number={NUMBER_OF_DONE} />
+        </div>
+      </div>
     </div>
   );
 };

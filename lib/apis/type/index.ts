@@ -345,8 +345,8 @@ export interface PostArticlesArticleIdCommentsResponse {
     nickname: string;
     id: number;
   };
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   content: string;
   id: number;
 }
@@ -359,8 +359,8 @@ export interface GetArticlesArticleIdCommentsResponse {
       nickname: string;
       id: number;
     };
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt: string;
+    createdAt: string;
     content: string;
     id: number;
   }[];
@@ -372,8 +372,8 @@ export interface PatchCommentsCommentIdResponse {
     nickname: string;
     id: number;
   };
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   content: string;
   id: number;
 }
@@ -383,8 +383,8 @@ export interface DeleteCommentsCommentIdResponse {
 }
 
 export interface PostArticlesResponse {
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   likeCount: number;
   writer: {
     nickname: string;
@@ -398,8 +398,8 @@ export interface PostArticlesResponse {
 export interface GetArticlesResponse {
   totalCount: number;
   list: {
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt: string;
+    createdAt: string;
     likeCount: number;
     writer: {
       nickname: string;
@@ -412,8 +412,8 @@ export interface GetArticlesResponse {
 }
 
 export interface GetArticlesArticleIdResponse {
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   likeCount: number;
   writer: {
     nickname: string;
@@ -427,8 +427,8 @@ export interface GetArticlesArticleIdResponse {
 }
 
 export interface PatchArticlesArticleIdResponse {
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   likeCount: number;
   writer: {
     nickname: string;
@@ -446,8 +446,8 @@ export interface DeleteArticlesArticleIdResponse {
 }
 
 export interface PostArticlesArticleIdLikeResponse {
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   likeCount: number;
   writer: {
     nickname: string;
@@ -461,8 +461,8 @@ export interface PostArticlesArticleIdLikeResponse {
 }
 
 export interface DeleteArticlesArticleIdLikeResponse {
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   likeCount: number;
   writer: {
     nickname: string;

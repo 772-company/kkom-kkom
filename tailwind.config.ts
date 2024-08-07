@@ -13,6 +13,9 @@ const config: Config = {
       xl: "1280px",
     },
     extend: {
+      translate: {
+        "-full": "-100%", // 'translate-x--full': '-100%'
+      },
       colors: {
         brand: {
           primary: "#10B981",

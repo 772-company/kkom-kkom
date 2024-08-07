@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import useCalender from "../_hooks/use-calendar";
 import TodoContents from "./todo-contents";
@@ -9,7 +9,6 @@ import TodoHeader from "./todo-header";
 const TodoContainer = () => {
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
-
   return (
     <>
       <TodoHeader

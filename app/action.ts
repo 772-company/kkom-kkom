@@ -25,6 +25,7 @@ export async function getUser(): Promise<GetTeamIdUserResponse> {
     }
 
     const data: GetTeamIdUserResponse = await response.json();
+
     return data;
   } catch (error) {
     throw error;

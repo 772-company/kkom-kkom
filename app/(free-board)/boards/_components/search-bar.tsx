@@ -9,11 +9,15 @@ export default function SearchBar() {
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { isSubmitting },
   } = useForm();
   const router = useRouter();
   const onSubmit = (data: FieldValues) => {
-    if (!isSubmitting) router.push(`/boards?keyword=${data.keyword}`);
+    if (!isSubmitting) {
+      router.push(`/boards?keyword=${data.keyword}`);
+      setValue("keyword", "", { shouldValidate: false });
+    }
   };
   return (
     <form className="relative" onSubmit={handleSubmit(onSubmit)}>

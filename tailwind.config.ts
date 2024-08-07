@@ -70,6 +70,26 @@ const config: Config = {
       fontFamily: { Pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: any) {
+      addUtilities({
+        ".scrollbar-custom": {
+          "&::-webkit-scrollbar": {
+            width: "5px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            borderRadius: "10px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "rgba(255, 255, 255, 1)",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "transparent",
+          },
+        },
+      });
+    },
+  ],
 };
 export default config;

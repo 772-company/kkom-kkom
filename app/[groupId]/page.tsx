@@ -20,7 +20,7 @@ export default async function TeamPage({
   console.log(groupInfo);
 
   return (
-    <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
+    <div className="flex flex-col justify-center gap-[24px] py-[24px]">
       <Team teamName={teamName} />
       <div className="flex flex-col gap-[64px]">
         <TaskLists taskLists={taskLists} />

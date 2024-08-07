@@ -16,17 +16,13 @@ const TodayTaskProgress = ({
   numberOfTasks,
   numberOfDone,
 }: TodayTaskProgressProps) => {
-  // 임시 값
-  numberOfTasks = 20;
-  numberOfDone = 8;
-
   const progressPercent = Math.round((numberOfDone / numberOfTasks) * 100);
 
   return (
     <div className="flex items-center gap-[64px]">
       <div className="relative">
         <div className="h-[170px] w-[170px] rounded-full border-[30px] border-background-tertiary bg-background-secondary" />
-        <div className="absolute bottom-[64px] left-[64px] flex flex-col items-center justify-center md:hidden">
+        <div className="absolute bottom-[45px] left-[45px] flex h-[80px] w-[80px] flex-col items-center justify-center md:hidden">
           <p className="text-[12px] font-[500] text-text-primary">오늘</p>
           <p className="bg-gradient-to-r from-brand-primary to-brand-tertiary bg-clip-text text-[20px] font-[700] text-brand-primary text-transparent">
             {progressPercent}%

@@ -26,7 +26,8 @@ export const BUTTON_SIZE = {
   medium: MEDIUM,
 };
 
-interface ButtonFloatingProps {
+interface ButtonFloatingProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btnStyle: "solid" | "outlined";
   btnSize: "large" | "medium";
   children: React.ReactNode;
@@ -50,10 +51,12 @@ export default function ButtonFloating({
   btnSize,
   children,
   className,
+  ...rest
 }: ButtonFloatingProps) {
   return (
     <button
       className={`${FUNDAMENTAL_STYLE} ${BUTTON_STYLE[btnStyle]} ${BUTTON_SIZE[btnSize]} ${className}`}
+      {...rest}
     >
       {btnStyle === "solid" && btnSize === "large" ? (
         <Plus className="h-[16px] w-[16px]" />

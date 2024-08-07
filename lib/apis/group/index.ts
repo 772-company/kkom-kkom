@@ -1,29 +1,33 @@
+import { getCookie } from "cookies-next";
+import { cookies } from "next/headers";
+
 import { GetTeamIdGroupsIdResponse } from "../type";
 
 interface GetGroupInfoProps {
-  teamId: string;
+  groupId: string;
 }
 
 export async function getGroupInfo({
-  teamId,
+  groupId,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsInRlYW1JZCI6IjYtNyIsInNjb3BlIjoiYWNjZXNzIiwiaWF0IjoxNzIyNTgzMzU4LCJleHAiOjE3MjI1ODY5NTgsImlzcyI6InNwLWNvd29ya2VycyJ9.n_HWS9MXVabCejm83HyRkBXdE71AOHQc_K9PteGr9Io";
-
+  const accessToken = getCookie("accessToken", { cookies });
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${teamId}`,
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 추가
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        cache: "no-store",
       },
     );
     if (!response.ok) {
       if (response.status === 401) {
         alert("해당 팀에 권한이 없습니다.");
+      } else if (response.status === 404) {
+        alert("존재하지 않는 팀입니다.");
       }
       throw new Error("다시 시도해 주세요.");
     }

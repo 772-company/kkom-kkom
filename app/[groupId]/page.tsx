@@ -24,8 +24,8 @@ export default async function TeamPage({
       <Team teamName={teamName} />
       <div className="flex flex-col gap-[64px]">
         <TaskLists taskLists={taskLists} />
-        <MemberList members={members} />
         <TaskReport taskLists={taskLists} />
+        <MemberList members={members} />
       </div>
     </div>
   );

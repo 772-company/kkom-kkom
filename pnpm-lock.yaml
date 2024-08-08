@@ -120,6 +120,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.0
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.39)
       embla-carousel-react:
         specifier: ^8.1.8
         version: 8.1.8(react@18.3.1)
@@ -2384,6 +2387,13 @@ packages:
     resolution: {integrity: sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==}
     engines: {node: '>=4'}
 
+  autoprefixer@10.4.20:
+    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -2491,6 +2501,11 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
+  browserslist@4.23.3:
+    resolution: {integrity: sha512-btwCFJVjI4YWDNfau8RhZ+B1Q/VLoUITrm3RlP6y1tYGWIOa+InuYiRGXUBXo8nA1qKmHMyLB/iVQg5TT4eFoA==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
@@ -2535,6 +2550,9 @@ packages:
 
   caniuse-lite@1.0.30001643:
     resolution: {integrity: sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==}
+
+  caniuse-lite@1.0.30001650:
+    resolution: {integrity: sha512-fgEc7hP/LB7iicdXHUI9VsBsMZmUmlVJeQP2qqQW+3lkqVhbmjEU8zp+h5stWeilX+G7uXuIUIIlWlDw9jdt8g==}
 
   case-sensitive-paths-webpack-plugin@2.4.0:
     resolution: {integrity: sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==}
@@ -3056,6 +3074,9 @@ packages:
   electron-to-chromium@1.5.2:
     resolution: {integrity: sha512-kc4r3U3V3WLaaZqThjYz/Y6z8tJe+7K0bbjUVo3i+LWIypVdMx5nXCkwRe6SWbY6ILqLdc1rKcKmr3HoH7wjSQ==}
 
+  electron-to-chromium@1.5.5:
+    resolution: {integrity: sha512-QR7/A7ZkMS8tZuoftC/jfqNkZLQO779SSW3YuZHP4eXpj3EffGLFcB/Xu9AAZQzLccTiCV+EmUo3ha4mQ9wnlA==}
+
   elliptic@6.5.6:
     resolution: {integrity: sha512-mpzdtpeCLuS3BmE3pO3Cpp5bbjlOPY2Q0PgoF+Od1XZrHLYI28Xe3ossCmYCQt11FQKEYd9+PF8jymTvtWJSHQ==}
 
@@ -3467,6 +3488,9 @@ packages:
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
+
+  fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
   framer-motion@11.3.21:
     resolution: {integrity: sha512-D+hfIsvzV8eL/iycld4K+tKlg2Q2LdwnrcBEohtGw3cG1AIuNYATbT5RUqIM1ndsAk+EfGhoSGf0UaiFodc5Tw==}
@@ -4337,6 +4361,10 @@ packages:
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+
+  normalize-range@0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
   npm-run-path@4.0.1:
@@ -8458,6 +8486,16 @@ snapshots:
 
   attr-accept@2.2.2: {}
 
+  autoprefixer@10.4.20(postcss@8.4.39):
+    dependencies:
+      browserslist: 4.23.3
+      caniuse-lite: 1.0.30001650
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.0.1
+      postcss: 8.4.39
+      postcss-value-parser: 4.2.0
+
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -8608,6 +8646,13 @@ snapshots:
       node-releases: 2.0.18
       update-browserslist-db: 1.1.0(browserslist@4.23.2)
 
+  browserslist@4.23.3:
+    dependencies:
+      caniuse-lite: 1.0.30001650
+      electron-to-chromium: 1.5.5
+      node-releases: 2.0.18
+      update-browserslist-db: 1.1.0(browserslist@4.23.3)
+
   buffer-from@1.1.2: {}
 
   buffer-xor@1.0.3: {}
@@ -8650,6 +8695,8 @@ snapshots:
   camelcase@6.3.0: {}
 
   caniuse-lite@1.0.30001643: {}
+
+  caniuse-lite@1.0.30001650: {}
 
   case-sensitive-paths-webpack-plugin@2.4.0: {}
 
@@ -9180,6 +9227,8 @@ snapshots:
   ee-first@1.1.1: {}
 
   electron-to-chromium@1.5.2: {}
+
+  electron-to-chromium@1.5.5: {}
 
   elliptic@6.5.6:
     dependencies:
@@ -9838,6 +9887,8 @@ snapshots:
       webpack: 5.93.0(esbuild@0.21.5)
 
   forwarded@0.2.0: {}
+
+  fraction.js@4.3.7: {}
 
   framer-motion@11.3.21(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -10708,6 +10759,8 @@ snapshots:
   node-releases@2.0.18: {}
 
   normalize-path@3.0.0: {}
+
+  normalize-range@0.1.2: {}
 
   npm-run-path@4.0.1:
     dependencies:
@@ -12118,6 +12171,12 @@ snapshots:
   update-browserslist-db@1.1.0(browserslist@4.23.2):
     dependencies:
       browserslist: 4.23.2
+      escalade: 3.1.2
+      picocolors: 1.0.1
+
+  update-browserslist-db@1.1.0(browserslist@4.23.3):
+    dependencies:
+      browserslist: 4.23.3
       escalade: 3.1.2
       picocolors: 1.0.1
 

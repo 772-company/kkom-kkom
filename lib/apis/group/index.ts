@@ -1,23 +1,25 @@
 import { getCookie } from "cookies-next";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 
 import { GetTeamIdGroupsIdResponse } from "../type";
 
 interface GetGroupInfoProps {
   groupId: string;
+  cookies: string;
 }
 
 export async function getGroupInfo({
   groupId,
+  cookies,
 }: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
-  const accessToken = getCookie("accessToken", { cookies });
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${cookies}`,
           "Content-Type": "application/json",
         },
         cache: "no-store",

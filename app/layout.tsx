@@ -6,6 +6,7 @@ import {
 import ToastProvider from "@/providers/toast-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
+import { CookiesProvider } from "next-client-cookies/server";
 import localFont from "next/font/local";
 
 import QueryProviders from "./providers";
@@ -31,17 +32,19 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <QueryProviders>
-          <ToastProvider>
-            <OverlayStoreProvider>
-              <Header />
-              <main className="min-h-screen bg-background-primary pt-[60px]">
-                {children}
-              </main>
-              <OverlayProvider />
-            </OverlayStoreProvider>
-          </ToastProvider>
-        </QueryProviders>
+        <CookiesProvider>
+          <QueryProviders>
+            <ToastProvider>
+              <OverlayStoreProvider>
+                <Header />
+                <main className="min-h-screen bg-background-primary pt-[60px]">
+                  {children}
+                </main>
+                <OverlayProvider />
+              </OverlayStoreProvider>
+            </ToastProvider>
+          </QueryProviders>
+        </CookiesProvider>
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import TodoBox from "./todo-box";
 import TodoListName from "./todo-list-name";
 
 interface TodoContentsProps {
-  list: string[];
+  list: any[];
 }
 const TodoContents = ({ list }: TodoContentsProps) => {
   const [selectedButton, setSelectedButton] = useState(list[0]);
@@ -30,10 +30,10 @@ const TodoContents = ({ list }: TodoContentsProps) => {
       <div className="flex gap-3">
         {list.map((element, i) => (
           <TodoListName
-            key={i}
+            key={element.id}
             selectedButton={selectedButton}
-            name={element}
-            buttonName={element}
+            name={element.name}
+            buttonName={element.name}
             onClick={handleClickName}
           />
         ))}

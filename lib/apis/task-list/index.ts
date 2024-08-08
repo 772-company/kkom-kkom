@@ -1,17 +1,20 @@
 import { getCookie } from "cookies-next";
+import { cookies } from "next/headers";
 
 import { getTaskListResponse } from "./type";
 
 const accessToken = getCookie("accessToken");
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 
-const getTaskList = async (
+export const getTaskList = async (
   groupId: number,
   id: number,
   date?: Date,
 ): Promise<getTaskListResponse> => {
   try {
-    const response = await fetch(`${URL}/groups${groupId}/${id}?date=${date}`, {
+    console.log(URL);
+
+    const response = await fetch(`${URL}/groups/${groupId}/task-lists/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -22,6 +25,8 @@ const getTaskList = async (
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result: getTaskListResponse = await response.json();
+    console.log(result);
+
     return result;
   } catch (error) {
     console.error(error);

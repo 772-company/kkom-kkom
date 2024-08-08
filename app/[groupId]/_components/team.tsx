@@ -1,15 +1,27 @@
 "use client";
 
 import Popover from "@/components/popover/popover";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
 import Image from "next/image";
+
+import ModalTeamDelete from "./modal-team-delete";
+import ModalTeamNameEdit from "./modal-team-name-edit";
 
 interface TeamProps {
   teamName: string;
 }
 
 const Team = ({ teamName }: TeamProps) => {
+  const overlay1 = useCustomOverlay(({ close }) => (
+    <ModalTeamNameEdit close={close} />
+  ));
+
+  const overlay2 = useCustomOverlay(({ close }) => (
+    <ModalTeamDelete close={close} teamName={teamName} />
+  ));
+
   return (
     <div className="flex h-[64px] w-full items-center justify-between rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 pl-[24px]">
       <p className="w-full text-[20px] font-[700] leading-[64px] text-white">
@@ -22,8 +34,8 @@ const Team = ({ teamName }: TeamProps) => {
           triggerHeight={24}
           triggerWidth={24}
           content={[
-            { text: "수정하기", onClick: () => console.log("수정하기 클릭") },
-            { text: "삭제하기", onClick: () => console.log("삭제하기 클릭") },
+            { text: "수정하기", onClick: overlay1.open },
+            { text: "삭제하기", onClick: overlay2.open },
           ]}
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />

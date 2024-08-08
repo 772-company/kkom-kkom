@@ -1,12 +1,9 @@
 import { getUserHistory } from "@/lib/apis/user";
-import { getCookies } from "cookies-next";
-import { cookies } from "next/headers";
 
 import DateBoxCard from "./date-box-card";
 
 export default async function DateBoxList() {
-  const cookie = getCookies({ cookies });
-  const data = await getUserHistory(cookie.accessToken);
+  const data = await getUserHistory();
   const history = data[0].tasksDone.reduce((acc, cur) => {
     acc.set(cur.date, [...(acc.get(cur.date) || []), cur]);
     return acc;

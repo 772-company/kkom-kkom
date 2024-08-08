@@ -2,6 +2,8 @@
 
 import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
+import { PatchTeamIdUserResetPasswordResponse } from "@/lib/apis/type";
 import { resetPassword } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
@@ -36,15 +38,20 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   }
 
   const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
-    const response = await resetPassword({ ...data, token });
-
-    // NOTE - 토큰 요휴시간(1시간)이 지난 경우
-    if (typeof response === "string" && response.includes("토큰")) {
-      showToast("error", <p>{response}</p>);
-      router.push("/login");
-    } else {
+    try {
+      const response = (await resetPassword({
+        ...data,
+        token,
+      })) as PatchTeamIdUserResetPasswordResponse;
       showToast("success", <p>비밀번호가 변경되었습니다.</p>);
       router.push("/login");
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const response = await error.response?.json();
+        // NOTE - 토큰 요휴시간(1시간)이 지난 경우
+        showToast("error", <p>{response}</p>);
+        router.push("/login");
+      }
     }
   };
 

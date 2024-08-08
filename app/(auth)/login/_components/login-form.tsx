@@ -38,11 +38,10 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
     try {
-      const response = await login(data);
-      const result = response as PostTeamIdAuthSigninResponse;
+      const response = (await login(data)) as PostTeamIdAuthSigninResponse;
 
-      setCookie("accessToken", result.accessToken, { maxAge: 60 * 60 });
-      setCookie("refreshToken", result.refreshToken, {
+      setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
+      setCookie("refreshToken", response.refreshToken, {
         maxAge: 60 * 60 * 24 * 7,
       });
 
@@ -56,15 +55,11 @@ export default function LoginForm() {
         if (response) {
           // NOTE - 400인 경우
           for (const [key, { message }] of Object.entries(response.details)) {
-            if (message) {
-              setError(key as keyof LoginInputValue, {
-                type: "manual",
-                message,
-              });
-            }
+            setError(key as keyof LoginInputValue, {
+              type: "manual",
+              message,
+            });
           }
-        } else {
-          throw error;
         }
       } else {
         throw error;

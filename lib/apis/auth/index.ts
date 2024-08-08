@@ -24,7 +24,7 @@ export async function login(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        withCredentials: true,
+        //withCredentials: true,
       },
     );
 
@@ -37,9 +37,12 @@ export async function login(
 // NOTE - 회원가입
 export async function signUp(
   data: SignUpInputValue,
-): Promise<PostTeamIdAuthSignupResponse | string> {
+): Promise<
+  | PostTeamIdAuthSignupResponse
+  | { details: Record<string, { message: string }> }
+> {
   try {
-    const response = await fetch(
+    const response = await myFetch<PostTeamIdAuthSignupResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signUp`,
       {
         method: "POST",
@@ -50,20 +53,9 @@ export async function signUp(
       },
     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      if (response.status === 400) {
-        return errorData.message;
-      }
-      throw new Error("회원가입을 다시 시도해 주세요");
-    }
-    const result: PostTeamIdAuthSignupResponse = await response.json();
-    return result;
+    return response;
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message;
-    }
-    return "회원가입을 다시 시도해 주세요";
+    throw error;
   }
 }
 
@@ -78,7 +70,7 @@ export async function oauthLogin(
       provider === "KAKAO"
         ? process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
         : process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-    const response = await fetch(
+    const response = await myFetch<PostTeamIdAuthSignInProviderResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn/${provider}`,
       {
         method: "POST",
@@ -93,11 +85,7 @@ export async function oauthLogin(
       },
     );
 
-    if (!response.ok) {
-      throw new Error("네트워크 오류 발생");
-    }
-    const data: PostTeamIdAuthSignInProviderResponse = await response.json();
-    return data;
+    return response;
   } catch (error) {
     throw error;
   }

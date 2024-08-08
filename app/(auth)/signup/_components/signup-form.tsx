@@ -4,6 +4,8 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { signUp } from "@/lib/apis/auth";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
+import { PostTeamIdAuthSignupResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,18 +32,22 @@ export default function SignUpForm() {
   });
 
   const onSubmit: SubmitHandler<SignUpInputValue> = async (data) => {
-    const response = await signUp(data);
-
-    if (typeof response === "string") {
-      // NOTE - 이미 존재하는 이메일인 경우 해당
-      if (response.includes("이메일")) {
-        setError("email", { type: "manual", message: response });
-      } else if (response.includes("닉네임")) {
-        setError("nickname", { type: "manual", message: response });
-      }
-    } else {
+    try {
+      const response = (await signUp(data)) as PostTeamIdAuthSignupResponse;
       showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
       router.push("/login");
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const response: { details: { key: { message: string } } } =
+          await error.response?.json();
+        // NOTE - 400인 경우
+        for (const [key, { message }] of Object.entries(response.details)) {
+          setError(key as keyof SignUpInputValue, {
+            type: "manual",
+            message,
+          });
+        }
+      }
     }
   };
 

@@ -5,11 +5,9 @@ import React from "react";
 import { getTaskList } from "..";
 
 const useGetTaskList = (groupId: number, id: number, date?: Date) => {
-  const cookies = useCookies();
-  const accessToken = cookies.get("accessToken") ?? "";
   const { data, error, isPending } = useQuery({
     queryKey: ["getTaskList", id],
-    queryFn: () => getTaskList(groupId, id, accessToken),
+    queryFn: () => getTaskList(groupId, id),
   });
   const taskList = data;
   return {

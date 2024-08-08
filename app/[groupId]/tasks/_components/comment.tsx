@@ -12,7 +12,7 @@ const Comment = () => {
             ㄴㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
           </p>
           <Popover
-            content={["취소", "수정하기"]}
+            content={[{ text: "취소" }, { text: "수정하기" }]}
             triggerWidth={16}
             triggerHeight={16}
             triggerSvg={Kebab}

@@ -12,9 +12,9 @@ export default async function LoggedInHeader() {
     <>
       <div className="flex items-center gap-4">
         {/* TODO - 클릭 시 사이드 메뉴 memberships 목록 + 자유게시판 */}
-        <SideMenu />
+        <SideMenu memberships={memberships} />
         <Link href="/" className="flex items-center gap-1">
-          <div className="xl:size-6 size-4">
+          <div className="size-4 xl:size-6">
             <Logo width={"100%"} height={"100%"} />
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>

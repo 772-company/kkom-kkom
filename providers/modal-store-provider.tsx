@@ -33,10 +33,10 @@ export const OverlayStoreProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const OverlayProvider = () => {
-  const store = useOverlayStore((store) => store);
+  const ElementsInMemory = useOverlayStore((store) => store.ElementsInMemory);
   return (
     <>
-      {[...store.ElementsInMemory.entries()].map(([id, element]) => (
+      {[...ElementsInMemory.entries()].map(([id, element]) => (
         <Fragment key={id}>{element}</Fragment>
       ))}
     </>

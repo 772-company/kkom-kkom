@@ -4,6 +4,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { login } from "@/lib/apis/auth";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,19 +31,8 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
-    const response = await login(data);
-
-    // NOTE - 400인 경우
-    if ("details" in response) {
-      const details = response.details;
-
-      for (const [key, { message }] of Object.entries(details)) {
-        if (message) {
-          setError(key as keyof LoginInputValue, { type: "manual", message });
-        }
-      }
-    } else {
-      // NOTE - 로그인 성공
+    try {
+      const response = await login(data);
       const result = response as PostTeamIdAuthSigninResponse;
 
       setCookie("accessToken", result.accessToken, { maxAge: 60 * 60 });
@@ -53,6 +43,26 @@ export default function LoginForm() {
       // NOTE - 로그인 후 랜딩으로 리다이렉트를 위해 push 헤더 업데이트를 위해 refresh
       router.push("/");
       router.refresh();
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const response: { details: { key: { message: string } } } =
+          await error.response?.json();
+        if (response) {
+          // NOTE - 400인 경우
+          for (const [key, { message }] of Object.entries(response.details)) {
+            if (message) {
+              setError(key as keyof LoginInputValue, {
+                type: "manual",
+                message,
+              });
+            }
+          }
+        } else {
+          throw error;
+        }
+      } else {
+        throw error;
+      }
     }
   };
 

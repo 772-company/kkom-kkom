@@ -4,28 +4,23 @@ import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
-  useQuery,
 } from "@tanstack/react-query";
-import { getCookies } from "next-client-cookies/server";
 import React from "react";
 
 import TodoContainer from "./_components/todo/todo-contianer";
 
 const page = async () => {
   const queryClient = new QueryClient();
-  const cookies = getCookies();
-  const accessToken = cookies.get("accessToken") ?? "";
 
   const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
-    queryFn: () => getGroupInfo({ groupId: "101", cookies: accessToken }),
+    queryFn: () => getGroupInfo({ groupId: "101" }),
   });
 
   if (result.taskLists) {
     await queryClient.prefetchQuery({
       queryKey: ["getTaskList", result.taskLists[0].id],
-      queryFn: () =>
-        getTaskList(result.id, result.taskLists[0].id, accessToken),
+      queryFn: () => getTaskList(result.id, result.taskLists[0].id),
     });
   }
 

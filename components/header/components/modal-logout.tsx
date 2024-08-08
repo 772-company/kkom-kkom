@@ -9,6 +9,7 @@ interface ModalLogoutProps {
 export default function ModalLogout({ close }: ModalLogoutProps) {
   const router = useRouter();
   function logout() {
+    router.push("/");
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     router.refresh();
@@ -24,7 +25,7 @@ export default function ModalLogout({ close }: ModalLogoutProps) {
           confirmBtnStyle="danger"
           buttonDescription="로그아웃"
           close={close}
-          onClick={() => logout()}
+          onClick={logout}
         />
       </div>
     </Modal>

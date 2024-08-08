@@ -3,6 +3,8 @@
 import { Dropdown } from "@/components/dropdown/dropdown";
 import ToggleClose from "@/public/icons/toggle.svg";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 const options = [
   {
@@ -16,6 +18,18 @@ const options = [
 ];
 
 export default function OrderedBySelector() {
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+
+  const handleOrderBy = useCallback(
+    (value: string) => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.set("orderBy", value);
+      return newSearchParams.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <Dropdown defaultSelected="최신순">
       <section className="text-xs md:text-sm">
@@ -30,7 +44,7 @@ export default function OrderedBySelector() {
               display={option.display}
             >
               <Link
-                href={`/boards?orderBy=${option.value}`}
+                href={pathName + "?" + handleOrderBy(option.value)}
                 className="flex h-full w-full items-center justify-between px-[14px]"
               >
                 {option.display}

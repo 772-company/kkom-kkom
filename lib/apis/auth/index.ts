@@ -3,6 +3,7 @@ import { SignUpInputValue } from "@/app/(auth)/signup/_components/signup-form";
 
 import { myFetch } from "../myFetch";
 import {
+  PostTeamIdAuthSignInProviderResponse,
   PostTeamIdAuthSigninResponse,
   PostTeamIdAuthSignupResponse,
 } from "../type";
@@ -63,5 +64,37 @@ export async function signUp(
       return error.message;
     }
     return "회원가입을 다시 시도해 주세요";
+  }
+}
+
+// NOTE - 간편 로그인
+export async function oauthLogin(
+  state: string,
+  code: string,
+  provider: string,
+): Promise<PostTeamIdAuthSignInProviderResponse> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn/${provider}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          state,
+          redirect: `${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}`,
+          token: code,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("네트워크 오류 발생");
+    }
+    const data: PostTeamIdAuthSignInProviderResponse = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
   }
 }

@@ -46,7 +46,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                 onClick={() => handleSelect(membership.group.id)}
               >
                 <div className="flex items-center gap-3">
-                  <div className="relative size-8 rounded-md">
+                  <div className="relative size-8 overflow-hidden rounded-md">
                     {/* TODO - 이미지 없는 경우 기본 이미지 */}
                     <Image
                       src={membership.group.image || hamster}

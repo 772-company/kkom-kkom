@@ -7,9 +7,7 @@ const TodoBoxContainer = () => {
   const handleClickDoneButton = () => {
     setisDone(!isDone);
   };
-  return (
-    <TodoBox isdone={isDone} handleClickDoneButton={handleClickDoneButton} />
-  );
+  return <TodoBox isdone={isDone} handleClickTodoBox={handleClickDoneButton} />;
 };
 
 export default TodoBoxContainer;

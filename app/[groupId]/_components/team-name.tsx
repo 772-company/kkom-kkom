@@ -9,11 +9,11 @@ import Image from "next/image";
 import ModalTeamDelete from "./modal-team-delete";
 import ModalTeamNameEdit from "./modal-team-name-edit";
 
-interface TeamProps {
+interface TeamNameProps {
   teamName: string;
 }
 
-const Team = ({ teamName }: TeamProps) => {
+const TeamName = ({ teamName }: TeamNameProps) => {
   const overlay1 = useCustomOverlay(({ close }) => (
     <ModalTeamNameEdit close={close} />
   ));
@@ -44,4 +44,4 @@ const Team = ({ teamName }: TeamProps) => {
   );
 };
 
-export default Team;
+export default TeamName;

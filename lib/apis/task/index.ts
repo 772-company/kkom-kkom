@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next";
 
-import { getTaskResponse, getTasksResponse } from "./type";
+import { GetTaskResponse, GetTasksResponse } from "./type";
 
 const accessToken = getCookie("accessToken");
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
@@ -33,7 +33,7 @@ const getTasks = async (
   groupId: number,
   taskListId: number,
   date: Date,
-): Promise<getTasksResponse> => {
+): Promise<GetTasksResponse> => {
   try {
     const response = await fetch(
       `${URL}/groups${groupId}/task-lists/${taskListId}/tasks?date=${date}`,
@@ -48,7 +48,7 @@ const getTasks = async (
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const result: getTasksResponse = await response.json();
+    const result: GetTasksResponse = await response.json();
     return result;
   } catch (error) {
     console.error(error);
@@ -60,7 +60,7 @@ const getTask = async (
   groupId: number,
   taskListId: number,
   taskId: number,
-): Promise<getTaskResponse> => {
+): Promise<GetTaskResponse> => {
   try {
     const response = await fetch(
       `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
@@ -75,7 +75,7 @@ const getTask = async (
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const result: getTaskResponse = await response.json();
+    const result: GetTaskResponse = await response.json();
     return result;
   } catch (error) {
     console.error(error);

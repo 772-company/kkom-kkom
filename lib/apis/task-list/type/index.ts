@@ -1,4 +1,4 @@
-export interface getTaskListResponse {
+export interface GetTaskListResponse {
   displayIndex: number;
   groupId: number;
   updatedAt: string;

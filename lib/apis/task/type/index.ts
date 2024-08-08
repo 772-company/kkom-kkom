@@ -1,4 +1,4 @@
-export type getTasksResponse = [
+export type GetTasksResponse = [
   {
     displayIndex: number;
     commentCount: number;
@@ -14,7 +14,7 @@ export type getTasksResponse = [
   },
 ];
 
-export interface getTaskResponse {
+export interface GetTaskResponse {
   comments: [
     {
       user: {

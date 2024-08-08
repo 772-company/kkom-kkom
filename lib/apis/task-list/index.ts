@@ -1,14 +1,14 @@
 import { myFetch } from "../myFetch";
-import { getTaskListResponse } from "./type";
+import { GetTaskListResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 
 export const getTaskList = async (
   groupId: number,
   id: number,
-): Promise<getTaskListResponse> => {
+): Promise<GetTaskListResponse> => {
   try {
-    const response = await myFetch<getTaskListResponse>(
+    const response = await myFetch<GetTaskListResponse>(
       `${URL}/groups/${groupId}/task-lists/${id}`,
       {
         method: "GET",

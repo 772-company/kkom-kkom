@@ -1,15 +1,21 @@
 "use client";
 
 import { LOGGED_IN_USER_CONTENT } from "@/constants/popover-content";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import UserIcon from "@/public/icons/user.svg";
 
 import Popover from "../popover/popover";
+import ModalLogout from "./components/modal-logout";
 
 interface PopoverTriggerProps {
   nickname: string;
 }
 
 export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
+  const modalLogoutOverlay = useCustomOverlay(({ close }) => (
+    <ModalLogout close={close} />
+  ));
+
   return (
     <div className="flex cursor-pointer items-center gap-2">
       <Popover
@@ -28,6 +34,7 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
           },
           {
             text: LOGGED_IN_USER_CONTENT[3],
+            onClick: modalLogoutOverlay.open,
           },
         ]}
         triggerText={nickname}

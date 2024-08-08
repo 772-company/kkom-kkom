@@ -13,23 +13,19 @@ interface AuthRedirectProps {
 
 export default function AuthRedirect({ provider }: AuthRedirectProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [code, setCode] = useState<string | null>(null);
   const [state, setState] = useState<string | null>(null);
 
   useEffect(() => {
-    // URL에서 파라미터 추출 함수
-    const extractParams = () => {
-      const url = new URL(window.location.href);
-      const codeParam = url.searchParams.get("code");
-      const stateParam = url.searchParams.get("state");
+    const codeParam = searchParams.get("code");
+    const stateParam = searchParams.get("state");
+
+    if (codeParam && stateParam) {
       setCode(codeParam);
       setState(stateParam);
-    };
-
-    if (typeof window !== "undefined") {
-      extractParams();
     }
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     // 로그인 처리 함수
@@ -44,6 +40,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
           router.push("/");
           router.refresh();
         } catch (error) {
+          console.error("로그인 실패:", error);
           router.push("/login");
           showToast("error", <p>로그인 실패, 다시 시도해 주세요</p>);
         }

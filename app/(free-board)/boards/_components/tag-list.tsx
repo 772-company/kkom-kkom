@@ -23,7 +23,7 @@ export default function TagList() {
   return (
     <section className="flex flex-1 items-center overflow-hidden text-text-primary">
       <section ref={emblaRef} className="flex w-full flex-1 overflow-hidden">
-        <section className="flex w-full gap-4 md:gap-8">
+        <section className="flex w-full gap-4 md:gap-6">
           {SEARCH_TAGS.map((tag) => (
             <div
               key={tag}

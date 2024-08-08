@@ -1,3 +1,5 @@
+"use client";
+
 import Popover from "@/components/popover/popover";
 import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
@@ -6,7 +8,6 @@ import Image from "next/image";
 interface TeamProps {
   teamName: string;
 }
-const CONTENT = ["수정하기", "삭제하기"];
 
 const Team = ({ teamName }: TeamProps) => {
   return (
@@ -20,7 +21,10 @@ const Team = ({ teamName }: TeamProps) => {
           triggerSvg={Gear}
           triggerHeight={24}
           triggerWidth={24}
-          content={CONTENT}
+          content={[
+            { text: "수정하기", onClick: () => console.log("수정하기 클릭") },
+            { text: "삭제하기", onClick: () => console.log("삭제하기 클릭") },
+          ]}
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />
       </div>

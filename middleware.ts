@@ -8,7 +8,8 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const isAuthPage =
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
-    pathname.startsWith("/reset");
+    pathname.startsWith("/reset") ||
+    pathname.startsWith("/oauth");
 
   const isLandingPageOrAuthPage = pathname === "/" || isAuthPage;
 

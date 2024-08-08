@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface EasyLoginButtonProps {
-  domain: "kakaoTalk" | "google";
+  domain: "kakao" | "google";
 }
 
 function generateState() {
@@ -16,10 +16,10 @@ function generateState() {
 
 export default function EasyLoginButton({ domain }: EasyLoginButtonProps) {
   const [kakaoOauthUrl, setKakaoOauthUrl] = useState("");
-  const isKaKaoTalk = domain === "kakaoTalk";
+  const isKaKaoTalk = domain === "kakao";
 
   useEffect(() => {
-    if (domain === "kakaoTalk") {
+    if (domain === "kakao") {
       const state = generateState();
       sessionStorage.setItem("kakao_state", state);
       setKakaoOauthUrl(`${KAKAO_OAUTH_URL}&state=${state}`);

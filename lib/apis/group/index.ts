@@ -1,7 +1,3 @@
-import { getCookie } from "cookies-next";
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { cookies } from "next/headers";
-
 import { GetTeamIdGroupsIdResponse } from "../type";
 
 interface GetGroupInfoProps {

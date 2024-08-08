@@ -1,4 +1,5 @@
 import getGroupInfo from "@/lib/apis/group";
+import { getTaskList } from "@/lib/apis/task-list";
 import {
   HydrationBoundary,
   QueryClient,
@@ -8,18 +9,25 @@ import {
 import { getCookies } from "next-client-cookies/server";
 import React from "react";
 
-import TodoContainer from "./_components/todo-contianer";
+import TodoContainer from "./_components/todo/todo-contianer";
 
 const page = async () => {
   const queryClient = new QueryClient();
   const cookies = getCookies();
-  // prefetch를 통해 서버에서 생성할 HTML에 필요한 데이터를 미리 생성합니다.
-
   const accessToken = cookies.get("accessToken") ?? "";
-  await queryClient.prefetchQuery({
+
+  const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
     queryFn: () => getGroupInfo({ groupId: "101", cookies: accessToken }),
   });
+
+  if (result.taskLists) {
+    await queryClient.prefetchQuery({
+      queryKey: ["getTaskList", result.taskLists[0].id],
+      queryFn: () =>
+        getTaskList(result.id, result.taskLists[0].id, accessToken),
+    });
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

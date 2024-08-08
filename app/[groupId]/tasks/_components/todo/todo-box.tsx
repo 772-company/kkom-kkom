@@ -3,19 +3,27 @@ import Comment from "@/public/icons/comment.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
+import { convertDateToYMD } from "@/utils/convert-date";
 import classNames from "classnames";
 import React from "react";
 
-import CheckBox from "./check-box";
+import CheckBox from "../check-box";
 
 interface TodoBoxProps {
+  commentCount: number;
+  dateString: string;
+  name: string;
   isdone: boolean;
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
-const TodoBox = ({ isdone, handleClickTodoBox }: TodoBoxProps) => {
-  const todoNameClass = classNames("text-sm font-normal text-text-primary", {
-    "line-through": isdone,
-  });
+const TodoBox = ({
+  commentCount,
+  name,
+  isdone,
+  handleClickTodoBox,
+  dateString,
+}: TodoBoxProps) => {
+  const convertedDateToYMD = convertDateToYMD(new Date(dateString));
 
   return (
     <div
@@ -25,10 +33,16 @@ const TodoBox = ({ isdone, handleClickTodoBox }: TodoBoxProps) => {
       <div className="ml-1 flex justify-between">
         <div className="flex items-center gap-3">
           <CheckBox isActive={isdone} />
-          <p className={todoNameClass}>휴가 내기</p>
+          <p
+            className={`text-text-primary ${isdone ? "line-through" : ""} text-sm font-normal`}
+          >
+            {name}
+          </p>
           <div className="flex items-center">
             <Comment width={16} height={16} />
-            <p className="text-xs font-normal text-text-default">3</p>
+            <p className="text-xs font-normal text-text-default">
+              {commentCount}
+            </p>
           </div>
         </div>
         <button
@@ -42,7 +56,7 @@ const TodoBox = ({ isdone, handleClickTodoBox }: TodoBoxProps) => {
       </div>
       <div className="flex items-center gap-[10px]">
         <Calendar width={16} height={16} />
-        <p className="text-xs text-text-default">2024년 7월 29일</p>
+        <p className="text-xs text-text-default">{convertedDateToYMD}</p>
         <Time width={16} height={16} />
         <p className="text-xs text-text-default">오후 3:30</p>
         <Repeat width={16} height={16} />

@@ -1,12 +1,11 @@
 "use client";
 
 import getGroupInfo from "@/lib/apis/group";
-import { getTaskList } from "@/lib/apis/task-list";
 import { useQuery } from "@tanstack/react-query";
 import { useCookies } from "next-client-cookies";
 import React from "react";
 
-import useCalender from "../_hooks/use-calendar";
+import useCalender from "../../_hooks/use-calendar";
 import TodoContents from "./todo-contents";
 import TodoHeader from "./todo-header";
 
@@ -27,7 +26,7 @@ const TodoContainer = () => {
         convertedDate={convertedDate}
         onChangeDate={handleChangeDate}
       />
-      <TodoContents list={data ? data?.taskLists : []} />
+      <TodoContents list={data ? data?.taskLists : []} date={date} />
     </>
   );
 };

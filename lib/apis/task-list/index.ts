@@ -9,6 +9,7 @@ const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 export const getTaskList = async (
   groupId: number,
   id: number,
+  cookies: string,
   date?: Date,
 ): Promise<getTaskListResponse> => {
   try {
@@ -17,7 +18,7 @@ export const getTaskList = async (
     const response = await fetch(`${URL}/groups/${groupId}/task-lists/${id}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${cookies}`,
         "Content-Type": "application/json",
       },
     });

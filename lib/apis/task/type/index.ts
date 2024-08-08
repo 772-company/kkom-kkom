@@ -15,21 +15,19 @@ export type GetTasksResponse = [
 ];
 
 export interface GetTaskResponse {
-  comments: [
-    {
-      user: {
-        image: string;
-        nickname: string;
-        id: number;
-      };
-      userId: number;
-      taskId: number;
-      updatedAt: string;
-      createdAt: string;
-      content: string;
+  comments: {
+    user: {
+      image: string;
+      nickname: string;
       id: number;
-    },
-  ];
+    };
+    userId: number;
+    taskId: number;
+    updatedAt: string;
+    createdAt: string;
+    content: string;
+    id: number;
+  }[];
   recurring: {
     groupId: number;
     taskListId: number;

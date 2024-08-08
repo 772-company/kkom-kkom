@@ -40,6 +40,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
           router.push("/");
           router.refresh();
         } catch (error) {
+          console.log(error);
           router.push("/login");
           showToast("error", <p>로그인 실패, 다시 시도해 주세요</p>);
         }

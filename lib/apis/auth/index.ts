@@ -74,6 +74,10 @@ export async function oauthLogin(
   provider: "KAKAO" | "GOOGLE",
 ): Promise<PostTeamIdAuthSignInProviderResponse> {
   try {
+    const redirectUri =
+      provider === "KAKAO"
+        ? process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
+        : process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn/${provider}`,
       {
@@ -83,7 +87,7 @@ export async function oauthLogin(
         },
         body: JSON.stringify({
           state,
-          redirectUri: `${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}`,
+          redirectUri,
           token: code,
         }),
       },

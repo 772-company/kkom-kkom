@@ -12,7 +12,6 @@ export default function Page() {
       <Suspense fallback={<DateBoxListSkeleton />}>
         <DateBoxList />
       </Suspense>
-      <DateBoxListSkeleton />
     </>
   );
 }

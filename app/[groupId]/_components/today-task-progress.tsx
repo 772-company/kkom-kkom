@@ -16,7 +16,8 @@ const TodayTaskProgress = ({
   numberOfTasks,
   numberOfDone,
 }: TodayTaskProgressProps) => {
-  const progressPercent = numberOfTasks === 0 ? 0 : Math.round((numberOfDone / numberOfTasks) * 100);
+  const progressPercent =
+    numberOfTasks === 0 ? 0 : Math.round((numberOfDone / numberOfTasks) * 100);
 
   return (
     <div className="flex items-center gap-[64px]">

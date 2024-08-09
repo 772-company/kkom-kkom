@@ -1,7 +1,12 @@
+"use client";
+
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Image from "next/image";
+
+import ModalMemberAdd from "./modal-member-add";
 
 type MemberType = GetTeamIdGroupsIdResponse["members"][0];
 
@@ -43,6 +48,10 @@ const MemberCard = ({ member }: MemberCardProps) => {
 
 //TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
 const MemberList = ({ members }: MemberListProps) => {
+  const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
+    <ModalMemberAdd close={close} />
+  ));
+
   return (
     <div className="flex flex-col gap-[24px]">
       <div className="flex items-center justify-between">
@@ -52,9 +61,12 @@ const MemberList = ({ members }: MemberListProps) => {
             ({members.length}명)
           </p>
         </div>
-        <p className="text-[14px] font-[400] text-brand-primary">
+        <button
+          onClick={ModalMemberAddOverlay.open}
+          className="text-[14px] font-[400] text-brand-primary"
+        >
           + 새로운 멤버 초대하기
-        </p>
+        </button>
       </div>
       <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (

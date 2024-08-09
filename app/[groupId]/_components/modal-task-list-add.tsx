@@ -4,11 +4,11 @@ import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import { ChangeEvent, useState } from "react";
 
-interface ModalTeamNameEditProps {
+interface ModalTaskListAddProps {
   close: () => void;
 }
 
-const ModalTaskListAdd = ({ close }: ModalTeamNameEditProps) => {
+const ModalTaskListAdd = ({ close }: ModalTaskListAddProps) => {
   const [taskList, setTaskList] = useState("");
 
   const handleButtonClick = () => {

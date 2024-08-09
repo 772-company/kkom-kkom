@@ -3,7 +3,7 @@ import React from "react";
 
 import { getTask } from "..";
 
-const useGetTask = (groupId: number, taskListId: number, taskId: number) => {
+const useGetTask = (groupId: string, taskListId: number, taskId: number) => {
   const { data, isPending } = useQuery({
     queryKey: ["getTask", taskId],
     queryFn: () => getTask(groupId, taskListId, taskId),

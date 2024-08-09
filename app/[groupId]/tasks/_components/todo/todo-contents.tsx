@@ -14,10 +14,15 @@ export type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
 interface TodoContentsProps {
   taskLists: TaskLists;
   date: Date;
+  groupId: string;
 }
-const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
+const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
   const { handleClickName, selectedButton } = useSelectButton(taskLists);
-  const { tasks, error, isPending } = useGetTasks("101", selectedButton, date);
+  const { tasks, error, isPending } = useGetTasks(
+    groupId,
+    selectedButton,
+    date,
+  );
 
   const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
 
@@ -54,6 +59,7 @@ const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
             />
           ))}
         <SideBar
+          gropId={groupId}
           todoId={todoId}
           isOpen={isSideBarOpen}
           handleCancelButton={handleCancel}

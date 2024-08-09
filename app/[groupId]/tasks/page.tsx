@@ -13,9 +13,11 @@ import TodoContainer from "./_components/todo/todo-contianer";
 const page = async (context: any) => {
   const queryClient = new QueryClient();
   const { req, res, query, params } = context;
+  console.log(context);
+
   const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
-    queryFn: () => getGroupInfo({ groupId: "101" }),
+    queryFn: () => getGroupInfo({ groupId: params.groupId }),
   });
 
   if (result.taskLists) {
@@ -34,7 +36,7 @@ const page = async (context: any) => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="max-h-sc max-w-screen-lg mx-auto h-[524px]">
         <h1 className="text text-xl font-bold text-text-primary">할일</h1>
-        <TodoContainer />
+        <TodoContainer groupId={params.groupId} />
       </div>
     </HydrationBoundary>
   );

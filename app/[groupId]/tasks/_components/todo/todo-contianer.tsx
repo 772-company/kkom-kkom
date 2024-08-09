@@ -8,10 +8,13 @@ import useCalender from "../../_hooks/use-calendar";
 import TodoContents from "./todo-contents";
 import TodoHeader from "./todo-header";
 
-const TodoContainer = () => {
+interface TodoContainerProps {
+  groupId: string;
+}
+const TodoContainer = ({ groupId }: TodoContainerProps) => {
   const { data } = useQuery({
     queryKey: ["getGroupInfo"],
-    queryFn: () => getGroupInfo({ groupId: "101" }),
+    queryFn: () => getGroupInfo({ groupId: groupId }),
   });
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
@@ -23,7 +26,11 @@ const TodoContainer = () => {
         convertedDate={convertedDate}
         onChangeDate={handleChangeDate}
       />
-      <TodoContents taskLists={data ? data?.taskLists : []} date={date} />
+      <TodoContents
+        taskLists={data ? data?.taskLists : []}
+        date={date}
+        groupId={groupId}
+      />
     </>
   );
 };

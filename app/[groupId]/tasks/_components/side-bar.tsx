@@ -13,14 +13,20 @@ import Commentinput from "./comment-input";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {
+  gropId: string;
   todoId: number;
   handleCancelButton: () => void;
   isOpen: boolean;
 }
 
-const SideBar = ({ todoId, handleCancelButton, isOpen }: SideBarProps) => {
+const SideBar = ({
+  todoId,
+  handleCancelButton,
+  isOpen,
+  gropId,
+}: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
-  const { isPending, taskDetail } = useGetTask(101, 55, todoId);
+  const { isPending, taskDetail } = useGetTask(gropId, 55, todoId);
 
   return (
     <div

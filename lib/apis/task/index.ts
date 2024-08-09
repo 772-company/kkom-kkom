@@ -56,7 +56,7 @@ export const getTasks = async (
 };
 
 export const getTask = async (
-  groupId: number,
+  groupId: string,
   taskListId: number,
   taskId: number,
 ): Promise<GetTaskResponse> => {

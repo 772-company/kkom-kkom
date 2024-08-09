@@ -14,11 +14,11 @@ interface TeamNameProps {
 }
 
 const TeamName = ({ teamName }: TeamNameProps) => {
-  const overlay1 = useCustomOverlay(({ close }) => (
+  const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTeamNameEdit close={close} />
   ));
 
-  const overlay2 = useCustomOverlay(({ close }) => (
+  const ModalTeamDeleteOverlay = useCustomOverlay(({ close }) => (
     <ModalTeamDelete close={close} teamName={teamName} />
   ));
 
@@ -34,8 +34,8 @@ const TeamName = ({ teamName }: TeamNameProps) => {
           triggerHeight={24}
           triggerWidth={24}
           content={[
-            { text: "수정하기", onClick: overlay1.open },
-            { text: "삭제하기", onClick: overlay2.open },
+            { text: "수정하기", onClick: ModalTeamNameEditOverlay.open },
+            { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
           ]}
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />

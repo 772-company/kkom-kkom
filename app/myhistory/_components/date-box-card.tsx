@@ -8,10 +8,11 @@ interface CheckedBoxListProps {
 }
 
 export default function DateBoxCard({ date, tasksDone }: CheckedBoxListProps) {
+  const { year, month, day } = convertDateToYMD(new Date(date));
   return (
     <section>
       <header className="mb-4 text-base font-medium text-text-primary">
-        {convertDateToYMD(new Date(date))}
+        {year}년 {month}월 {day}일
       </header>
       <div className="flex flex-col gap-4">
         {tasksDone.map((taskDone) => (

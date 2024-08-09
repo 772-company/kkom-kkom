@@ -17,6 +17,7 @@ interface MemberCardProps {
 
 interface MemberListProps {
   members: MemberType[];
+  groupId: string;
 }
 
 const MemberCard = ({ member }: MemberCardProps) => {
@@ -60,9 +61,9 @@ const MemberCard = ({ member }: MemberCardProps) => {
 };
 
 //TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
-const MemberList = ({ members }: MemberListProps) => {
+const MemberList = ({ members, groupId }: MemberListProps) => {
   const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
-    <ModalMemberAdd close={close} />
+    <ModalMemberAdd close={close} groupId={groupId} />
   ));
 
   return (

@@ -1,16 +1,27 @@
+"use client";
+
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import { getGroupInvitation } from "@/lib/apis/group/index";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 
 interface ModalMemberAddProps {
   close: () => void;
+  groupId: string;
 }
 
-const ModalMemberAdd = ({ close }: ModalMemberAddProps) => {
-  const handleButtonClick = () => {
-    showToast("success", "링크가 복사되었습니다");
-    close();
+const ModalMemberAdd = ({ close, groupId }: ModalMemberAddProps) => {
+  const handleButtonClick = async () => {
+    try {
+      const result = await getGroupInvitation({ groupId: groupId });
+      await navigator.clipboard.writeText(result);
+      console.log(groupId);
+      showToast("success", "링크가 복사되었습니다");
+      close();
+    } catch (error) {
+      showToast("error", "링크 복사에 실패하였습니다");
+    }
   };
 
   return (

@@ -88,7 +88,7 @@ export default function SignUpForm() {
       <Button
         btnSize="large"
         btnStyle="solid"
-        className="mb-[25px] mt-10 w-full md:mb-[49px]"
+        className="mb-[25px] mt-10 w-full"
         disabled={!isValid}
       >
         회원가입

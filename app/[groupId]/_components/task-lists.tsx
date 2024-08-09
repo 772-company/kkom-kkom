@@ -8,6 +8,8 @@ import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 
 import ModalTaskListAdd from "./modal/modal-task-list-add";
+import ModalTaskListDelete from "./modal/modal-task-list-delete";
+import ModalTaskListNameEdit from "./modal/modal-task-list-name-edit";
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
@@ -30,6 +32,13 @@ const COLORS = [
 ];
 
 const TaskList = ({ taskList }: TaskListProps) => {
+  const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
+    <ModalTaskListNameEdit close={close} />
+  ));
+  const ModalTaskListDeleteOverlay = useCustomOverlay(({ close }) => (
+    <ModalTaskListDelete taskListName={taskList.name} close={close} />
+  ));
+
   const colorIndex = taskList.displayIndex % 7;
   const pointColor = COLORS[colorIndex];
   const numberOfDone = taskList.tasks.filter(
@@ -59,7 +68,10 @@ const TaskList = ({ taskList }: TaskListProps) => {
           triggerSvg={Kebab}
           triggerHeight={16}
           triggerWidth={16}
-          content={[{ text: "수정하기" }, { text: "삭제하기" }]}
+          content={[
+            { text: "수정하기", onClick: ModalTaskListNameEditOverlay.open },
+            { text: "삭제하기", onClick: ModalTaskListDeleteOverlay.open },
+          ]}
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />
       </div>
@@ -71,6 +83,7 @@ const TaskLists = ({ taskLists }: TaskListsProps) => {
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListAdd close={close} />
   ));
+
   return (
     <div className="flex flex-col gap-[16px]">
       <div className="flex items-center justify-between">

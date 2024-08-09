@@ -25,7 +25,7 @@ const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
 
   const { isSideBarOpen, handleCancel, handleClick } = useSideBar();
 
-  if (!taskLists.length) {
+  if (taskLists.length === 0) {
     return <NoList />;
   }
   return (

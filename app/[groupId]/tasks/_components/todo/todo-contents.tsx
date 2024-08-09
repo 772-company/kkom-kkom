@@ -1,4 +1,5 @@
 import useGetTaskList from "@/lib/apis/task-list/hooks/useGetTaskList";
+import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import React from "react";
 
 import useSelectButton from "../../_hooks/use-select-button";
@@ -9,12 +10,13 @@ import SideBar from "../side-bar";
 import TodoBox from "./todo-box";
 import TodoListName from "./todo-list-name";
 
+export type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
 interface TodoContentsProps {
-  list: any[];
+  taskLists: TaskLists;
   date: Date;
 }
-const TodoContents = ({ list, date }: TodoContentsProps) => {
-  const { handleClickName, selectedButton } = useSelectButton(list);
+const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
+  const { handleClickName, selectedButton } = useSelectButton(taskLists);
   const { taskList, error, isPending } = useGetTaskList(
     101,
     selectedButton,
@@ -23,13 +25,13 @@ const TodoContents = ({ list, date }: TodoContentsProps) => {
 
   const { isSideBarOpen, handleCancel, handleClick } = useSideBar();
 
-  if (!list.length) {
+  if (!taskLists.length) {
     return <NoList />;
   }
   return (
     <>
       <div className="flex gap-3">
-        {list.map((element, i) => (
+        {taskLists.map((element) => (
           <TodoListName
             key={element.id}
             selectedButton={selectedButton}

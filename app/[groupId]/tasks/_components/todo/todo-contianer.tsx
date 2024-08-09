@@ -24,7 +24,7 @@ const TodoContainer = () => {
         convertedDate={convertedDate}
         onChangeDate={handleChangeDate}
       />
-      <TodoContents list={data ? data?.taskLists : []} date={date} />
+      <TodoContents taskLists={data ? data?.taskLists : []} date={date} />
     </>
   );
 };

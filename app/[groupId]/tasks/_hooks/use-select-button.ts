@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const useSelectButton = (list: any) => {
-  const [selectedButton, setSelectedButton] = useState(list[0]["id"]);
+import { TaskLists } from "../_components/todo/todo-contents";
+
+const useSelectButton = (taskLists: TaskLists) => {
+  const [selectedButton, setSelectedButton] = useState(taskLists[0]["id"]);
 
   const handleClickName = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

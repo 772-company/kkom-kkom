@@ -115,7 +115,7 @@ const Popover = ({
         >
           {content.map((item, index) => (
             <button
-              className="h-full w-full"
+              className="h-full w-full text-[14px] hover:text-[15px]"
               key={index}
               onClick={() => {
                 item.onClick && item.onClick();

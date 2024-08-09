@@ -9,7 +9,6 @@ import TodoContents from "./todo-contents";
 import TodoHeader from "./todo-header";
 
 const TodoContainer = () => {
-  const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: ["getGroupInfo"],
     queryFn: () => getGroupInfo({ groupId: "101" }),

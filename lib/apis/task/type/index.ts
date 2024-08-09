@@ -1,18 +1,16 @@
-export type GetTasksResponse = [
-  {
-    displayIndex: number;
-    commentCount: number;
-    deletedAt: string;
-    recurringId: number;
-    frequency: string;
-    userId: number;
-    date: string;
-    doneAt: string;
-    updatedAt: string;
-    name: string;
-    id: number;
-  },
-];
+export type GetTasksResponse = {
+  displayIndex: number;
+  commentCount: number;
+  deletedAt: string;
+  recurringId: number;
+  frequency: string;
+  userId: number;
+  date: string;
+  doneAt: string;
+  updatedAt: string;
+  name: string;
+  id: number;
+}[];
 
 export interface GetTaskResponse {
   comments: {

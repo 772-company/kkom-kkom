@@ -1,5 +1,7 @@
+import { myConvertDateToYMD } from "@/utils/convert-date";
 import { getCookie } from "cookies-next";
 
+import { myFetch } from "../myFetch";
 import { GetTaskResponse, GetTasksResponse } from "./type";
 
 const accessToken = getCookie("accessToken");
@@ -29,54 +31,48 @@ const postTask = async (groupId: number, taskListId: number, data: any) => {
   }
 };
 
-const getTasks = async (
-  groupId: number,
+export const getTasks = async (
+  groupId: string,
   taskListId: number,
   date: Date,
 ): Promise<GetTasksResponse> => {
+  const convertedDateToYMD = myConvertDateToYMD(date);
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks?date=${date}`,
+    const response = await myFetch<GetTasksResponse>(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const result: GetTasksResponse = await response.json();
-    return result;
+    return response;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-const getTask = async (
+export const getTask = async (
   groupId: number,
   taskListId: number,
   taskId: number,
 ): Promise<GetTaskResponse> => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+    const response = await myFetch<GetTaskResponse>(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const result: GetTaskResponse = await response.json();
-    return result;
+
+    return response;
   } catch (error) {
     console.error(error);
     throw error;

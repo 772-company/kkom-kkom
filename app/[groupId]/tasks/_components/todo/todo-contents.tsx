@@ -1,4 +1,4 @@
-import useGetTaskList from "@/lib/apis/task-list/hooks/useGetTaskList";
+import useGetTasks from "@/lib/apis/task/hooks/use-get-tasks";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import React from "react";
 
@@ -17,13 +17,9 @@ interface TodoContentsProps {
 }
 const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
   const { handleClickName, selectedButton } = useSelectButton(taskLists);
-  const { taskList, error, isPending } = useGetTaskList(
-    101,
-    selectedButton,
-    date,
-  );
+  const { tasks, error, isPending } = useGetTasks("101", selectedButton, date);
 
-  const { isSideBarOpen, handleCancel, handleClick } = useSideBar();
+  const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
 
   if (taskLists.length === 0) {
     return <NoList />;
@@ -43,21 +39,26 @@ const TodoContents = ({ taskLists, date }: TodoContentsProps) => {
       </div>
       <div className="mt-4 flex flex-col gap-4">
         {isPending && <div>로딩중...</div>}
-        {!isPending && taskList?.tasks.length === 0 && <NoTodo />}
+        {!isPending && tasks?.length === 0 && <NoTodo />}
         {!isPending &&
-          taskList &&
-          taskList.tasks.map((e, i) => (
+          tasks &&
+          tasks.map((e) => (
             <TodoBox
+              id={e.id}
               dateString={e.date}
-              name={e.name}
+              title={e.name}
               commentCount={e.commentCount}
-              key={i}
+              key={e.id}
               handleClickTodoBox={handleClick}
               isdone={false}
             />
           ))}
+        <SideBar
+          todoId={todoId}
+          isOpen={isSideBarOpen}
+          handleCancelButton={handleCancel}
+        />
       </div>
-      <SideBar isOpen={isSideBarOpen} handleCancelButton={handleCancel} />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import getGroupInfo from "@/lib/apis/group";
-import { getTaskList } from "@/lib/apis/task-list";
+import { getTasks } from "@/lib/apis/task";
+import { myConvertDateToYMD } from "@/utils/convert-date";
 import {
   HydrationBoundary,
   QueryClient,
@@ -9,18 +10,23 @@ import React from "react";
 
 import TodoContainer from "./_components/todo/todo-contianer";
 
-const page = async () => {
+const page = async (context: any) => {
   const queryClient = new QueryClient();
-
+  const { req, res, query, params } = context;
   const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
     queryFn: () => getGroupInfo({ groupId: "101" }),
   });
 
   if (result.taskLists) {
+    myConvertDateToYMD(new Date());
     await queryClient.prefetchQuery({
-      queryKey: ["getTaskList", result.taskLists[0].id],
-      queryFn: () => getTaskList(result.id, result.taskLists[0].id),
+      queryKey: [
+        "getTasks",
+        result.taskLists[0].id,
+        myConvertDateToYMD(new Date()),
+      ],
+      queryFn: () => getTasks("101", result.taskLists[0].id, new Date()),
     });
   }
 

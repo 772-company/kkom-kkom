@@ -10,15 +10,17 @@ import React from "react";
 import CheckBox from "../check-box";
 
 interface TodoBoxProps {
+  id: number;
   commentCount: number;
   dateString: string;
-  name: string;
+  title: string;
   isdone: boolean;
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 const TodoBox = ({
+  id,
   commentCount,
-  name,
+  title,
   isdone,
   handleClickTodoBox,
   dateString,
@@ -27,6 +29,7 @@ const TodoBox = ({
 
   return (
     <div
+      data-index={id}
       onClick={handleClickTodoBox}
       className="flex h-[74px] cursor-pointer flex-col justify-center rounded-lg bg-background-secondary px-3"
     >
@@ -36,7 +39,7 @@ const TodoBox = ({
           <p
             className={`text-text-primary ${isdone ? "line-through" : ""} text-sm font-normal`}
           >
-            {name}
+            {title}
           </p>
           <div className="flex items-center">
             <Comment width={16} height={16} />

@@ -18,8 +18,14 @@ const ModalMemberProfile = ({
   userName,
   userEmail,
 }: ModalMemberProfileProps) => {
-  const handleButtonClick = () => {
-    showToast("success", "이메일이 복사되었습니다");
+  const handleButtonClick = async () => {
+    try {
+      await navigator.clipboard.writeText(userEmail);
+      showToast("success", "이메일이 복사되었습니다");
+    } catch (error) {
+      showToast("error", "이메일 복사에 실패하였습니다");
+    }
+
     close();
   };
 

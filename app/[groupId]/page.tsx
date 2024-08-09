@@ -10,7 +10,9 @@ export default async function TeamPage({
 }: {
   params: { groupId: string };
 }) {
-  const groupInfo = await getGroupInfo({ groupId: params.groupId });
+  const groupInfo = await getGroupInfo({
+    groupId: params.groupId,
+  });
 
   if (!groupInfo) {
     return <p className="text-white">데이터 없음</p>;

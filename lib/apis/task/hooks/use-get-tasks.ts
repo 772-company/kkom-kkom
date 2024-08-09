@@ -6,8 +6,9 @@ import { getTasks } from "..";
 
 const useGetTasks = (groupId: string, id: number | undefined, date: Date) => {
   const isValid = () => {
-    return typeof id === "number" && typeof groupId === "number";
+    return typeof id === "number";
   };
+
   myConvertDateToYMD(date);
   const { data, error, isPending } = useQuery({
     enabled: isValid(),

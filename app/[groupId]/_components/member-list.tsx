@@ -6,8 +6,8 @@ import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Image from "next/image";
 
-import ModalMemberAdd from "./modal-member-add";
-import ModalMemberProfile from "./modal-member-profile";
+import ModalMemberInvitation from "./modal/modal-member-invitation";
+import ModalMemberProfile from "./modal/modal-member-profile";
 
 type MemberType = GetTeamIdGroupsIdResponse["members"][0];
 
@@ -63,7 +63,7 @@ const MemberCard = ({ member }: MemberCardProps) => {
 //TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
 const MemberList = ({ members, groupId }: MemberListProps) => {
   const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
-    <ModalMemberAdd close={close} groupId={groupId} />
+    <ModalMemberInvitation close={close} groupId={groupId} />
   ));
 
   return (

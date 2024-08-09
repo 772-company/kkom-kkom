@@ -31,12 +31,12 @@ const ModalMemberProfile = ({
 
   return (
     <Modal close={close} closeOnFocusOut>
-      <div className="relative flex h-[218px] flex-col items-center justify-center gap-[8px]">
+      <div className="relative flex h-[218px] flex-col items-center gap-[8px]">
         <button className="absolute right-0 top-0" onClick={close}>
           <XIcon width={24} height={24} />
         </button>
-        <div className="flex w-full flex-col justify-center gap-[24px] pt-[32px]">
-          <div className="flex flex-col items-center gap-[24px]">
+        <div className="flex h-[186px] w-[280px] flex-col justify-center gap-[24px] pt-[48px]">
+          <div className="flex flex-col items-center justify-center gap-[24px]">
             {userImage ? (
               <Image
                 src={userImage}
@@ -49,7 +49,7 @@ const ModalMemberProfile = ({
               <DefaultProfile className="h-[52px] w-[52px]" />
             )}
 
-            <div className="flex flex-col items-center gap-[8px]">
+            <div className="flex flex-col items-center justify-center gap-[8px]">
               <p className="text-[14px] font-[500] text-text-primary">
                 {userName}
               </p>
@@ -58,7 +58,6 @@ const ModalMemberProfile = ({
               </p>
             </div>
           </div>
-
           <Button btnSize="large" btnStyle="solid" onClick={handleButtonClick}>
             이메일 복사하기
           </Button>

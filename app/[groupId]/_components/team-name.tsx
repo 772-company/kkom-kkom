@@ -6,8 +6,8 @@ import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
 import Image from "next/image";
 
-import ModalTeamDelete from "./modal-team-delete";
-import ModalTeamNameEdit from "./modal-team-name-edit";
+import ModalTeamDelete from "./modal/modal-team-delete";
+import ModalTeamNameEdit from "./modal/modal-team-name-edit";
 
 interface TeamNameProps {
   teamName: string;

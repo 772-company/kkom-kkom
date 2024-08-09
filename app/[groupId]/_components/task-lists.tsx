@@ -1,12 +1,13 @@
 "use client";
 
+import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 
-import ModalTaskListAdd from "./modal-task-list-add";
+import ModalTaskListAdd from "./modal/modal-task-list-add";
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
@@ -54,7 +55,13 @@ const TaskList = ({ taskList }: TaskListProps) => {
             {numberOfDone} / {taskList.tasks.length}
           </p>
         </div>
-        <Kebab className="h-[16px] w-[16px]" />
+        <Popover
+          triggerSvg={Kebab}
+          triggerHeight={16}
+          triggerWidth={16}
+          content={[{ text: "수정하기" }, { text: "삭제하기" }]}
+          contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
+        />
       </div>
     </div>
   );

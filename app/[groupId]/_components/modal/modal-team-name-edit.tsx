@@ -23,18 +23,21 @@ const ModalTeamNameEdit = ({ close }: ModalTeamNameEditProps) => {
 
   return (
     <Modal close={close} closeOnFocusOut>
-      <div className="relative flex h-[235px] flex-col items-center justify-center gap-[8px] p-[16px] pt-[32px]">
+      <div className="relative flex h-[187px] flex-col items-center justify-center gap-[8px]">
         <button className="absolute right-0 top-0" onClick={close}>
           <XIcon width={24} height={24} />
         </button>
-        <div className="flex w-full flex-col justify-center gap-[24px]">
-          <Modal.Title>팀 이름</Modal.Title>
-          <input
-            className="rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none"
-            placeholder="팀 이름을 입력해 주세요"
-            value={teamName}
-            onChange={handleInputChange}
-          />
+        <div className="flex h-[155px] w-[280px] flex-col justify-center gap-[24px]">
+          <div className="flex flex-col justify-center gap-[16px] pt-[8px]">
+            <Modal.Title>팀 이름</Modal.Title>
+            <input
+              className="rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none"
+              placeholder="팀 이름을 입력해 주세요"
+              value={teamName}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <Button
             btnSize="large"
             btnStyle="solid"

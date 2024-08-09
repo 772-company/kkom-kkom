@@ -12,14 +12,12 @@ interface GetGroupInfoProps {
 export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
   try {
     const response = await myFetch<GetTeamIdGroupsIdResponse>(
-    const response = await myFetch<GetTeamIdGroupsIdResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "GET",
         cache: "no-store",
       },
     );
-    return response;
     return response;
   } catch (error) {
     throw error;

@@ -2,6 +2,7 @@ import getGroupInfo from "@/lib/apis/group";
 
 import MemberList from "./_components/member-list";
 import TaskLists from "./_components/task-lists";
+import TaskReport from "./_components/task-report";
 import Team from "./_components/team";
 
 export default async function TeamPage({
@@ -19,10 +20,11 @@ export default async function TeamPage({
   console.log(groupInfo);
 
   return (
-    <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
+    <div className="flex flex-col justify-center gap-[24px] py-[24px]">
       <Team teamName={teamName} />
       <div className="flex flex-col gap-[64px]">
         <TaskLists taskLists={taskLists} />
+        <TaskReport taskLists={taskLists} />
         <MemberList members={members} />
       </div>
     </div>

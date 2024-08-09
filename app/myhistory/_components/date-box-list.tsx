@@ -1,23 +1,20 @@
+import { GetTeamIdUserHistoryResponse } from "@/lib/apis/type";
 import { getUserHistory } from "@/lib/apis/user";
-import { getCookies } from "cookies-next";
-import { cookies } from "next/headers";
 
-import { myHistoryMockData } from "../mock";
 import DateBoxCard from "./date-box-card";
 
 export default async function DateBoxList() {
-  // const cookie = getCookies({ cookies });
-  // const data = await getUserHistory(cookie.accessToken);
-  // const data = myHistoryMockData[0].tasksDone;
-  const data = myHistoryMockData;
+  const data = await getUserHistory();
+  const history: Map<string, GetTeamIdUserHistoryResponse[0]["tasksDone"]> =
+    data[0].tasksDone.reduce((acc, cur) => {
+      acc.set(cur.date, [...(acc.get(cur.date) || []), cur]);
+      return acc;
+    }, new Map());
+
   return (
     <section className="mt-[27px] flex flex-col gap-10 md:mt-6">
-      {data.map((TaskDone) => (
-        <DateBoxCard
-          key={TaskDone.tasksDone[0].date}
-          date={TaskDone.tasksDone[0].date}
-          tasksDone={TaskDone.tasksDone}
-        />
+      {[...history.entries()].map(([date, history]) => (
+        <DateBoxCard key={date} date={date} tasksDone={history} />
       ))}
     </section>
   );

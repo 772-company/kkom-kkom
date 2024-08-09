@@ -15,7 +15,7 @@ interface MemberListProps {
 
 const MemberCard = ({ member }: MemberCardProps) => {
   return (
-    <div className="flex h-[73px] max-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:max-w-[216px] xl:max-w-[384px]">
+    <div className="flex h-[73px] min-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:min-w-[216px] xl:min-w-[382px]">
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
           <Image

@@ -30,13 +30,13 @@ export const createOverlayStore = (
       mount: (id, element) => {
         set((state) => {
           state.ElementsInMemory.set(id, element);
-          return { ElementsInMemory: state.ElementsInMemory };
+          return { ElementsInMemory: new Map(state.ElementsInMemory) };
         });
       },
       unmount: (id) => {
         set((state) => {
           state.ElementsInMemory.delete(id);
-          return { ElementsInMemory: state.ElementsInMemory };
+          return { ElementsInMemory: new Map(state.ElementsInMemory) };
         });
       },
     })),

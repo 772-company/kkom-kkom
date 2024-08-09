@@ -1,6 +1,8 @@
 "use client";
 
 import { oauthLogin } from "@/lib/apis/auth";
+import { myFetch } from "@/lib/apis/myFetch";
+import { getGoogleTokenResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { setCookie } from "cookies-next";
 import { useSearchParams } from "next/navigation";
@@ -32,7 +34,30 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     const handleLogin = async () => {
       if (code && state) {
         try {
-          const response = await oauthLogin(state, code, provider);
+          let finalCode = code;
+          if (provider === "GOOGLE") {
+            const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
+            const tokenResponse = await myFetch<getGoogleTokenResponse>(
+              "https://oauth2.googleapis.com/token",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  code,
+                  client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                  client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
+                  redirect_uri: redirectUri,
+                  grant_type: "authorization_code",
+                }),
+              },
+            );
+
+            finalCode = tokenResponse.id_token;
+          }
+
+          const response = await oauthLogin(state, finalCode, provider);
 
           setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
           setCookie("refreshToken", response.refreshToken);

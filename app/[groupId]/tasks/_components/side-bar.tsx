@@ -14,19 +14,21 @@ import PageButton from "./tasks-button";
 
 interface SideBarProps {
   gropId: string;
+  taskListId: number;
   todoId: number;
   handleCancelButton: () => void;
   isOpen: boolean;
 }
 
 const SideBar = ({
+  taskListId,
   todoId,
   handleCancelButton,
   isOpen,
   gropId,
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
-  const { isPending, taskDetail } = useGetTask(gropId, 55, todoId);
+  const { isPending, taskDetail } = useGetTask(gropId, taskListId, todoId);
 
   return (
     <div

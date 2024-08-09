@@ -14,8 +14,8 @@ import PageButton from "./tasks-button";
 
 interface SideBarProps {
   gropId: string;
-  taskListId: number;
-  todoId: number;
+  taskListId: number | undefined;
+  todoId: number | undefined;
   handleCancelButton: () => void;
   isOpen: boolean;
 }

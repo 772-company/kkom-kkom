@@ -20,7 +20,7 @@ const page = async (context: any) => {
     queryFn: () => getGroupInfo({ groupId: params.groupId }),
   });
 
-  if (result.taskLists) {
+  if (result.taskLists[0]) {
     myConvertDateToYMD(new Date());
     await queryClient.prefetchQuery({
       queryKey: [

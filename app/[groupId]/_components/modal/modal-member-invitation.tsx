@@ -29,11 +29,11 @@ const ModalMemberInvitation = ({
 
   return (
     <Modal close={close} closeOnFocusOut>
-      <div className="relative flex h-[163px] w-[280px] flex-col items-center justify-center gap-[8px]">
+      <div className="relative flex h-[163px] flex-col items-center justify-center gap-[8px]">
         <button className="absolute right-0 top-0" onClick={close}>
           <XIcon width={24} height={24} />
         </button>
-        <div className="flex h-[131px] flex-col justify-center gap-[24px] pt-[32px]">
+        <div className="flex h-[131px] w-[280px] flex-col justify-center gap-[24px] pt-[32px]">
           <div className="flex flex-col items-center justify-center gap-[8px]">
             <Modal.Title>멤버 초대</Modal.Title>
             <Modal.Description>

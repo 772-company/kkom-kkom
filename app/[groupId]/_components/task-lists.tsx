@@ -1,7 +1,12 @@
+"use client";
+
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
+
+import ModalTaskListAdd from "./modal-task-list-add";
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
@@ -24,29 +29,29 @@ const COLORS = [
 ];
 
 const TaskList = ({ taskList }: TaskListProps) => {
-  const COLOR_INDEX = taskList.displayIndex % 7;
-  const POINT_COLOR = COLORS[COLOR_INDEX];
-  const NUMBER_OF_DONE = taskList.tasks.filter(
+  const colorIndex = taskList.displayIndex % 7;
+  const pointColor = COLORS[colorIndex];
+  const numberOfDone = taskList.tasks.filter(
     (tasks) => tasks.doneAt != null,
   ).length;
 
-  const IS_DONE = NUMBER_OF_DONE === taskList.tasks.length ? true : false;
+  const isDone = numberOfDone === taskList.tasks.length ? true : false;
 
   return (
     <div className="flex h-[40px] items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
       <div className="flex gap-[12px]">
-        <div className={`w-[12px] rounded-l-[12px] ${POINT_COLOR}`}></div>
+        <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
         <p className="">{taskList.name}</p>
       </div>
       <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
-          {IS_DONE ? (
+          {isDone ? (
             <ProgressDone className="h-[16px] w-[16px]" />
           ) : (
             <ProgressOngoing className="h-[16px] w-[16px] animate-spin" />
           )}
           <p>
-            {NUMBER_OF_DONE} / {taskList.tasks.length}
+            {numberOfDone} / {taskList.tasks.length}
           </p>
         </div>
         <Kebab className="h-[16px] w-[16px]" />
@@ -56,6 +61,9 @@ const TaskList = ({ taskList }: TaskListProps) => {
 };
 
 const TaskLists = ({ taskLists }: TaskListsProps) => {
+  const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
+    <ModalTaskListAdd close={close} />
+  ));
   return (
     <div className="flex flex-col gap-[16px]">
       <div className="flex items-center justify-between">
@@ -65,9 +73,12 @@ const TaskLists = ({ taskLists }: TaskListsProps) => {
             ({taskLists.length}개)
           </p>
         </div>
-        <p className="text-[14px] font-[400] text-brand-primary">
+        <button
+          className="text-[14px] font-[400] text-brand-primary"
+          onClick={ModalTaskListAddOverlay.open}
+        >
           + 새로운 목록 추가하기
-        </p>
+        </button>
       </div>
       <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom">
         {taskLists.length > 0 ? (

@@ -12180,6 +12180,7 @@ snapshots:
       webpack-sources: 3.2.3
     transitivePeerDependencies:
       - '@swc/core'
+      - '@swc/core'
       - esbuild
       - uglify-js
 
@@ -12280,5 +12281,6 @@ snapshots:
     dependencies:
       use-sync-external-store: 1.2.0(react@18.3.1)
     optionalDependencies:
+      '@types/react': 18.3.3
       '@types/react': 18.3.3
       react: 18.3.1

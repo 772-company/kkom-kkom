@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-const useSideBar = () => {
+const useSideBar = (id: number) => {
   const [isSideBarOpen, setIsSiderOpen] = useState<boolean>(false);
-  const [todoId, setSideBarData] = useState<number>(-1);
+  const [todoId, setSideBarData] = useState<number>(id);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget.dataset.index) {

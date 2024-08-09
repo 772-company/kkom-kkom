@@ -24,7 +24,8 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
     date,
   );
 
-  const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
+  const { todoId, isSideBarOpen, handleCancel, handleClick } =
+    useSideBar(selectedButton);
 
   if (taskLists.length === 0) {
     return <NoList />;

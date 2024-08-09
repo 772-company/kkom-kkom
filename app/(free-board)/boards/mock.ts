@@ -14,7 +14,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user3",
         id: 4,
       },
-      image: "image3.png",
+      image: "/icons/heart.svg",
       title: "세 번째 게시글 제목입니다.",
       id: 4,
     },
@@ -26,7 +26,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user10",
         id: 11,
       },
-      image: "image10.png",
+      image: "/icons/heart.svg",
       title: "열 번째 게시글 제목입니다.",
       id: 11,
     },
@@ -38,7 +38,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user6",
         id: 7,
       },
-      image: "image6.png",
+      image: "/icons/heart.svg",
       title: "여섯 번째 게시글 제목입니다.",
       id: 7,
     },
@@ -50,7 +50,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user8",
         id: 9,
       },
-      image: "image8.png",
+      image: "/icons/heart.svg",
       title: "여덟 번째 게시글 제목입니다.",
       id: 9,
     },
@@ -62,7 +62,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user2",
         id: 3,
       },
-      image: "image2.png",
+      image: "/icons/heart.svg",
       title: "두 번째 게시글 제목입니다.",
       id: 3,
     },
@@ -74,7 +74,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user9",
         id: 10,
       },
-      image: "image9.png",
+      image: "/icons/heart.svg",
       title: "아홉 번째 게시글 제목입니다.",
       id: 10,
     },
@@ -86,7 +86,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user5",
         id: 6,
       },
-      image: "image5.png",
+      image: "/icons/heart.svg",
       title: "다섯 번째 게시글 제목입니다.",
       id: 6,
     },
@@ -98,7 +98,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user1",
         id: 2,
       },
-      image: "image1.png",
+      image: "/icons/heart.svg",
       title: "첫 번째 게시글 제목입니다.",
       id: 2,
     },
@@ -110,7 +110,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user4",
         id: 5,
       },
-      image: "image4.png",
+      image: "/icons/heart.svg",
       title: "네 번째 게시글 제목입니다.",
       id: 5,
     },
@@ -122,7 +122,7 @@ export const articles: GetArticlesResponse = {
         nickname: "user7",
         id: 8,
       },
-      image: "image7.png",
+      image: "/icons/heart.svg",
       title: "일곱 번째 게시글 제목입니다.",
       id: 8,
     },
@@ -134,7 +134,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
   list: [
     {
       writer: {
-        image: "image_10.png",
+        image: "/icons/heart.svgng",
         nickname: "user10",
         id: 10,
       },
@@ -145,7 +145,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_9.png",
+        image: "/icons/heart.svgg",
         nickname: "user9",
         id: 9,
       },
@@ -156,7 +156,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_8.png",
+        image: "/icons/heart.svgg",
         nickname: "user8",
         id: 8,
       },
@@ -167,7 +167,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_7.png",
+        image: "/icons/heart.svgg",
         nickname: "user7",
         id: 7,
       },
@@ -178,7 +178,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_6.png",
+        image: "/icons/heart.svgg",
         nickname: "user6",
         id: 6,
       },
@@ -189,7 +189,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_5.png",
+        image: "/icons/heart.svgg",
         nickname: "user5",
         id: 5,
       },
@@ -200,7 +200,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_4.png",
+        image: "/icons/heart.svgg",
         nickname: "user4",
         id: 4,
       },
@@ -211,7 +211,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_3.png",
+        image: "/icons/heart.svgg",
         nickname: "user3",
         id: 3,
       },
@@ -222,7 +222,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_2.png",
+        image: "/icons/heart.svgg",
         nickname: "user2",
         id: 2,
       },
@@ -233,7 +233,7 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
     },
     {
       writer: {
-        image: "image_1.png",
+        image: "/icons/heart.svgg",
         nickname: "user1",
         id: 1,
       },

@@ -34,7 +34,11 @@ export default function OrderedBySelector() {
     <Dropdown defaultSelected="최신순">
       <section className="text-xs md:text-sm">
         <Dropdown.Button className="h-10 w-[94px] justify-between rounded-xl bg-background-tertiary px-[14px] md:h-11 md:w-[120px]">
-          <ToggleClose className={`h-6 w-6 group-hover:animate-pulse`} />
+          <ToggleClose
+            width="24"
+            height="24"
+            className={`h-6 w-6 group-hover:animate-pulse`}
+          />
         </Dropdown.Button>
         <Dropdown.Body className="mt-1 flex w-[94px] flex-col rounded-xl bg-background-tertiary md:w-[120px]">
           {options.map((option, i) => (

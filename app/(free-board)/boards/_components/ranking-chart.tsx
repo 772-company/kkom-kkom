@@ -13,7 +13,7 @@ export default function RankingChart() {
   return (
     <>
       <header className="mb-3 flex items-center gap-1 text-base font-medium text-text-primary">
-        <Medal className="h-4 w-4" />
+        <Medal width={16} height={16} />
         <h2 className="selection:bg-inherit">베스트 랭킹</h2>
       </header>
       <ol className="mb-8 grid grid-flow-col grid-cols-1 grid-rows-10 gap-1.5 gap-x-10 rounded-xl border-background-tertiary bg-background-secondary p-5 text-text-primary md:mb-10 md:grid-cols-2 md:grid-rows-5">

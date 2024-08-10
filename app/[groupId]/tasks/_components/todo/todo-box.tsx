@@ -25,7 +25,7 @@ const TodoBox = ({
   handleClickTodoBox,
   dateString,
 }: TodoBoxProps) => {
-  const convertedDateToYMD = convertDateToYMD(new Date(dateString));
+  const { year, month, day } = convertDateToYMD(new Date(dateString));
 
   return (
     <div
@@ -59,7 +59,9 @@ const TodoBox = ({
       </div>
       <div className="flex items-center gap-[10px]">
         <Calendar width={16} height={16} />
-        <p className="text-xs text-text-default">{convertedDateToYMD}</p>
+        <p className="text-xs text-text-default">
+          {year}년 {month}월 {day}일
+        </p>
         <Time width={16} height={16} />
         <p className="text-xs text-text-default">오후 3:30</p>
         <Repeat width={16} height={16} />

@@ -1,3 +1,19 @@
+export const convertDateToTime = (date: Date) => {
+  const dateObj = date;
+  let hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+
+  const ampm = hours >= 12 ? "오후" : "오전";
+  if (hours > 12) {
+    hours %= 12;
+    hours = hours ? hours : 12;
+  }
+
+  const hoursString = hours.toString().padStart(2, "0");
+  const minutesString = minutes.toString().padStart(2, "0");
+
+  return { ampm, hoursString, minutesString };
+};
 export const covertDate = (date: Date) => {
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -7,6 +23,7 @@ export const covertDate = (date: Date) => {
 
   return `${month}월 ${day}일${dayNames[dayOfWeek]}요일`;
 };
+
 export const myConvertDateToYMD = (date: Date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;

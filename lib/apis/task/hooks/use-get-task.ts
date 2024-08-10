@@ -11,7 +11,7 @@ const useGetTask = (
   console.log(groupId, taskListId, taskId);
 
   const isValid = () => {
-    return typeof taskListId === "number" && typeof taskId === "number";
+    return typeof taskId === "number";
   };
   const { data, isPending } = useQuery({
     enabled: isValid(),

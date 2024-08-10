@@ -6,9 +6,25 @@ import { myFetch } from "../myFetch";
 import {
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
+  GetTeamIdUserResponse,
   PatchTeamIdUserResetPasswordResponse,
   PostTeamIdUserSendResetPasswordEmailResponse,
 } from "../type";
+
+export async function getUser(): Promise<GetTeamIdUserResponse> {
+  try {
+    const response = await myFetch<GetTeamIdUserResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
+      {
+        method: "GET",
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // NOTE - 유저가 포함한 그룹 조회
 export async function gerUserGroups(): Promise<GetTeamIdUserGroups> {

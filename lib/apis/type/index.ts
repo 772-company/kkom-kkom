@@ -338,3 +338,139 @@ export type PostTeamIdAuthSignInProviderResponse = {
     teamId: string;
   };
 };
+
+export interface PostArticlesArticleIdCommentsResponse {
+  writer: {
+    image: string;
+    nickname: string;
+    id: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+  content: string;
+  id: number;
+}
+
+export interface GetArticlesArticleIdCommentsResponse {
+  nextCursor: number;
+  list: {
+    writer: {
+      image: string;
+      nickname: string;
+      id: number;
+    };
+    updatedAt: string;
+    createdAt: string;
+    content: string;
+    id: number;
+  }[];
+}
+
+export interface PatchCommentsCommentIdResponse {
+  writer: {
+    image: string;
+    nickname: string;
+    id: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+  content: string;
+  id: number;
+}
+
+export interface DeleteCommentsCommentIdResponse {
+  id: number;
+}
+
+export interface PostArticlesResponse {
+  updatedAt: string;
+  createdAt: string;
+  likeCount: number;
+  writer: {
+    nickname: string;
+    id: number;
+  };
+  image: string;
+  title: string;
+  id: number;
+}
+
+export interface GetArticlesResponse {
+  totalCount: number;
+  list: {
+    updatedAt: string;
+    createdAt: string;
+    likeCount: number;
+    writer: {
+      nickname: string;
+      id: number;
+    };
+    image: string;
+    title: string;
+    id: number;
+  }[];
+}
+
+export interface GetArticlesArticleIdResponse {
+  updatedAt: string;
+  createdAt: string;
+  likeCount: number;
+  writer: {
+    nickname: string;
+    id: number;
+  };
+  image: string;
+  title: string;
+  id: number;
+  isLiked: boolean;
+  content: string;
+}
+
+export interface PatchArticlesArticleIdResponse {
+  updatedAt: string;
+  createdAt: string;
+  likeCount: number;
+  writer: {
+    nickname: string;
+    id: number;
+  };
+  image: string;
+  title: string;
+  id: number;
+  isLiked: boolean;
+  content: string;
+}
+
+export interface DeleteArticlesArticleIdResponse {
+  id: number;
+}
+
+export interface PostArticlesArticleIdLikeResponse {
+  updatedAt: string;
+  createdAt: string;
+  likeCount: number;
+  writer: {
+    nickname: string;
+    id: number;
+  };
+  image: string;
+  title: string;
+  id: number;
+  isLiked: boolean;
+  content: string;
+}
+
+export interface DeleteArticlesArticleIdLikeResponse {
+  updatedAt: string;
+  createdAt: string;
+  likeCount: number;
+  writer: {
+    nickname: string;
+    id: number;
+  };
+  image: string;
+  title: string;
+  id: number;
+  isLiked: boolean;
+  content: string;
+}

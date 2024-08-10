@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 const myFont = localFont({
   src: "./_fonts/PretendardVariable.woff2",
   display: "swap",
+  variable: "--font-pretendard",
 });
 
 export default function RootLayout({
@@ -35,7 +36,7 @@ export default function RootLayout({
           <ToastProvider>
             <OverlayStoreProvider>
               <Header />
-              <main className="min-h-screen bg-background-primary pt-[60px]">
+              <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
                 {children}
               </main>
               <OverlayProvider />

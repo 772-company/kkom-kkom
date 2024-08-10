@@ -6,6 +6,7 @@ import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
+import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
 import Comment from "./comment";
@@ -29,7 +30,13 @@ const SideBar = ({
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
   const { isPending, taskDetail } = useGetTask(gropId, taskListId, todoId);
-
+  const updateAt = convertDateToYMD(
+    new Date(taskDetail ? taskDetail.updatedAt : ""),
+  );
+  const date = convertDateToYMD(new Date(taskDetail ? taskDetail.date : ""));
+  const { ampm, hoursString, minutesString } = convertDateToTime(
+    new Date(taskDetail ? taskDetail.date : ""),
+  );
   return (
     <div
       className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
@@ -59,28 +66,28 @@ const SideBar = ({
               <div className="flex justify-between">
                 <div className="flex items-center gap-3">
                   <ProfileIcon
-                    image=""
+                    image={taskDetail ? taskDetail.user?.image : ""}
                     type="myProfile"
                     className="h-[32px] w-[32px]"
                   />
                   <p className="text-[14px] font-medium text-text-primary">
-                    안해나
+                    {taskDetail?.user?.nickname}
                   </p>
                 </div>
                 <p className="text-[14px] font-normal text-text-secondary">
-                  2025.05.40
+                  {updateAt.year}.{updateAt.month}.{updateAt.day}
                 </p>
               </div>
 
               <div className="flex items-center gap-[10px]">
                 <Calendar width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
-                  2024년 7월 29일
+                  {date.year}년 {date.month}월 {date.day}일
                 </p>
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Time width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
-                  오후 3:30분
+                  {ampm} {hoursString}:{minutesString}
                 </p>
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Repeat width={16} height={16} />
@@ -90,13 +97,7 @@ const SideBar = ({
               </div>
 
               <div className="min-h-[200px]">
-                <p className="text-sm font-normal">
-                  그 때 당시 너무 많이 들어오는 이력서를 검토하다가 화가 나서 쓴
-                  글이었다. 글이 좋았는지, 혹은 짤이 좋아서 였는지(박해수
-                  연기짱!), 정확한 원인은 모르지만 감사하게도 너무 많은 분들이
-                  좋아요를 눌러주셨다. 요즘에도 좋아요를 눌러주시고 가시는
-                  분들이 계신거 보면 어느 정도 도움이 되지 않았을까 싶다.
-                </p>
+                <p className="text-sm font-normal">{taskDetail?.description}</p>
               </div>
 
               <div className="flex flex-col gap-6">

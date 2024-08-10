@@ -44,30 +44,48 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
     setIsOpen(false);
   }, [onDelete]);
   return (
-    <section className="relative h-4 w-4 md:h-6 md:w-6" ref={ref}>
+    <section className="group relative h-5 w-5 md:h-6 md:w-6" ref={ref}>
       <button {...props} onClick={() => setIsOpen((prev) => !prev)}>
-        <Image
-          fill
-          src="/icons/kebab-large.svg"
-          alt="kebab"
-          sizes="(min-width: 744px) 16px, 24px"
-        />
+        <svg
+          width="current"
+          height="current"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="group-hover:hidden"
+        >
+          <circle cx="12" cy="7.5" r="1.5" fill="#64748B" />
+          <circle cx="12" cy="12" r="1.5" fill="#64748B" />
+          <circle cx="12" cy="16.5" r="1.5" fill="#64748B" />
+        </svg>
+        <svg
+          width="current"
+          height="current"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="hidden group-hover:block"
+        >
+          <circle cx="12" cy="7.5" r="1.5" fill="#41ff30" />
+          <circle cx="12" cy="12" r="1.5" fill="#41ff30" />
+          <circle cx="12" cy="16.5" r="1.5" fill="#41ff30" />
+        </svg>
       </button>
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer md:w-[120px]">
+        <div className="absolute right-0 z-10 mt-1 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer">
           <div
-            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-text-default hover:underline md:h-11 md:w-[120px]"
+            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
             onClick={handlePatch}
           >
-            <div className="flex h-full w-full items-center justify-between px-[14px]">
+            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs">
               수정하기
             </div>
           </div>
           <div
-            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-text-default hover:underline md:h-11 md:w-[120px]"
+            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
             onClick={handleDelete}
           >
-            <div className="flex h-full w-full items-center justify-between px-[14px]">
+            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs">
               삭제하기
             </div>
           </div>

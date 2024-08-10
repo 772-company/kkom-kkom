@@ -16,14 +16,6 @@ interface ProfileIconProps {
  **/
 
 const ProfileIcon = ({ image, type, width, height }: ProfileIconProps) => {
-  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    if (type === "teamProfile") {
-      return (e.currentTarget.src = "/icons/img.svg");
-    } else if (type === "myProfile") {
-      return (e.currentTarget.src = "/icons/my-profile.svg");
-    }
-  };
-
   return (
     <div>
       {type === "teamProfile" && (
@@ -31,8 +23,7 @@ const ProfileIcon = ({ image, type, width, height }: ProfileIconProps) => {
           width={width}
           height={height}
           className="rounded-full"
-          src={image}
-          onError={handleError}
+          src={image ? image : "/icons/img.svg"}
           alt="팀이미지"
         />
       )}
@@ -42,8 +33,7 @@ const ProfileIcon = ({ image, type, width, height }: ProfileIconProps) => {
           className="rounded-full"
           width={width}
           height={height}
-          src={image}
-          onError={handleError}
+          src={image ? image : "/icons/my-profile.svg"}
           alt="나의이미지"
         />
       )}

@@ -20,6 +20,7 @@ const options = [
 export default function OrderedBySelector() {
   const searchParams = useSearchParams();
   const pathName = usePathname();
+  const orderBy = searchParams.get("orderBy");
 
   const handleOrderBy = useCallback(
     (value: string) => {
@@ -44,7 +45,7 @@ export default function OrderedBySelector() {
           {options.map((option, i) => (
             <Dropdown.Item
               key={i}
-              className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-text-default hover:underline md:h-11 md:w-[120px]"
+              className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-[#41ff30]" : ""}`}
               display={option.display}
             >
               <Link

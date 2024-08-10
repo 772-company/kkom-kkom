@@ -2,7 +2,7 @@
 
 import SEARCH_TAGS from "@/constants/search-tags";
 import useEmblaCarousel from "embla-carousel-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 export default function TagList() {
@@ -12,6 +12,7 @@ export default function TagList() {
     dragFree: true,
   });
   const router = useRouter();
+  const keyword = useSearchParams().get("keyword");
 
   const handleTagDoubleClick = useCallback(
     (tag: string) => {
@@ -30,7 +31,7 @@ export default function TagList() {
               className="flex flex-shrink-0 flex-grow-0 justify-center"
             >
               <button
-                className="w-fit break-keep rounded-3xl bg-background-tertiary px-5 py-3 text-xs selection:bg-background-tertiary hover:text-text-default hover:underline md:px-6 md:text-sm"
+                className={`w-fit break-keep rounded-3xl bg-background-tertiary px-5 py-3 text-xs selection:bg-background-tertiary hover:text-[#41ff30] hover:underline md:px-6 md:text-sm ${keyword === tag ? "text-[#41ff30]" : ""}`}
                 onClick={() => handleTagDoubleClick(tag)}
               >
                 {tag}

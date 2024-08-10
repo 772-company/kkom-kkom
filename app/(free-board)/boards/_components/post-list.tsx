@@ -20,21 +20,27 @@ export default function PostList() {
   return (
     <section className="mt-6 flex flex-col gap-6 md:mt-8">
       {data.list.map((article) => (
-        <Card key={article.id} className="group/card flex p-4 py-6 md:px-8">
-          <figure className="relative h-24 w-24 md:h-32 md:w-32">
+        <Card
+          key={article.id}
+          className="group/card flex p-4 py-6 duration-300 hover:scale-[1.02] md:px-8"
+        >
+          <Link
+            href={`/board/${article.id}`}
+            className="relative h-24 w-24 md:h-32 md:w-32"
+          >
             <Image
               fill
               src={article.image}
               alt="thumbnail"
               sizes="(min-width: 744px) 128px, 96px"
-              className="duration-150 group-hover/card:scale-110"
+              className="duration-150"
             />
-          </figure>
+          </Link>
           <div className="ml-4 flex flex-1 flex-col justify-between text-sm font-medium text-text-secondary md:text-[18px]">
             <section className="flex items-center justify-between">
               <Link
                 href={`/board/${article.id}`}
-                className="inline group-hover/card:underline"
+                className="inline hover:underline group-hover/card:text-[#41ff30]"
               >
                 {article.title}
               </Link>

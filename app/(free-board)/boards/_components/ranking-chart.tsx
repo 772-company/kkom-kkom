@@ -24,7 +24,7 @@ export default function RankingChart() {
           >
             <Link
               href={`/board/${article.id}`}
-              className="flex gap-1 hover:underline"
+              className="flex gap-1 hover:text-[#41ff30]"
             >
               {`${i + 1}. ${article.title}`}
               {i <= 2 && <Fire className="h-4 w-4" />}

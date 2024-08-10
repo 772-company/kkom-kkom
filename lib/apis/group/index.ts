@@ -95,3 +95,30 @@ export async function deleteGroup({ groupId }: DeleteGroupProps) {
     throw error;
   }
 }
+
+interface postGroupInvitationProps {
+  userEmail: string;
+  token: string;
+}
+
+//NOTE - 그룹 참여
+export async function postGroupInvitation({
+  userEmail,
+  token,
+}: postGroupInvitationProps) {
+  try {
+    const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/accept-invitation`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail, token }),
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

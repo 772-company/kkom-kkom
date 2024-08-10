@@ -1,13 +1,41 @@
 "use client";
 
 import Button from "@/components/button/button";
+import { postGroupInvitation } from "@/lib/apis/group";
+import { showToast } from "@/lib/show-toast";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
-const ParticipateTeamForm = () => {
+interface ParticipateTeamFormProps {
+  email: string;
+}
+
+const ParticipateTeamForm = ({ email }: ParticipateTeamFormProps) => {
+  const router = useRouter();
   const [teamLink, setTeamLink] = useState("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTeamLink(e.target.value);
+  };
+
+  const handleButtonClick = async () => {
+    try {
+      const response = await postGroupInvitation({
+        userEmail: email,
+        token: teamLink,
+      });
+
+      if (response.message) {
+        showToast("error", response.message);
+      } else {
+        showToast("success", "팀 참여에 성공했습니다.");
+        router.push("/");
+      }
+    } catch (error) {
+      showToast("error", "팀 참여에 실패했습니다.");
+
+      console.error(error);
+    }
   };
 
   return (
@@ -22,7 +50,12 @@ const ParticipateTeamForm = () => {
         />
       </div>
       <div className="flex flex-col gap-[10px]">
-        <Button btnSize="large" btnStyle="solid" disabled={!teamLink.trim()}>
+        <Button
+          btnSize="large"
+          btnStyle="solid"
+          disabled={!teamLink.trim()}
+          onClick={handleButtonClick}
+        >
           참여하기
         </Button>
         <p className="text-center text-[16px] font-[400]">

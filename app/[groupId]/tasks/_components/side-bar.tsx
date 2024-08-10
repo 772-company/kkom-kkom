@@ -66,7 +66,7 @@ const SideBar = ({
               <div className="flex justify-between">
                 <div className="flex items-center gap-3">
                   <ProfileIcon
-                    image={taskDetail ? taskDetail.user?.image : ""}
+                    image={""}
                     type="myProfile"
                     className="h-[32px] w-[32px]"
                   />

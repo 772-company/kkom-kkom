@@ -13,14 +13,12 @@ import TodoContainer from "./_components/todo/todo-contianer";
 const page = async (context: any) => {
   const queryClient = new QueryClient();
   const { req, res, query, params } = context;
-  console.log(context);
-
   const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
     queryFn: () => getGroupInfo({ groupId: params.groupId }),
   });
 
-  if (result.taskLists) {
+  if (result.taskLists[0]) {
     myConvertDateToYMD(new Date());
     await queryClient.prefetchQuery({
       queryKey: [
@@ -28,7 +26,8 @@ const page = async (context: any) => {
         result.taskLists[0].id,
         myConvertDateToYMD(new Date()),
       ],
-      queryFn: () => getTasks("101", result.taskLists[0].id, new Date()),
+      queryFn: () =>
+        getTasks(params.groupId, result.taskLists[0].id, new Date()),
     });
   }
 

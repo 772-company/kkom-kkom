@@ -33,7 +33,7 @@ const postTask = async (groupId: number, taskListId: number, data: any) => {
 
 export const getTasks = async (
   groupId: string,
-  taskListId: number,
+  taskListId: number | undefined,
   date: Date,
 ): Promise<GetTasksResponse> => {
   const convertedDateToYMD = myConvertDateToYMD(date);
@@ -57,8 +57,8 @@ export const getTasks = async (
 
 export const getTask = async (
   groupId: string,
-  taskListId: number,
-  taskId: number,
+  taskListId: number | undefined,
+  taskId: number | undefined,
 ): Promise<GetTaskResponse> => {
   try {
     const response = await myFetch<GetTaskResponse>(

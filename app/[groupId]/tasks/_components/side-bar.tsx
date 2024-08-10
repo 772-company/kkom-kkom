@@ -107,7 +107,9 @@ const SideBar = ({
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {taskDetail?.comments.map((e) => <Comment key={e.taskId} />)}
+                  {taskDetail?.comments.map((e) => (
+                    <Comment key={e.id} {...e} />
+                  ))}
                 </div>
               </div>
             </div>

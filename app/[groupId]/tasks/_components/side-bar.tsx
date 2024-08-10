@@ -68,7 +68,8 @@ const SideBar = ({
                   <ProfileIcon
                     image={""}
                     type="myProfile"
-                    className="h-[32px] w-[32px]"
+                    width={32}
+                    height={32}
                   />
                   <p className="text-[14px] font-medium text-text-primary">
                     {taskDetail?.user?.nickname}

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 const myFont = localFont({
   src: "./_fonts/PretendardVariable.woff2",
   display: "swap",
+  variable: "--font-pretendard",
 });
 
 export default function RootLayout({

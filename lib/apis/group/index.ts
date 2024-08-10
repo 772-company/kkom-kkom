@@ -26,12 +26,12 @@ export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
 
 export default getGroupInfo;
 
-interface getGroupInvitationProps {
+interface GetGroupInvitationProps {
   groupId: string;
 }
 
 //NOTE - 그룹 초대 링크
-export async function getGroupInvitation({ groupId }: getGroupInvitationProps) {
+export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
   try {
     const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/invitation`,

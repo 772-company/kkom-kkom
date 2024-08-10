@@ -4,42 +4,41 @@ import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import { ChangeEvent, useState } from "react";
 
-interface ModalTeamNameEditProps {
+interface ModalTaskListNameEditProps {
   close: () => void;
 }
 
-const ModalTeamNameEdit = ({ close }: ModalTeamNameEditProps) => {
-  const [teamName, setTeamName] = useState("");
+const ModalTaskListNameEdit = ({ close }: ModalTaskListNameEditProps) => {
+  const [taskListName, setTaskListName] = useState("");
 
   const handleButtonClick = () => {
-    showToast("success", <p>팀명이 수정되었습니다</p>);
-    console.log(`${teamName}으로 수정됨`);
+    showToast("success", <p>{taskListName}으로 수정되었습니다</p>);
     close();
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTeamName(e.target.value);
+    setTaskListName(e.target.value);
   };
 
   return (
     <Modal close={close} closeOnFocusOut>
-      <div className="relative flex h-[235px] flex-col items-center justify-center gap-[8px] p-[16px] pt-[32px]">
+      <div className="relative flex h-[187px] flex-col items-center justify-center gap-[8px]">
         <button className="absolute right-0 top-0" onClick={close}>
           <XIcon width={24} height={24} />
         </button>
-        <div className="flex w-full flex-col justify-center gap-[24px]">
-          <Modal.Title>팀 이름</Modal.Title>
+        <div className="flex h-[155px] w-[280px] flex-col justify-center gap-[24px] pt-[32px]">
+          <Modal.Title>할 일 목록</Modal.Title>
           <input
             className="rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none"
-            placeholder="팀 이름을 입력해 주세요"
-            value={teamName}
+            placeholder="목록 명을 입력해 주세요"
+            value={taskListName}
             onChange={handleInputChange}
           />
           <Button
             btnSize="large"
             btnStyle="solid"
             onClick={handleButtonClick}
-            disabled={!teamName.trim()}
+            disabled={!taskListName.trim()}
           >
             수정하기
           </Button>
@@ -49,4 +48,4 @@ const ModalTeamNameEdit = ({ close }: ModalTeamNameEditProps) => {
   );
 };
 
-export default ModalTeamNameEdit;
+export default ModalTaskListNameEdit;

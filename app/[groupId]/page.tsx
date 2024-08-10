@@ -1,4 +1,4 @@
-import getGroupInfo from "@/lib/apis/group";
+import getGroupInfo from "@/lib/apis/group/index";
 
 import MemberList from "./_components/member-list";
 import TaskLists from "./_components/task-lists";
@@ -27,7 +27,7 @@ export default async function TeamPage({
       <div className="flex flex-col gap-[64px]">
         <TaskLists taskLists={taskLists} />
         <TaskReport taskLists={taskLists} />
-        <MemberList members={members} />
+        <MemberList members={members} groupId={params.groupId} />
       </div>
     </div>
   );

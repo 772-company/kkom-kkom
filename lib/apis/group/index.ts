@@ -1,28 +1,46 @@
 import { myFetch } from "../myFetch";
-import { GetTeamIdGroupsIdResponse } from "../type";
+import {
+  GetTeamIdGroupsIdInvitationResponse,
+  GetTeamIdGroupsIdResponse,
+} from "../type";
 
 interface GetGroupInfoProps {
   groupId: string;
 }
 
-export async function getGroupInfo({
-  groupId,
-}: GetGroupInfoProps): Promise<GetTeamIdGroupsIdResponse> {
+//NOTE - 그룹에 대한 정보
+export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
   try {
     const response = await myFetch<GetTeamIdGroupsIdResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+        cache: "no-store",
       },
     );
     return response;
   } catch (error) {
-    throw new Error("팀 정보를 받아오는 데에 실패하였습니다.");
+    throw error;
   }
 }
 
 export default getGroupInfo;
+
+interface GetGroupInvitationProps {
+  groupId: string;
+}
+
+//NOTE - 그룹 초대 링크
+export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
+  try {
+    const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/invitation`,
+      {
+        method: "GET",
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

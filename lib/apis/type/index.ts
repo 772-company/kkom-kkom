@@ -238,10 +238,8 @@ export type GetTeamIdGroupsIdMemberMemberUserIdResponse = {
   userId: number;
 };
 
-// TODO: Fix the type 기획서가 제대로 정의되지 않았습니다.
-export type GetTeamIdGroupsIdInvitationResponse = {
-  token: string;
-};
+// TODO: Fix the type 기획서가 제대로 정의되지 않았습니다. -> 제가 수정했어요 (지현이)
+export type GetTeamIdGroupsIdInvitationResponse = string;
 
 export type PostTeamIdGroupsAcceptInvitationResponse = {
   userId: number;

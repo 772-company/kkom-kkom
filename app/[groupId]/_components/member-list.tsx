@@ -1,7 +1,13 @@
+"use client";
+
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Image from "next/image";
+
+import ModalMemberInvitation from "./modal/modal-member-invitation";
+import ModalMemberProfile from "./modal/modal-member-profile";
 
 type MemberType = GetTeamIdGroupsIdResponse["members"][0];
 
@@ -11,11 +17,24 @@ interface MemberCardProps {
 
 interface MemberListProps {
   members: MemberType[];
+  groupId: string;
 }
 
 const MemberCard = ({ member }: MemberCardProps) => {
+  const ModalMemberProfileOverlay = useCustomOverlay(({ close }) => (
+    <ModalMemberProfile
+      close={close}
+      userImage={member.userImage}
+      userName={member.userName}
+      userEmail={member.userEmail}
+    />
+  ));
+
   return (
-    <div className="flex h-[73px] min-w-[163.5px] items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:min-w-[216px] xl:min-w-[382px]">
+    <div
+      onClick={ModalMemberProfileOverlay.open}
+      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:min-w-[216px] xl:min-w-[382px]"
+    >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
           <Image
@@ -42,7 +61,11 @@ const MemberCard = ({ member }: MemberCardProps) => {
 };
 
 //TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
-const MemberList = ({ members }: MemberListProps) => {
+const MemberList = ({ members, groupId }: MemberListProps) => {
+  const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
+    <ModalMemberInvitation close={close} groupId={groupId} />
+  ));
+
   return (
     <div className="flex flex-col gap-[24px]">
       <div className="flex items-center justify-between">
@@ -52,9 +75,12 @@ const MemberList = ({ members }: MemberListProps) => {
             ({members.length}명)
           </p>
         </div>
-        <p className="text-[14px] font-[400] text-brand-primary">
+        <button
+          onClick={ModalMemberAddOverlay.open}
+          className="text-[14px] font-[400] text-brand-primary"
+        >
           + 새로운 멤버 초대하기
-        </p>
+        </button>
       </div>
       <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (

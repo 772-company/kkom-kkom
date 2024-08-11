@@ -44,7 +44,7 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
     setIsOpen(false);
   }, [onDelete]);
   return (
-    <section className="group relative h-5 w-5 md:h-6 md:w-6" ref={ref}>
+    <section className="group relative h-6 w-6" ref={ref}>
       <button {...props} onClick={() => setIsOpen((prev) => !prev)}>
         <svg
           width="current"
@@ -72,20 +72,20 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer">
+        <div className="absolute right-0 z-10 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer xl:w-[120px]">
           <div
-            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
+            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
             onClick={handlePatch}
           >
-            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs">
+            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs xl:text-sm">
               수정하기
             </div>
           </div>
           <div
-            className="h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
+            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
             onClick={handleDelete}
           >
-            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs">
+            <div className="flex h-full w-full items-center justify-center px-[14px] text-xs xl:text-sm">
               삭제하기
             </div>
           </div>

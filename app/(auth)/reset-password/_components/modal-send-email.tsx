@@ -1,5 +1,7 @@
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
+import { PostTeamIdUserSendResetPasswordEmailResponse } from "@/lib/apis/type";
 import { sendEmail } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { sendEmailSchema } from "@/schemas/auth";
@@ -26,16 +28,17 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
   });
 
   const handleClick: SubmitHandler<SendEmailInputValue> = async (data) => {
-    const response = await sendEmail(data);
-    if (typeof response === "string") {
-      if (response.includes("이메일")) {
-        // NOTE - setError는 버튼 disabled 처리 위함
-        showToast("error", <p>{response}</p>);
-        setError("email", { type: "manual" });
-      }
-    } else {
+    try {
+      const response = (await sendEmail(
+        data,
+      )) as PostTeamIdUserSendResetPasswordEmailResponse;
       showToast("success", <p>{response.message}</p>);
       close();
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        showToast("error", <p>존재하지 않는 이메일입니다.</p>);
+        setError("email", { type: "manual" });
+      }
     }
   };
   return (

@@ -339,6 +339,13 @@ export type PostTeamIdAuthSignInProviderResponse = {
   };
 };
 
+export interface getGoogleTokenResponse {
+  access_token: string;
+  id_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
 export interface PostArticlesArticleIdCommentsResponse {
   writer: {
     image: string;

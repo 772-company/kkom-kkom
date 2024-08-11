@@ -51,8 +51,9 @@ interface PatchGroupNameProps {
   image?: string;
   name?: string;
 }
-//NOTE - 그룹 이름 수정
-export async function patchGroupName({
+
+//NOTE - 그룹 정보 수정
+export async function patchGroupInfo({
   groupId,
   image,
   name,
@@ -66,6 +67,25 @@ export async function patchGroupName({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ image, name }),
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+interface DeleteGroupProps {
+  groupId: string;
+}
+
+//NOTE - 그룹 삭제
+export async function deleteGroup({ groupId }: DeleteGroupProps) {
+  try {
+    const response = await myFetch<PatchTeamIdGroupsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
+      {
+        method: "DELETE",
       },
     );
     return response;

@@ -1,16 +1,34 @@
 import Modal from "@/components/modal/modal";
+import { deleteGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import { useRouter } from "next/navigation";
 
 interface ModalTeamDeleteProps {
   close: () => void;
   teamName: string;
+  groupId: string;
 }
 
-const ModalTeamDelete = ({ close, teamName }: ModalTeamDeleteProps) => {
-  const handleButtonClick = () => {
-    showToast("success", <p>{teamName}이 삭제되었습니다</p>);
-    close();
+const ModalTeamDelete = ({
+  close,
+  teamName,
+  groupId,
+}: ModalTeamDeleteProps) => {
+  const router = useRouter();
+
+  const handleButtonClick = async () => {
+    try {
+      const response = await deleteGroup({
+        groupId: groupId,
+      });
+      showToast("success", <p>{teamName}이 삭제되었습니다.</p>);
+      close();
+      router.push("/");
+    } catch (error) {
+      showToast("error", <p>{teamName} 삭제에 실패하였습니다.</p>);
+      console.error(error);
+    }
   };
 
   return (

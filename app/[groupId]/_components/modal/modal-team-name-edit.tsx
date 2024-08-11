@@ -1,6 +1,6 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
-import { patchGroupName } from "@/lib/apis/group";
+import { patchGroupInfo } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ const ModalTeamNameEdit = ({ close, groupId }: ModalTeamNameEditProps) => {
   const router = useRouter();
   const handleButtonClick = async () => {
     try {
-      const response = await patchGroupName({
+      const response = await patchGroupInfo({
         groupId: groupId,
         name: teamName,
       });

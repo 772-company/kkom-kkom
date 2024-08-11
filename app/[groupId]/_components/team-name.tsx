@@ -20,7 +20,7 @@ const TeamName = ({ teamName, groupId }: TeamNameProps) => {
   ));
 
   const ModalTeamDeleteOverlay = useCustomOverlay(({ close }) => (
-    <ModalTeamDelete close={close} teamName={teamName} />
+    <ModalTeamDelete close={close} teamName={teamName} groupId={groupId} />
   ));
 
   return (

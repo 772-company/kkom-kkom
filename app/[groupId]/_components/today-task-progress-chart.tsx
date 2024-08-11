@@ -12,8 +12,6 @@ const TodayTaskProgressChart = ({
   numberOfTasks,
   numberOfDone,
 }: TodayTaskProgressChartProps) => {
-  numberOfTasks = 10;
-  numberOfDone = 7;
   const numberOfOngoing = numberOfTasks - numberOfDone;
 
   const todayProgressData = [

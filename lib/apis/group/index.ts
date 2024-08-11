@@ -2,6 +2,7 @@ import { myFetch } from "../myFetch";
 import {
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
+  PatchTeamIdGroupsIdResponse,
 } from "../type";
 
 interface GetGroupInfoProps {
@@ -37,6 +38,34 @@ export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/invitation`,
       {
         method: "GET",
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+interface PatchGroupNameProps {
+  groupId: string;
+  image?: string;
+  name?: string;
+}
+//NOTE - 그룹 이름 수정
+export async function patchGroupName({
+  groupId,
+  image,
+  name,
+}: PatchGroupNameProps) {
+  try {
+    const response = await myFetch<PatchTeamIdGroupsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image, name }),
       },
     );
     return response;

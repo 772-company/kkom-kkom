@@ -1,20 +1,33 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import { patchGroupName } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
 interface ModalTeamNameEditProps {
   close: () => void;
+  groupId: string;
 }
 
-const ModalTeamNameEdit = ({ close }: ModalTeamNameEditProps) => {
+const ModalTeamNameEdit = ({ close, groupId }: ModalTeamNameEditProps) => {
   const [teamName, setTeamName] = useState("");
-
-  const handleButtonClick = () => {
-    showToast("success", <p>팀명이 수정되었습니다</p>);
-    console.log(`${teamName}으로 수정됨`);
-    close();
+  const router = useRouter();
+  const handleButtonClick = async () => {
+    try {
+      const response = await patchGroupName({
+        groupId: groupId,
+        name: teamName,
+      });
+      showToast("success", <p>팀 명이 수정되었습니다</p>);
+      console.log(`${teamName}으로 수정됨`);
+      router.refresh();
+      close();
+    } catch (error) {
+      showToast("error", <p>팀 명 수정에 실패하였습니다.</p>);
+      console.error(error);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

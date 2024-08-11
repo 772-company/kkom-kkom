@@ -34,7 +34,7 @@ export default function OrderedBySelector() {
   return (
     <Dropdown defaultSelected="최신순">
       <section className="text-xs md:text-sm">
-        <Dropdown.Button className="h-10 w-[94px] justify-between rounded-xl bg-background-tertiary px-[14px] md:h-11 md:w-[120px]">
+        <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl bg-background-tertiary px-[14px] md:h-11 md:!w-[120px]">
           <ToggleClose
             width="24"
             height="24"

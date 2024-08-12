@@ -10,7 +10,7 @@ import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
 import Comment from "./comment";
-import Commentinput from "./comment-input";
+import CommentInput from "./comment-input";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {
@@ -19,9 +19,11 @@ interface SideBarProps {
   todoId: number | undefined;
   handleCancelButton: () => void;
   isOpen: boolean;
+  date: Date;
 }
 
 const SideBar = ({
+  date,
   taskListId,
   todoId,
   handleCancelButton,
@@ -33,7 +35,9 @@ const SideBar = ({
   const updateAt = convertDateToYMD(
     new Date(taskDetail ? taskDetail.updatedAt : ""),
   );
-  const date = convertDateToYMD(new Date(taskDetail ? taskDetail.date : ""));
+  const convertedDate = convertDateToYMD(
+    new Date(taskDetail ? taskDetail.date : ""),
+  );
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(taskDetail ? taskDetail.date : ""),
   );
@@ -83,7 +87,8 @@ const SideBar = ({
               <div className="flex items-center gap-[10px]">
                 <Calendar width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
-                  {date.year}년 {date.month}월 {date.day}일
+                  {convertedDate.year}년 {convertedDate.month}월{" "}
+                  {convertedDate.day}일
                 </p>
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Time width={16} height={16} />
@@ -103,7 +108,11 @@ const SideBar = ({
 
               <div className="flex flex-col gap-6">
                 <div className="flex h-[49px] items-center border-b border-t border-gray-300">
-                  <Commentinput />
+                  <CommentInput
+                    taskId={taskDetail?.id}
+                    date={date}
+                    taskListId={taskListId}
+                  />
                 </div>
 
                 <div className="flex flex-col gap-4">

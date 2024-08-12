@@ -57,6 +57,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           ))}
         <SideBar
           gropId={groupId}
+          date={date}
           taskListId={selectedButton}
           todoId={todoId}
           isOpen={isSideBarOpen}

@@ -25,9 +25,9 @@ const ModalTeamDelete = ({
         groupId: groupId,
       });
       showToast("success", <p>{teamName}이 삭제되었습니다.</p>);
-
       close();
       router.push("/");
+      router.refresh();
     } catch (error) {
       showToast("error", <p>{teamName} 삭제에 실패하였습니다.</p>);
       console.log(error);

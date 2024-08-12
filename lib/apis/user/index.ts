@@ -12,6 +12,7 @@ import {
 } from "../type";
 
 export async function getUser(): Promise<GetTeamIdUserResponse> {
+  "use server";
   try {
     const response = await myFetch<GetTeamIdUserResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,

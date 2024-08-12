@@ -1,4 +1,5 @@
-import { getUser } from "../action";
+import { getUser } from "@/lib/apis/user";
+
 import UpdateUserForm from "./_component/update-user-form";
 
 export default async function Page() {

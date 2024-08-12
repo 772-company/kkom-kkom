@@ -28,6 +28,7 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
           },
           {
             text: LOGGED_IN_USER_CONTENT[1],
+            onClick: () => (window.location.href = "/mypage"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[2],

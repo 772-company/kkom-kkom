@@ -45,7 +45,11 @@ export function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
   }, [onDelete]);
   return (
     <section className="group relative h-6 w-6" ref={ref}>
-      <button {...props} onClick={() => setIsOpen((prev) => !prev)}>
+      <button
+        {...props}
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <svg
           width="100%"
           height="100%"
@@ -155,7 +159,7 @@ export function LikeCountSection({
     <section
       className={`flex items-center gap-1 text-sm font-normal leading-4 text-text-disabled`}
     >
-      <button {...props}>
+      <button type="button" {...props}>
         {isClicked ? (
           <svg
             width={size}

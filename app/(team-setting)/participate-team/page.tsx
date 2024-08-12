@@ -1,4 +1,4 @@
-import { getUser } from "@/app/action";
+import { getUser } from "@/lib/apis/user";
 
 import ParticipateTeamForm from "./_components/participate-team-form";
 

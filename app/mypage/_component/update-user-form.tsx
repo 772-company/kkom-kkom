@@ -2,39 +2,52 @@
 
 import { BasicInput } from "@/components/input-field/basic-input";
 import { ProfileInput } from "@/components/profile-input/profile-input";
+import { getUser } from "@/lib/apis/user";
 import { updateUserSchema } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-interface UpdateUserFormProps {
-  image: string | null;
-  nickname: string;
-  email: string;
-}
 
 interface UpdateUserInputValue {
   nickname: string;
   image?: File | string;
 }
 
-export default function UpdateUserForm({
-  image,
-  nickname,
-  email,
-}: UpdateUserFormProps) {
+export default function UpdateUserForm() {
+  const { data, isSuccess } = useQuery({
+    queryKey: ["posts"],
+    queryFn: getUser,
+  });
+
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isValid },
   } = useForm<UpdateUserInputValue>({
     mode: "onChange",
-    defaultValues: {
-      nickname,
-      image: image ?? undefined,
-    },
+
     resolver: yupResolver(updateUserSchema),
   });
+
+  // NOTE - 초기값 설정
+  useEffect(() => {
+    if (isSuccess && data) {
+      const { nickname, image } = data;
+      reset({
+        nickname,
+        image: image ?? undefined,
+      });
+    }
+  }, [data, isSuccess, reset]);
+
+  if (!isSuccess || !data) {
+    return null;
+  }
+
+  const { image, nickname } = data;
 
   const onSubmit: SubmitHandler<UpdateUserInputValue> = async (data) => {
     console.log(data);

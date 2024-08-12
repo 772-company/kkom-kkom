@@ -32,7 +32,7 @@ interface KebabButtonProps
   onDelete: () => void;
 }
 
-function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
+export function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useClickOutside(() => setIsOpen(false));
   const handlePatch = useCallback(() => {
@@ -47,8 +47,8 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
     <section className="group relative h-6 w-6" ref={ref}>
       <button {...props} onClick={() => setIsOpen((prev) => !prev)}>
         <svg
-          width="current"
-          height="current"
+          width="100%"
+          height="100%"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +59,8 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
           <circle cx="12" cy="16.5" r="1.5" fill="#64748B" />
         </svg>
         <svg
-          width="current"
-          height="current"
+          width="100%"
+          height="100%"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,13 @@ function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
 
 KebabButton.displayName = "KebabIcon";
 
-function Profile({ name, className }: { name: string; className?: string }) {
+export function Profile({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
   return (
     <section
       className={`flex h-[32px] w-[70px] items-center justify-center gap-[6px] text-xs text-text-primary md:w-[81px] md:gap-3 md:text-sm ${className}`}
@@ -110,7 +116,7 @@ function Profile({ name, className }: { name: string; className?: string }) {
 
 Profile.displayName = "Profile";
 
-function DateDescription({
+export function DateDescription({
   date,
   className,
 }: {
@@ -125,7 +131,7 @@ function DateDescription({
         className
       }
     >
-      {year}. {month}. {day}
+      {year}. {month < 10 ? "0" + month : month}. {day < 10 ? "0" + day : day}
     </time>
   );
 }
@@ -136,11 +142,13 @@ interface LikeCountSectionProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   likeCount: number;
   isClicked: boolean;
+  size?: string;
 }
 
-function LikeCountSection({
+export function LikeCountSection({
   likeCount,
   isClicked,
+  size = "16",
   ...props
 }: LikeCountSectionProps) {
   return (
@@ -150,8 +158,8 @@ function LikeCountSection({
       <button {...props}>
         {isClicked ? (
           <svg
-            width="16"
-            height="16"
+            width={size}
+            height={size}
             viewBox="0 0 24 24"
             fill="url(#gradient1)"
             xmlns="http://www.w3.org/2000/svg"
@@ -172,8 +180,8 @@ function LikeCountSection({
           </svg>
         ) : (
           <svg
-            width="16"
-            height="16"
+            width={size}
+            height={size}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

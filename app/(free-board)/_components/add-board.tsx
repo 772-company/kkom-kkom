@@ -4,24 +4,23 @@ import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 
+import AddBoardModal from "./add-board-modal";
+
 export default function AddBoard() {
   const overlay = useCustomOverlay(({ close }) => (
-    <Modal close={close} closeOnFocusOut>
-      글쓰기 모달
+    <Modal close={close} closeOnFocusOut={false} className="md:!w-[500px]">
+      <Modal.HeaderWithClose className="fixed right-7 top-7" />
+      <AddBoardModal close={close} />
     </Modal>
   ));
   return (
-    <section className="fixed bottom-0 left-0 right-0">
-      <div className="mx-4 flex justify-end md:mx-6 xl:mx-auto xl:max-w-[1200px]">
-        <Button
-          btnSize="x-small"
-          btnStyle="solid"
-          className="mb-16 w-[104px] xl:mb-11"
-          onClick={overlay.open}
-        >
-          + 글쓰기
-        </Button>
-      </div>
-    </section>
+    <Button
+      btnSize="x-small"
+      btnStyle="solid"
+      className="fixed bottom-11 right-4 w-[104px] md:right-6 xl:right-[calc(50vw-600px)]"
+      onClick={overlay.open}
+    >
+      + 글쓰기
+    </Button>
   );
 }

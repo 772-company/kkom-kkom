@@ -31,6 +31,7 @@ interface ModalProps {
   closeOnFocusOut: boolean;
   close: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
 Modal.Title = Title;
@@ -84,6 +85,7 @@ export default function Modal({
   children,
   close,
   closeOnFocusOut,
+  className,
 }: ModalProps) {
   const modalRef = useClickOutside(() => {
     close();
@@ -97,7 +99,7 @@ export default function Modal({
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 100 }}
             transition={{ duration: 0.1 }}
-            className={cn(modalVariants())}
+            className={cn(modalVariants({ className }))}
             ref={
               closeOnFocusOut
                 ? (modalRef as LegacyRef<HTMLDivElement> | undefined)

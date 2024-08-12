@@ -15,13 +15,16 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
   const queryClient = useQueryClient();
   const {
     formState: { isDirty },
+    trigger,
     setValue,
     register,
     handleSubmit,
+    reset,
   } = useForm({
     mode: "onChange",
     defaultValues: { content: "" },
   });
+  const { onChange } = register("content");
   const { mutate, isPending } = useMutation({
     mutationFn: (data: { taskId: number; content: { content: string } }) =>
       postComment(data.taskId, data.content),
@@ -45,7 +48,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
       return;
     }
     mutate({ taskId: taskId, content: data });
-    setValue("content", "", { shouldDirty: true });
+    reset({ content: "" }, { keepDirty: true });
   };
 
   return (
@@ -58,7 +61,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
       <TaskButton
         type="submit"
         types="submit"
-        disable={isDirty || !isPending ? false : true}
+        disable={isDirty && !isPending ? false : true}
       />
     </form>
   );

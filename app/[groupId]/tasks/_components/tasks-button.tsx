@@ -18,6 +18,8 @@ const TaskButton = ({
   disable,
   ...rest
 }: ButtonProps & ButtonClassName & ButtonAttribute) => {
+  console.log(disable);
+
   if (types === "arrow")
     return (
       <button

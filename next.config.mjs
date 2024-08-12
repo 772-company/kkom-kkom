@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "t1.kakaocdn.net",
+        port: "",
+      },
     ],
   },
   webpack: (config) => {

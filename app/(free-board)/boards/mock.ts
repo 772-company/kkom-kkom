@@ -153,7 +153,8 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
       },
       updatedAt: "2024-08-06T14:20:00.000Z",
       createdAt: "2024-08-06T13:20:00.000Z",
-      content: "content_9",
+      content:
+        "반갑습니다\n저는 댓글입니다.\n저는 댓글입니다.\n저는 댓글입니다.\n저는 댓글입니다.",
       id: 9,
     },
     {

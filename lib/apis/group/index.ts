@@ -86,6 +86,7 @@ export async function deleteGroup({ groupId }: DeleteGroupProps) {
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
       {
         method: "DELETE",
+        withCredentials: true,
       },
     );
     return response;

@@ -1,3 +1,5 @@
+"use client";
+
 import Modal from "@/components/modal/modal";
 import { deleteGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
@@ -23,10 +25,12 @@ const ModalTeamDelete = ({
         groupId: groupId,
       });
       showToast("success", <p>{teamName}이 삭제되었습니다.</p>);
+
       close();
       router.push("/");
     } catch (error) {
       showToast("error", <p>{teamName} 삭제에 실패하였습니다.</p>);
+      console.log(error);
       console.error(error);
     }
   };

@@ -34,6 +34,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
   id,
   label,
   error,
+  onOpenModal,
   ...rest
 }: PasswordInputProps<TFormInput>) {
   const [showPassword, setShowPassword] = useState(false);
@@ -60,8 +61,9 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         <Button
           btnSize="x-small"
           btnStyle="solid"
-          className="absolute bottom-[9.8px] right-4"
-          onClick={() => alert("비밀번호 변경 모달")}
+          className="absolute bottom-[9.8px] right-4 w-[74px]"
+          onClick={onOpenModal}
+          type="button"
         >
           변경하기
         </Button>

@@ -5,6 +5,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
+import SecessionButton from "./_component/secession- button";
 import UpdateUserForm from "./_component/update-user-form";
 
 export default async function Page() {
@@ -16,10 +17,13 @@ export default async function Page() {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <h1 className="text-lg font-bold text-text-primary md:text-xl">
-        계정 설정
-      </h1>
-      <UpdateUserForm />
+      <section className="relative">
+        <h1 className="text-lg font-bold text-text-primary md:text-xl">
+          계정 설정
+        </h1>
+        <UpdateUserForm />
+        <SecessionButton />
+      </section>
     </HydrationBoundary>
   );
 }

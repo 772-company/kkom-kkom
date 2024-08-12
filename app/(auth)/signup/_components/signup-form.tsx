@@ -4,7 +4,6 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { signUp } from "@/lib/apis/auth";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSignupResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";

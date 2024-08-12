@@ -5,13 +5,11 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 

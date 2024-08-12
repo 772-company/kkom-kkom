@@ -1,4 +1,5 @@
 import Modal from "@/components/modal/modal";
+import { QueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
@@ -8,12 +9,14 @@ interface ModalLogoutProps {
 
 export default function ModalLogout({ close }: ModalLogoutProps) {
   const router = useRouter();
+  const queryClient = new QueryClient();
   function logout() {
     router.push("/");
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     router.refresh();
     close();
+    queryClient.removeQueries({ queryKey: ["posts"] });
   }
 
   return (

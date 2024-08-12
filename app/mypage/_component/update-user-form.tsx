@@ -27,7 +27,6 @@ export default function UpdateUserForm({
     handleSubmit,
     setValue,
     resetField,
-    watch,
     formState: { errors, isValid },
   } = useForm<UpdateUserInputValue>({
     mode: "onChange",
@@ -39,6 +38,7 @@ export default function UpdateUserForm({
   });
 
   const onSubmit: SubmitHandler<UpdateUserInputValue> = async (data) => {
+    console.log(">>.");
     console.log(data);
   };
 
@@ -49,7 +49,6 @@ export default function UpdateUserForm({
         <ProfileInput<UpdateUserInputValue>
           id="image"
           type="myProfile"
-          register={register}
           setValue={setValue}
           resetField={resetField}
           error={errors.image?.message}
@@ -63,9 +62,7 @@ export default function UpdateUserForm({
           error={errors.nickname?.message}
         />
       </div>
-      <button type="submit" disabled={!isValid}>
-        제출
-      </button>
+      <button>제출</button>
     </form>
   );
 }

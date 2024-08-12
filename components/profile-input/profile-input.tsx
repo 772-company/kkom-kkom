@@ -17,7 +17,6 @@ import {
 export interface ProfileInputProps<TFormInput extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   id: Path<TFormInput>;
-  register: UseFormRegister<TFormInput>;
   setValue: UseFormSetValue<TFormInput>;
   resetField: UseFormResetField<TFormInput>;
   error?: string;
@@ -32,7 +31,6 @@ export interface ProfileInputProps<TFormInput extends FieldValues>
  **/
 
 export function ProfileInput<TFormInput extends FieldValues>({
-  register,
   id,
   type,
   setValue,
@@ -53,7 +51,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
       const file = e.target.files[0];
       if (file) {
         const preview = URL.createObjectURL(e.target.files[0]);
-        setValue(id, file as any);
+        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>);
         setPreviewImage(preview);
       }
     }
@@ -61,7 +59,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
 
   // NOTE - x 버튼 클릭 시 프리뷰 초기화 및 input 초기화
   const handleClearImage = (e: MouseEvent<HTMLButtonElement>) => {
-    setValue(id, null as PathValue<TFormInput, Path<TFormInput>>);
+    setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>);
     setPreviewImage(null);
     e.preventDefault();
     e.stopPropagation();

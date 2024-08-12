@@ -1,6 +1,5 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
 import { getCookie } from "cookies-next";
-import { cookies } from "next/headers";
 
 import { myFetch } from "../myFetch";
 import {
@@ -12,7 +11,6 @@ import {
 } from "../type";
 
 export async function getUser(): Promise<GetTeamIdUserResponse> {
-  "use server";
   try {
     const response = await myFetch<GetTeamIdUserResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,

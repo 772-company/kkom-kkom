@@ -59,6 +59,7 @@ const ModalTeamNameEdit = ({
             btnStyle="solid"
             onClick={handleButtonClick}
             disabled={!teamName.trim()}
+            type="button"
           >
             수정하기
           </Button>

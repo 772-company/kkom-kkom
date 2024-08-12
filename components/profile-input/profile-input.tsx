@@ -1,7 +1,6 @@
 import TeamProfile from "@/public/icons/img.svg";
 import MyProfile from "@/public/icons/my-profile.svg";
 import X from "@/public/icons/x.svg";
-import { error } from "console";
 import Image from "next/image";
 import { ChangeEvent, InputHTMLAttributes, MouseEvent, useState } from "react";
 import React from "react";
@@ -9,7 +8,6 @@ import {
   FieldValues,
   Path,
   PathValue,
-  UseFormRegister,
   UseFormResetField,
   UseFormSetValue,
 } from "react-hook-form";
@@ -18,7 +16,6 @@ export interface ProfileInputProps<TFormInput extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   id: Path<TFormInput>;
   setValue: UseFormSetValue<TFormInput>;
-  resetField: UseFormResetField<TFormInput>;
   error?: string;
   defaultValue?: string;
   type: "teamProfile" | "myProfile";
@@ -35,7 +32,6 @@ export function ProfileInput<TFormInput extends FieldValues>({
   type,
   setValue,
   defaultValue,
-  resetField,
   error,
   ...rest
 }: ProfileInputProps<TFormInput>) {
@@ -61,6 +57,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
   const handleClearImage = (e: MouseEvent<HTMLButtonElement>) => {
     setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>);
     setPreviewImage(null);
+    // NOTE - 이벤트 버블링으로 인해 input까지 같이 열려 추가
     e.preventDefault();
     e.stopPropagation();
   };
@@ -97,6 +94,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
           className="hidden"
           accept=".jpg, jpeg, .png"
           onChange={handleChangeFile}
+          {...rest}
         />
       </div>
     </>

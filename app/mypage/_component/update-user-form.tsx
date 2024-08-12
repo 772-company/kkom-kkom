@@ -26,7 +26,6 @@ export default function UpdateUserForm({
     register,
     handleSubmit,
     setValue,
-    resetField,
     formState: { errors, isValid },
   } = useForm<UpdateUserInputValue>({
     mode: "onChange",
@@ -38,19 +37,16 @@ export default function UpdateUserForm({
   });
 
   const onSubmit: SubmitHandler<UpdateUserInputValue> = async (data) => {
-    console.log(">>.");
     console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        {/* TODO - ProfileInput */}
         <ProfileInput<UpdateUserInputValue>
           id="image"
           type="myProfile"
           setValue={setValue}
-          resetField={resetField}
           error={errors.image?.message}
           defaultValue={image ?? undefined}
         />

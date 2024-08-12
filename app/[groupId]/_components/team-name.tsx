@@ -16,7 +16,11 @@ interface TeamNameProps {
 
 const TeamName = ({ teamName, groupId }: TeamNameProps) => {
   const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
-    <ModalTeamNameEdit close={close} groupId={groupId} />
+    <ModalTeamNameEdit
+      close={close}
+      groupId={groupId}
+      currentTeamName={teamName}
+    />
   ));
 
   const ModalTeamDeleteOverlay = useCustomOverlay(({ close }) => (

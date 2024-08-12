@@ -47,7 +47,9 @@ export function ProfileInput<TFormInput extends FieldValues>({
       const file = e.target.files[0];
       if (file) {
         const preview = URL.createObjectURL(e.target.files[0]);
-        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>);
+        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>, {
+          shouldValidate: true,
+        });
         setPreviewImage(preview);
       }
     }

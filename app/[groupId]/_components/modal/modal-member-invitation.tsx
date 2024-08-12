@@ -19,7 +19,6 @@ const ModalMemberInvitation = ({
     try {
       const result = await getGroupInvitation({ groupId: groupId });
       await navigator.clipboard.writeText(result);
-      console.log(groupId);
       showToast("success", "링크가 복사되었습니다");
       close();
     } catch (error) {

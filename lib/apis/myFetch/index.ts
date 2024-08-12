@@ -92,12 +92,12 @@ if (error instanceof Error) {
 export async function myFetch<T>(
   input: string | URL | globalThis.Request,
   init?: MyFetchOptions,
-): Promise<T | Response> {
+): Promise<T> {
   if (typeof window !== "undefined") {
     const data = await clientFetch(input, init);
     if (data.status === 204) {
       //NOTE - no content 일 때
-      return data;
+      return data as T;
     }
     return await data.json();
   } else {

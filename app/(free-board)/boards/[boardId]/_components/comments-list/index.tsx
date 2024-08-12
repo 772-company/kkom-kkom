@@ -8,9 +8,15 @@ export default function CommentsList({ boardId }: { boardId: string }) {
         댓글 목록
       </h2>
       <section className="flex flex-col gap-4">
-        {comments.list.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
-        ))}
+        {comments.list ? (
+          comments.list.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))
+        ) : (
+          <section className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
+            아직 작성된 댓글이 없습니다.
+          </section>
+        )}
       </section>
     </>
   );

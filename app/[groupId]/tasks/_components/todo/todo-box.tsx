@@ -28,8 +28,6 @@ const TodoBox = ({
   handleClickTodoBox,
   dateString,
 }: TodoBoxProps) => {
-  console.log(doneAt);
-
   const { year, month, day } = convertDateToYMD(new Date(dateString));
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(dateString),

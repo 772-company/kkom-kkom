@@ -34,8 +34,8 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
   }, [searchParams]);
 
   const mutation = useMutation({
-    mutationFn: async (params: { code: string; state: string }) => {
-      let finalCode = params.code;
+    mutationFn: async ({ code, state }: { code: string; state: string }) => {
+      let finalCode = code;
 
       if (provider === "GOOGLE") {
         const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
@@ -47,7 +47,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              code: params.code,
+              code: code,
               client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
               client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
               redirect_uri: redirectUri,
@@ -59,7 +59,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
         finalCode = tokenResponse.id_token;
       }
 
-      return oauthLogin(params.state, finalCode, provider);
+      return oauthLogin(state, finalCode, provider);
     },
     onSuccess: (response) => {
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });

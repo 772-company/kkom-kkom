@@ -97,6 +97,11 @@ export function ProfileInput<TFormInput extends FieldValues>({
           {...rest}
         />
       </div>
+      {error && (
+        <p className="ml-[13.5px] text-sm font-medium text-status-danger">
+          {error}
+        </p>
+      )}
     </>
   );
 }

@@ -8,6 +8,7 @@ import { resetPassword } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -31,6 +32,30 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     mode: "onChange",
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: ResetPasswordInputValue) => {
+      const response = (await resetPassword({
+        ...data,
+        token,
+      })) as PatchTeamIdUserResetPasswordResponse;
+      return response;
+    },
+    onSuccess: () => {
+      showToast("success", <p>비밀번호가 변경되었습니다.</p>);
+      router.push("/login");
+    },
+    onError: async (error: unknown) => {
+      if (error instanceof ResponseError) {
+        const response = await error.response?.json();
+        // NOTE - 토큰 요휴시간(1시간)이 지난 경우
+        showToast("error", <p>{response}</p>);
+        router.push("/login");
+      } else {
+        throw error;
+      }
+    },
+  });
+
   // NOTE - 이메일로 전송된 링크가 아닌 /reset-password로 접근하는 경우
   if (!token) {
     router.push("/login");
@@ -38,21 +63,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   }
 
   const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
-    try {
-      const response = (await resetPassword({
-        ...data,
-        token,
-      })) as PatchTeamIdUserResetPasswordResponse;
-      showToast("success", <p>비밀번호가 변경되었습니다.</p>);
-      router.push("/login");
-    } catch (error) {
-      if (error instanceof ResponseError) {
-        const response = await error.response?.json();
-        // NOTE - 토큰 요휴시간(1시간)이 지난 경우
-        showToast("error", <p>{response}</p>);
-        router.push("/login");
-      }
-    }
+    mutation.mutate(data);
   };
 
   return (
@@ -77,7 +88,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         btnSize="large"
         btnStyle="solid"
         className="mt-10 w-full"
-        disabled={!isValid}
+        disabled={!isValid || mutation.isPending}
       >
         재설정
       </Button>

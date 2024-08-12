@@ -129,21 +129,22 @@ const deleteTask = async (
     throw error;
   }
 };
-const patchTask = async (
-  groupId: number,
-  taskListId: number,
+export const patchTask = async (
+  groupId: string,
+  taskListId: number | undefined,
   taskId: number,
-  data: { name: string; description: string; done: boolean },
+  data: { name?: string; description?: string; done?: boolean },
 ) => {
   try {
-    const response = await myFetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+    await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
+        body: JSON.stringify(data),
       },
     );
   } catch (error) {

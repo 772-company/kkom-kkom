@@ -8,8 +8,6 @@ const useGetTask = (
   taskListId: number | undefined,
   taskId: number | undefined,
 ) => {
-  console.log(groupId, taskListId, taskId);
-
   const isValid = () => {
     return typeof taskId === "number";
   };

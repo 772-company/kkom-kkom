@@ -6,10 +6,10 @@ import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
+import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
-import Comment from "./comment";
 import CommentInput from "./comment-input";
 import PageButton from "./tasks-button";
 
@@ -41,6 +41,8 @@ const SideBar = ({
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(taskDetail ? taskDetail.date : ""),
   );
+  console.log(taskDetail?.doneAt, date);
+
   return (
     <div
       className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
@@ -58,7 +60,9 @@ const SideBar = ({
         {!isPending && (
           <>
             <div className="flex justify-between">
-              <h1 className="text-lg font-bold text-text-primary">
+              <h1
+                className={`text-lg font-bold text-text-primary ${checkTodo(taskDetail?.doneAt ?? null, date) ? "line-through" : ""}`}
+              >
                 {taskDetail?.name}
               </h1>
               <button>
@@ -116,9 +120,9 @@ const SideBar = ({
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {taskDetail?.comments.map((e) => (
+                  {/* {taskDetail?.comments.map((e) => (
                     <Comment key={e.id} {...e} />
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>

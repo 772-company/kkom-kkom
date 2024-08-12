@@ -1,12 +1,15 @@
-"use client";
+import { getUser } from "@/lib/apis/user";
 
-import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import UpdateUserForm from "./_component/update-user-form";
 
-import { ModalWarning } from "./_component/modal-warning";
-
-export default function Page() {
-  const overlay1 = useCustomOverlay(({ close }) => (
-    <ModalWarning close={close} handleConfirm={() => console.log("ㅎㅇ")} />
-  ));
-  return <button onClick={overlay1.open}>클릭</button>;
+export default async function Page() {
+  const { image, nickname, email } = await getUser();
+  return (
+    <>
+      <h1 className="text-lg font-bold text-text-primary md:text-xl">
+        계정 설정
+      </h1>
+      <UpdateUserForm image={image} nickname={nickname} email={email} />
+    </>
+  );
 }

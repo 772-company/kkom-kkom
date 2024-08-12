@@ -1,6 +1,5 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
 import { getCookie } from "cookies-next";
-import { cookies } from "next/headers";
 
 import { myFetch } from "../myFetch";
 import {

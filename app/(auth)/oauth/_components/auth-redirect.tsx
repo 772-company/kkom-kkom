@@ -1,5 +1,6 @@
 "use client";
 
+import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
 import {
   PostTeamIdAuthSignInProviderResponse,
@@ -79,35 +80,4 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
   }, [code, state]);
 
   return null;
-}
-
-export async function oauthLogin(
-  state: string,
-  code: string,
-  provider: "KAKAO" | "GOOGLE",
-) {
-  try {
-    const redirectUri =
-      provider === "KAKAO"
-        ? process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
-        : process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-    const response = await myFetch<PostTeamIdAuthSignInProviderResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn/${provider}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          state,
-          redirectUri,
-          token: code,
-        }),
-      },
-    );
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
 }

@@ -20,21 +20,18 @@ const ParticipateTeamForm = ({ email }: ParticipateTeamFormProps) => {
 
   const handleButtonClick = async () => {
     try {
-      const response = await postGroupInvitation({
+      await postGroupInvitation({
         userEmail: email,
         token: teamLink,
       });
-
-      if (response.message) {
-        showToast("error", response.message);
-      } else {
-        showToast("success", "팀 참여에 성공했습니다.");
-        router.push("/");
-      }
+      showToast("success", "팀 참여에 성공하였습니다.");
+      router.push("/");
+      router.refresh();
     } catch (error) {
-      showToast("error", "팀 참여에 실패했습니다.");
-
-      console.error(error);
+      showToast(
+        "error",
+        error instanceof Error ? error.message : "팀 참여에 실패하였습니다.",
+      );
     }
   };
 

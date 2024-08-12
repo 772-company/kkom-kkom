@@ -1,4 +1,5 @@
 import { myFetch } from "../myFetch";
+import { ResponseError } from "../myFetch/clientFetch";
 import {
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
@@ -114,11 +115,19 @@ export async function postGroupInvitation({
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
         body: JSON.stringify({ userEmail, token }),
       },
     );
     return response;
   } catch (error) {
-    throw error;
+    if (error instanceof ResponseError && error.response) {
+      const response: { message: string } = await error.response?.json();
+      if (response) {
+        throw new Error(response.message);
+      }
+    } else {
+      throw error;
+    }
   }
 }

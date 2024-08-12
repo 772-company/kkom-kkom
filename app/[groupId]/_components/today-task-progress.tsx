@@ -22,8 +22,8 @@ const TodayTaskProgress = ({
   return (
     <div className="flex items-center gap-[64px]">
       <div className="relative">
-        <div className="h-[170px] w-[170px] rounded-full border-[30px] border-background-tertiary bg-background-secondary" />
-        <div className="absolute bottom-[45px] left-[45px] flex h-[80px] w-[80px] flex-col items-center justify-center md:hidden">
+        <div className="h-[140px] w-[140px] rounded-full border-[30px] border-background-tertiary bg-background-secondary md:h-[170px] md:w-[170px]" />
+        <div className="absolute bottom-[40px] left-[40px] flex h-[60px] w-[60px] flex-col items-center justify-center md:hidden">
           <p className="text-[12px] font-[500] text-text-primary">오늘</p>
           <p className="bg-gradient-to-r from-brand-primary to-brand-tertiary bg-clip-text text-[20px] font-[700] text-brand-primary text-transparent">
             {progressPercent}%

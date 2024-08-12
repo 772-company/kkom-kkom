@@ -8,7 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="lg:mx-auto lg:max-w-[1200px] mx-4 pb-20 md:mx-6">
+    <div className="mx-4 pb-20 md:mx-6 xl:mx-auto xl:max-w-[1200px]">
       {children}
     </div>
   );

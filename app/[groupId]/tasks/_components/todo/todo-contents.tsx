@@ -18,14 +18,9 @@ interface TodoContentsProps {
 }
 const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
   const { handleClickName, selectedButton } = useSelectButton(taskLists);
-  const { tasks, error, isPending } = useGetTasks(
-    groupId,
-    selectedButton,
-    date,
-  );
+  const { tasks, isPending } = useGetTasks(groupId, selectedButton, date);
 
-  const { todoId, isSideBarOpen, handleCancel, handleClick } =
-    useSideBar(selectedButton);
+  const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
 
   if (taskLists.length === 0) {
     return <NoList />;
@@ -56,12 +51,13 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
               commentCount={e.commentCount}
               key={e.id}
               handleClickTodoBox={handleClick}
-              isdone={false}
+              doneAt={e.doneAt}
+              date={date}
             />
           ))}
         <SideBar
-          taskListId={selectedButton}
           gropId={groupId}
+          taskListId={selectedButton}
           todoId={todoId}
           isOpen={isSideBarOpen}
           handleCancelButton={handleCancel}

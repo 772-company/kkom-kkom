@@ -1,7 +1,14 @@
 "use client";
 
 import useClickOutside from "@/hooks/use-click-outside";
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ButtonHTMLAttributes,
+  OlHTMLAttributes,
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 interface DropdownState {
   isDropdownOpen: boolean;
@@ -69,7 +76,7 @@ Dropdown.Item = Item;
 
 // NOTE - Button
 
-interface DropdownButtonProps {
+interface DropdownButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
 }
@@ -84,13 +91,13 @@ interface DropdownButtonProps {
  * @returns : 버튼 컴포넌트를 반환합니다.
  * @example : <Dropdown.Button>▽</Dropdown.Button>
  **/
-function Button({ children, className }: DropdownButtonProps) {
+function Button({ children, className, ...rest }: DropdownButtonProps) {
   const { handleDropdown, selected } = useDropdown();
-
   return (
     <button
       onClick={handleDropdown}
       className={`${className} flex w-full items-center`}
+      {...rest}
     >
       {selected}
       {children}
@@ -99,7 +106,7 @@ function Button({ children, className }: DropdownButtonProps) {
 }
 
 // NOTE - Body
-interface BodyProps {
+interface BodyProps extends OlHTMLAttributes<HTMLUListElement> {
   children: ReactNode;
   className?: string;
 }
@@ -111,16 +118,18 @@ interface BodyProps {
  * @param className : 너비 및 배경색 등 추가적으로 적용될 스타일을 지정해주는 프롭입니다.
  * @example  <Dropdown.Body className="w-36 bg-blue-200">...</Dropdown.Body>
  **/
-function Body({ children, className }: BodyProps) {
+function Body({ children, className, ...rest }: BodyProps) {
   const { isDropdownOpen } = useDropdown();
 
   return isDropdownOpen ? (
-    <ul className={`${className} absolute z-50`}>{children}</ul>
+    <ul className={`${className} absolute z-50`} {...rest}>
+      {children}
+    </ul>
   ) : null;
 }
 
 // NOTE - Item
-interface ItemProps {
+interface ItemProps extends OlHTMLAttributes<HTMLLIElement> {
   children: ReactNode;
   display?: ReactNode;
 }
@@ -133,7 +142,7 @@ interface ItemProps {
  * @param display : 선택 항목에 표시할 내용입니다. 없는 경우 children을 사용합니다.
  * @example  <Dropdown.Item><div className="flex gap-2"><p>Seo</p><span>Young</span></div></Dropdown.Item>
  **/
-function Item({ children, display }: ItemProps) {
+function Item({ children, display, ...rest }: ItemProps) {
   const { handleSelect, handleDropdown } = useDropdown();
 
   const onSelect = () => {
@@ -141,7 +150,7 @@ function Item({ children, display }: ItemProps) {
     handleDropdown();
   };
   return (
-    <li className="cursor-pointer" onClick={onSelect}>
+    <li className="cursor-pointer" onClick={onSelect} {...rest}>
       {children}
     </li>
   );

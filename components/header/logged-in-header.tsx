@@ -1,4 +1,4 @@
-import { getUser } from "@/app/action";
+import { getUser } from "@/lib/apis/user";
 import Logo from "@/public/icons/logo.svg";
 import Link from "next/link";
 

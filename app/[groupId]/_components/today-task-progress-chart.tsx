@@ -1,5 +1,6 @@
 "use client";
 
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
@@ -31,7 +32,7 @@ const TodayTaskProgressChart = ({
   const updateRadius = () => {
     const width = window.innerWidth;
 
-    if (width <= 768) {
+    if (width < 744) {
       setOuterRadius(70); // mobile
     } else {
       setOuterRadius(85); // tablet, pc
@@ -42,10 +43,9 @@ const TodayTaskProgressChart = ({
 
   useEffect(() => {
     updateRadius();
-    window.addEventListener("resize", updateRadius);
-
+    window.addEventListener("resize", _.debounce(updateRadius));
     return () => {
-      window.removeEventListener("resize", updateRadius);
+      window.removeEventListener("resize", _.debounce(updateRadius));
     };
   }, [outerRadius]);
 

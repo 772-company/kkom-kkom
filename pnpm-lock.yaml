@@ -17,6 +17,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.51.21
         version: 5.51.21(react@18.3.1)
+      '@types/lodash':
+        specifier: ^4.17.7
+        version: 4.17.7
       '@types/yup':
         specifier: ^0.32.0
         version: 0.32.0
@@ -38,6 +41,9 @@ importers:
       framer-motion:
         specifier: ^11.3.21
         version: 11.3.21(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       next:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.24.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

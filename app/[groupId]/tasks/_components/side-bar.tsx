@@ -32,16 +32,11 @@ const SideBar = ({
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
   const { isPending, taskDetail } = useGetTask(gropId, taskListId, todoId);
-  const updateAt = convertDateToYMD(
-    new Date(taskDetail ? taskDetail.updatedAt : ""),
-  );
-  const convertedDate = convertDateToYMD(
-    new Date(taskDetail ? taskDetail.date : ""),
-  );
+  const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
+  const convertedDate = convertDateToYMD(new Date(taskDetail?.date ?? ""));
   const { ampm, hoursString, minutesString } = convertDateToTime(
-    new Date(taskDetail ? taskDetail.date : ""),
+    new Date(taskDetail?.date ?? ""),
   );
-  console.log(taskDetail?.doneAt, date);
 
   return (
     <div

@@ -15,8 +15,6 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
   const queryClient = useQueryClient();
   const {
     formState: { isDirty },
-    trigger,
-    setValue,
     register,
     handleSubmit,
     reset,
@@ -24,7 +22,6 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
     mode: "onChange",
     defaultValues: { content: "" },
   });
-  const { onChange } = register("content");
   const { mutate, isPending } = useMutation({
     mutationFn: (data: { taskId: number; content: { content: string } }) =>
       postComment(data.taskId, data.content),

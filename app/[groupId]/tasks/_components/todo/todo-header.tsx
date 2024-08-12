@@ -39,15 +39,14 @@ const TodoHeader = ({
             className="relative flex h-6 w-6 items-center justify-center rounded-full bg-background-secondary"
           >
             <Calendar width={12} height={12} />
-
-            <DatePicker
-              className="h-0 w-0"
-              selected={date}
-              locale={ko}
-              onChange={onChangeDate}
-              ref={datePickerRef}
-            />
           </button>
+          <DatePicker
+            className="h-0 w-0"
+            selected={date}
+            locale={ko}
+            onChange={onChangeDate}
+            ref={datePickerRef}
+          />
         </div>
       </div>
 

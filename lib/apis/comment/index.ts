@@ -2,7 +2,7 @@ import { myFetch } from "../myFetch";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 export const postComment = async (
-  taskId: number,
+  taskId: number | undefined,
   data: { content: string },
 ) => {
   try {

@@ -23,8 +23,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
     defaultValues: { content: "" },
   });
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: { taskId: number; content: { content: string } }) =>
-      postComment(data.taskId, data.content),
+    mutationFn: (data: { content: string }) => postComment(taskId, data),
     onSuccess: () => {
       Promise.all([
         queryClient.invalidateQueries({
@@ -44,7 +43,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
     if (!data.content || !taskId) {
       return;
     }
-    mutate({ taskId: taskId, content: data });
+    mutate(data);
     reset({ content: "" }, { keepDirty: true });
   };
 

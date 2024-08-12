@@ -1,5 +1,6 @@
 import {
   GetArticlesArticleIdCommentsResponse,
+  GetArticlesArticleIdResponse,
   GetArticlesResponse,
 } from "@/lib/apis/type";
 
@@ -140,7 +141,8 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
       },
       updatedAt: "2024-08-07T10:00:00.000Z",
       createdAt: "2024-08-07T09:00:00.000Z",
-      content: "content_10",
+      content:
+        "content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10content_10",
       id: 10,
     },
     {
@@ -151,7 +153,8 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
       },
       updatedAt: "2024-08-06T14:20:00.000Z",
       createdAt: "2024-08-06T13:20:00.000Z",
-      content: "content_9",
+      content:
+        "반갑습니다\n저는 댓글입니다.\n저는 댓글입니다.\n저는 댓글입니다.\n저는 댓글입니다.",
       id: 9,
     },
     {
@@ -243,4 +246,20 @@ export const comments: GetArticlesArticleIdCommentsResponse = {
       id: 1,
     },
   ],
+};
+
+export const article: GetArticlesArticleIdResponse = {
+  updatedAt: "2024-08-12T01:12:25.851Z",
+  createdAt: "2024-08-12T01:12:25.851Z",
+  likeCount: 0,
+  writer: {
+    nickname: "string",
+    id: 1,
+  },
+  image: "string",
+  title: "게시글 제목입니다.",
+  id: 1,
+  isLiked: true,
+  content:
+    "게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.",
 };

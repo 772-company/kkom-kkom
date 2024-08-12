@@ -25,7 +25,7 @@ export default function PostList() {
           className="group/card flex p-4 py-6 duration-300 hover:scale-[1.02] md:px-8"
         >
           <Link
-            href={`/board/${article.id}`}
+            href={`/boards/${article.id}`}
             className="relative h-24 w-24 md:h-32 md:w-32"
           >
             <Image
@@ -39,7 +39,7 @@ export default function PostList() {
           <div className="ml-4 flex flex-1 flex-col justify-between text-sm font-medium text-text-secondary md:text-[18px]">
             <section className="flex items-center justify-between">
               <Link
-                href={`/board/${article.id}`}
+                href={`/boards/${article.id}`}
                 className="inline hover:underline group-hover/card:text-[#41ff30]"
               >
                 {article.title}

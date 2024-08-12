@@ -23,7 +23,7 @@ export default function RankingChart() {
             className={`flex items-center justify-between gap-1 ${i <= 2 && "font-bold text-[#fe6c08]"}`}
           >
             <Link
-              href={`/board/${article.id}`}
+              href={`/boards/${article.id}`}
               className="flex gap-1 hover:text-[#41ff30]"
             >
               {`${i + 1}. ${article.title}`}

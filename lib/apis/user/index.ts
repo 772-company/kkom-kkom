@@ -1,5 +1,6 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
 import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components/reset-password-form";
+import { UpdateUserInputValue } from "@/app/mypage/_component/update-user-form";
 import { getCookie } from "cookies-next";
 
 import { myFetch } from "../myFetch";
@@ -11,6 +12,7 @@ import {
   GetTeamIdUserResponse,
   PatchTeamIdUserPasswordResponse,
   PatchTeamIdUserResetPasswordResponse,
+  PatchTeamIdUserResponse,
   PostTeamIdUserSendResetPasswordEmailResponse,
 } from "../type";
 
@@ -151,6 +153,28 @@ export async function deleteAccount(): Promise<DeleteTeamIdUserResponse> {
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
       {
         method: "DELETE",
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// NOTE - 계정 수정 (닉네임, 이미지)
+export async function updateAccount(
+  data: UpdateUserInputValue,
+): Promise<PatchTeamIdUserResponse> {
+  try {
+    const response = await myFetch<PatchTeamIdUserResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
         withCredentials: true,
       },
     );

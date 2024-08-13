@@ -4,13 +4,13 @@ import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 
-import AddBoardModal from "./add-board-modal";
+import ArticleModal from "./article-modal";
 
 export default function AddBoard() {
   const overlay = useCustomOverlay(({ close }) => (
-    <Modal close={close} closeOnFocusOut={false} className="md:!w-[500px]">
+    <Modal close={close} closeOnFocusOut={false}>
       <Modal.HeaderWithClose className="fixed right-7 top-7" />
-      <AddBoardModal close={close} />
+      <ArticleModal close={close} />
     </Modal>
   ));
   return (

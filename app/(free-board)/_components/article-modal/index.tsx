@@ -3,15 +3,18 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import { BasicTextarea } from "@/components/input-field/textarea";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import usePreventScroll from "@/hooks/use-prevent-scroll";
+import { showToast } from "@/lib/show-toast";
+import ArrowReturn from "@/public/icons/arrow-return";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 
+import { useUploadArticleMutation } from "../../_query/query";
 import FileDragDown from "./_components/file-drag-down";
 import ModalCancel from "./_components/modal-cancel";
 import { articleFormSchema } from "./schema";
 
-interface AddBoardModalProps {
+interface ArticleModalProps {
   close: () => void;
 }
 
@@ -21,7 +24,7 @@ export interface FormType {
   image: File;
 }
 
-export default function AddBoardModal({ close }: AddBoardModalProps) {
+export default function ArticleModal({ close }: ArticleModalProps) {
   const [isNext, setIsNext] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const {
@@ -30,7 +33,7 @@ export default function AddBoardModal({ close }: AddBoardModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(articleFormSchema),
   });
   const cancelOverlay = useCustomOverlay(({ close }) => (
@@ -41,6 +44,7 @@ export default function AddBoardModal({ close }: AddBoardModalProps) {
       }}
     />
   ));
+  const uploadPostMutation = useUploadArticleMutation(close);
 
   const handleNext = () => {
     setIsNext(true);
@@ -49,11 +53,31 @@ export default function AddBoardModal({ close }: AddBoardModalProps) {
     setIsNext(false);
   };
   const handleCancel = cancelOverlay.open;
-
-  //TODO : 서버로 데이터 전송
   const handlePost: SubmitHandler<FormType> = (d) => {
-    console.log(d);
-    close();
+    uploadPostMutation.mutate(
+      {
+        content: d.content,
+        image: d.image,
+        title: d.title,
+      },
+      {
+        onSettled: () => {
+          setFile(null);
+        },
+      },
+    );
+  };
+  const handleValidate = (
+    e: FieldErrors<{
+      title: string;
+      content: string;
+      image: File;
+    }>,
+  ) => {
+    showToast(
+      "error",
+      e.content?.message || e.image?.message || e.title?.message,
+    );
   };
   const handleImage = (image: File) => {
     setValue("image", image);
@@ -78,37 +102,7 @@ export default function AddBoardModal({ close }: AddBoardModalProps) {
         </header>
       ) : file ? (
         <header className="flex items-center justify-between gap-2">
-          <svg
-            aria-label="돌아가기"
-            className="h-6 w-6 cursor-pointer"
-            fill="currentColor"
-            height="24"
-            role="img"
-            viewBox="0 0 24 24"
-            width="24"
-            onClick={handleCancel}
-          >
-            <title>돌아가기</title>
-            <line
-              fill="none"
-              stroke="rgb(16 185 129)"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              x1="2.909"
-              x2="22.001"
-              y1="12.004"
-              y2="12.004"
-            ></line>
-            <polyline
-              fill="none"
-              points="9.276 4.726 2.001 12.004 9.276 19.274"
-              stroke="rgb(16 185 129)"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            ></polyline>
-          </svg>
+          <ArrowReturn handleCancel={handleCancel} />
           <Button
             btnSize="x-small"
             btnStyle="solid"
@@ -124,7 +118,7 @@ export default function AddBoardModal({ close }: AddBoardModalProps) {
         {!isNext ? (
           <FileDragDown file={file} onSelect={handleImage} />
         ) : (
-          <form onSubmit={handleSubmit(handlePost)}>
+          <form onSubmit={handleSubmit(handlePost, handleValidate)}>
             <Button
               type="submit"
               btnSize="x-small"

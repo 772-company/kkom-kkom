@@ -18,7 +18,9 @@ const ModalMemberInvitation = ({
   const handleButtonClick = async () => {
     try {
       const result = await getGroupInvitation({ groupId: groupId });
-      await navigator.clipboard.writeText(result);
+      await navigator.clipboard.writeText(
+        `${process.env.NEXT_PUBLIC_PARTICIPATE_TEAM_REDIRECT_URL}?token=${result}`,
+      );
       showToast("success", "링크가 복사되었습니다");
       close();
     } catch (error) {

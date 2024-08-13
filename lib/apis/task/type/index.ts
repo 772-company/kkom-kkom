@@ -1,58 +1,51 @@
 export type GetTasksResponse = {
-  displayIndex: number;
-  commentCount: number;
-  deletedAt: string;
-  recurringId: number;
-  frequency: string;
-  userId: number;
-  date: string;
-  doneAt: string;
-  updatedAt: string;
-  name: string;
-  id: number;
-}[];
-
-export interface GetTaskResponse {
-  comments: {
+  doneBy: {
     user: {
       image: string;
       nickname: string;
       id: number;
     };
-    userId: number;
-    taskId: number;
-    updatedAt: string;
-    createdAt: string;
-    content: string;
-    id: number;
-  }[];
-  recurring: {
-    groupId: number;
-    taskListId: number;
-    monthDay: number;
-    weekDays: [number];
-    frequencyType: string;
-    startDate: string;
-    updatedAt: string;
-    createdAt: string;
-    description: string;
-    name: string;
-    id: number;
   };
-  user: {
+  writer: {
     image: string;
     nickname: string;
     id: number;
   };
   displayIndex: number;
-  userId: number;
+  commentCount: number;
   deletedAt: string;
-  frequency: string;
+  recurringId: number;
+  frequency: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+  updatedAt: string;
+  doneAt: string;
+  date: string;
   description: string;
   name: string;
+  id: number;
+}[];
+
+export interface GetTaskResponse {
+  doneBy: {
+    user: {
+      image: string;
+      nickname: string;
+      id: number;
+    };
+  };
+  writer: {
+    image: string;
+    nickname: string;
+    id: number;
+  };
+  displayIndex: number;
+  commentCount: number;
+  deletedAt: string;
   recurringId: number;
-  doneAt: string | null;
-  date: string;
+  frequency: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   updatedAt: string;
+  doneAt: string;
+  date: string;
+  description: string;
+  name: string;
   id: number;
 }

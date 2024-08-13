@@ -39,6 +39,7 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
       close={close}
       groupId={groupId}
       taskListId={taskList.id}
+      currentTaskListName={taskList.name}
     />
   ));
   const ModalTaskListDeleteOverlay = useCustomOverlay(({ close }) => (

@@ -8,7 +8,7 @@ import hamster from "@/public/images/hamster.jpg";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { LinkButton } from "../button/button";
 import { Dropdown } from "../dropdown/dropdown";
@@ -20,18 +20,26 @@ interface GroupDropdownProps {
 export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [selectedGroupId, setSelectedGroupId] = useState(
-    memberships[0].group.id,
-  );
+  const currentGroupId = parseInt(pathname.split("/")[1], 10);
+  const initialGroup =
+    memberships.find((membership) => membership.group.id === currentGroupId) ||
+    memberships[0];
+  const [selectedGroupId, setSelectedGroupId] = useState(initialGroup.group.id);
 
   const handleSelect = (id: number) => {
     setSelectedGroupId(id);
     router.push(`/${id}`);
   };
 
+  useEffect(() => {
+    if (currentGroupId) {
+      setSelectedGroupId(currentGroupId);
+    }
+  }, [currentGroupId]);
+
   return (
     <div className="hidden md:block">
-      <Dropdown defaultSelected={`${memberships[0].group.name} 팀`}>
+      <Dropdown defaultSelected={`${initialGroup.group.name} 팀`}>
         <Dropdown.Button className="gap-[11px] text-base font-medium text-text-primary">
           <Check width={16} height={16} />
         </Dropdown.Button>

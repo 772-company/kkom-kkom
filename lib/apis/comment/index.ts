@@ -2,7 +2,7 @@ import { myFetch } from "../myFetch";
 import { GetCommentResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
-export const getComment = async (taskId: number | undefined) => {
+const getComment = async (taskId: number | undefined) => {
   try {
     const response = await myFetch<GetCommentResponse>(
       `${URL}/tasks/${taskId}/comments`,
@@ -26,7 +26,7 @@ export const postComment = async (
   data: { content: string },
 ) => {
   try {
-    await myFetch(`${URL}/tasks/${taskId}/comments`, {
+    const response = await myFetch(`${URL}/tasks/${taskId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,20 +40,23 @@ export const postComment = async (
   }
 };
 
-export const patchComment = async (
+const patchComment = async (
   taskId: number | undefined,
   commentId: number,
   data: { content: string },
 ) => {
   try {
-    await myFetch(`${URL}/tasks/${taskId}/comments/${commentId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await myFetch(
+      `${URL}/tasks/${taskId}/comments/${commentId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+        body: JSON.stringify(data),
       },
-      withCredentials: true,
-      body: JSON.stringify(data),
-    });
+    );
   } catch (error) {
     console.error(error);
     throw error;

@@ -16,7 +16,7 @@ export default function ModalLogout({ close }: ModalLogoutProps) {
     deleteCookie("refreshToken");
     router.refresh();
     close();
-    queryClient.removeQueries({ queryKey: ["posts"] });
+    queryClient.removeQueries({ queryKey: ["getUser"] });
   }
 
   return (

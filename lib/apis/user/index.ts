@@ -5,6 +5,7 @@ import { getCookie } from "cookies-next";
 import { myFetch } from "../myFetch";
 import { instance } from "../myFetch/instance";
 import {
+  DeleteTeamIdUserResponse,
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
   GetTeamIdUserResponse,
@@ -97,6 +98,7 @@ export async function sendEmail(
   }
 }
 
+// NOTE - 비밀번호 재설정(로그인 전)
 export async function resetPassword(data: {
   password: string;
   passwordConfirmation: string;
@@ -120,6 +122,7 @@ export async function resetPassword(data: {
   }
 }
 
+// NOTE - 비밀번호 재설정(계정 설정)
 export async function modalResetPassword(
   data: ResetPasswordInputValue,
 ): Promise<PatchTeamIdUserPasswordResponse | string> {
@@ -132,6 +135,22 @@ export async function modalResetPassword(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// NOTE - 계정 탈퇴
+export async function deleteAccount(): Promise<DeleteTeamIdUserResponse> {
+  try {
+    const response = await myFetch<DeleteTeamIdUserResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
+      {
+        method: "DELETE",
         withCredentials: true,
       },
     );

@@ -39,7 +39,6 @@ export default function UpdateUserForm() {
     formState: { errors, isDirty, isValid },
   } = useForm<UpdateUserInputValue>({
     mode: "onChange",
-
     resolver: yupResolver(updateUserSchema),
   });
 

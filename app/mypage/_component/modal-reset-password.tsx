@@ -2,8 +2,11 @@ import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components
 import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
 import Modal from "@/components/modal/modal";
+import { modalResetPassword } from "@/lib/apis/user";
+import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ModalResetPasswordProps {
@@ -19,10 +22,27 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
     mode: "onChange",
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: ResetPasswordInputValue) => {
+      return await modalResetPassword(data);
+    },
+    onSuccess: (response) => {
+      showToast("success", <p>비밀번호가 변경되었습니다</p>);
+      close();
+    },
+    onError: (response) => {
+      showToast("error", <p>{response.message}</p>);
+    },
+  });
+
+  const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {
+    mutation.mutate(data);
+  };
+
   return (
     <Modal close={close} closeOnFocusOut className="p-[36px]">
       <Modal.Title>비밀번호 변경하기</Modal.Title>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6 mt-4 flex flex-col gap-4">
           <PasswordInput<ResetPasswordInputValue>
             id="password"
@@ -46,7 +66,7 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
           confirmBtnStyle="solid"
           buttonDescription="변경하기"
           close={close}
-          disabled={!isValid}
+          disabled={!isValid || mutation.isPending}
         />
       </form>
     </Modal>

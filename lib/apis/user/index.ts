@@ -1,4 +1,5 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
+import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components/reset-password-form";
 import { getCookie } from "cookies-next";
 
 import { myFetch } from "../myFetch";
@@ -7,6 +8,7 @@ import {
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
   GetTeamIdUserResponse,
+  PatchTeamIdUserPasswordResponse,
   PatchTeamIdUserResetPasswordResponse,
   PostTeamIdUserSendResetPasswordEmailResponse,
 } from "../type";
@@ -112,6 +114,27 @@ export async function resetPassword(data: {
       },
     );
 
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function modalResetPassword(
+  data: ResetPasswordInputValue,
+): Promise<PatchTeamIdUserPasswordResponse | string> {
+  try {
+    const response = await myFetch<PatchTeamIdUserPasswordResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/password`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     throw error;

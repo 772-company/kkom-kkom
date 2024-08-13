@@ -12,7 +12,6 @@ import { showToast } from "@/lib/show-toast";
 import { updateUserSchema } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -88,10 +87,12 @@ export default function UpdateUserForm() {
   const watchedNickname = watch("nickname", nickname) || "";
 
   const onSubmit: SubmitHandler<UpdateUserInputValue> = async (data) => {
+    // NOTE - 닉네임 변경하지 않는 경우 data에 포함 X
     if (data.nickname === nickname) {
       delete data.nickname;
     }
 
+    // NOTE - image가 파일인 경우 url로 변환
     if (data.image instanceof File) {
       try {
         const imageToStringResponse = await uploadImage(data.image);
@@ -146,7 +147,12 @@ export default function UpdateUserForm() {
         btnSize="x-small"
         btnStyle="solid"
         className="absolute right-0 top-0 ml-auto flex w-[80px]"
-        disabled={!isDirty || !isValid || watchedNickname.trim() === ""}
+        disabled={
+          !isDirty ||
+          !isValid ||
+          watchedNickname.trim() === "" ||
+          mutation.isPending
+        }
       >
         수정하기
       </Button>

@@ -106,6 +106,23 @@ export async function myFetch<T>(
   }
 }
 
+/**
+ *
+ * @author 이승현
+ * @param url
+ * @returns myFetch에 instance url을 추가한 함수를 반환합니다.
+ * @example
+ *
+ * export const instance = newFetch(`${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}`);
+ * // url이 추가된 myFetch 함수를 반환합니다.
+ * // 사용할 때는 instance를 사용하면 됩니다.
+ */
+// instance를 위한 커링 함수
+export const mF =
+  (url: string) =>
+  <T>(input: string | URL | globalThis.Request, init?: MyFetchOptions) =>
+    myFetch<T>(url + input, init);
+
 export interface ResponseError extends Error {
   response?: Response;
 }

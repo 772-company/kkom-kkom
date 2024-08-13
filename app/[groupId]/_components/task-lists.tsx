@@ -18,6 +18,7 @@ interface TaskListProps {
 }
 
 interface TaskListsProps {
+  isAdmin: boolean;
   taskLists: TaskListType[];
 }
 
@@ -79,7 +80,7 @@ const TaskList = ({ taskList }: TaskListProps) => {
   );
 };
 
-const TaskLists = ({ taskLists }: TaskListsProps) => {
+const TaskLists = ({ isAdmin, taskLists }: TaskListsProps) => {
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListAdd close={close} />
   ));
@@ -93,12 +94,14 @@ const TaskLists = ({ taskLists }: TaskListsProps) => {
             ({taskLists.length}개)
           </p>
         </div>
-        <button
-          className="text-[14px] font-[400] text-brand-primary"
-          onClick={ModalTaskListAddOverlay.open}
-        >
-          + 새로운 목록 추가하기
-        </button>
+        {isAdmin && (
+          <button
+            className="text-[14px] font-[400] text-brand-primary"
+            onClick={ModalTaskListAddOverlay.open}
+          >
+            + 새로운 목록 추가하기
+          </button>
+        )}
       </div>
       <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom">
         {taskLists.length > 0 ? (

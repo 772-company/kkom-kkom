@@ -47,22 +47,20 @@ export type GetTeamIdUserGroups = {
   updatedAt: string;
 }[];
 
-export type GetTeamIdUserHistoryResponse = [
-  {
-    tasksDone: {
-      userId: number;
-      deletedAt: string;
-      recurringId: number;
-      frequency: string;
-      date: string;
-      doneAt: string;
-      description: string;
-      name: string;
-      updatedAt: string;
-      id: number;
-    }[];
-  },
-];
+export type GetTeamIdUserHistoryResponse = {
+  tasksDone: {
+    userId: number;
+    deletedAt: string;
+    recurringId: number;
+    frequency: string;
+    date: string;
+    doneAt: string;
+    description: string;
+    name: string;
+    updatedAt: string;
+    id: number;
+  }[];
+};
 
 export type PostTeamIdUserSendResetPasswordEmailResponse = {
   message: string;

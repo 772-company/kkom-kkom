@@ -26,7 +26,7 @@ export default function FileDragDown({ file, onSelect }: FileDragDownProps) {
 
   return (
     <div>
-      <section className="h-[60vh] w-full px-5 pt-5">
+      <section className="max-h-[60vh] max-w-[60vh] px-5 pt-5">
         <div
           {...getRootProps()}
           className="flex h-full w-full flex-col items-center"
@@ -74,7 +74,7 @@ export default function FileDragDown({ file, onSelect }: FileDragDownProps) {
                   ></path>
                 </svg>
                 <p className="text-xl font-bold">
-                  사진과 동영상을 여기에 끌어다 놓으세요
+                  사진과 동영상을 여기에 놓으세요
                 </p>
                 <Button
                   btnSize="x-small"

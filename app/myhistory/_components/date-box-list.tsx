@@ -5,12 +5,12 @@ import DateBoxCard from "./date-box-card";
 
 export default async function DateBoxList() {
   const data = await getUserHistory();
-  const history: Map<string, GetTeamIdUserHistoryResponse[0]["tasksDone"]> =
-    data[0].tasksDone.reduce((acc, cur) => {
+  if (data.tasksDone.length === 0) return null;
+  const history: Map<string, GetTeamIdUserHistoryResponse["tasksDone"]> =
+    data.tasksDone.reduce((acc, cur) => {
       acc.set(cur.date, [...(acc.get(cur.date) || []), cur]);
       return acc;
     }, new Map());
-
   return (
     <section className="mt-[27px] flex flex-col gap-10 md:mt-6">
       {[...history.entries()].map(([date, history]) => (

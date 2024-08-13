@@ -2,6 +2,7 @@ import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/mod
 import { getCookie } from "cookies-next";
 
 import { myFetch } from "../myFetch";
+import { instance } from "../myFetch/instance";
 import {
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
@@ -54,10 +55,9 @@ export async function gerUserGroups(): Promise<GetTeamIdUserGroups> {
 
 export async function getUserHistory() {
   try {
-    const response = await myFetch<GetTeamIdUserHistoryResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/history`,
+    const response = await instance<GetTeamIdUserHistoryResponse>(
+      `/user/history`,
       {
-        method: "GET",
         withCredentials: true,
       },
     );

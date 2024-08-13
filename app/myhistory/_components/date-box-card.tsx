@@ -4,7 +4,7 @@ import { convertDateToYMD } from "@/utils/convert-date";
 
 interface CheckedBoxListProps {
   date: string;
-  tasksDone: GetTeamIdUserHistoryResponse[0]["tasksDone"];
+  tasksDone: GetTeamIdUserHistoryResponse["tasksDone"];
 }
 
 export default function DateBoxCard({ date, tasksDone }: CheckedBoxListProps) {

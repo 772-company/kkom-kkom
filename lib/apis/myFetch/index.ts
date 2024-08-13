@@ -102,6 +102,12 @@ export async function myFetch<T>(
   }
 }
 
+// instance를 위한 커링 함수
+export const newFetch =
+  (url: string) =>
+  <T>(input: string | URL | globalThis.Request, init?: MyFetchOptions) =>
+    myFetch<T>(url + input, init);
+
 export interface ResponseError extends Error {
   response?: Response;
 }

@@ -2,7 +2,7 @@ import Modal from "@/components/modal/modal";
 import { deleteAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import Alert from "@/public/icons/alert.svg";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 

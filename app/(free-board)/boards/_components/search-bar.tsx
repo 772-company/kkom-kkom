@@ -1,8 +1,8 @@
 "use client";
 
 import { BasicInput } from "@/components/input-field/basic-input";
+import { useSortStore } from "@/providers/sort-store-provider";
 import SearchIcon from "@/public/icons/search.svg";
-import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 
 export default function SearchBar() {
@@ -12,10 +12,14 @@ export default function SearchBar() {
     setValue,
     formState: { isSubmitting },
   } = useForm();
-  const router = useRouter();
+  const setKeyword = useSortStore((state) => state.setKeyword);
+  const setOrderBy = useSortStore((state) => state.setOrderBy);
+  const setPage = useSortStore((state) => state.setPage);
   const onSubmit = (data: FieldValues) => {
     if (!isSubmitting) {
-      router.push(`/boards?keyword=${data.keyword}`);
+      setKeyword(data.keyword);
+      setPage(1);
+      setOrderBy("recent");
       setValue("keyword", "", { shouldValidate: false });
     }
   };

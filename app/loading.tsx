@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <div>Loading...</div>;
+  return <div className="bg-green-600">Loading...</div>;
 }

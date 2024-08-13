@@ -95,6 +95,10 @@ export async function myFetch<T>(
 ): Promise<T> {
   if (typeof window !== "undefined") {
     const data = await clientFetch(input, init);
+    if (data.status === 204) {
+      //NOTE - no content 일 때
+      return data as T;
+    }
     return await data.json();
   } else {
     const data = await serverFetch(input, init);

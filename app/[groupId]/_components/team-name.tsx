@@ -11,15 +11,20 @@ import ModalTeamNameEdit from "./modal/modal-team-name-edit";
 
 interface TeamNameProps {
   teamName: string;
+  groupId: string;
 }
 
-const TeamName = ({ teamName }: TeamNameProps) => {
+const TeamName = ({ teamName, groupId }: TeamNameProps) => {
   const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
-    <ModalTeamNameEdit close={close} />
+    <ModalTeamNameEdit
+      close={close}
+      groupId={groupId}
+      currentTeamName={teamName}
+    />
   ));
 
   const ModalTeamDeleteOverlay = useCustomOverlay(({ close }) => (
-    <ModalTeamDelete close={close} teamName={teamName} />
+    <ModalTeamDelete close={close} teamName={teamName} groupId={groupId} />
   ));
 
   return (

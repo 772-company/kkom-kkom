@@ -1,3 +1,4 @@
+import { uploadImage } from "../image";
 import { instance } from "../myFetch/instance";
 import {
   DeleteArticlesArticleIdLikeResponse,
@@ -10,14 +11,24 @@ import {
 } from "../type";
 
 interface PostArticlesRequest {
-  data: { image: string; title: string; content: string };
+  image: File;
+  title: string;
+  content: string;
 }
 
-export async function postArticles({ data }: PostArticlesRequest) {
+export async function postArticles({
+  image,
+  title,
+  content,
+}: PostArticlesRequest) {
   try {
+    const { url } = await uploadImage(image);
     const response = await instance<PostArticlesResponse>(`/articles`, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ image: url, title, content }),
+      headers: {
+        "Content-Type": "application/json",
+      },
       withCredentials: true,
     });
     return response;
@@ -28,21 +39,19 @@ export async function postArticles({ data }: PostArticlesRequest) {
 
 interface GetArticlesRequest {
   page?: number;
-  pageSize?: number;
   keyword?: string;
   orderBy?: "like" | "recent";
 }
 
 export async function getArticles({
   page = 1,
-  pageSize = 10,
   keyword = "",
   orderBy = "recent",
 }: GetArticlesRequest) {
   try {
     const params = new URLSearchParams({
       page: String(page),
-      pageSize: String(pageSize),
+      pageSize: String(10),
       keyword,
       orderBy,
     });
@@ -79,12 +88,16 @@ export async function getArticlesArticleId({
 }
 
 interface PatchArticlesArticleIdRequest {
-  data: { image: string; title: string; content: string };
+  image: string;
+  title: string;
+  content: string;
   articleId: number;
 }
 
 export async function patchArticlesArticleId({
-  data,
+  image,
+  title,
+  content,
   articleId,
 }: PatchArticlesArticleIdRequest) {
   try {
@@ -92,7 +105,10 @@ export async function patchArticlesArticleId({
       `/articles/${articleId}`,
       {
         method: "PATCH",
-        body: JSON.stringify(data),
+        body: JSON.stringify({ image, title, content }),
+        headers: {
+          "Content-Type": "application/json",
+        },
         withCredentials: true,
       },
     );

@@ -47,7 +47,10 @@ export function ProfileInput<TFormInput extends FieldValues>({
       const file = e.target.files[0];
       if (file) {
         const preview = URL.createObjectURL(e.target.files[0]);
-        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>);
+        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
         setPreviewImage(preview);
       }
     }
@@ -55,7 +58,10 @@ export function ProfileInput<TFormInput extends FieldValues>({
 
   // NOTE - x 버튼 클릭 시 프리뷰 초기화 및 input 초기화
   const handleClearImage = (e: MouseEvent<HTMLButtonElement>) => {
-    setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>);
+    setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
     setPreviewImage(null);
     // NOTE - 이벤트 버블링으로 인해 input까지 같이 열려 추가
     e.preventDefault();

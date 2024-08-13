@@ -5,15 +5,15 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { useAuthError } from "../../_hooks/use-auth-error";
 import ModalSendEmail from "../../reset-password/_components/modal-send-email";
 
 export interface LoginInputValue {
@@ -36,35 +36,27 @@ export default function LoginForm() {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
-    try {
-      const response = (await login(data)) as PostTeamIdAuthSigninResponse;
+  const handleError = useAuthError<LoginInputValue>(setError);
 
+  const mutation = useMutation({
+    mutationFn: async (data: LoginInputValue) => {
+      const response = (await login(data)) as PostTeamIdAuthSigninResponse;
+      return response;
+    },
+    onSuccess: (response: PostTeamIdAuthSigninResponse) => {
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
       setCookie("refreshToken", response.refreshToken, {
         maxAge: 60 * 60 * 24 * 7,
       });
-
       // NOTE - 로그인 후 랜딩으로 리다이렉트를 위해 push 헤더 업데이트를 위해 refresh
       router.push("/");
       router.refresh();
-    } catch (error) {
-      if (error instanceof ResponseError) {
-        const response: { details: { key: { message: string } } } =
-          await error.response?.json();
-        if (response) {
-          // NOTE - 400인 경우
-          for (const [key, { message }] of Object.entries(response.details)) {
-            setError(key as keyof LoginInputValue, {
-              type: "manual",
-              message,
-            });
-          }
-        }
-      } else {
-        throw error;
-      }
-    }
+    },
+    onError: handleError,
+  });
+
+  const onSubmit: SubmitHandler<LoginInputValue> = async (data) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -97,7 +89,7 @@ export default function LoginForm() {
         btnSize="large"
         btnStyle="solid"
         className="mt-10 w-full"
-        disabled={!isValid}
+        disabled={!isValid || mutation.isPending}
       >
         로그인
       </Button>

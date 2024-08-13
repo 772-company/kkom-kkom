@@ -18,4 +18,6 @@ export const updateUserSchema = yup.object().shape({
       const fileType = value.type;
       return ["image/jpeg", "image/png", "image/jpg"].includes(fileType);
     }),
+  password: yup.string(),
+  email: yup.string(),
 });

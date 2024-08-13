@@ -4,13 +4,15 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { signUp } from "@/lib/apis/auth";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { PostTeamIdAuthSignupResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import { useAuthError } from "../../_hooks/use-auth-error";
 
 export interface SignUpInputValue {
   email: string;
@@ -30,25 +32,22 @@ export default function SignUpForm() {
     resolver: yupResolver(signUpSchema),
     mode: "onChange",
   });
+  const handleError = useAuthError<SignUpInputValue>(setError);
 
-  const onSubmit: SubmitHandler<SignUpInputValue> = async (data) => {
-    try {
+  const mutation = useMutation({
+    mutationFn: async (data: SignUpInputValue) => {
       const response = (await signUp(data)) as PostTeamIdAuthSignupResponse;
+      return response;
+    },
+    onSuccess: (response: PostTeamIdAuthSignupResponse) => {
       showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
       router.push("/login");
-    } catch (error) {
-      if (error instanceof ResponseError) {
-        const response: { details: { key: { message: string } } } =
-          await error.response?.json();
-        // NOTE - 400인 경우
-        for (const [key, { message }] of Object.entries(response.details)) {
-          setError(key as keyof SignUpInputValue, {
-            type: "manual",
-            message,
-          });
-        }
-      }
-    }
+    },
+    onError: handleError,
+  });
+
+  const onSubmit: SubmitHandler<SignUpInputValue> = async (data) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -89,7 +88,7 @@ export default function SignUpForm() {
         btnSize="large"
         btnStyle="solid"
         className="mb-[25px] mt-10 w-full"
-        disabled={!isValid}
+        disabled={!isValid || mutation.isPending}
       >
         회원가입
       </Button>

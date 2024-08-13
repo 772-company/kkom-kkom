@@ -6,6 +6,7 @@ import { sendEmail } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { sendEmailSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ModalSendEmailProps {
@@ -26,20 +27,29 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
     resolver: yupResolver(sendEmailSchema),
     mode: "onChange",
   });
-
-  const handleClick: SubmitHandler<SendEmailInputValue> = async (data) => {
-    try {
+  const mutation = useMutation({
+    mutationFn: async (data: SendEmailInputValue) => {
       const response = (await sendEmail(
         data,
       )) as PostTeamIdUserSendResetPasswordEmailResponse;
+      return response;
+    },
+    onSuccess: (response: PostTeamIdUserSendResetPasswordEmailResponse) => {
       showToast("success", <p>{response.message}</p>);
       close();
-    } catch (error) {
+    },
+    onError: (error: unknown) => {
       if (error instanceof ResponseError) {
-        showToast("error", <p>존재하지 않는 이메일입니다.</p>);
         setError("email", { type: "manual" });
+        showToast("error", <p>존재하지 않는 이메일입니다.</p>);
+      } else {
+        throw error;
       }
-    }
+    },
+  });
+
+  const handleClick: SubmitHandler<SendEmailInputValue> = async (data) => {
+    mutation.mutate(data);
   };
   return (
     <Modal close={close} closeOnFocusOut>
@@ -62,7 +72,7 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
             buttonDescription="링크 보내기"
             close={close}
             className="mt-6"
-            disabled={!isValid}
+            disabled={!isValid || mutation.isPending}
           />
         </form>
       </div>

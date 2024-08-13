@@ -2,8 +2,12 @@
 
 import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
-import { getGoogleTokenResponse } from "@/lib/apis/type";
+import {
+  PostTeamIdAuthSignInProviderResponse,
+  getGoogleTokenResponse,
+} from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
+import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -29,53 +33,51 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    // 로그인 처리 함수
-    const handleLogin = async () => {
-      if (code && state) {
-        try {
-          let finalCode = code;
-          if (provider === "GOOGLE") {
-            const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-            const tokenResponse = await myFetch<getGoogleTokenResponse>(
-              "https://oauth2.googleapis.com/token",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  code,
-                  client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-                  client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
-                  redirect_uri: redirectUri,
-                  grant_type: "authorization_code",
-                }),
-              },
-            );
+  const mutation = useMutation({
+    mutationFn: async ({ code, state }: { code: string; state: string }) => {
+      let finalCode = code;
 
-            finalCode = tokenResponse.id_token;
-          }
+      if (provider === "GOOGLE") {
+        const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
+        const tokenResponse = await myFetch<getGoogleTokenResponse>(
+          "https://oauth2.googleapis.com/token",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              code: code,
+              client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+              client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
+              redirect_uri: redirectUri,
+              grant_type: "authorization_code",
+            }),
+          },
+        );
 
-          const response = await oauthLogin(state, finalCode, provider);
-
-          setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
-          setCookie("refreshToken", response.refreshToken);
-
-          router.push("/");
-          router.refresh();
-        } catch (error) {
-          console.log(error);
-          router.push("/login");
-          showToast("error", <p>로그인 실패, 다시 시도해 주세요</p>);
-        }
+        finalCode = tokenResponse.id_token;
       }
-    };
 
+      return oauthLogin(state, finalCode, provider);
+    },
+    onSuccess: (response) => {
+      setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
+      setCookie("refreshToken", response.refreshToken);
+      router.push("/");
+      router.refresh();
+    },
+    onError: () => {
+      router.push("/login");
+      showToast("error", <p>로그인 실패, 다시 시도해 주세요</p>);
+    },
+  });
+
+  useEffect(() => {
     if (code && state) {
-      handleLogin();
+      mutation.mutate({ code, state });
     }
-  }, [code, state, provider, router]);
+  }, [code, state]);
 
   return null;
 }

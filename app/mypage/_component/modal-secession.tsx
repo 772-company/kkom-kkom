@@ -2,7 +2,6 @@ import Modal from "@/components/modal/modal";
 import Alert from "@/public/icons/alert.svg";
 
 interface ModalWarningProps {
-  handleConfirm: () => void;
   close: () => void;
 }
 
@@ -12,9 +11,8 @@ interface ModalWarningProps {
  * @author 이승현
  * @param handleConfirm 확인 버튼을 눌렀을 때 실행할 함수
  */
-export function ModalWarning({ handleConfirm, close }: ModalWarningProps) {
+export function ModalSecession({ close }: ModalWarningProps) {
   const handleClick = async () => {
-    await handleConfirm();
     close();
   };
 

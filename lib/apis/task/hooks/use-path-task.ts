@@ -1,4 +1,4 @@
-import { myConvertDateToYMD } from "@/utils/convert-date";
+import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { patchTask } from "..";
@@ -20,7 +20,7 @@ const usePatchTask = (
           queryKey: ["getTask", taskId],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["getTasks", taskListId, myConvertDateToYMD(date)],
+          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
       ]);
     },

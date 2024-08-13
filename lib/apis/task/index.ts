@@ -1,4 +1,4 @@
-import { myConvertDateToYMD } from "@/utils/convert-date";
+import { convertDateToY_M_D } from "@/utils/convert-date";
 import { getCookie } from "cookies-next";
 
 import { myFetch } from "../myFetch";
@@ -36,7 +36,7 @@ export const getTasks = async (
   taskListId: number | undefined,
   date: Date,
 ): Promise<GetTasksResponse> => {
-  const convertedDateToYMD = myConvertDateToYMD(date);
+  const convertedDateToYMD = convertDateToY_M_D(date);
   try {
     const response = await myFetch<GetTasksResponse>(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,

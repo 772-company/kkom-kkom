@@ -19,11 +19,7 @@ const ParticipateTeamForm = ({ email }: ParticipateTeamFormProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TeamLinkFormValues>({
+  const { register, handleSubmit } = useForm<TeamLinkFormValues>({
     defaultValues: {
       token: searchParams.get("token") || "",
     },

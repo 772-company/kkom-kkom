@@ -1,45 +1,66 @@
+import { postComment } from "@/lib/apis/comment";
+import { myConvertDateToYMD } from "@/utils/convert-date";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 import TaskButton from "./tasks-button";
 
-const Commentinput = () => {
+interface CommentInputProps {
+  taskListId: number | undefined;
+  taskId: number | undefined;
+  date: Date;
+}
+const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
+  const queryClient = useQueryClient();
   const {
-    watch,
     formState: { isDirty },
-    setValue,
-    getValues,
     register,
     handleSubmit,
+    reset,
   } = useForm({
     mode: "onChange",
-    defaultValues: { value: "" },
+    defaultValues: { content: "" },
   });
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: { content: string }) => postComment(taskId, data),
+    onSuccess: () => {
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["getTask", taskId],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["getTasks", taskListId, myConvertDateToYMD(date)],
+        }),
+      ]);
+    },
+  });
+
   const serveData = (
-    data: { value: string },
+    data: { content: string },
     event?: React.BaseSyntheticEvent,
   ) => {
-    if (!data.value) {
+    if (!data.content || !taskId) {
       return;
     }
-    setValue("value", "", { shouldDirty: true });
-    isDirty;
+    mutate(data);
+    reset({ content: "" }, { keepDirty: true });
   };
 
   return (
     <form className="relative w-full" onSubmit={handleSubmit(serveData)}>
       <input
-        {...register("value")}
+        {...register("content")}
         placeholder="댓글을 달아주세요"
         className="bg-b h-[24px] w-full bg-background-secondary text-sm text-text-default text-text-primary placeholder:font-normal"
       />
       <TaskButton
         type="submit"
         types="submit"
-        disable={isDirty ? false : true}
+        disable={isDirty && !isPending ? false : true}
       />
     </form>
   );
 };
 
-export default Commentinput;
+export default CommentInput;

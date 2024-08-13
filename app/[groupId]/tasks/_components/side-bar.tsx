@@ -6,11 +6,11 @@ import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
+import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
-import Comment from "./comment";
-import Commentinput from "./comment-input";
+import CommentInput from "./comment-input";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {
@@ -19,9 +19,11 @@ interface SideBarProps {
   todoId: number | undefined;
   handleCancelButton: () => void;
   isOpen: boolean;
+  date: Date;
 }
 
 const SideBar = ({
+  date,
   taskListId,
   todoId,
   handleCancelButton,
@@ -30,13 +32,12 @@ const SideBar = ({
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
   const { isPending, taskDetail } = useGetTask(gropId, taskListId, todoId);
-  const updateAt = convertDateToYMD(
-    new Date(taskDetail ? taskDetail.updatedAt : ""),
-  );
-  const date = convertDateToYMD(new Date(taskDetail ? taskDetail.date : ""));
+  const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
+  const convertedDate = convertDateToYMD(new Date(taskDetail?.date ?? ""));
   const { ampm, hoursString, minutesString } = convertDateToTime(
-    new Date(taskDetail ? taskDetail.date : ""),
+    new Date(taskDetail?.date ?? ""),
   );
+
   return (
     <div
       className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
@@ -54,7 +55,9 @@ const SideBar = ({
         {!isPending && (
           <>
             <div className="flex justify-between">
-              <h1 className="text-lg font-bold text-text-primary">
+              <h1
+                className={`text-lg font-bold text-text-primary ${checkTodo(taskDetail?.doneAt ?? null, date) ? "line-through" : ""}`}
+              >
                 {taskDetail?.name}
               </h1>
               <button>
@@ -83,7 +86,8 @@ const SideBar = ({
               <div className="flex items-center gap-[10px]">
                 <Calendar width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
-                  {date.year}년 {date.month}월 {date.day}일
+                  {convertedDate.year}년 {convertedDate.month}월{" "}
+                  {convertedDate.day}일
                 </p>
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Time width={16} height={16} />
@@ -103,13 +107,17 @@ const SideBar = ({
 
               <div className="flex flex-col gap-6">
                 <div className="flex h-[49px] items-center border-b border-t border-gray-300">
-                  <Commentinput />
+                  <CommentInput
+                    taskId={taskDetail?.id}
+                    date={date}
+                    taskListId={taskListId}
+                  />
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {taskDetail?.comments.map((e) => (
+                  {/* {taskDetail?.comments.map((e) => (
                     <Comment key={e.id} {...e} />
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>

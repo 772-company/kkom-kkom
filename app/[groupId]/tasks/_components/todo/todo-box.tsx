@@ -11,6 +11,8 @@ import React from "react";
 import CheckBox from "../check-box";
 
 interface TodoBoxProps {
+  groupId: string;
+  taskListId: number | undefined;
   date: Date;
   id: number;
   commentCount: number;
@@ -20,6 +22,8 @@ interface TodoBoxProps {
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 const TodoBox = ({
+  groupId,
+  taskListId,
   date,
   id,
   commentCount,
@@ -28,8 +32,6 @@ const TodoBox = ({
   handleClickTodoBox,
   dateString,
 }: TodoBoxProps) => {
-  console.log(doneAt);
-
   const { year, month, day } = convertDateToYMD(new Date(dateString));
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(dateString),
@@ -43,7 +45,13 @@ const TodoBox = ({
     >
       <div className="ml-1 flex justify-between">
         <div className="flex items-center gap-3">
-          <CheckBox doneAt={doneAt} date={date} />
+          <CheckBox
+            doneAt={doneAt}
+            date={date}
+            groupId={groupId}
+            taskListId={taskListId}
+            taskId={id}
+          />
           <p
             className={`text-text-primary ${checkTodo(doneAt, date) ? "line-through" : ""} text-sm font-normal`}
           >

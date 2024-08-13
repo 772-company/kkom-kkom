@@ -129,26 +129,24 @@ const deleteTask = async (
     throw error;
   }
 };
-const patchTask = async (
-  groupId: number,
-  taskListId: number,
+export const patchTask = async (
+  groupId: string,
+  taskListId: number | undefined,
   taskId: number,
-  data: any,
+  data: { name?: string; description?: string; done?: boolean },
 ) => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+    await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
-        method: "DELETE",
+        method: "PATCH",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        body: JSON.stringify(data),
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
   } catch (error) {
     console.error(error);
     throw error;

@@ -51,7 +51,7 @@ export interface GetTaskResponse {
   description: string;
   name: string;
   recurringId: number;
-  doneAt: string;
+  doneAt: string | null;
   date: string;
   updatedAt: string;
   id: number;

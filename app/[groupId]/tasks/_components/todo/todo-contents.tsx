@@ -45,6 +45,8 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           tasks &&
           tasks.map((e) => (
             <TodoBox
+              groupId={groupId}
+              taskListId={selectedButton}
               id={e.id}
               dateString={e.date}
               title={e.name}
@@ -57,6 +59,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           ))}
         <SideBar
           gropId={groupId}
+          date={date}
           taskListId={selectedButton}
           todoId={todoId}
           isOpen={isSideBarOpen}

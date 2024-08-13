@@ -39,13 +39,16 @@ const ModalTaskListNameEdit = ({
         taskListId,
         name: data.taskListName,
       });
-      console.log("response: ", response);
-      showToast("success", <p>{data.taskListName}으로 수정되었습니다.</p>);
+      showToast("success", `${data.taskListName}으로 수정되었습니다.`);
       router.refresh();
       close();
     } catch (error) {
-      console.log("error: ", error);
-      showToast("error", <p>목록 명 수정에 실패하였습니다.</p>);
+      showToast(
+        "error",
+        error instanceof Error
+          ? error.message
+          : "목록 명 수정에 실패하였습니다.",
+      );
     }
   };
 

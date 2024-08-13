@@ -1,6 +1,7 @@
 import { string } from "yup";
 
 import { myFetch } from "../myFetch";
+import { ResponseError } from "../myFetch/clientFetch";
 import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
 
@@ -55,7 +56,14 @@ export async function patchTaskListName({
     );
     return response;
   } catch (error) {
-    throw error;
+    if (error instanceof ResponseError && error.response) {
+      const response: { message: string } = await error.response?.json();
+      if (response) {
+        throw new Error(response.message);
+      }
+    } else {
+      throw error;
+    }
   }
 }
 

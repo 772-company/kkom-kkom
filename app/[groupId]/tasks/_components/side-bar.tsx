@@ -75,7 +75,7 @@ const SideBar = ({
                     height={32}
                   />
                   <p className="text-[14px] font-medium text-text-primary">
-                    {taskDetail?.user?.nickname}
+                    {/* {taskDetail?.user?.nickname} */}
                   </p>
                 </div>
                 <p className="text-[14px] font-normal text-text-secondary">

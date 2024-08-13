@@ -2,7 +2,7 @@ import { myFetch } from "../myFetch";
 import { GetCommentResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
-const getComment = async (taskId: number | undefined) => {
+export const getComment = async (taskId: number | undefined) => {
   try {
     const response = await myFetch<GetCommentResponse>(
       `${URL}/tasks/${taskId}/comments`,
@@ -40,7 +40,7 @@ export const postComment = async (
   }
 };
 
-const patchComment = async (
+export const patchComment = async (
   taskId: number | undefined,
   commentId: number,
   data: { content: string },

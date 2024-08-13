@@ -1,5 +1,5 @@
 import { postComment } from "@/lib/apis/comment";
-import { myConvertDateToYMD } from "@/utils/convert-date";
+import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
           queryKey: ["getTask", taskId],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["getTasks", taskListId, myConvertDateToYMD(date)],
+          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
       ]);
     },

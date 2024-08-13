@@ -43,7 +43,12 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
     />
   ));
   const ModalTaskListDeleteOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListDelete taskListName={taskList.name} close={close} />
+    <ModalTaskListDelete
+      groupId={groupId}
+      taskListId={taskList.id}
+      taskListName={taskList.name}
+      close={close}
+    />
   ));
 
   const colorIndex = taskList.displayIndex % 7;

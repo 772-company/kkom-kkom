@@ -82,21 +82,29 @@ export const patchTaskList = async (
   }
 };
 
-export const deleteTaskList = async (groupId: string, taskListId: number) => {
+interface DeleteTaskListProps {
+  groupId: string;
+  taskListId: number;
+}
+
+//NOTE - 할 일 목록 삭제
+export async function deleteTaskList({
+  groupId,
+  taskListId,
+}: DeleteTaskListProps) {
   try {
-    const response = await myFetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}`,
+    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
       {
         method: "DELETE",
-
         withCredentials: true,
       },
     );
+    return response;
   } catch (error) {
-    console.error(error);
     throw error;
   }
-};
+}
 
 export const postTaskList = async (groupId: string, data: { name: string }) => {
   try {

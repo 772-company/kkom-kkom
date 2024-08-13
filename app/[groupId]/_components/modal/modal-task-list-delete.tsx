@@ -1,19 +1,33 @@
 import Modal from "@/components/modal/modal";
+import { deleteTaskList } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import { useRouter } from "next/navigation";
 
 interface ModalTaskListDeleteProps {
   close: () => void;
+  groupId: string;
   taskListName: string;
+  taskListId: number;
 }
 
 const ModalTaskListDelete = ({
   close,
+  groupId,
   taskListName,
+  taskListId,
 }: ModalTaskListDeleteProps) => {
-  const handleButtonClick = () => {
-    showToast("success", <p>{taskListName}이 삭제되었습니다</p>);
-    close();
+  const router = useRouter();
+
+  const handleButtonClick = async () => {
+    try {
+      await deleteTaskList({ groupId, taskListId });
+      showToast("success", <p>{taskListName}이 삭제되었습니다.</p>);
+      close();
+      router.refresh();
+    } catch (error) {
+      showToast("error", <p>{taskListName} 삭제에 실패하였습니다.</p>);
+    }
   };
 
   return (

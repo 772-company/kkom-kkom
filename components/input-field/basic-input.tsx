@@ -44,7 +44,7 @@ export function BasicInput<TFormInput extends FieldValues>({
         {label && (
           <label
             htmlFor={id}
-            className="text-base font-semibold text-text-primary"
+            className={`text-base${isModal ? "font-medium" : "font-semibold"} text-text-primary`}
           >
             {label}
           </label>

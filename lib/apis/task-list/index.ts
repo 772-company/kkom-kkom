@@ -1,4 +1,7 @@
+import { string } from "yup";
+
 import { myFetch } from "../myFetch";
+import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
@@ -25,6 +28,36 @@ export const getTaskList = async (
     throw error;
   }
 };
+
+interface PatchTaskListNameProps {
+  groupId: string;
+  taskListId: number;
+  name: string;
+}
+
+//NOTE - 할 일 목록 명 수정
+export async function patchTaskListName({
+  groupId,
+  taskListId,
+  name,
+}: PatchTaskListNameProps) {
+  try {
+    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const patchTaskList = async (
   groupId: string,

@@ -25,7 +25,7 @@ export default async function TeamPage({
     <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
       <TeamName teamName={teamName} groupId={params.groupId} />
       <div className="flex flex-col gap-[64px]">
-        <TaskLists taskLists={taskLists} />
+        <TaskLists taskLists={taskLists} groupId={params.groupId} />
         <TaskReport taskLists={taskLists} />
         <MemberList members={members} groupId={params.groupId} />
       </div>

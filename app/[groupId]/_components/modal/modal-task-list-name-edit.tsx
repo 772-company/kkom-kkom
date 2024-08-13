@@ -1,19 +1,40 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import { patchTaskListName } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
 interface ModalTaskListNameEditProps {
   close: () => void;
+  groupId: string;
+  taskListId: number;
 }
 
-const ModalTaskListNameEdit = ({ close }: ModalTaskListNameEditProps) => {
+const ModalTaskListNameEdit = ({
+  close,
+  groupId,
+  taskListId,
+}: ModalTaskListNameEditProps) => {
   const [taskListName, setTaskListName] = useState("");
+  const router = useRouter();
 
-  const handleButtonClick = () => {
-    showToast("success", <p>{taskListName}으로 수정되었습니다</p>);
-    close();
+  const handleButtonClick = async () => {
+    try {
+      const response = await patchTaskListName({
+        groupId,
+        taskListId,
+        name: taskListName,
+      });
+      console.log("response: ", response);
+      showToast("success", <p>{taskListName}으로 수정되었습니다.</p>);
+      router.refresh();
+      close();
+    } catch (error) {
+      console.log("error: ", error);
+      showToast("error", <p>목록 명 수정에 실패하였습니다.</p>);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

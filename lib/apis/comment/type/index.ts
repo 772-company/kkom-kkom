@@ -1,4 +1,4 @@
-interface GetCommentResponse {
+export interface GetCommentResponse {
   id: number;
   content: string;
   createdAt: string;

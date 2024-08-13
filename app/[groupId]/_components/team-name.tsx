@@ -30,7 +30,7 @@ const TeamName = ({ teamName, groupId }: TeamNameProps) => {
   return (
     <div className="flex h-[64px] w-full items-center justify-end rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 px-[24px]">
       <p className="w-full text-[20px] font-[700] leading-[64px] text-white">
-        {teamName}팀
+        {teamName}
       </p>
       <div className="absolute flex items-center justify-center gap-[30px]">
         <Image src={Thumbnail} alt="썸네일" height={64} />

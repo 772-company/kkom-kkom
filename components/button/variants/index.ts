@@ -23,7 +23,7 @@ export const buttonVariants = cva(
         outlined_secondary:
           "border-text-secondary text-text-default bg-white border border-solid",
         gradient: "bg-gradient text-white",
-        none_background: "border border-slate-50",
+        none_background: "border border-slate-50 text-white font-medium",
       },
     },
     defaultVariants: {

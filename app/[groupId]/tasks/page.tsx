@@ -1,6 +1,6 @@
 import getGroupInfo from "@/lib/apis/group";
 import { getTasks } from "@/lib/apis/task";
-import { convertDateToY_M_D } from "@/utils/convert-date";
+import { myConvertDateToYMD } from "@/utils/convert-date";
 import {
   HydrationBoundary,
   QueryClient,
@@ -19,12 +19,12 @@ const page = async (context: any) => {
   });
 
   if (result.taskLists[0]) {
-    convertDateToY_M_D(new Date());
+    myConvertDateToYMD(new Date());
     await queryClient.prefetchQuery({
       queryKey: [
         "getTasks",
         result.taskLists[0].id,
-        convertDateToY_M_D(new Date()),
+        myConvertDateToYMD(new Date()),
       ],
       queryFn: () =>
         getTasks(params.groupId, result.taskLists[0].id, new Date()),

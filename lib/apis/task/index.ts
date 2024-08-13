@@ -1,4 +1,4 @@
-import { convertDateToY_M_D } from "@/utils/convert-date";
+import { myConvertDateToYMD } from "@/utils/convert-date";
 
 import { myFetch } from "../myFetch";
 import { GetTaskResponse, GetTasksResponse } from "./type";
@@ -39,7 +39,7 @@ export const getTasks = async (
   taskListId: number | undefined,
   date?: Date,
 ): Promise<GetTasksResponse> => {
-  const convertedDateToYMD = convertDateToY_M_D(date ?? new Date());
+  const convertedDateToYMD = myConvertDateToYMD(date ?? new Date());
   try {
     const response = await myFetch<GetTasksResponse>(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,

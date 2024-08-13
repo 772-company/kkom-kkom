@@ -1,4 +1,4 @@
-import { convertDateToY_M_D } from "@/utils/convert-date";
+import { myConvertDateToYMD } from "@/utils/convert-date";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -9,10 +9,10 @@ const useGetTasks = (groupId: string, id: number | undefined, date: Date) => {
     return typeof id === "number";
   };
 
-  convertDateToY_M_D(date);
+  myConvertDateToYMD(date);
   const { data, error, isPending } = useQuery({
     enabled: isValid(),
-    queryKey: ["getTasks", id, convertDateToY_M_D(date)],
+    queryKey: ["getTasks", id, myConvertDateToYMD(date)],
     queryFn: () => getTasks(groupId, id, date),
   });
   const tasks = data;

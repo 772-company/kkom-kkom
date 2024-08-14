@@ -1,4 +1,4 @@
-import { myFetch } from "../myFetch";
+import { instance } from "../myFetch/instance";
 import { PostTeamIdImagesUploadResponse } from "../type";
 
 export async function uploadImage(
@@ -7,8 +7,8 @@ export async function uploadImage(
   const formData = new FormData();
   formData.append("image", image);
   try {
-    const response = await myFetch<PostTeamIdImagesUploadResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/images/upload`,
+    const response = await instance<PostTeamIdImagesUploadResponse>(
+      "/images/upload",
       {
         method: "POST",
         body: formData,

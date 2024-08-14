@@ -1,5 +1,10 @@
 import getGroupInfo from "@/lib/apis/group/index";
 import { getUser } from "@/lib/apis/user";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 
 import MemberList from "./_components/member-list";
 import TaskLists from "./_components/task-lists";
@@ -11,17 +16,17 @@ export default async function TeamPage({
 }: {
   params: { groupId: string };
 }) {
-  const groupInfo = await getGroupInfo({
-    groupId: params.groupId,
+  const { groupId } = params;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["groupInfo"],
+    queryFn: () => getGroupInfo({ groupId: groupId }),
   });
 
   const userInfo = await getUser();
-
-  if (!groupInfo) {
-    return <p className="text-white">데이터 없음</p>;
-  }
-
-  const { name: teamName, taskLists, members } = groupInfo;
+  const { members } = await getGroupInfo({ groupId });
 
   const adminMemberName = members.find(
     (member) => member.role === "ADMIN",
@@ -30,25 +35,15 @@ export default async function TeamPage({
   const isAdmin = adminMemberName === userInfo.nickname ? true : false;
 
   return (
-    <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
-      <TeamName
-        isAdmin={isAdmin}
-        teamName={teamName}
-        groupId={params.groupId}
-      />
-      <div className="flex flex-col gap-[64px]">
-        <TaskLists
-          groupId={params.groupId}
-          isAdmin={isAdmin}
-          taskLists={taskLists}
-        />
-        {isAdmin && <TaskReport taskLists={taskLists} />}
-        <MemberList
-          isAdmin={isAdmin}
-          members={members}
-          groupId={params.groupId}
-        />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
+        <TeamName groupId={params.groupId} isAdmin={isAdmin} />
+        <div className="flex flex-col gap-[64px]">
+          <TaskLists groupId={params.groupId} isAdmin={isAdmin} />
+          {isAdmin && <TaskReport groupId={params.groupId} />}
+          <MemberList groupId={params.groupId} isAdmin={isAdmin} />
+        </div>
       </div>
-    </div>
+    </HydrationBoundary>
   );
 }

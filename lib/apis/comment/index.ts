@@ -67,9 +67,7 @@ export const deleteComment = async (taskId: number, commentId: number) => {
   try {
     await myFetch(`${URL}/tasks/${taskId}/comments/${commentId}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+
       withCredentials: true,
     });
   } catch (error) {

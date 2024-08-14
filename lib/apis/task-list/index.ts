@@ -55,9 +55,7 @@ export const deleteTaskList = async (groupId: string, taskListId: number) => {
       `${URL}/groups${groupId}/task-lists/${taskListId}`,
       {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         withCredentials: true,
       },
     );

@@ -116,9 +116,7 @@ export const deleteTask = async (
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         withCredentials: true,
       },
     );

@@ -97,7 +97,7 @@ export async function deleteGroup({ groupId }: DeleteGroupProps) {
   }
 }
 
-interface postGroupInvitationProps {
+interface PostGroupInvitationProps {
   userEmail: string;
   token: string;
 }
@@ -106,7 +106,7 @@ interface postGroupInvitationProps {
 export async function postGroupInvitation({
   userEmail,
   token,
-}: postGroupInvitationProps) {
+}: PostGroupInvitationProps) {
   try {
     const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/accept-invitation`,

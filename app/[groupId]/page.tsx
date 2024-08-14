@@ -37,7 +37,11 @@ export default async function TeamPage({
         groupId={params.groupId}
       />
       <div className="flex flex-col gap-[64px]">
-        <TaskLists isAdmin={isAdmin} taskLists={taskLists} />
+        <TaskLists
+          groupId={params.groupId}
+          isAdmin={isAdmin}
+          taskLists={taskLists}
+        />
         {isAdmin && <TaskReport taskLists={taskLists} />}
         <MemberList
           isAdmin={isAdmin}

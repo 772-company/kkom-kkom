@@ -19,9 +19,7 @@ interface ModalWarningProps {
 export function ModalSecession({ close }: ModalWarningProps) {
   const router = useRouter();
   const mutation = useMutation({
-    mutationFn: async () => {
-      return await deleteAccount();
-    },
+    mutationFn: () => deleteAccount(),
     onSuccess: () => {
       router.push("/");
       deleteCookie("accessToken");

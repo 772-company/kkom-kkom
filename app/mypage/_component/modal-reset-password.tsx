@@ -23,10 +23,8 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: ResetPasswordInputValue) => {
-      return await modalResetPassword(data);
-    },
-    onSuccess: (response) => {
+    mutationFn: (data: ResetPasswordInputValue) => modalResetPassword(data),
+    onSuccess: () => {
       showToast("success", <p>비밀번호가 변경되었습니다</p>);
       close();
     },

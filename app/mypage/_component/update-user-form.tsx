@@ -12,7 +12,6 @@ import { showToast } from "@/lib/show-toast";
 import { updateUserSchema } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -26,7 +25,6 @@ export interface UpdateUserInputValue {
 }
 
 export default function UpdateUserForm() {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const modalResetPasswordOverlay = useCustomOverlay(({ close }) => (
@@ -39,11 +37,8 @@ export default function UpdateUserForm() {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: UpdateUserInputValue) => {
-      return await updateAccount(data);
-    },
+    mutationFn: (data: UpdateUserInputValue) => updateAccount(data),
     onSuccess: () => {
-      // NOTE - queryclientrefetchqueries랑 같은 동작 뭘 사용 ?
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       showToast("success", <p>정보가 변경되었습니다.</p>);
     },

@@ -35,11 +35,8 @@ export default function SignUpForm() {
   const handleError = useAuthError<SignUpInputValue>(setError);
 
   const mutation = useMutation({
-    mutationFn: async (data: SignUpInputValue) => {
-      const response = (await signUp(data)) as PostTeamIdAuthSignupResponse;
-      return response;
-    },
-    onSuccess: (response: PostTeamIdAuthSignupResponse) => {
+    mutationFn: (data: SignUpInputValue) => signUp(data),
+    onSuccess: () => {
       showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
       router.push("/login");
     },

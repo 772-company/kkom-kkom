@@ -33,13 +33,11 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: ResetPasswordInputValue) => {
-      const response = (await resetPassword({
+    mutationFn: (data: ResetPasswordInputValue) =>
+      resetPassword({
         ...data,
         token,
-      })) as PatchTeamIdUserResetPasswordResponse;
-      return response;
-    },
+      }),
     onSuccess: () => {
       showToast("success", <p>비밀번호가 변경되었습니다.</p>);
       router.push("/login");

@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { patchTaskListName } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
@@ -45,7 +46,7 @@ const ModalTaskListNameEdit = ({
     } catch (error) {
       showToast(
         "error",
-        error instanceof Error
+        error instanceof ResponseError
           ? error.message
           : "목록 명 수정에 실패하였습니다.",
       );

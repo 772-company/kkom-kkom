@@ -1,10 +1,7 @@
 import * as yup from "yup";
 
 export const updateUserSchema = yup.object().shape({
-  nickname: yup
-    .string()
-    .max(30, "닉네임은 최대 30자까지 가능합니다.")
-    .required("닉네임을 입력해 주세요."),
+  nickname: yup.string().max(30, "닉네임은 최대 30자까지 가능합니다."),
   image: yup
     .mixed<File | string>()
     .test("fileOrString", "JPG, JPEG, PNG 파일만 가능합니다.", (value) => {

@@ -1,5 +1,10 @@
 import Modal from "@/components/modal/modal";
+import { deleteAccount } from "@/lib/apis/user";
+import { showToast } from "@/lib/show-toast";
 import Alert from "@/public/icons/alert.svg";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 interface ModalWarningProps {
   close: () => void;
@@ -12,8 +17,25 @@ interface ModalWarningProps {
  * @param handleConfirm 확인 버튼을 눌렀을 때 실행할 함수
  */
 export function ModalSecession({ close }: ModalWarningProps) {
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      return await deleteAccount();
+    },
+    onSuccess: () => {
+      router.push("/");
+      deleteCookie("accessToken");
+      deleteCookie("refreshToken");
+      router.refresh();
+      close();
+      showToast("success", <p>탈퇴되었습니다.</p>);
+    },
+    onError: (response) => {
+      showToast("error", <p>{response.message}</p>);
+    },
+  });
   const handleClick = async () => {
-    close();
+    mutation.mutate();
   };
 
   return (
@@ -35,6 +57,7 @@ export function ModalSecession({ close }: ModalWarningProps) {
           buttonDescription="회원 탈퇴"
           onClick={handleClick}
           close={close}
+          disabled={mutation.isPending}
         />
       </div>
     </Modal>

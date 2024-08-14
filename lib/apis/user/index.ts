@@ -1,13 +1,18 @@
 import { SendEmailInputValue } from "@/app/(auth)/reset-password/_components/modal-send-email";
+import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components/reset-password-form";
+import { UpdateUserInputValue } from "@/app/mypage/_component/update-user-form";
 import { getCookie } from "cookies-next";
 
 import { myFetch } from "../myFetch";
 import { instance } from "../myFetch/instance";
 import {
+  DeleteTeamIdUserResponse,
   GetTeamIdUserGroups,
   GetTeamIdUserHistoryResponse,
   GetTeamIdUserResponse,
+  PatchTeamIdUserPasswordResponse,
   PatchTeamIdUserResetPasswordResponse,
+  PatchTeamIdUserResponse,
   PostTeamIdUserSendResetPasswordEmailResponse,
 } from "../type";
 
@@ -95,6 +100,7 @@ export async function sendEmail(
   }
 }
 
+// NOTE - 비밀번호 재설정(로그인 전)
 export async function resetPassword(data: {
   password: string;
   passwordConfirmation: string;
@@ -112,6 +118,66 @@ export async function resetPassword(data: {
       },
     );
 
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// NOTE - 비밀번호 재설정(계정 설정)
+export async function modalResetPassword(
+  data: ResetPasswordInputValue,
+): Promise<PatchTeamIdUserPasswordResponse | string> {
+  try {
+    const response = await myFetch<PatchTeamIdUserPasswordResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/password`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// NOTE - 계정 탈퇴
+export async function deleteAccount(): Promise<DeleteTeamIdUserResponse> {
+  try {
+    const response = await myFetch<DeleteTeamIdUserResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
+      {
+        method: "DELETE",
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// NOTE - 계정 수정 (닉네임, 이미지)
+export async function updateAccount(
+  data: UpdateUserInputValue,
+): Promise<PatchTeamIdUserResponse> {
+  try {
+    const response = await myFetch<PatchTeamIdUserResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     throw error;

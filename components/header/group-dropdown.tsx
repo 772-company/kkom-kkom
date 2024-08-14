@@ -2,7 +2,6 @@
 
 import { Membership } from "@/lib/apis/type";
 import Check from "@/public/icons/dropdown-check.svg";
-import Kebab from "@/public/icons/kebab-small.svg";
 import Plus from "@/public/icons/plus.svg";
 import hamster from "@/public/images/hamster.jpg";
 import Image from "next/image";
@@ -46,7 +45,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   return (
     <div className="hidden md:block">
       <Dropdown
-        selected={`${initialGroup.group.name} 팀`}
+        selected={initialGroup.group.name}
         setSelected={setSelectedGroupName}
       >
         <Dropdown.Button className="gap-[11px] text-base font-medium text-text-primary">
@@ -56,7 +55,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           {memberships.map((membership) => (
             <Dropdown.Item
               key={membership.group.id}
-              value={`${membership.group.name} 팀`}
+              value={membership.group.name}
             >
               <div
                 className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${membership.group.name === selectedGroupName && "bg-slate-700"}`}
@@ -72,10 +71,9 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                     />
                   </div>
                   <p className="text-base font-medium text-white">
-                    {membership.group.name} 팀
+                    {membership.group.name}
                   </p>
                 </div>
-                <Kebab width={16} height={16} />
               </div>
             </Dropdown.Item>
           ))}

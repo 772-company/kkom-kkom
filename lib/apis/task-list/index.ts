@@ -1,4 +1,8 @@
+import { string } from "yup";
+
 import { myFetch } from "../myFetch";
+import { ResponseError } from "../myFetch/clientFetch";
+import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
@@ -26,6 +30,43 @@ export const getTaskList = async (
   }
 };
 
+interface PatchTaskListNameProps {
+  groupId: string;
+  taskListId: number;
+  name: string;
+}
+
+//NOTE - 할 일 목록 명 수정
+export async function patchTaskListName({
+  groupId,
+  taskListId,
+  name,
+}: PatchTaskListNameProps) {
+  try {
+    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    if (error instanceof ResponseError && error.response) {
+      const response: { message: string } = await error.response?.json();
+      if (response) {
+        throw new Error(response.message);
+      }
+    } else {
+      throw error;
+    }
+  }
+}
+
 export const patchTaskList = async (
   groupId: string,
   taskListId: number,
@@ -49,21 +90,29 @@ export const patchTaskList = async (
   }
 };
 
-export const deleteTaskList = async (groupId: string, taskListId: number) => {
+interface DeleteTaskListProps {
+  groupId: string;
+  taskListId: number;
+}
+
+//NOTE - 할 일 목록 삭제
+export async function deleteTaskList({
+  groupId,
+  taskListId,
+}: DeleteTaskListProps) {
   try {
-    const response = await myFetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}`,
+    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
       {
         method: "DELETE",
-
         withCredentials: true,
       },
     );
+    return response;
   } catch (error) {
-    console.error(error);
     throw error;
   }
-};
+}
 
 export const postTaskList = async (groupId: string, data: { name: string }) => {
   try {

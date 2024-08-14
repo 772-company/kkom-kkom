@@ -15,11 +15,13 @@ type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
 interface TaskListProps {
   taskList: TaskListType;
+  groupId: string;
 }
 
 interface TaskListsProps {
   isAdmin: boolean;
   taskLists: TaskListType[];
+  groupId: string;
 }
 
 const COLORS = [
@@ -32,12 +34,22 @@ const COLORS = [
   "bg-point-purple",
 ];
 
-const TaskList = ({ taskList }: TaskListProps) => {
+const TaskList = ({ taskList, groupId }: TaskListProps) => {
   const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListNameEdit close={close} />
+    <ModalTaskListNameEdit
+      close={close}
+      groupId={groupId}
+      taskListId={taskList.id}
+      currentTaskListName={taskList.name}
+    />
   ));
   const ModalTaskListDeleteOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListDelete taskListName={taskList.name} close={close} />
+    <ModalTaskListDelete
+      groupId={groupId}
+      taskListId={taskList.id}
+      taskListName={taskList.name}
+      close={close}
+    />
   ));
 
   const colorIndex = taskList.displayIndex % 7;
@@ -80,7 +92,9 @@ const TaskList = ({ taskList }: TaskListProps) => {
   );
 };
 
-const TaskLists = ({ isAdmin, taskLists }: TaskListsProps) => {
+
+const TaskLists = ({ isAdmin, groupId, taskLists }: TaskListsProps) => {
+
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListAdd close={close} />
   ));
@@ -106,7 +120,7 @@ const TaskLists = ({ isAdmin, taskLists }: TaskListsProps) => {
       <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom">
         {taskLists.length > 0 ? (
           taskLists.map((taskList) => (
-            <TaskList taskList={taskList} key={taskList.id} />
+            <TaskList taskList={taskList} key={taskList.id} groupId={groupId} />
           ))
         ) : (
           <p className="text-text-primary">아직 할 일 목록이 없습니다</p>

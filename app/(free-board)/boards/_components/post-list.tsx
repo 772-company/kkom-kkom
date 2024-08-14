@@ -65,34 +65,59 @@ export default function PostList() {
     if (!data || data.totalCount === 0 || isPending) {
       return;
     }
+    const prefetchPageList = [];
     const maximumPage =
       data.totalCount % 10 === 0
         ? data.totalCount / 10
         : Math.floor(data.totalCount / 10) + 1;
     if (maximumPage - 1 > page) {
-      queryClient.prefetchQuery({
-        queryKey: ["articles", { page: page + 2, keyword, orderBy }],
-        queryFn: () => getArticles({ page: page + 2, keyword, orderBy }),
-      });
+      prefetchPageList.push(page + 2);
     }
     if (maximumPage > page) {
-      queryClient.prefetchQuery({
-        queryKey: ["articles", { page: page + 1, keyword, orderBy }],
-        queryFn: () => getArticles({ page: page + 1, keyword, orderBy }),
-      });
+      prefetchPageList.push(page + 1);
     }
     if (page > 1) {
-      queryClient.prefetchQuery({
-        queryKey: ["articles", { page: page - 1, keyword, orderBy }],
-        queryFn: () => getArticles({ page: page - 1, keyword, orderBy }),
-      });
+      prefetchPageList.push(page - 1);
     }
     if (page > 2) {
-      queryClient.prefetchQuery({
-        queryKey: ["articles", { page: page - 2, keyword, orderBy }],
-        queryFn: () => getArticles({ page: page - 2, keyword, orderBy }),
-      });
+      prefetchPageList.push(page - 2);
     }
+
+    Promise.all([
+      ...prefetchPageList.map((prefetchPage) =>
+        queryClient.prefetchQuery({
+          queryKey: [
+            "articles",
+            { page: prefetchPage, keyword, orderBy: "like" },
+          ],
+          queryFn: () =>
+            getArticles({ page: prefetchPage, keyword, orderBy: "like" }),
+        }),
+      ),
+      ,
+      ...prefetchPageList.map((prefetchPage) =>
+        queryClient.prefetchQuery({
+          queryKey: [
+            "articles",
+            { page: prefetchPage, keyword, orderBy: "recent" },
+          ],
+          queryFn: () =>
+            getArticles({ page: prefetchPage, keyword, orderBy: "recent" }),
+        }),
+      ),
+      queryClient.prefetchQuery({
+        queryKey: [
+          "articles",
+          { page, keyword, orderBy: orderBy === "like" ? "recent" : "like" },
+        ],
+        queryFn: () =>
+          getArticles({
+            page,
+            keyword,
+            orderBy: orderBy === "like" ? "recent" : "like",
+          }),
+      }),
+    ]);
   }, [data, isPending, page, queryClient, keyword, orderBy]);
 
   return (

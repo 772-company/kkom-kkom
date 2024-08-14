@@ -24,7 +24,7 @@ export const covertDate = (date: Date) => {
   return `${month}월 ${day}일${dayNames[dayOfWeek]}요일`;
 };
 
-export const myConvertDateToYMD = (date: Date) => {
+export const convertDateToY_M_D = (date: Date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();

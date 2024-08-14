@@ -1,30 +1,33 @@
-import { myConvertDateToYMD } from "@/utils/convert-date";
-import { getCookie } from "cookies-next";
+import { convertDateToY_M_D } from "@/utils/convert-date";
 
 import { myFetch } from "../myFetch";
 import { GetTaskResponse, GetTasksResponse } from "./type";
 
-const accessToken = getCookie("accessToken");
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 
-const postTask = async (groupId: number, taskListId: number, data: any) => {
+export const postTask = async (
+  groupId: string,
+  taskListId: number,
+  data: {
+    name: string;
+    description: string;
+    startDate: string;
+    frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+    monthDay: number;
+  },
+) => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks`,
+    const response = await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks`,
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        withCredentials: true,
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const result = await response.json();
-    return result;
   } catch (error) {
     console.error(error);
     throw error;
@@ -34,9 +37,9 @@ const postTask = async (groupId: number, taskListId: number, data: any) => {
 export const getTasks = async (
   groupId: string,
   taskListId: number | undefined,
-  date: Date,
+  date?: Date,
 ): Promise<GetTasksResponse> => {
-  const convertedDateToYMD = myConvertDateToYMD(date);
+  const convertedDateToYMD = convertDateToY_M_D(date ?? new Date());
   try {
     const response = await myFetch<GetTasksResponse>(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,
@@ -79,56 +82,50 @@ export const getTask = async (
   }
 };
 
-const patchTaskOrder = async (
-  groupId: number,
+export const patchTaskOrder = async (
+  groupId: string,
   taskListId: number,
   taskId: number,
-  data: any,
+  data: { displayIndex: number },
 ) => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+    const response = await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/order`,
       {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
         body: JSON.stringify(data),
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-const deleteTask = async (
-  groupId: number,
+
+export const deleteTask = async (
+  groupId: string,
   taskListId: number,
   taskId: number,
 ) => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
+    const response = await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+
+        withCredentials: true,
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
+
 export const patchTask = async (
   groupId: string,
   taskListId: number | undefined,
@@ -152,26 +149,23 @@ export const patchTask = async (
     throw error;
   }
 };
-const dleteTaskRecurring = async (
-  groupId: number,
+export const deleteTaskRecurring = async (
+  groupId: string,
   taskListId: number,
   taskId: number,
   recurringId: number,
 ) => {
   try {
-    const response = await fetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
+    const response = await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       },
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
   } catch (error) {
     console.error(error);
     throw error;

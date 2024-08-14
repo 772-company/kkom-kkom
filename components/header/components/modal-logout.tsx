@@ -1,5 +1,4 @@
 import Modal from "@/components/modal/modal";
-import { QueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 

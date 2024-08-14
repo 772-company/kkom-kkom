@@ -32,7 +32,12 @@ export default function OrderedBySelector() {
   );
 
   return (
-    <Dropdown defaultSelected="최신순">
+    <Dropdown
+      selected={
+        options.find((option) => option.value === orderBy)?.display || "최신순"
+      }
+      setSelected={handleOrderBy}
+    >
       <section className="text-xs md:text-sm">
         <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl bg-background-tertiary px-[14px] md:h-11 md:!w-[120px]">
           <ToggleClose
@@ -46,7 +51,7 @@ export default function OrderedBySelector() {
             <Dropdown.Item
               key={i}
               className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-[#41ff30]" : ""}`}
-              display={option.display}
+              value={option.display}
             >
               <Link
                 href={pathName + "?" + handleOrderBy(option.value)}

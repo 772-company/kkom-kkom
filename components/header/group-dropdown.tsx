@@ -24,22 +24,31 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   const initialGroup =
     memberships.find((membership) => membership.group.id === currentGroupId) ||
     memberships[0];
-  const [selectedGroupId, setSelectedGroupId] = useState(initialGroup.group.id);
+  const [selectedGroupName, setSelectedGroupName] = useState(
+    initialGroup.group.name,
+  );
 
   const handleSelect = (id: number) => {
-    setSelectedGroupId(id);
     router.push(`/${id}`);
   };
 
   useEffect(() => {
     if (currentGroupId) {
-      setSelectedGroupId(currentGroupId);
+      const currentGroup = memberships.find(
+        (membership) => membership.group.id === currentGroupId,
+      );
+      if (currentGroup) {
+        setSelectedGroupName(currentGroup.group.name);
+      }
     }
-  }, [currentGroupId]);
+  }, [currentGroupId, memberships]);
 
   return (
     <div className="hidden md:block">
-      <Dropdown defaultSelected={`${initialGroup.group.name} 팀`}>
+      <Dropdown
+        selected={`${initialGroup.group.name} 팀`}
+        setSelected={setSelectedGroupName}
+      >
         <Dropdown.Button className="gap-[11px] text-base font-medium text-text-primary">
           <Check width={16} height={16} />
         </Dropdown.Button>
@@ -47,10 +56,10 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           {memberships.map((membership) => (
             <Dropdown.Item
               key={membership.group.id}
-              display={`${membership.group.name} 팀`}
+              value={`${membership.group.name} 팀`}
             >
               <div
-                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${membership.group.id === selectedGroupId && "bg-slate-700"}`}
+                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${membership.group.name === selectedGroupName && "bg-slate-700"}`}
                 onClick={() => handleSelect(membership.group.id)}
               >
                 <div className="flex items-center gap-3">

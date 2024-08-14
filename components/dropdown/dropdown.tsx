@@ -13,8 +13,8 @@ import {
 interface DropdownState {
   isDropdownOpen: boolean;
   handleDropdown: () => void;
-  selected: ReactNode;
-  handleSelect: (display: ReactNode, value: ReactNode) => void;
+  selected: string;
+  handleSelect: (value: string) => void;
 }
 
 // NOTE - 컨텍스트 생성
@@ -31,7 +31,8 @@ export function useDropdown() {
 
 interface DropdownProps {
   children: ReactNode;
-  defaultSelected: ReactNode;
+  selected: string;
+  setSelected: (value: string) => void;
 }
 
 /**
@@ -40,13 +41,9 @@ interface DropdownProps {
  * @param defaultSelected : 기본적으로 드롭다운 버튼에 보일 내용입니다.
  * @example    <Dropdown defaultSelected="항목을 선택하세요">...</Dropdown>
  **/
-export function Dropdown({ children, defaultSelected }: DropdownProps) {
+export function Dropdown({ children, selected, setSelected }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selected, setSelected] = useState<ReactNode>(defaultSelected);
-
-  const handleSelect = (display: ReactNode | undefined, value: ReactNode) => {
-    setSelected(display || value);
-  };
+  const handleSelect = (value: string) => setSelected(value);
   const handleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
   // NOTE - 드롭다운이 열려있는 경우 외부 영역 클릭하면 닫히도록 하는 함수
@@ -131,7 +128,7 @@ function Body({ children, className, ...rest }: BodyProps) {
 // NOTE - Item
 interface ItemProps extends OlHTMLAttributes<HTMLLIElement> {
   children: ReactNode;
-  display?: ReactNode;
+  value: string;
 }
 
 /**
@@ -139,14 +136,13 @@ interface ItemProps extends OlHTMLAttributes<HTMLLIElement> {
  * 드롭다운 선택 항목에 대한 컴포넌트입니다.
  * @param children : li 안에 포함될 내용을 적습니다
  * @param className : 너비 및 배경색 등 추가적으로 적용될 스타일을 지정해주는 프롭입니다.
- * @param display : 선택 항목에 표시할 내용입니다. 없는 경우 children을 사용합니다.
- * @example  <Dropdown.Item><div className="flex gap-2"><p>Seo</p><span>Young</span></div></Dropdown.Item>
+ * @example  <Dropdown.Item   value={`${membership.group.name} 팀`}><div className="flex gap-2"><p>Seo</p><span>Young</span></div></Dropdown.Item>
  **/
-function Item({ children, display, ...rest }: ItemProps) {
+function Item({ children, value, ...rest }: ItemProps) {
   const { handleSelect, handleDropdown } = useDropdown();
 
   const onSelect = () => {
-    handleSelect(display, children);
+    handleSelect(value);
     handleDropdown();
   };
   return (

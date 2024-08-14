@@ -27,7 +27,11 @@ const ModalTaskListNameEdit = ({
 }: ModalTaskListNameEditProps) => {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<TaskListNameEditFormValue>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty },
+  } = useForm<TaskListNameEditFormValue>({
     defaultValues: {
       taskListName: currentTaskListName,
     },
@@ -68,7 +72,7 @@ const ModalTaskListNameEdit = ({
                 register={register}
                 placeholder="목록 명을 입력해 주세요."
               />
-              <Button btnSize="large" btnStyle="solid">
+              <Button btnSize="large" btnStyle="solid" disabled={!isDirty}>
                 수정하기
               </Button>
             </div>

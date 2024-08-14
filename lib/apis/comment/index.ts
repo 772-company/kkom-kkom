@@ -22,7 +22,7 @@ export const getComment = async (taskId: number) => {
 };
 
 export const postComment = async (
-  taskId: number,
+  taskId: number | undefined,
   data: { content: string },
 ) => {
   try {

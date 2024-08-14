@@ -2,7 +2,7 @@ import { myFetch } from "../myFetch";
 import { GetCommentResponse } from "./type";
 
 const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
-export const getComment = async (taskId: number | undefined) => {
+export const getComment = async (taskId: number) => {
   try {
     const response = await myFetch<GetCommentResponse>(
       `${URL}/tasks/${taskId}/comments`,
@@ -22,7 +22,7 @@ export const getComment = async (taskId: number | undefined) => {
 };
 
 export const postComment = async (
-  taskId: number | undefined,
+  taskId: number,
   data: { content: string },
 ) => {
   try {
@@ -41,7 +41,7 @@ export const postComment = async (
 };
 
 export const patchComment = async (
-  taskId: number | undefined,
+  taskId: number,
   commentId: number,
   data: { content: string },
 ) => {
@@ -63,10 +63,7 @@ export const patchComment = async (
   }
 };
 
-export const deleteComment = async (
-  taskId: number | undefined,
-  commentId: number,
-) => {
+export const deleteComment = async (taskId: number, commentId: number) => {
   try {
     await myFetch(`${URL}/tasks/${taskId}/comments/${commentId}`, {
       method: "DELETE",

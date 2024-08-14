@@ -1,6 +1,8 @@
 import { myFetch } from "../myFetch";
 import { ResponseError } from "../myFetch/clientFetch";
+import { instance } from "../myFetch/instance";
 import {
+  DeleteTeamIdGroupsIdMemberMemberUserIdResponse,
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
   PatchTeamIdGroupsIdResponse,
@@ -13,8 +15,8 @@ interface GetGroupInfoProps {
 //NOTE - 그룹에 대한 정보
 export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
   try {
-    const response = await myFetch<GetTeamIdGroupsIdResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
+    const response = await instance<GetTeamIdGroupsIdResponse>(
+      `/groups/${groupId}`,
       {
         method: "GET",
         cache: "no-store",
@@ -35,8 +37,8 @@ interface GetGroupInvitationProps {
 //NOTE - 그룹 초대 링크
 export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
   try {
-    const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/invitation`,
+    const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
+      `/groups/${groupId}/invitation`,
       {
         method: "GET",
       },
@@ -60,8 +62,8 @@ export async function patchGroupInfo({
   name,
 }: PatchGroupNameProps) {
   try {
-    const response = await myFetch<PatchTeamIdGroupsIdResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
+    const response = await instance<PatchTeamIdGroupsIdResponse>(
+      `/groups/${groupId}`,
       {
         method: "PATCH",
         headers: {
@@ -84,8 +86,8 @@ interface DeleteGroupProps {
 //NOTE - 그룹 삭제
 export async function deleteGroup({ groupId }: DeleteGroupProps) {
   try {
-    const response = await myFetch<PatchTeamIdGroupsIdResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}`,
+    const response = await instance<PatchTeamIdGroupsIdResponse>(
+      `/groups/${groupId}`,
       {
         method: "DELETE",
         withCredentials: true,
@@ -108,8 +110,8 @@ export async function postGroupInvitation({
   token,
 }: PostGroupInvitationProps) {
   try {
-    const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/accept-invitation`,
+    const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
+      `/groups/accept-invitation`,
       {
         method: "POST",
         headers: {
@@ -129,5 +131,30 @@ export async function postGroupInvitation({
     } else {
       throw error;
     }
+  }
+}
+
+interface DeleteTeamMemberProps {
+  groupId: string;
+  memberUserId: number;
+}
+
+//NOTE - 그룹 멤버 삭제
+export async function deleteTeamMember({
+  groupId,
+  memberUserId,
+}: DeleteTeamMemberProps) {
+  try {
+    const response =
+      await instance<DeleteTeamIdGroupsIdMemberMemberUserIdResponse>(
+        `/groups/${groupId}/member/${memberUserId}`,
+        {
+          method: "DELETE",
+          withCredentials: true,
+        },
+      );
+    return response;
+  } catch (error) {
+    throw error;
   }
 }

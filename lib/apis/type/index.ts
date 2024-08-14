@@ -236,6 +236,8 @@ export type GetTeamIdGroupsIdMemberMemberUserIdResponse = {
   userId: number;
 };
 
+export type DeleteTeamIdGroupsIdMemberMemberUserIdResponse = {};
+
 // TODO: Fix the type 기획서가 제대로 정의되지 않았습니다. -> 제가 수정했어요 (지현이)
 export type GetTeamIdGroupsIdInvitationResponse = string;
 

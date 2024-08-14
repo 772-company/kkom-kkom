@@ -13,15 +13,16 @@ import TagList from "./_components/tag-list";
 export default async function Page() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["articles", { page: 1, keyword: "", orderBy: "like" }],
-    queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "like" }),
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ["articles", { page: 1, keyword: "", orderBy: "recent" }],
-    queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "recent" }),
-  });
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ["articles", { page: 1, keyword: "", orderBy: "like" }],
+      queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "like" }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ["articles", { page: 1, keyword: "", orderBy: "recent" }],
+      queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "recent" }),
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

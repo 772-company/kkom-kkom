@@ -9,14 +9,12 @@ interface ModalLogoutProps {
 
 export default function ModalLogout({ close }: ModalLogoutProps) {
   const router = useRouter();
-  const queryClient = new QueryClient();
   function logout() {
     router.push("/");
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     router.refresh();
     close();
-    queryClient.removeQueries({ queryKey: ["getUser"] });
   }
 
   return (

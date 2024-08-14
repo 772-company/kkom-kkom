@@ -13,7 +13,7 @@ import PopoverTrigger from "./popover-trigger";
 
 export default function LoggedInHeaderContent() {
   const { data, isSuccess } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["getUser"],
     queryFn: getUser,
   });
 

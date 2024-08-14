@@ -43,8 +43,6 @@ export default function UpdateUserForm() {
       return await updateAccount(data);
     },
     onSuccess: () => {
-      // NOTE - 탈퇴하기 성공 후에는 router.refresh();로 헤더 업데이트됨
-      // router.refresh();
       // NOTE - queryclientrefetchqueries랑 같은 동작 뭘 사용 ?
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       showToast("success", <p>정보가 변경되었습니다.</p>);

@@ -16,6 +16,7 @@ interface MemberCardProps {
 }
 
 interface MemberListProps {
+  isAdmin: boolean;
   members: MemberType[];
   groupId: string;
 }
@@ -60,8 +61,7 @@ const MemberCard = ({ member }: MemberCardProps) => {
   );
 };
 
-//TODO - admin인지 member인지 확인한 뒤에 <+ 새로운 멤버 초대하기> 렌더링하기
-const MemberList = ({ members, groupId }: MemberListProps) => {
+const MemberList = ({ isAdmin, members, groupId }: MemberListProps) => {
   const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
     <ModalMemberInvitation close={close} groupId={groupId} />
   ));
@@ -75,12 +75,14 @@ const MemberList = ({ members, groupId }: MemberListProps) => {
             ({members.length}명)
           </p>
         </div>
-        <button
-          onClick={ModalMemberAddOverlay.open}
-          className="text-[14px] font-[400] text-brand-primary"
-        >
-          + 새로운 멤버 초대하기
-        </button>
+        {isAdmin && (
+          <button
+            onClick={ModalMemberAddOverlay.open}
+            className="text-[14px] font-[400] text-brand-primary"
+          >
+            + 새로운 멤버 초대하기
+          </button>
+        )}
       </div>
       <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (

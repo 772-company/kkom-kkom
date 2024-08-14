@@ -1,6 +1,7 @@
 import { myFetch } from "../myFetch";
 import { ResponseError } from "../myFetch/clientFetch";
 import {
+  DeleteTeamIdGroupsIdMemberMemberUserIdResponse,
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
   PatchTeamIdGroupsIdResponse,
@@ -129,5 +130,30 @@ export async function postGroupInvitation({
     } else {
       throw error;
     }
+  }
+}
+
+interface DeleteTeamMemberProps {
+  groupId: string;
+  memberUserId: number;
+}
+
+//NOTE - 그룹 멤버 삭제
+export async function deleteTeamMember({
+  groupId,
+  memberUserId,
+}: DeleteTeamMemberProps) {
+  try {
+    const response =
+      await myFetch<DeleteTeamIdGroupsIdMemberMemberUserIdResponse>(
+        `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/member/${memberUserId}`,
+        {
+          method: "DELETE",
+          withCredentials: true,
+        },
+      );
+    return response;
+  } catch (error) {
+    throw error;
   }
 }

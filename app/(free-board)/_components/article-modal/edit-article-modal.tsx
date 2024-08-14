@@ -3,7 +3,7 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import { BasicTextarea } from "@/components/input-field/textarea";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import usePreventScroll from "@/hooks/use-prevent-scroll";
-import { postImagesUpload } from "@/lib/apis";
+import { uploadImage } from "@/lib/apis/image";
 import { showToast } from "@/lib/show-toast";
 import ArrowReturn from "@/public/icons/arrow-return";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -99,7 +99,7 @@ export default function EditArticleModal({
 
   const handleImage = async (image: File) => {
     try {
-      const { url } = await postImagesUpload(image);
+      const { url } = await uploadImage(image);
       setValue("image", url);
       setFile(url);
     } catch (e) {

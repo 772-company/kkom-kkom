@@ -10,11 +10,12 @@ import ModalTeamDelete from "./modal/modal-team-delete";
 import ModalTeamNameEdit from "./modal/modal-team-name-edit";
 
 interface TeamNameProps {
+  isAdmin: boolean;
   teamName: string;
   groupId: string;
 }
 
-const TeamName = ({ teamName, groupId }: TeamNameProps) => {
+const TeamName = ({ isAdmin, teamName, groupId }: TeamNameProps) => {
   const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTeamNameEdit
       close={close}
@@ -34,16 +35,18 @@ const TeamName = ({ teamName, groupId }: TeamNameProps) => {
       </p>
       <div className="absolute flex items-center justify-center gap-[30px]">
         <Image src={Thumbnail} alt="썸네일" height={64} />
-        <Popover
-          triggerSvg={Gear}
-          triggerHeight={24}
-          triggerWidth={24}
-          content={[
-            { text: "수정하기", onClick: ModalTeamNameEditOverlay.open },
-            { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
-          ]}
-          contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
-        />
+        {isAdmin && (
+          <Popover
+            triggerSvg={Gear}
+            triggerHeight={24}
+            triggerWidth={24}
+            content={[
+              { text: "수정하기", onClick: ModalTeamNameEditOverlay.open },
+              { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
+            ]}
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
+          />
+        )}
       </div>
     </div>
   );

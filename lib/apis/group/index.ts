@@ -1,4 +1,5 @@
 import { myFetch } from "../myFetch";
+import { ResponseError } from "../myFetch/clientFetch";
 import {
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
@@ -93,5 +94,40 @@ export async function deleteGroup({ groupId }: DeleteGroupProps) {
     return response;
   } catch (error) {
     throw error;
+  }
+}
+
+interface PostGroupInvitationProps {
+  userEmail: string;
+  token: string;
+}
+
+//NOTE - 그룹 참여
+export async function postGroupInvitation({
+  userEmail,
+  token,
+}: PostGroupInvitationProps) {
+  try {
+    const response = await myFetch<GetTeamIdGroupsIdInvitationResponse>(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/accept-invitation`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+        body: JSON.stringify({ userEmail, token }),
+      },
+    );
+    return response;
+  } catch (error) {
+    if (error instanceof ResponseError && error.response) {
+      const response: { message: string } = await error.response?.json();
+      if (response) {
+        throw new Error(response.message);
+      }
+    } else {
+      throw error;
+    }
   }
 }

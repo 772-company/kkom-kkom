@@ -34,6 +34,7 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
           },
           {
             text: LOGGED_IN_USER_CONTENT[2],
+            onClick: () => router.push("/participate-team"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[3],

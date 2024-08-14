@@ -1,24 +1,28 @@
 "use client";
 
 import SEARCH_TAGS from "@/constants/search-tags";
+import { useSortStore } from "@/providers/sort-store-provider";
 import useEmblaCarousel from "embla-carousel-react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 export default function TagList() {
+  const keyword = useSortStore((state) => state.keyword);
+  const setKeyword = useSortStore((state) => state.setKeyword);
+  const setPage = useSortStore((state) => state.setPage);
+  const setOrderBy = useSortStore((state) => state.setOrderBy);
   const [emblaRef] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",
     dragFree: true,
   });
-  const router = useRouter();
-  const keyword = useSearchParams().get("keyword");
 
   const handleTagDoubleClick = useCallback(
     (tag: string) => {
-      router.push(`/boards?keyword=${tag}`);
+      setKeyword(tag);
+      setPage(1);
+      setOrderBy("recent");
     },
-    [router],
+    [setKeyword, setPage, setOrderBy],
   );
 
   return (
@@ -32,6 +36,7 @@ export default function TagList() {
             >
               <button
                 className={`w-fit break-keep rounded-3xl bg-background-tertiary px-5 py-3 text-xs selection:bg-background-tertiary hover:text-[#41ff30] hover:underline md:px-6 md:text-sm ${keyword === tag ? "text-[#41ff30]" : ""}`}
+                type="button"
                 onClick={() => handleTagDoubleClick(tag)}
               >
                 {tag}

@@ -4,7 +4,7 @@ import Link, { LinkProps } from "next/link";
 import { buttonVariants } from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   btnStyle:
     | "solid"
     | "outlined"
@@ -57,7 +57,7 @@ export default function Button({
 }
 
 interface LinkButtonProps extends LinkProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   btnStyle:
     | "solid"
     | "outlined"

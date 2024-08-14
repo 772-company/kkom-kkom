@@ -12,7 +12,13 @@ export const defaultToastOptions: ToastOptions = {
   transition: Slide,
 };
 
-type ToastType = "success" | "error" | "info" | "warning" | "default";
+type ToastType =
+  | "success"
+  | "error"
+  | "info"
+  | "warning"
+  | "default"
+  | "loading";
 
 /**
  * 토스트를 띄웁니다. type에 따라 색상이 변경됩니다.
@@ -56,6 +62,8 @@ export const showToast = (
       return toast.info(content, optionsToApply);
     case "warning":
       return toast.warn(content, optionsToApply);
+    case "loading":
+      return toast.loading(content, optionsToApply);
     case "default":
       return toast(content, optionsToApply);
     default:

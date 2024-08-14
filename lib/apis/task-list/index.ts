@@ -58,6 +58,7 @@ export const deleteTaskList = async (groupId: string, taskListId: number) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       },
     );
   } catch (error) {

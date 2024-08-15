@@ -116,7 +116,7 @@ export async function deleteTaskList({
 
 export const postTaskList = async (groupId: string, data: { name: string }) => {
   try {
-    const response = await myFetch(`${URL}/groups${groupId}/task-lists`, {
+    const response = await myFetch(`${URL}/groups/${groupId}/task-lists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

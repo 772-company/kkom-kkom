@@ -10,6 +10,7 @@ import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
+import Comment from "./comment";
 import CommentInput from "./comment-input";
 import PageButton from "./tasks-button";
 
@@ -31,7 +32,11 @@ const SideBar = ({
   gropId,
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
-  const { isPending, taskDetail } = useGetTask(gropId, taskListId, todoId);
+  const { isPending, taskDetail, comment } = useGetTask(
+    gropId,
+    taskListId,
+    todoId,
+  );
   const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
   const convertedDate = convertDateToYMD(new Date(taskDetail?.date ?? ""));
   const { ampm, hoursString, minutesString } = convertDateToTime(
@@ -69,13 +74,13 @@ const SideBar = ({
               <div className="flex justify-between">
                 <div className="flex items-center gap-3">
                   <ProfileIcon
-                    image={""}
+                    image={taskDetail?.writer?.image ?? null}
                     type="myProfile"
                     width={32}
                     height={32}
                   />
                   <p className="text-[14px] font-medium text-text-primary">
-                    {taskDetail?.writer.nickname}
+                    {taskDetail?.writer?.nickname}
                   </p>
                 </div>
                 <p className="text-[14px] font-normal text-text-secondary">
@@ -115,9 +120,7 @@ const SideBar = ({
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {/* {taskDetail?.comments.map((e) => (
-                    <Comment key={e.id} {...e} />
-                  ))} */}
+                  {comment?.map((e) => <Comment key={e.id} {...e} />)}
                 </div>
               </div>
             </div>

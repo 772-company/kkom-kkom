@@ -24,7 +24,13 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
       router.refresh();
     },
     onError: (error: unknown) => {
-      showToast("error", error instanceof ResponseError ? error.message : "");
+      console.log("error:", error);
+      showToast(
+        "error",
+        error instanceof Error
+          ? error.message
+          : `${taskListName} 추가에 실패하였습니다`,
+      );
     },
   });
 

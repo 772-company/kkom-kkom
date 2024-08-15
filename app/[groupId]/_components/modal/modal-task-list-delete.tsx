@@ -2,6 +2,7 @@ import Modal from "@/components/modal/modal";
 import { deleteTaskList } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 interface ModalTaskListDeleteProps {
@@ -19,15 +20,20 @@ const ModalTaskListDelete = ({
 }: ModalTaskListDeleteProps) => {
   const router = useRouter();
 
-  const handleButtonClick = async () => {
-    try {
-      await deleteTaskList({ groupId, taskListId });
-      showToast("success", <p>{taskListName}이 삭제되었습니다.</p>);
+  const mutation = useMutation({
+    mutationFn: () => deleteTaskList({ groupId, taskListId }),
+    onSuccess: () => {
+      showToast("success", `${taskListName}이 삭제되었습니다.`);
       close();
       router.refresh();
-    } catch (error) {
+    },
+    onError: () => {
       showToast("error", <p>{taskListName} 삭제에 실패하였습니다.</p>);
-    }
+    },
+  });
+
+  const handleButtonClick = () => {
+    mutation.mutate();
   };
 
   return (
@@ -42,7 +48,8 @@ const ModalTaskListDelete = ({
           <Modal.TwoButtonSection
             closeBtnStyle="outlined_secondary"
             confirmBtnStyle="danger"
-            buttonDescription="삭제하기"
+            buttonDescription={mutation.isPending ? "삭제 중..." : "삭제하기"}
+            disabled={mutation.isPending}
             close={close}
             onClick={handleButtonClick}
           />

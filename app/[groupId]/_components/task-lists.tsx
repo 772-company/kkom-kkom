@@ -102,7 +102,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
   const taskLists = data ? data.taskLists : [];
 
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListAdd close={close} />
+    <ModalTaskListAdd close={close} groupId={groupId} />
   ));
 
   return (

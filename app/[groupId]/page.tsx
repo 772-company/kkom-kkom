@@ -36,7 +36,7 @@ export default async function TeamPage({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex flex-col justify-center gap-[24px] pt-[24px]">
+      <div className="flex flex-col justify-center gap-[24px] py-[24px]">
         <TeamName groupId={params.groupId} isAdmin={isAdmin} />
         <div className="flex flex-col gap-[64px]">
           <TaskLists groupId={params.groupId} isAdmin={isAdmin} />

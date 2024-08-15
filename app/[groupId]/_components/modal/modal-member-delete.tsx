@@ -4,6 +4,7 @@ import Modal from "@/components/modal/modal";
 import { deleteTeamMember } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 interface ModalMemberDeleteProps {
@@ -21,20 +22,26 @@ const ModalMemberDelete = ({
 }: ModalMemberDeleteProps) => {
   const router = useRouter();
 
-  const handleButtonClick = async () => {
-    try {
-      await deleteTeamMember({
-        groupId: groupId,
-        memberUserId: memberUserId,
-      });
-      showToast("success", <p>{userName}님이 삭제되었습니다.</p>);
+  const mutation = useMutation({
+    mutationFn: () => deleteTeamMember({ groupId, memberUserId }),
+    onSuccess: () => {
+      showToast("success", `${userName}님이 삭제되었습니다.`);
       close();
       router.refresh();
-    } catch (error) {
-      showToast("error", <p>{userName}님 삭제에 실패하였습니다.</p>);
-      console.log(error);
-      console.error(error);
-    }
+    },
+    onError: (error: unknown) => {
+      console.log("error:", error);
+      showToast(
+        "error",
+        error instanceof Error
+          ? error.message
+          : `${userName}님 삭제에 실패하였습니다`,
+      );
+    },
+  });
+
+  const handleButtonClick = () => {
+    mutation.mutate();
   };
 
   return (
@@ -49,7 +56,8 @@ const ModalMemberDelete = ({
           <Modal.TwoButtonSection
             closeBtnStyle="outlined_secondary"
             confirmBtnStyle="danger"
-            buttonDescription="삭제하기"
+            buttonDescription={mutation.isPending ? "삭제 중..." : "삭제하기"}
+            disabled={mutation.isPending}
             close={close}
             onClick={handleButtonClick}
           />

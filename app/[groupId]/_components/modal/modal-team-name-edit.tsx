@@ -3,6 +3,7 @@ import Modal from "@/components/modal/modal";
 import { patchGroupInfo } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
@@ -19,18 +20,26 @@ const ModalTeamNameEdit = ({
 }: ModalTeamNameEditProps) => {
   const [teamName, setTeamName] = useState(currentTeamName);
   const router = useRouter();
-  const handleButtonClick = async () => {
-    try {
-      await patchGroupInfo({
-        groupId: groupId,
-        name: teamName,
-      });
-      showToast("success", <p>{teamName}으로 수정되었습니다.</p>);
+
+  const mutation = useMutation({
+    mutationFn: (newTeamName: string) =>
+      patchGroupInfo({
+        groupId,
+        name: newTeamName,
+      }),
+    onSuccess: () => {
+      showToast("success", `${teamName}으로 수정되었습니다.`);
       router.refresh();
       close();
-    } catch (error) {
-      showToast("error", <p>팀 명 수정에 실패하였습니다.</p>);
-      console.error(error);
+    },
+    onError: () => {
+      showToast("error", "팀 명 수정에 실패하였습니다.");
+    },
+  });
+
+  const handleButtonClick = () => {
+    if (teamName.trim()) {
+      mutation.mutate(teamName);
     }
   };
 
@@ -58,10 +67,10 @@ const ModalTeamNameEdit = ({
             btnSize="large"
             btnStyle="solid"
             onClick={handleButtonClick}
-            disabled={!teamName.trim()}
+            disabled={!teamName.trim() || mutation.isPending}
             type="button"
           >
-            수정하기
+            {mutation.isPending ? "수정 중..." : "수정하기"}
           </Button>
         </div>
       </div>

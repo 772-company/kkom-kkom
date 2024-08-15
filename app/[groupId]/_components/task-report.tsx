@@ -1,5 +1,6 @@
+"use client";
+
 import getGroupInfo from "@/lib/apis/group";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { useQuery } from "@tanstack/react-query";
 
 import TodayTaskProgress from "./today-task-progress";

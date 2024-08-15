@@ -1,5 +1,5 @@
-import { comments } from "../../../mock";
-import CommentCard from "./_components/comment-card";
+import { comments } from "../../mock";
+import CommentCard from "./comment-card";
 
 export default function CommentsList({ boardId }: { boardId: string }) {
   return (

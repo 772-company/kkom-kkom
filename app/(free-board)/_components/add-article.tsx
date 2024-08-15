@@ -6,7 +6,7 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 
 import ArticleModal from "./article-modal";
 
-export default function AddBoard() {
+export default function AddArticle() {
   const overlay = useCustomOverlay(({ close }) => (
     <Modal close={close} closeOnFocusOut={false}>
       <Modal.HeaderWithClose className="fixed right-7 top-7" />

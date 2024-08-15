@@ -1,33 +1,31 @@
 "use client";
 
 import { BasicInput } from "@/components/input-field/basic-input";
-import { useSortStore } from "@/providers/sort-store-provider";
 import SearchIcon from "@/public/icons/search.svg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import _ from "lodash";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-export default function SearchBar() {
+interface ArticleSearchBarForm {
+  keyword: string;
+}
+
+export default function ArticleSearchBar() {
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { amount: "some" });
   const [isShow, setIsShow] = useState(true);
-  // state 하나 만들어서 스크롤 이벤트를 기반으로 사라지는 SearchBar 생성
   const {
     handleSubmit,
     register,
     setValue,
     formState: { isSubmitting },
-  } = useForm();
-  const setKeyword = useSortStore((state) => state.setKeyword);
-  const setOrderBy = useSortStore((state) => state.setOrderBy);
-  const setPage = useSortStore((state) => state.setPage);
-  const onSubmit = (data: FieldValues) => {
+  } = useForm<{ keyword: string }>();
+  const router = useRouter();
+  const onSubmit: SubmitHandler<ArticleSearchBarForm> = (data) => {
     if (!isSubmitting) {
-      setKeyword(data.keyword);
-      setPage(1);
-      setOrderBy("recent");
-      setValue("keyword", "", { shouldValidate: false });
+      setValue("keyword", "");
+      router.push(`/boards?keyword=${data.keyword}`);
     }
   };
 

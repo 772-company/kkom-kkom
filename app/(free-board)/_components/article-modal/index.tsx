@@ -6,10 +6,11 @@ import usePreventScroll from "@/hooks/use-prevent-scroll";
 import { showToast } from "@/lib/show-toast";
 import ArrowReturn from "@/public/icons/arrow-return";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 
-import { useUploadArticleMutation } from "../../_query/query";
+import { useUploadArticleMutation } from "../../_query/mutation";
 import FileDragDown from "./_components/file-drag-down";
 import ModalCancel from "./_components/modal-cancel";
 import { articleFormSchema } from "./schema";
@@ -44,7 +45,9 @@ export default function ArticleModal({ close }: ArticleModalProps) {
       }}
     />
   ));
-  const uploadPostMutation = useUploadArticleMutation(close);
+  const uploadPostMutation = useUploadArticleMutation({
+    close,
+  });
 
   const handleNext = () => {
     setIsNext(true);
@@ -53,19 +56,12 @@ export default function ArticleModal({ close }: ArticleModalProps) {
     setIsNext(false);
   };
   const handleCancel = cancelOverlay.open;
-  const handlePost: SubmitHandler<FormType> = (d) => {
-    uploadPostMutation.mutate(
-      {
-        content: d.content,
-        image: d.image,
-        title: d.title,
-      },
-      {
-        onSettled: () => {
-          setFile(null);
-        },
-      },
-    );
+  const handlePost: SubmitHandler<FormType> = (formData) => {
+    uploadPostMutation.mutate({
+      content: formData.content,
+      image: formData.image,
+      title: formData.title,
+    });
   };
   const handleValidate = (
     e: FieldErrors<{

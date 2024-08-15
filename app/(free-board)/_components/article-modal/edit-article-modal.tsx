@@ -13,7 +13,7 @@ import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 import {
   usePatchArticleMutation,
   useUploadArticleMutation,
-} from "../../_query/query";
+} from "../../_query/mutation";
 import FileDragDown from "./_components/file-drag-down";
 import ModalCancel from "./_components/modal-cancel";
 import { articleFormSchema, editArticleFormSchema } from "./schema";

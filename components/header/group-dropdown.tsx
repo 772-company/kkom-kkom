@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { LinkButton } from "../button/button";
-import { Dropdown, useDropdown } from "../dropdown/dropdown";
+import { Dropdown } from "../dropdown/dropdown";
 
 interface GroupDropdownProps {
   memberships: Membership[];
@@ -19,6 +19,7 @@ interface GroupDropdownProps {
 export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [visibleCount, setVisibleCount] = useState(4);
   const currentGroupId = parseInt(pathname.split("/")[1], 10);
   const initialGroup =
     memberships.find((membership) => membership.group.id === currentGroupId) ||
@@ -27,6 +28,14 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
 
   const handleSelect = (id: number) => {
     router.push(`/${id}`);
+  };
+
+  const handleShowMore = () => {
+    setVisibleCount((prevCount) => prevCount + 4);
+  };
+
+  const handleShowLess = () => {
+    setVisibleCount(4);
   };
 
   useEffect(() => {
@@ -55,7 +64,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           <Check width={16} height={16} />
         </Dropdown.Button>
         <Dropdown.Body className="mt-7 flex w-[218px] flex-col gap-2 rounded-xl bg-background-secondary p-4">
-          {memberships.map((membership) => (
+          {memberships.slice(0, visibleCount).map((membership) => (
             <Dropdown.Item
               key={membership.group.id}
               value={membership.group.name}
@@ -81,6 +90,24 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               </div>
             </Dropdown.Item>
           ))}
+          {/* TODO - 더보기 버튼 */}
+          {memberships.length > visibleCount ? (
+            <button
+              onClick={handleShowMore}
+              className="flex w-full justify-center rounded-lg py-[7px] text-white hover:underline"
+            >
+              더보기
+            </button>
+          ) : (
+            visibleCount > 4 && (
+              <button
+                onClick={handleShowLess}
+                className="flex w-full justify-center rounded-lg py-[7px] text-white hover:underline"
+              >
+                숨기기
+              </button>
+            )
+          )}
           <Dropdown.CloseItem>
             <LinkButton
               btnSize="large"

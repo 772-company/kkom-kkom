@@ -94,7 +94,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
 const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
   const { data } = useQuery({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId }),
   });
 
   const members = data ? data.members : [];

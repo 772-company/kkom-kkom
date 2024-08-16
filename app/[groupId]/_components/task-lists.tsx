@@ -9,6 +9,7 @@ import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import ModalTaskListAdd from "./modal/modal-task-list-add";
 import ModalTaskListDelete from "./modal/modal-task-list-delete";
@@ -37,6 +38,7 @@ const COLORS = [
 ];
 
 const TaskList = ({ taskList, groupId }: TaskListProps) => {
+  const router = useRouter();
   const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListNameEdit
       close={close}
@@ -63,7 +65,10 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
   const isDone = numberOfDone === taskList.tasks.length ? true : false;
 
   return (
-    <div className="flex h-[40px] items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary">
+    <div
+      className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary"
+      onClick={() => router.push(`/${groupId}/tasks`)}
+    >
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
         <p className="">{taskList.name}</p>

@@ -18,7 +18,6 @@ import {
 export async function getUser(): Promise<GetTeamIdUserResponse> {
   try {
     const response = await instance<GetTeamIdUserResponse>("/user", {
-      method: "GET",
       withCredentials: true,
     });
     return response;

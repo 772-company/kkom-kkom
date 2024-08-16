@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { LinkButton } from "../button/button";
-import { Dropdown } from "../dropdown/dropdown";
+import { Dropdown, useDropdown } from "../dropdown/dropdown";
 
 interface GroupDropdownProps {
   memberships: Membership[];
@@ -23,9 +23,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   const initialGroup =
     memberships.find((membership) => membership.group.id === currentGroupId) ||
     memberships[0];
-  const [selectedGroupName, setSelectedGroupName] = useState(
-    initialGroup.group.name,
-  );
+  const [selectedGroupId, setSelectedGroupId] = useState(initialGroup.group.id);
 
   const handleSelect = (id: number) => {
     router.push(`/${id}`);
@@ -37,7 +35,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
         (membership) => membership.group.id === currentGroupId,
       );
       if (currentGroup) {
-        setSelectedGroupName(currentGroup.group.name);
+        setSelectedGroupId(currentGroup.group.id);
       }
     }
   }, [currentGroupId, memberships]);
@@ -46,7 +44,12 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
     <div className="hidden md:block">
       <Dropdown
         selected={initialGroup.group.name}
-        setSelected={setSelectedGroupName}
+        setSelected={(name) => {
+          const selectedGroup = memberships.find(
+            (membership) => membership.group.name === name,
+          );
+          if (selectedGroup) setSelectedGroupId(selectedGroup.group.id);
+        }}
       >
         <Dropdown.Button className="gap-[11px] text-base font-medium text-text-primary">
           <Check width={16} height={16} />
@@ -58,12 +61,13 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               value={membership.group.name}
             >
               <div
-                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${membership.group.name === selectedGroupName && "bg-slate-700"}`}
+                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${
+                  membership.group.id === selectedGroupId && "bg-slate-700"
+                }`}
                 onClick={() => handleSelect(membership.group.id)}
               >
                 <div className="flex items-center gap-3">
                   <div className="relative size-8 overflow-hidden rounded-md">
-                    {/* TODO - 이미지 없는 경우 기본 이미지 */}
                     <Image
                       src={membership.group.image || hamster}
                       alt={`${membership.group.name} 이미지`}
@@ -77,14 +81,16 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               </div>
             </Dropdown.Item>
           ))}
-          <LinkButton
-            btnSize="large"
-            btnStyle="none_background"
-            className="mt-2"
-            href="/addteam"
-          >
-            <Plus width={16} height={16} className="mr-1" /> 팀 추가하기
-          </LinkButton>
+          <Dropdown.CloseItem>
+            <LinkButton
+              btnSize="large"
+              btnStyle="none_background"
+              className="mt-2"
+              href="/addteam"
+            >
+              <Plus width={16} height={16} className="mr-1" /> 팀 추가하기
+            </LinkButton>
+          </Dropdown.CloseItem>
         </Dropdown.Body>
       </Dropdown>
     </div>

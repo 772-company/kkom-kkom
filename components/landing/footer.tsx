@@ -13,7 +13,12 @@ export default function Footer() {
           같은 속도로 나아가는 가장 쉬운 방법
         </h3>
       </div>
-      <Image src={footer} fill alt="꼼꼼 랜딩" className="object-cover" />
+      <Image
+        src={footer}
+        fill
+        alt="할 일 옮기는 캐릭터"
+        className="object-cover"
+      />
     </footer>
   );
 }

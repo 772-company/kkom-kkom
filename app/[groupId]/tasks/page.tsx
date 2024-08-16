@@ -33,8 +33,8 @@ const page = async (context: any) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="max-h-sc max-w-screen-lg mx-auto h-[524px]">
-        <h1 className="text text-xl font-bold text-text-primary">할일</h1>
+      <div className="max-w-screen-lg mx-auto h-[524px] max-h-screen">
+        <h1 className="text pt-8 text-xl font-bold text-text-primary">할일</h1>
         <TodoContainer groupId={params.groupId} />
       </div>
     </HydrationBoundary>

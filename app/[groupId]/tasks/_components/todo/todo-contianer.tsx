@@ -1,5 +1,6 @@
 "use client";
 
+import ButtonFloating from "@/components/button-floating/button-floating";
 import getGroupInfo from "@/lib/apis/group";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -19,7 +20,7 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
   return (
-    <>
+    <main>
       <TodoHeader
         groupId={groupId}
         onClickButton={handleClickButton}
@@ -32,7 +33,12 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
         date={date}
         groupId={groupId}
       />
-    </>
+      <div className="fixed right-[30px] top-[700px] h-[48px] w-[125px]">
+        <ButtonFloating btnStyle="solid" btnSize="large">
+          할 일 추가
+        </ButtonFloating>
+      </div>
+    </main>
   );
 };
 

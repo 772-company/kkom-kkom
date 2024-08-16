@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { TaskLists } from "../_components/todo/todo-contents";
 
@@ -13,6 +13,12 @@ const useSelectButton = (taskLists: TaskLists) => {
     const selected = parseInt(e.currentTarget.name);
     setSelectedButton(selected);
   };
+
+  useEffect(() => {
+    if (taskLists) {
+      setSelectedButton(taskLists[taskLists.length - 1]?.id);
+    }
+  }, [taskLists]);
   return { handleClickName, selectedButton };
 };
 

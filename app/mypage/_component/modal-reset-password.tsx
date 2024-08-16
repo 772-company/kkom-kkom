@@ -8,6 +8,7 @@ import { resetPasswordSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface ModalResetPasswordProps {
   close: () => void;
@@ -24,8 +25,19 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
 
   const mutation = useMutation({
     mutationFn: (data: ResetPasswordInputValue) => modalResetPassword(data),
+    onMutate: () => {
+      showToast("loading", "비밀번호 변경 중입니다.", {
+        toastId: "updatePassword",
+      });
+    },
     onSuccess: () => {
-      showToast("success", <p>비밀번호가 변경되었습니다</p>);
+      toast.update("updatePassword", {
+        render: "비밀번호가 변경되었습니다.",
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
       close();
     },
     onError: (response) => {

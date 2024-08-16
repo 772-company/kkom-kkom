@@ -70,6 +70,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     },
   });
 
+  // NOTE - 의존성 배열에 mutation 포함하면 무한 요청됨
   useEffect(() => {
     if (code && state) {
       mutation.mutate({ code, state });

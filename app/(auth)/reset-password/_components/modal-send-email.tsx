@@ -8,6 +8,7 @@ import { sendEmailSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface ModalSendEmailProps {
   close: () => void;
@@ -34,8 +35,19 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
       )) as PostTeamIdUserSendResetPasswordEmailResponse;
       return response;
     },
+    onMutate: () => {
+      showToast("loading", "비밀번호 변경 이메일 전송 중입니다.", {
+        toastId: "sendEmail",
+      });
+    },
     onSuccess: (response: PostTeamIdUserSendResetPasswordEmailResponse) => {
-      showToast("success", <p>{response.message}</p>);
+      toast.update("sendEmail", {
+        render: response.message,
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
       close();
     },
     onError: (error: unknown) => {

@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import ModalResetPassword from "./modal-reset-password";
 
@@ -38,9 +39,21 @@ export default function UpdateUserForm() {
 
   const mutation = useMutation({
     mutationFn: (data: UpdateUserInputValue) => updateAccount(data),
+    // TODO - 멘트가.. 수정 필요
+    onMutate: () => {
+      showToast("loading", "고객님의 정보를 수정 중입니다.", {
+        toastId: "updateUserInfo",
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
-      showToast("success", <p>정보가 변경되었습니다.</p>);
+      toast.update("updateUserInfo", {
+        render: "정보가 변경되었습니다.",
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
     },
     onError: async (error) => {
       if (error instanceof ResponseError) {

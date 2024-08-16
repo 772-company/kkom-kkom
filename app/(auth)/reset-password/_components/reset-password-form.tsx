@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export interface ResetPasswordInputValue {
   passwordConfirmation: string;
@@ -38,8 +39,19 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         ...data,
         token,
       }),
+    onMutate: () => {
+      showToast("loading", "비밀번호 변경 중입니다.", {
+        toastId: "resetPassword",
+      });
+    },
     onSuccess: () => {
-      showToast("success", <p>비밀번호가 변경되었습니다.</p>);
+      toast.update("resetPassword", {
+        render: "비밀변호가 변경되었습니다.",
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
       router.push("/login");
     },
     onError: async (error: unknown) => {

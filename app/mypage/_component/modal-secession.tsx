@@ -5,6 +5,7 @@ import Alert from "@/public/icons/alert.svg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface ModalWarningProps {
   close: () => void;
@@ -20,13 +21,24 @@ export function ModalSecession({ close }: ModalWarningProps) {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: () => deleteAccount(),
+    onMutate: () => {
+      showToast("loading", "탈퇴 처리 중입니다.", {
+        toastId: "deleteAccount",
+      });
+      close();
+    },
     onSuccess: () => {
       router.push("/");
       deleteCookie("accessToken");
       deleteCookie("refreshToken");
       router.refresh();
-      close();
-      showToast("success", <p>탈퇴되었습니다.</p>);
+      toast.update("deleteAccount", {
+        render: "탈퇴되었습니다.",
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
     },
     onError: (response) => {
       showToast("error", <p>{response.message}</p>);

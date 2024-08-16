@@ -10,7 +10,7 @@ export default function LandingHeader() {
   return (
     <section className="relative h-[547px] w-full">
       <Image src={header} fill alt="꼼꼼 랜딩" className="object-cover" />
-      <div className="mt-[55px] flex flex-col items-center justify-center gap-1 md:mt-[100px] xl:mt-[84px]">
+      <div className="flex flex-col items-center justify-center gap-1 pt-[55px] md:mt-[100px] xl:mt-[84px]">
         <h2 className="text-2xl font-semibold text-text-primary md:text-[40px]">
           함께 만들어가는 투두 리스트 🛠️
         </h2>

@@ -3,7 +3,6 @@ import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components
 import { UpdateUserInputValue } from "@/app/mypage/_component/update-user-form";
 import { getCookie } from "cookies-next";
 
-import { myFetch } from "../myFetch";
 import { instance } from "../myFetch/instance";
 import {
   DeleteTeamIdUserResponse,
@@ -18,13 +17,9 @@ import {
 
 export async function getUser(): Promise<GetTeamIdUserResponse> {
   try {
-    const response = await myFetch<GetTeamIdUserResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
-      {
-        method: "GET",
-        withCredentials: true,
-      },
-    );
+    const response = await instance<GetTeamIdUserResponse>("/user", {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     throw error;
@@ -61,7 +56,7 @@ export async function gerUserGroups(): Promise<GetTeamIdUserGroups> {
 export async function getUserHistory() {
   try {
     const response = await instance<GetTeamIdUserHistoryResponse>(
-      `/user/history`,
+      "/user/history",
       {
         withCredentials: true,
       },
@@ -83,8 +78,8 @@ export async function sendEmail(
   };
   try {
     const response =
-      await myFetch<PostTeamIdUserSendResetPasswordEmailResponse>(
-        `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/send-reset-password-email`,
+      await instance<PostTeamIdUserSendResetPasswordEmailResponse>(
+        "/user/send-reset-password-email",
         {
           method: "POST",
           headers: {
@@ -107,8 +102,8 @@ export async function resetPassword(data: {
   token: string;
 }): Promise<PatchTeamIdUserResetPasswordResponse | string> {
   try {
-    const response = await myFetch<PatchTeamIdUserResetPasswordResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/reset-password`,
+    const response = await instance<PatchTeamIdUserResetPasswordResponse>(
+      "/user/reset-password",
       {
         method: "PATCH",
         headers: {
@@ -129,8 +124,8 @@ export async function modalResetPassword(
   data: ResetPasswordInputValue,
 ): Promise<PatchTeamIdUserPasswordResponse | string> {
   try {
-    const response = await myFetch<PatchTeamIdUserPasswordResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user/password`,
+    const response = await instance<PatchTeamIdUserPasswordResponse>(
+      "/user/password",
       {
         method: "PATCH",
         headers: {
@@ -149,13 +144,10 @@ export async function modalResetPassword(
 // NOTE - 계정 탈퇴
 export async function deleteAccount(): Promise<DeleteTeamIdUserResponse> {
   try {
-    const response = await myFetch<DeleteTeamIdUserResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
+    const response = await instance<DeleteTeamIdUserResponse>("/user", {
+      method: "DELETE",
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     throw error;
@@ -167,17 +159,14 @@ export async function updateAccount(
   data: UpdateUserInputValue,
 ): Promise<PatchTeamIdUserResponse> {
   try {
-    const response = await myFetch<PatchTeamIdUserResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/user`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        withCredentials: true,
+    const response = await instance<PatchTeamIdUserResponse>("/user", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(data),
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     throw error;

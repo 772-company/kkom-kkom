@@ -2,10 +2,7 @@
 
 import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
-import {
-  PostTeamIdAuthSignInProviderResponse,
-  getGoogleTokenResponse,
-} from "@/lib/apis/type";
+import { getGoogleTokenResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
@@ -73,6 +70,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     },
   });
 
+  // NOTE - 의존성 배열에 mutation 포함하면 무한 요청됨
   useEffect(() => {
     if (code && state) {
       mutation.mutate({ code, state });

@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { useAuthError } from "../../_hooks/use-auth-error";
 
@@ -35,12 +36,20 @@ export default function SignUpForm() {
   const handleError = useAuthError<SignUpInputValue>(setError);
 
   const mutation = useMutation({
-    mutationFn: async (data: SignUpInputValue) => {
-      const response = (await signUp(data)) as PostTeamIdAuthSignupResponse;
-      return response;
+    mutationFn: (data: SignUpInputValue) => signUp(data),
+    onMutate: () => {
+      showToast("loading", "회원가입을 진행 중입니다.", {
+        toastId: "signUp",
+      });
     },
-    onSuccess: (response: PostTeamIdAuthSignupResponse) => {
-      showToast("success", <p>회원가입이 정상적으로 처리되었습니다.</p>);
+    onSuccess: () => {
+      toast.update("signUp", {
+        render: "회원가입이 정상적으로 처리되었습니다.",
+        type: "success",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
       router.push("/login");
     },
     onError: handleError,

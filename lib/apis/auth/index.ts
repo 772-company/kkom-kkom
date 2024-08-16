@@ -1,7 +1,7 @@
 import { LoginInputValue } from "@/app/(auth)/login/_components/login-form";
 import { SignUpInputValue } from "@/app/(auth)/signup/_components/signup-form";
 
-import { myFetch } from "../myFetch";
+import { instance } from "../myFetch/instance";
 import {
   PostTeamIdAuthSignInProviderResponse,
   PostTeamIdAuthSigninResponse,
@@ -16,15 +16,14 @@ export async function login(
   | { details: Record<string, { message: string }> }
 > {
   try {
-    const response = await myFetch<PostTeamIdAuthSigninResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn`,
+    const response = await instance<PostTeamIdAuthSigninResponse>(
+      "/auth/signIn",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        //withCredentials: true,
       },
     );
 
@@ -42,8 +41,8 @@ export async function signUp(
   | { details: Record<string, { message: string }> }
 > {
   try {
-    const response = await myFetch<PostTeamIdAuthSignupResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signUp`,
+    const response = await instance<PostTeamIdAuthSignupResponse>(
+      "/auth/signUp",
       {
         method: "POST",
         headers: {
@@ -70,8 +69,8 @@ export async function oauthLogin(
       provider === "KAKAO"
         ? process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
         : process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-    const response = await myFetch<PostTeamIdAuthSignInProviderResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/auth/signIn/${provider}`,
+    const response = await instance<PostTeamIdAuthSignInProviderResponse>(
+      `/auth/signIn/${provider}`,
       {
         method: "POST",
         headers: {

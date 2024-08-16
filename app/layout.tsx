@@ -1,4 +1,5 @@
 import Header from "@/components/header/header";
+import { ProgressBar } from "@/components/progress-bar/progress-bar";
 import {
   OverlayProvider,
   OverlayStoreProvider,
@@ -33,15 +34,17 @@ export default function RootLayout({
     <html lang="ko">
       <body className={myFont.className}>
         <QueryProviders>
-          <ToastProvider>
-            <OverlayStoreProvider>
-              <Header />
-              <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
-                {children}
-              </main>
-              <OverlayProvider />
-            </OverlayStoreProvider>
-          </ToastProvider>
+          <ProgressBar className="fixed top-[60px] h-1 bg-brand-primary">
+            <ToastProvider>
+              <OverlayStoreProvider>
+                <Header />
+                <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
+                  {children}
+                </main>
+                <OverlayProvider />
+              </OverlayStoreProvider>
+            </ToastProvider>
+          </ProgressBar>
         </QueryProviders>
       </body>
     </html>

@@ -2,14 +2,10 @@
 
 import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
-import {
-  PostTeamIdAuthSignInProviderResponse,
-  getGoogleTokenResponse,
-} from "@/lib/apis/type";
+import { getGoogleTokenResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
-import { m } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -78,7 +74,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     if (code && state) {
       mutation.mutate({ code, state });
     }
-  }, [code, state, mutation]);
+  }, [code, state]);
 
   return null;
 }

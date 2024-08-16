@@ -1,15 +1,23 @@
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+"use client";
+
+import getGroupInfo from "@/lib/apis/group";
+import { useQuery } from "@tanstack/react-query";
 
 import TodayTaskProgress from "./today-task-progress";
 import TodayTaskSummary from "./today-task-summary";
 
-type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
-
 interface TaskReportProps {
-  taskLists: TaskListType[];
+  groupId: string;
 }
 
-const TaskReport = ({ taskLists }: TaskReportProps) => {
+const TaskReport = ({ groupId }: TaskReportProps) => {
+  const { data } = useQuery({
+    queryKey: ["groupInfo"],
+    queryFn: () => getGroupInfo({ groupId: groupId }),
+  });
+
+  const taskLists = data ? data.taskLists : [];
+
   const numberOfDone = taskLists.reduce((acc, taskList) => {
     return acc + taskList.tasks.filter((task) => task.doneAt !== null).length;
   }, 0);

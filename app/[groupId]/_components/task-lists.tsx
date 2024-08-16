@@ -2,10 +2,12 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import getGroupInfo from "@/lib/apis/group";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
+import { useQuery } from "@tanstack/react-query";
 
 import ModalTaskListAdd from "./modal/modal-task-list-add";
 import ModalTaskListDelete from "./modal/modal-task-list-delete";
@@ -19,9 +21,8 @@ interface TaskListProps {
 }
 
 interface TaskListsProps {
-  isAdmin: boolean;
-  taskLists: TaskListType[];
   groupId: string;
+  isAdmin: boolean;
 }
 
 const COLORS = [
@@ -92,11 +93,16 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
   );
 };
 
+const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
+  const { data } = useQuery({
+    queryKey: ["groupInfo"],
+    queryFn: () => getGroupInfo({ groupId: groupId }),
+  });
 
-const TaskLists = ({ isAdmin, groupId, taskLists }: TaskListsProps) => {
+  const taskLists = data ? data.taskLists : [];
 
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListAdd close={close} />
+    <ModalTaskListAdd close={close} groupId={groupId} />
   ));
 
   return (

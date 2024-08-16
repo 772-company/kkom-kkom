@@ -2,20 +2,28 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import getGroupInfo from "@/lib/apis/group";
 import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
 import ModalTeamDelete from "./modal/modal-team-delete";
 import ModalTeamNameEdit from "./modal/modal-team-name-edit";
 
 interface TeamNameProps {
-  isAdmin: boolean;
-  teamName: string;
   groupId: string;
+  isAdmin: boolean;
 }
 
-const TeamName = ({ isAdmin, teamName, groupId }: TeamNameProps) => {
+const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
+  const { data } = useQuery({
+    queryKey: ["groupInfo"],
+    queryFn: () => getGroupInfo({ groupId: groupId }),
+  });
+
+  const teamName = data ? data?.name : "";
+
   const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTeamNameEdit
       close={close}

@@ -2,9 +2,11 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import getGroupInfo from "@/lib/apis/group";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
 import ModalMemberDelete from "./modal/modal-member-delete";
@@ -20,9 +22,8 @@ interface MemberCardProps {
 }
 
 interface MemberListProps {
-  isAdmin: boolean;
-  members: MemberType[];
   groupId: string;
+  isAdmin: boolean;
 }
 
 const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
@@ -90,7 +91,14 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
   );
 };
 
-const MemberList = ({ isAdmin, members, groupId }: MemberListProps) => {
+const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
+  const { data } = useQuery({
+    queryKey: ["groupInfo"],
+    queryFn: () => getGroupInfo({ groupId }),
+  });
+
+  const members = data ? data.members : [];
+
   const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
     <ModalMemberInvitation close={close} groupId={groupId} />
   ));

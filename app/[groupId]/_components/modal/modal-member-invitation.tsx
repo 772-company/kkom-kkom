@@ -5,6 +5,7 @@ import Modal from "@/components/modal/modal";
 import { getGroupInvitation } from "@/lib/apis/group/index";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useMutation } from "@tanstack/react-query";
 
 interface ModalMemberInvitationProps {
   close: () => void;
@@ -15,17 +16,24 @@ const ModalMemberInvitation = ({
   close,
   groupId,
 }: ModalMemberInvitationProps) => {
-  const handleButtonClick = async () => {
-    try {
-      const result = await getGroupInvitation({ groupId: groupId });
-      await navigator.clipboard.writeText(
-        `${process.env.NEXT_PUBLIC_PARTICIPATE_TEAM_REDIRECT_URL}?token=${result}`,
-      );
-      showToast("success", "링크가 복사되었습니다");
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const result = await getGroupInvitation({ groupId });
+      const invitationLink = `${process.env.NEXT_PUBLIC_PARTICIPATE_TEAM_REDIRECT_URL}?token=${result}`;
+      await navigator.clipboard.writeText(invitationLink);
+      return invitationLink;
+    },
+    onSuccess: () => {
+      showToast("success", "링크가 복사되었습니다.");
       close();
-    } catch (error) {
-      showToast("error", "링크 복사에 실패하였습니다");
-    }
+    },
+    onError: () => {
+      showToast("error", "링크 복사에 실패하였습니다.");
+    },
+  });
+
+  const handleButtonClick = () => {
+    mutation.mutate();
   };
 
   return (
@@ -41,9 +49,13 @@ const ModalMemberInvitation = ({
               그룹에 참여할 수 있는 링크를 복사합니다.
             </Modal.Description>
           </div>
-
-          <Button btnSize="large" btnStyle="solid" onClick={handleButtonClick}>
-            링크 복사하기
+          <Button
+            btnSize="large"
+            btnStyle="solid"
+            onClick={handleButtonClick}
+            disabled={mutation.isPending}
+          >
+            {mutation.isPending ? "복사 중..." : "복사하기"}
           </Button>
         </div>
       </div>

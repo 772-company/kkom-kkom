@@ -1,10 +1,10 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { patchTaskListName } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -37,24 +37,33 @@ const ModalTaskListNameEdit = ({
     },
   });
 
-  const onSubmit = async (data: TaskListNameEditFormValue) => {
-    try {
-      const response = await patchTaskListName({
+  const mutation = useMutation({
+    mutationFn: (data: TaskListNameEditFormValue) =>
+      patchTaskListName({
         groupId,
         taskListId,
         name: data.taskListName,
-      });
-      showToast("success", `${data.taskListName}으로 수정되었습니다.`);
+      }),
+    onSuccess: (data) => {
+      showToast(
+        "success",
+        data
+          ? `${data.name}으로 수정되었습니다.`
+          : showToast("success", "수정되었습니다."),
+      );
       router.refresh();
       close();
-    } catch (error) {
+    },
+    onError: (error: unknown) => {
       showToast(
         "error",
-        error instanceof ResponseError
-          ? error.message
-          : "목록 명 수정에 실패하였습니다.",
+        error instanceof Error ? error.message : "수정에 실패하였습니다.",
       );
-    }
+    },
+  });
+
+  const onSubmit = (data: TaskListNameEditFormValue) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -72,8 +81,12 @@ const ModalTaskListNameEdit = ({
                 register={register}
                 placeholder="목록 명을 입력해 주세요."
               />
-              <Button btnSize="large" btnStyle="solid" disabled={!isDirty}>
-                수정하기
+              <Button
+                btnSize="large"
+                btnStyle="solid"
+                disabled={!isDirty || mutation.isPending}
+              >
+                {mutation.isPending ? "수정 중..." : "수정하기"}
               </Button>
             </div>
           </form>

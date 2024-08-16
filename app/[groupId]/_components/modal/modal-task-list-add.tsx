@@ -1,23 +1,45 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
+import { postTaskList } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
 interface ModalTaskListAddProps {
   close: () => void;
+  groupId: string;
 }
 
-const ModalTaskListAdd = ({ close }: ModalTaskListAddProps) => {
-  const [taskList, setTaskList] = useState("");
+const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
+  const [taskListName, setTaskListName] = useState("");
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: (data: { name: string }) => postTaskList(groupId, data),
+    onSuccess: () => {
+      showToast("success", `${taskListName}을 추가하였습니다.`);
+      close();
+      router.refresh();
+    },
+    onError: (error: unknown) => {
+      console.log("error:", error);
+      showToast(
+        "error",
+        error instanceof Error
+          ? error.message
+          : `${taskListName} 추가에 실패하였습니다`,
+      );
+    },
+  });
 
-  const handleButtonClick = () => {
-    showToast("success", <p>{taskList}가 추가되었습니다</p>);
-    close();
+  const handleSubmit = () => {
+    mutation.mutate({ name: taskListName });
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTaskList(e.target.value);
+    setTaskListName(e.target.value);
   };
 
   return (
@@ -31,16 +53,16 @@ const ModalTaskListAdd = ({ close }: ModalTaskListAddProps) => {
           <input
             className="rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none"
             placeholder="목록 명을 입력해 주세요"
-            value={taskList}
+            value={taskListName}
             onChange={handleInputChange}
           />
           <Button
             btnSize="large"
             btnStyle="solid"
-            onClick={handleButtonClick}
-            disabled={!taskList.trim()}
+            onClick={handleSubmit}
+            disabled={!taskListName.trim() || mutation.isPending}
           >
-            추가하기
+            {mutation.isPending ? "추가 중..." : "추가하기"}
           </Button>
         </div>
       </div>

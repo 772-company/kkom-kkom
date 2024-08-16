@@ -136,14 +136,15 @@ export const postTaskList = async (groupId: string, data: { name: string }) => {
   }
 };
 
-export const pathChangeTaskListIndex = async (
+//NOTE - 할 일 목록 순서 변경
+export const patchChangeTaskListIndex = async (
   groupId: string,
   taskListId: number,
   data: { displayIndex: number },
 ) => {
   try {
     const response = await myFetch(
-      `${URL}/groups${groupId}/tasl-lists/${taskListId}/order`,
+      `${URL}/groups${groupId}/task-lists/${taskListId}/order`,
       {
         method: "PATCH",
         headers: {

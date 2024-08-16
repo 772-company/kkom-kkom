@@ -3,6 +3,7 @@
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
+import { patchChangeTaskListIndex } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";

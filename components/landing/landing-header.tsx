@@ -15,7 +15,7 @@ export default function LandingHeader() {
         alt="할 일 옮기는 캐릭터와 기차"
         className="object-cover"
       />
-      <div className="flex flex-col items-center justify-center gap-1 pt-[55px] md:mt-[100px] xl:mt-[84px]">
+      <div className="flex flex-col items-center justify-center gap-1 pt-[55px] md:pt-[100px] xl:pt-[84px]">
         <h2 className="text-2xl font-semibold text-text-primary md:text-[40px]">
           함께 만들어가는 투두 리스트 🛠️
         </h2>

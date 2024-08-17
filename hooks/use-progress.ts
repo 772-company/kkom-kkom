@@ -1,12 +1,78 @@
+import { rand } from "@/utils/get-rand";
 import { useSpring } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { startTransition, useEffect, useReducer, useRef } from "react";
 
-// useProgress (본체)
+import useInterval from "./use-interval";
+
+type StateType = "initial" | "in-progress" | "completing" | "complete";
+
+type ActionType =
+  | { type: "start" }
+  | { type: "done" }
+  | { type: "reset" }
+  | { type: "complete" };
+
+function reducer(state: StateType, action: ActionType): StateType {
+  switch (action.type) {
+    case "start":
+      return "in-progress";
+    case "done":
+      return state === "initial" || state === "in-progress"
+        ? "completing"
+        : state;
+    case "reset":
+      return "initial";
+    case "complete":
+      return "complete";
+    default:
+      throw new Error("Unhandled action type");
+  }
+}
+
+/**
+ * @author 이승현
+ * @description
+ * progress 내부 로직이 담긴 훅입니다.
+ * 
+ * progress bar와 같이 표시해주는 컴포넌트(view)를 만드시려면 state, value, reset 를 사용하시면 됩니다.
+ * 자세한 구현 사항은 progress bar를 참고해주세요
+ * 
+ * progress bar와 같은 컴포넌트와 연결되어 있는 컴포넌트를 만드시고 싶으시면 progress 함수를 사용하시면 됩니다.
+ * progress 함수는 함수를 받아서 실행하며 Link의 onClick과 같은 핸들러나 fetch에도 사용하실 수 있습니다.
+ * 
+ * Link에 담으실 경우 핸들러를 사용해야 하기 때문에 use client로 바꾸는 것 잊지 마세요.
+ * 
+ * @example
+ * "use client";
+ * 
+ * export default function ArticleResetButton({
+  btnSize,
+  btnStyle,
+  className,
+}: ArticleResetButtonProps) {
+  const { progress } = useProgressBar();
+  const router = useRouter();
+
+  return (
+    <LinkButton
+      href={`/boards`}
+      btnSize={btnSize}
+      btnStyle={btnStyle}
+      className={className}
+      onClick={(e) => {
+        e.preventDefault();
+        progress(() => router.push("/boards"));
+      }}
+    >
+      초기화
+    </LinkButton>
+  );
+}
+ *
+ */
 export function useProgress() {
   // 현재 상태
-  const [state, setState] = useState<
-    "initial" | "in-progress" | "completing" | "complete"
-  >("initial");
+  const [state, dispatch] = useReducer(reducer, "initial");
 
   // Spring으로 애니메이션 value 넣음.
   let value = useSpring(0, {
@@ -28,13 +94,10 @@ export function useProgress() {
         // motionValue를 0으로 만들어서 멈춘다.
         value.jump(0);
       }
-
       // motionValue를 가져와서
       let current = value.get();
-
       // 바뀌는 정도인듯?
       let diff;
-
       // 0이면 한번에 15움직이고
       if (current === 0) {
         diff = 15;
@@ -45,7 +108,6 @@ export function useProgress() {
       } else {
         diff = rand(1, 5);
       }
-
       // motionValue에 추가 (최대 99)
       value.set(Math.min(current + diff, 99));
     },
@@ -54,72 +116,37 @@ export function useProgress() {
   );
 
   useEffect(() => {
-    // initia이면 0으로
+    const unsubscribe = value.on("change", (latest) => {
+      if (latest === 100) {
+        dispatch({ type: "complete" });
+      }
+    });
+    // initial이면 0으로
     if (state === "initial") {
       value.jump(0);
       // completing이면 100으로 간다.
     } else if (state === "completing") {
       value.set(100);
     }
-
+    return () => {
+      unsubscribe();
+    };
     // value가 변화할 때 latest가 100이면 complete 상태로 만든다.
-    return value.on("change", (latest) => {
-      // on 이벤트는 motionValue를 가져올 수 있다. lastest가 motionValue
-      if (latest === 100) {
-        setState("complete");
-      }
-    });
     // value, state 변화, 컴포넌트 언마운트 시마다 value.on 이라는 이벤트 핸들러는 사라진다.
   }, [value, state]);
 
-  function reset() {
-    // initial로 만듬
-    setState("initial");
-  }
+  const handleProgress = (func: () => void) => {
+    dispatch({ type: "start" });
+    startTransition(() => {
+      func();
+      dispatch({ type: "done" });
+    });
+  };
 
-  function start() {
-    // start로 만듬
-    setState("in-progress");
-  }
-
-  function done() {
-    // initial이거나 in-progress면 completing아니면 원상태로 돌리는 함수
-    setState((state) =>
-      state === "initial" || state === "in-progress" ? "completing" : state,
-    );
-  }
-  return { state, value, start, done, reset };
-}
-
-// 랜덤하게 max와 min 사이에서 양수 하나를 꺼내는 함수
-function rand(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// useInterval: callback과 delay를 받으면 interval을 주는 함수
-function useInterval(callback: () => void, delay: number | null) {
-  // callback을 저장하는 클로저
-  const savedCallback = useRef(callback);
-
-  useEffect(() => {
-    // callback을 변경하는 함수
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    // ref에 담긴 callback 실행하는 함수
-    function tick() {
-      savedCallback.current();
-    }
-
-    if (delay !== null) {
-      // 일단 실행
-      tick();
-
-      // 타이머 켜라
-      let id = setInterval(tick, delay);
-      // 언마운트 될 때 타이머 지워라
-      return () => clearInterval(id);
-    }
-  }, [delay]);
+  return {
+    state,
+    value,
+    reset: () => dispatch({ type: "reset" }),
+    progress: handleProgress,
+  };
 }

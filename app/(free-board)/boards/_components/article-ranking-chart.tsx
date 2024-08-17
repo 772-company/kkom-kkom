@@ -1,3 +1,4 @@
+import LinkWithProgress from "@/components/link-with-progress";
 import { getArticles } from "@/lib/apis/article";
 import Fire from "@/public/icons/fire.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
@@ -12,13 +13,13 @@ export default async function ArticleRankingChart() {
           key={i}
           className={`flex items-center justify-between gap-1 ${i <= 2 && "font-bold text-[#fe6c08]"}`}
         >
-          <Link
+          <LinkWithProgress
             href={`/boards/${article.id}`}
             className="flex gap-1 truncate hover:text-[#41ff30]"
           >
             {`${i + 1}. ${article.title}`}
             {i <= 2 && <Fire className="h-4 w-4" />}
-          </Link>
+          </LinkWithProgress>
           <div className="flex-shrink-0 text-sm font-normal text-text-disabled">
             {convertDiffDateFromNow(new Date(article.createdAt))}
           </div>

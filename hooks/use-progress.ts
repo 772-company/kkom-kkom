@@ -33,39 +33,40 @@ function reducer(state: StateType, action: ActionType): StateType {
  * @author 이승현
  * @description
  * progress 내부 로직이 담긴 훅입니다.
- * 
+ *
  * progress bar와 같이 표시해주는 컴포넌트(view)를 만드시려면 state, value, reset 를 사용하시면 됩니다.
  * 자세한 구현 사항은 progress bar를 참고해주세요
- * 
- * progress bar와 같은 컴포넌트와 연결되어 있는 컴포넌트를 만드시고 싶으시면 progress 함수를 사용하시면 됩니다.
- * progress 함수는 함수를 받아서 실행하며 Link의 onClick과 같은 핸들러나 fetch에도 사용하실 수 있습니다.
- * 
- * Link에 담으실 경우 핸들러를 사용해야 하기 때문에 use client로 바꾸는 것 잊지 마세요.
- * 
+ *
+ * progress bar와 같은 컴포넌트와 연결되어 있는 컴포넌트를 만드시고 싶으시면 이 훅이 아닌 "useProgressBar"의
+ * progress 함수를 사용하시면 됩니다.
+ *
  * @example
- * "use client";
- * 
- * export default function ArticleResetButton({
-  btnSize,
-  btnStyle,
+ * export function ProgressBar({
   className,
-}: ArticleResetButtonProps) {
-  const { progress } = useProgressBar();
-  const router = useRouter();
+  children,
+}: {
+  className: string;
+  children: ReactNode;
+}) {
+  // useProgress 사용
+  let progress = useProgress();
+  // useMotionTemplate: 여러 motion value를 하나의 motion value로 만드는 훅
+  // 여기서는 width: ~% 이런식으로 길어지게 만들어 놓음. 내부적으로 progress.value가 100이 되면 complete임
+  let width = useMotionTemplate`${progress.value}%`;
 
   return (
-    <LinkButton
-      href={`/boards`}
-      btnSize={btnSize}
-      btnStyle={btnStyle}
-      className={className}
-      onClick={(e) => {
-        e.preventDefault();
-        progress(() => router.push("/boards"));
-      }}
-    >
-      초기화
-    </LinkButton>
+    <ProgressBarContext.Provider value={progress}>
+      <AnimatePresence onExitComplete={progress.reset}>
+        {progress.state !== "complete" && (
+          <motion.div
+            style={{ width }}
+            exit={{ opacity: 0 }}
+            className={className}
+          />
+        )}
+      </AnimatePresence>
+      {children}
+    </ProgressBarContext.Provider>
   );
 }
  *

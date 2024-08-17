@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={myFont.className}>
         <QueryProviders>
-          <ProgressBar className="fixed top-[60px] h-1 bg-brand-primary">
+          <ProgressBar className="fixed top-[60px] z-50 h-1 bg-brand-primary">
             <ToastProvider>
               <OverlayStoreProvider>
                 <Header />

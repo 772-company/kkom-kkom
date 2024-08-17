@@ -1,6 +1,7 @@
 "use client";
 
 import { BasicInput } from "@/components/input-field/basic-input";
+import { useProgressBar } from "@/components/progress-bar/progress-bar";
 import SearchIcon from "@/public/icons/search.svg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -21,11 +22,12 @@ export default function ArticleSearchBar() {
     setValue,
     formState: { isSubmitting },
   } = useForm<{ keyword: string }>();
+  const { progress } = useProgressBar();
   const router = useRouter();
   const onSubmit: SubmitHandler<ArticleSearchBarForm> = (data) => {
     if (!isSubmitting) {
       setValue("keyword", "");
-      router.push(`/boards?keyword=${data.keyword}`);
+      progress(() => router.push(`/boards?keyword=${data.keyword}`));
     }
   };
 
@@ -59,10 +61,10 @@ export default function ArticleSearchBar() {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2"
+            className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2 shadow-xl"
           >
             <form
-              className="relative mx-auto w-full max-w-[1200px]"
+              className="relative mx-auto w-full max-w-[1200px] pt-1"
               onSubmit={handleSubmit(onSubmit)}
             >
               <BasicInput

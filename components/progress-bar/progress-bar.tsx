@@ -9,7 +9,39 @@ const ProgressBarContext = createContext<ReturnType<typeof useProgress> | null>(
   null,
 );
 
-// useProgressBar 라는 훅으로 useProgress와 연결해서 사용하고자 함.
+/**
+ * @author 이승현
+ * @description
+ * progress 함수는 함수를 받아서 실행하며 Link의 onClick과 같은 핸들러나 fetch에도 사용하실 수 있습니다.
+ * Link에 담으실 경우 핸들러를 사용해야 하기 때문에 use client로 바꾸는 것 잊지 마세요.
+ *
+ * @example
+ * "use client";
+ * 
+ * export default function ArticleResetButton({
+  btnSize,
+  btnStyle,
+  className,
+}: ArticleResetButtonProps) {
+  const { progress } = useProgressBar();
+  const router = useRouter();
+
+  return (
+    <LinkButton
+      href={`/boards`}
+      btnSize={btnSize}
+      btnStyle={btnStyle}
+      className={className}
+      onClick={(e) => {
+        e.preventDefault();
+        progress(() => router.push("/boards"));
+      }}
+    >
+      초기화
+    </LinkButton>
+  );
+}
+ */
 export function useProgressBar() {
   let progress = useContext(ProgressBarContext);
   if (progress === null) {

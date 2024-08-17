@@ -70,6 +70,7 @@ export function Dropdown({ children, selected, setSelected }: DropdownProps) {
 Dropdown.Button = Button;
 Dropdown.Body = Body;
 Dropdown.Item = Item;
+Dropdown.CloseItem = CloseItem;
 
 // NOTE - Button
 
@@ -147,6 +148,28 @@ function Item({ children, value, ...rest }: ItemProps) {
   };
   return (
     <li className="cursor-pointer" onClick={onSelect} {...rest}>
+      {children}
+    </li>
+  );
+}
+
+// NOTE - CloseItem
+/**
+ * @author 김서영
+ * 드롭다운을 닫기만 하는 컴포넌트입니다.
+ * @param children : li 안에 포함될 내용을 적습니다.
+ * @param className : 너비 및 배경색 등 추가적으로 적용될 스타일을 지정해주는 프롭입니다.
+ * @example  <Dropdown.CloseItem>닫기</Dropdown.CloseItem>
+ **/
+function CloseItem({ children, ...rest }: OlHTMLAttributes<HTMLLIElement>) {
+  const { handleDropdown } = useDropdown();
+
+  const onClose = () => {
+    handleDropdown();
+  };
+
+  return (
+    <li className="cursor-pointer" onClick={onClose} {...rest}>
       {children}
     </li>
   );

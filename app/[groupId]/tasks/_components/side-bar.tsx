@@ -38,7 +38,7 @@ const SideBar = ({
     taskListId,
     todoId,
   );
-  const { mutate, tooglePending } = usePatchTask(
+  const { mutate, isPending: toogleIsPending } = usePatchTask(
     date,
     groupId,
     taskListId,
@@ -140,6 +140,7 @@ const SideBar = ({
             <div className="fixed right-3 top-[85%] w-[111px]">
               {taskDetail?.doneAt ? (
                 <ButtonFloating
+                  disabled={toogleIsPending}
                   btnSize="medium"
                   btnStyle="outlined"
                   className="text-sm"
@@ -150,6 +151,7 @@ const SideBar = ({
                 </ButtonFloating>
               ) : (
                 <ButtonFloating
+                  disabled={toogleIsPending}
                   onClick={habdleClickToggleButton}
                   btnSize="medium"
                   btnStyle="solid"

@@ -9,7 +9,10 @@ import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
+import _debounce from "lodash/debounce";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import ModalTaskListAdd from "./modal/modal-task-list-add";
 import ModalTaskListDelete from "./modal/modal-task-list-delete";
@@ -71,7 +74,7 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
     >
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
-        <p className="">{taskList.name}</p>
+        <p>{taskList.name}</p>
       </div>
       <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
@@ -100,16 +103,58 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
 };
 
 const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
+  const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
+    <ModalTaskListAdd close={close} groupId={groupId} />
+  ));
+
   const { data } = useQuery({
     queryKey: ["groupInfo"],
     queryFn: () => getGroupInfo({ groupId: groupId }),
   });
 
-  const taskLists = data ? data.taskLists : [];
+  const [taskLists, setTaskLists] = useState<TaskListType[]>(
+    data ? data.taskLists : [],
+  );
 
-  const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
-    <ModalTaskListAdd close={close} groupId={groupId} />
-  ));
+  // taskLists 초기화
+  useEffect(() => {
+    if (data) {
+      setTaskLists(data.taskLists);
+    }
+  }, [data]);
+
+  // 드래그가 끝났을 때 호출되는 함수
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
+
+    // 드래그 종료 위치가 유효하지 않으면 아무것도 하지 않음
+    if (!destination) {
+      return;
+    }
+
+    // 상태 업데이트를 위해 taskLists 배열 복사
+    const updatedTaskLists = Array.from(taskLists);
+
+    // 드래그한 항목을 원래 위치에서 제거
+    const [movedTaskList] = updatedTaskLists.splice(source.index, 1);
+
+    // 드래그한 항목을 새로운 위치에 삽입
+    updatedTaskLists.splice(destination.index, 0, movedTaskList);
+
+    // 이동한 tasklist의 displayIndex 재설정
+    updatedTaskLists.forEach((taskLists, index) => {
+      taskLists.displayIndex = index;
+    });
+
+    setTaskLists(updatedTaskLists);
+
+    // 모든 taskList의 displayIndex를 서버에 업데이트
+    updatedTaskLists.forEach((taskList, index) => {
+      patchChangeTaskListIndex(groupId, taskList.id, {
+        displayIndex: index,
+      }).catch(console.error);
+    });
+  };
 
   return (
     <div className="flex flex-col gap-[16px]">
@@ -129,15 +174,42 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
           </button>
         )}
       </div>
-      <div className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom">
-        {taskLists.length > 0 ? (
-          taskLists.map((taskList) => (
-            <TaskList taskList={taskList} key={taskList.id} groupId={groupId} />
-          ))
-        ) : (
-          <p className="text-text-primary">아직 할 일 목록이 없습니다</p>
-        )}
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom"
+            >
+              {taskLists.length > 0 ? (
+                taskLists.map((taskList, index) => (
+                  <Draggable
+                    key={taskList.id.toString()}
+                    draggableId={taskList.id.toString()}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <TaskList taskList={taskList} groupId={groupId} />
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              ) : (
+                <p className="flex h-full items-center justify-center text-text-default">
+                  아직 할 일 목록이 없습니다.
+                </p>
+              )}
+              {provided.placeholder} {/* 드래그 중 빈 공간 유지 */}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };

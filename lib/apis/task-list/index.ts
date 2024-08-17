@@ -144,7 +144,7 @@ export const patchChangeTaskListIndex = async (
 ) => {
   try {
     const response = await myFetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}/order`,
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/order`,
       {
         method: "PATCH",
         headers: {

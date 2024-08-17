@@ -52,7 +52,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             src={article.image}
             alt="thumbnail"
             sizes="(min-width: 744px) 128px, 96px"
-            className="transform duration-150 ease-out"
           />
         </div>
       )}

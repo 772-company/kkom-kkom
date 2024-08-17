@@ -24,7 +24,7 @@ export default function ArticleSearchBar() {
   const onSubmit: SubmitHandler<ArticleSearchBarForm> = (data) => {
     if (!isSubmitting) {
       setValue("keyword", "");
-      router.push(`/search?keyword=${data.keyword}`);
+      router.push(`/boards?keyword=${data.keyword}`);
     }
   };
 

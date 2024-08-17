@@ -56,8 +56,8 @@ export default function Pagination({
   );
 
   return (
-    <PaginationStructure className="w-full max-w-[1200px]">
-      <PaginationContent className="flex gap-2">
+    <PaginationStructure className="fixed bottom-0 left-0 right-0 z-50 border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2">
+      <PaginationContent className="mx-auto flex w-full max-w-[1200px] gap-2">
         <PaginationItem>
           <PaginationIndicator
             page={1}

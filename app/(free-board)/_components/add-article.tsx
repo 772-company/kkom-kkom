@@ -17,7 +17,7 @@ export default function AddArticle() {
     <Button
       btnSize="x-small"
       btnStyle="solid"
-      className="fixed bottom-11 right-4 w-[104px] md:right-6 xl:right-[calc(50vw-600px)]"
+      className="fixed bottom-20 right-4 w-[104px] md:right-6 xl:right-[calc(50vw-600px)]"
       onClick={overlay.open}
     >
       + 글쓰기

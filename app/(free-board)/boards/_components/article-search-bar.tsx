@@ -1,11 +1,10 @@
 "use client";
 
 import { BasicInput } from "@/components/input-field/basic-input";
-import { useProgressBar } from "@/components/progress-bar/progress-bar";
 import SearchIcon from "@/public/icons/search.svg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ArticleSearchBarForm {
@@ -15,29 +14,19 @@ interface ArticleSearchBarForm {
 export default function ArticleSearchBar() {
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { amount: "some" });
-  const [isShow, setIsShow] = useState(true);
   const {
     handleSubmit,
     register,
     setValue,
     formState: { isSubmitting },
   } = useForm<{ keyword: string }>();
-  const { progress } = useProgressBar();
   const router = useRouter();
   const onSubmit: SubmitHandler<ArticleSearchBarForm> = (data) => {
     if (!isSubmitting) {
       setValue("keyword", "");
-      progress(() => router.push(`/boards?keyword=${data.keyword}`));
+      router.push(`/search?keyword=${data.keyword}`);
     }
   };
-
-  useEffect(() => {
-    if (isInView) {
-      setIsShow(true);
-    } else {
-      setIsShow(false);
-    }
-  }, [isInView]);
 
   return (
     <>
@@ -55,7 +44,7 @@ export default function ArticleSearchBar() {
         <SearchIcon className="absolute left-4 top-3 h-6 w-6 md:top-4" />
       </form>
       <AnimatePresence>
-        {!isShow && (
+        {!isInView && (
           <motion.section
             transition={{ type: "tween", duration: 0.3 }}
             initial={{ opacity: 0, y: -100 }}

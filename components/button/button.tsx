@@ -3,9 +3,7 @@
 import { cn } from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useCallback } from "react";
 
-import { useProgressBar } from "../progress-bar/progress-bar";
 import { buttonVariants } from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -110,22 +108,12 @@ export function LinkButton({
   className,
   ...rest
 }: LinkButtonProps) {
-  const { progress } = useProgressBar();
   const router = useRouter();
-
-  const handleClick: MouseEventHandler<HTMLAnchorElement> = useCallback(
-    (e) => {
-      e.preventDefault();
-      progress(() => router.push(href.toString()));
-    },
-    [href, progress, router],
-  );
 
   return (
     <Link
       href={href}
       className={cn(buttonVariants({ className, btnStyle, btnSize }))}
-      onClick={handleClick}
       {...rest}
     >
       {children}

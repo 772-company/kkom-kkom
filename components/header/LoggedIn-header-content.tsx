@@ -7,7 +7,6 @@ import Logo from "@/public/icons/logo.svg";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
-import LinkWithProgress from "../link-with-progress";
 import GroupDropdown from "./group-dropdown";
 import ModalSideMenu from "./modal-side-menu";
 import PopoverTrigger from "./popover-trigger";
@@ -34,28 +33,28 @@ export default function LoggedInHeaderContent() {
         <div className="md:hidden" onClick={modalSideMenuOverlay.open}>
           <Menu width={24} height={24} />
         </div>
-        <LinkWithProgress href="/" className="flex items-center gap-1">
+        <Link href="/" className="flex items-center gap-1">
           <div className="size-4 xl:size-6">
             <Logo width={"100%"} height={"100%"} />
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
-        </LinkWithProgress>
+        </Link>
         {memberships.length !== 0 ? (
           <GroupDropdown memberships={memberships} />
         ) : (
-          <LinkWithProgress
+          <Link
             href="/addteam"
             className="hidden text-base font-medium text-text-primary md:block"
           >
             팀 생성하기
-          </LinkWithProgress>
+          </Link>
         )}
-        <LinkWithProgress
+        <Link
           href="/boards"
           className="hidden text-base font-medium text-text-primary md:block"
         >
           자유게시판
-        </LinkWithProgress>
+        </Link>
       </div>
       <PopoverTrigger nickname={nickname} />
     </>

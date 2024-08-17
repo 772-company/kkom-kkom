@@ -1,8 +1,9 @@
 "use client";
 
 import { Dropdown } from "@/components/dropdown/dropdown";
+import LinkWithProgress from "@/components/link-with-progress";
+import { useProgress } from "@/hooks/use-progress";
 import ToggleClose from "@/public/icons/toggle.svg";
-import Link from "next/link";
 
 const options: { display: "최신순" | "인기순"; value: "recent" | "like" }[] = [
   {
@@ -28,6 +29,7 @@ export default function ArticleOrderbyDropdown({
 }: ArticleOrderbyDropdownProps) {
   const orderBy = searchParams.orderBy || "recent";
   const keyword = searchParams.keyword || "";
+  const progress = useProgress();
   return (
     <Dropdown
       selected={orderBy === "like" ? "인기순" : "최신순"}
@@ -48,7 +50,7 @@ export default function ArticleOrderbyDropdown({
               className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-[#41ff30]" : orderBy === null && i === 0 ? "text-[#41ff30]" : ""}`}
               value={option.value}
             >
-              <Link
+              <LinkWithProgress
                 className="flex h-full w-full items-center justify-between px-[14px]"
                 href={
                   `/boards?` +
@@ -60,7 +62,7 @@ export default function ArticleOrderbyDropdown({
                 }
               >
                 {option.display}
-              </Link>
+              </LinkWithProgress>
             </Dropdown.Item>
           ))}
         </Dropdown.Body>

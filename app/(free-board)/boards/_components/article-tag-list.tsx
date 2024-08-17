@@ -1,8 +1,8 @@
 "use client";
 
+import LinkWithProgress from "@/components/link-with-progress";
 import SEARCH_TAGS from "@/constants/search-tags";
 import useEmblaCarousel from "embla-carousel-react";
-import Link from "next/link";
 
 interface ArticleTagListProps {
   searchParams: {
@@ -29,12 +29,12 @@ export default function ArticleTagList({ searchParams }: ArticleTagListProps) {
               key={tag}
               className="flex flex-shrink-0 flex-grow-0 justify-center"
             >
-              <Link
+              <LinkWithProgress
                 className={`w-fit break-keep rounded-2xl bg-background-tertiary px-3 py-2 text-xs selection:bg-background-tertiary hover:text-brand-primary md:px-6 md:text-sm ${keyword === tag ? "text-brand-primary" : ""}`}
                 href={`/boards?keyword=${tag}`}
               >
                 {"#" + tag}
-              </Link>
+              </LinkWithProgress>
             </div>
           ))}
         </section>

@@ -1,8 +1,8 @@
 "use client";
 
+import { useProgress } from "@/hooks/use-progress";
 import { cn } from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
 
 import { buttonVariants } from "./variants";
 
@@ -101,20 +101,20 @@ interface LinkButtonProps extends LinkProps {
           >
  */
 export function LinkButton({
-  href,
   children,
+  href,
   btnStyle,
   btnSize,
   className,
   ...rest
 }: LinkButtonProps) {
-  const router = useRouter();
-
+  const handleClick = useProgress();
   return (
     <Link
-      href={href}
       className={cn(buttonVariants({ className, btnStyle, btnSize }))}
+      href={href}
       {...rest}
+      onClick={handleClick(href.toString())}
     >
       {children}
     </Link>

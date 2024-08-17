@@ -3,7 +3,7 @@
 import { BasicInput } from "@/components/input-field/basic-input";
 import SearchIcon from "@/public/icons/search.svg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 

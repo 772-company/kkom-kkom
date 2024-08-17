@@ -30,7 +30,7 @@ export interface GetTaskResponse {
       image: string;
       nickname: string;
       id: number;
-    };
+    } | null;
   };
   writer: {
     image: string | null;
@@ -43,7 +43,7 @@ export interface GetTaskResponse {
   recurringId: number;
   frequency: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   updatedAt: string;
-  doneAt: string;
+  doneAt: string | null;
   date: string;
   description: string;
   name: string;

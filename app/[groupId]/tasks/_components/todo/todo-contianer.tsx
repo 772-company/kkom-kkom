@@ -33,11 +33,6 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
         date={date}
         groupId={groupId}
       />
-      <div className="fixed right-[30px] top-[700px] h-[48px] w-[125px]">
-        <ButtonFloating btnStyle="solid" btnSize="large">
-          할 일 추가
-        </ButtonFloating>
-      </div>
     </main>
   );
 };

@@ -25,7 +25,8 @@ const usePatchTask = (
       ]);
     },
   });
-  return { mutate, isPending };
+  let tooglePending = isPending;
+  return { mutate, tooglePending, isPending };
 };
 
 export default usePatchTask;

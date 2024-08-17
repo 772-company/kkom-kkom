@@ -11,9 +11,8 @@ export const postTask = async (
   data: {
     name: string;
     description: string;
-    startDate: string;
-    frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
-    monthDay: number;
+    startDate: Date;
+    frequencyType: "" | "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   },
 ) => {
   try {

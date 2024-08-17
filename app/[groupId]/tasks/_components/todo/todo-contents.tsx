@@ -6,7 +6,7 @@ import React from "react";
 
 import useSelectButton from "../../_hooks/use-select-button";
 import useSideBar from "../../_hooks/use-side-bar";
-import AddTodoModal from "../modal/add-todo-modal/add-todo-modal";
+import AddTodoModal from "../modal/add-todo-modal";
 import NoList from "../no-items/no-list";
 import NoTodo from "../no-items/no-todo";
 import SideBar from "../side-bar";
@@ -31,9 +31,11 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
       date={date}
     />
   ));
+
   const hanleClickAddTodoButton = () => {
     addTodoOverlay.open();
   };
+
   if (taskLists.length === 0) {
     return <NoList />;
   }
@@ -69,6 +71,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
               date={date}
             />
           ))}
+
         <SideBar
           groupId={groupId}
           date={date}

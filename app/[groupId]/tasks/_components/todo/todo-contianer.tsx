@@ -21,6 +21,7 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
   return (
     <>
       <TodoHeader
+        groupId={groupId}
         onClickButton={handleClickButton}
         date={date}
         convertedDate={convertedDate}

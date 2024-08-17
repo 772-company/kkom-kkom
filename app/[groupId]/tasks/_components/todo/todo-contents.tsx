@@ -27,7 +27,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
   }
   return (
     <>
-      <div className="flex gap-3">
+      <div className="flex h-[50px] gap-3 overflow-x-auto whitespace-nowrap">
         {taskLists.map((element) => (
           <TodoListName
             key={element.id}

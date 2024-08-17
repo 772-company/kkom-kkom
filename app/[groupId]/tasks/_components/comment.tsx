@@ -1,10 +1,11 @@
 import Popover from "@/components/popover/popover";
 import ProfileIcon from "@/components/profile-Icon/profile-icon";
+import { GetCommentResponse } from "@/lib/apis/comment/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import React from "react";
 
-const Comment = ({ ...commentData }) => {
+const Comment = (commentData: GetCommentResponse) => {
   return (
     <div className="flex min-h-[98px] w-full flex-col gap-4 border-b border-border-primary">
       <div className="mb-3">

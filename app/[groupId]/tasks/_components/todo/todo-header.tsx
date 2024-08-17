@@ -1,12 +1,15 @@
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import Calendar from "@/public/icons/calendar.svg";
 import { ko } from "date-fns/locale";
 import React, { useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import AddListModal from "../modal/add-List-modal";
 import TaskButton from "../tasks-button";
 
 interface TodoHeaderUIProps {
+  groupId: string;
   date: Date;
   convertedDate: string;
   onChangeDate: (date: Date | null) => void;
@@ -14,13 +17,20 @@ interface TodoHeaderUIProps {
 }
 
 const TodoHeader = ({
+  groupId,
   date,
   convertedDate,
   onChangeDate,
   onClickButton,
 }: TodoHeaderUIProps) => {
+  const addListModalOverlay = useCustomOverlay(({ close }) => (
+    <AddListModal close={close} groupId={groupId} />
+  ));
+  const handleClickAddList = () => {
+    addListModalOverlay.open();
+  };
   const datePickerRef = useRef<DatePicker | null>(null);
-  const handleClick = () => {
+  const handleClickCalendar = () => {
     if (datePickerRef.current) {
       datePickerRef.current.setFocus();
     }
@@ -35,7 +45,7 @@ const TodoHeader = ({
           <TaskButton types="arrow" name="right" onClick={onClickButton} />
 
           <button
-            onClick={handleClick}
+            onClick={handleClickCalendar}
             className="relative flex h-6 w-6 items-center justify-center rounded-full bg-background-secondary"
           >
             <Calendar width={12} height={12} />
@@ -50,7 +60,10 @@ const TodoHeader = ({
         </div>
       </div>
 
-      <button className="text-sm font-normal text-brand-primary">
+      <button
+        className="text-sm font-normal text-brand-primary"
+        onClick={handleClickAddList}
+      >
         + 새로운 목록 추가하기
       </button>
     </div>

@@ -33,7 +33,7 @@ export interface GetTaskResponse {
     };
   };
   writer: {
-    image: string;
+    image: string | null;
     nickname: string;
     id: number;
   };

@@ -32,6 +32,9 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
         queryClient.invalidateQueries({
           queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
+        queryClient.invalidateQueries({
+          queryKey: ["getComment", taskId],
+        }),
       ]);
     },
   });

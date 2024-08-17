@@ -1,29 +1,24 @@
 "use client";
 
 import SEARCH_TAGS from "@/constants/search-tags";
-import { useSortStore } from "@/providers/sort-store-provider";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback } from "react";
+import Link from "next/link";
 
-export default function TagList() {
-  const keyword = useSortStore((state) => state.keyword);
-  const setKeyword = useSortStore((state) => state.setKeyword);
-  const setPage = useSortStore((state) => state.setPage);
-  const setOrderBy = useSortStore((state) => state.setOrderBy);
+interface ArticleTagListProps {
+  searchParams: {
+    orderBy?: "recent" | "like";
+    page?: string;
+    keyword?: string;
+  };
+}
+
+export default function ArticleTagList({ searchParams }: ArticleTagListProps) {
+  const keyword = searchParams.keyword || "";
   const [emblaRef] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",
     dragFree: true,
   });
-
-  const handleTagDoubleClick = useCallback(
-    (tag: string) => {
-      setKeyword(tag);
-      setPage(1);
-      setOrderBy("recent");
-    },
-    [setKeyword, setPage, setOrderBy],
-  );
 
   return (
     <section className="flex flex-1 items-center overflow-hidden text-text-primary">
@@ -34,13 +29,12 @@ export default function TagList() {
               key={tag}
               className="flex flex-shrink-0 flex-grow-0 justify-center"
             >
-              <button
+              <Link
                 className={`w-fit break-keep rounded-3xl bg-background-tertiary px-5 py-3 text-xs selection:bg-background-tertiary hover:text-[#41ff30] hover:underline md:px-6 md:text-sm ${keyword === tag ? "text-[#41ff30]" : ""}`}
-                type="button"
-                onClick={() => handleTagDoubleClick(tag)}
+                href={`/boards?keyword=${tag}`}
               >
                 {tag}
-              </button>
+              </Link>
             </div>
           ))}
         </section>

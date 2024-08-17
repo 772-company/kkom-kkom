@@ -28,16 +28,24 @@ export const createOverlayStore = (
     devtools((set) => ({
       ...initState,
       mount: (id, element) => {
-        set((state) => {
-          state.ElementsInMemory.set(id, element);
-          return { ElementsInMemory: new Map(state.ElementsInMemory) };
-        });
+        set(
+          (state) => {
+            state.ElementsInMemory.set(id, element);
+            return { ElementsInMemory: new Map(state.ElementsInMemory) };
+          },
+          undefined,
+          "mount",
+        );
       },
       unmount: (id) => {
-        set((state) => {
-          state.ElementsInMemory.delete(id);
-          return { ElementsInMemory: new Map(state.ElementsInMemory) };
-        });
+        set(
+          (state) => {
+            state.ElementsInMemory.delete(id);
+            return { ElementsInMemory: new Map(state.ElementsInMemory) };
+          },
+          undefined,
+          "unmount",
+        );
       },
     })),
   );

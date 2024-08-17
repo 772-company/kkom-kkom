@@ -93,7 +93,7 @@ function Button({ children, className, ...rest }: DropdownButtonProps) {
   return (
     <button
       onClick={handleDropdown}
-      className={`${className} flex w-full items-center`}
+      className={`flex w-full items-center ${className}`}
       {...rest}
     >
       {selected}
@@ -119,7 +119,7 @@ function Body({ children, className, ...rest }: BodyProps) {
   const { isDropdownOpen } = useDropdown();
 
   return isDropdownOpen ? (
-    <ul className={`${className} absolute z-50`} {...rest}>
+    <ul className={`absolute z-50 ${className}`} {...rest}>
       {children}
     </ul>
   ) : null;

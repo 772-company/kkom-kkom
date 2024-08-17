@@ -38,13 +38,13 @@ export async function postArticles({
 }
 
 interface GetArticlesRequest {
-  page?: number;
+  page?: string;
   keyword?: string;
   orderBy?: "like" | "recent";
 }
 
 export async function getArticles({
-  page = 1,
+  page = "1",
   keyword = "",
   orderBy = "recent",
 }: GetArticlesRequest) {

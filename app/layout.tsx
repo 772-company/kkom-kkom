@@ -3,7 +3,6 @@ import {
   OverlayProvider,
   OverlayStoreProvider,
 } from "@/providers/modal-store-provider";
-import { SortStoreProvider } from "@/providers/sort-store-provider";
 import ToastProvider from "@/providers/toast-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -36,13 +35,11 @@ export default function RootLayout({
         <QueryProviders>
           <ToastProvider>
             <OverlayStoreProvider>
-              <SortStoreProvider>
-                <Header />
-                <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
-                  {children}
-                </main>
-                <OverlayProvider />
-              </SortStoreProvider>
+              <Header />
+              <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
+                {children}
+              </main>
+              <OverlayProvider />
             </OverlayStoreProvider>
           </ToastProvider>
         </QueryProviders>

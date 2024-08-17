@@ -1,41 +1,38 @@
-import { getArticles } from "@/lib/apis/article";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
+import { Suspense } from "react";
 
-import OrderedBySelector from "./_components/ordered-by-selector";
-import PostHeader from "./_components/post-header";
-import PostList from "./_components/post-list";
-import TagList from "./_components/tag-list";
+import ArticleHeader from "./_components/article-header";
+import ArticlesList from "./_components/article-list/articles-list";
+import ArticleOrderbyDropdown from "./_components/article-orderby-dropdown";
+import ArticleResetButton from "./_components/article-reset-button";
+import ArticleTagList from "./_components/article-tag-list";
+import SkeletonArticleList from "./_components/skeleton-components/skeleton-article-list";
 
-export default async function Page() {
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: ["articles", { page: 1, keyword: "", orderBy: "like" }],
-      queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "like" }),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["articles", { page: 1, keyword: "", orderBy: "recent" }],
-      queryFn: () => getArticles({ page: 1, keyword: "", orderBy: "recent" }),
-    }),
-  ]);
-
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    orderBy?: "recent" | "like";
+    page?: string;
+    keyword?: string;
+  };
+}) {
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <section className="mt-8">
-        <header className="mb-6 flex h-10 items-center justify-between text-base font-medium text-text-primary md:h-11">
-          <PostHeader />
-          <section className="flex gap-3">
-            <OrderedBySelector />
-          </section>
-        </header>
-        <TagList />
-        <PostList />
-      </section>
-    </HydrationBoundary>
+    <section className="mt-8">
+      <header className="mb-6 flex h-10 items-center justify-between text-base font-medium text-text-primary md:h-11">
+        <ArticleHeader searchParams={searchParams} />
+        <section className="flex gap-3">
+          <ArticleResetButton
+            btnSize="large"
+            btnStyle="outlined_secondary"
+            className="h-10 w-20 text-xs md:h-11 md:w-[110px] md:text-sm"
+          />
+          <ArticleOrderbyDropdown searchParams={searchParams} />
+        </section>
+      </header>
+      <ArticleTagList searchParams={searchParams} />
+      <Suspense fallback={<SkeletonArticleList />}>
+        <ArticlesList searchParams={searchParams} />
+      </Suspense>
+    </section>
   );
 }

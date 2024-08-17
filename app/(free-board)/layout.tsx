@@ -1,8 +1,9 @@
+import Medal from "@/public/icons/medal.svg";
 import { Suspense } from "react";
 
-import AddBoard from "./_components/add-board";
-import RankingChart from "./boards/_components/ranking-chart";
-import SearchBar from "./boards/_components/search-bar";
+import AddArticle from "./_components/add-article";
+import ArticleRankingChart from "./boards/_components/article-ranking-chart";
+import ArticleSearchBar from "./boards/_components/article-search-bar";
 import SkeletonRankingChart from "./boards/_components/skeleton-components/skeleton-ranking-chart";
 
 export default function Layout({
@@ -17,17 +18,21 @@ export default function Layout({
           <h1 className="mb-6 text-lg font-bold text-text-primary selection:bg-inherit">
             자유게시판
           </h1>
-          <SearchBar />
+          <ArticleSearchBar />
         </header>
         <section className="mt-6 md:mt-8">
           <section className="border-b border-text-primary border-opacity-10">
+            <header className="mb-3 flex items-center gap-1 text-base font-medium text-text-primary">
+              <Medal width={16} height={16} />
+              <h2 className="selection:bg-inherit">베스트 랭킹</h2>
+            </header>
             <Suspense fallback={<SkeletonRankingChart />}>
-              <RankingChart />
+              <ArticleRankingChart />
             </Suspense>
           </section>
           {children}
         </section>
-        <AddBoard />
+        <AddArticle />
       </div>
     </>
   );

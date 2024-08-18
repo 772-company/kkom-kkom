@@ -13,11 +13,11 @@ interface CommentForm {
   content: string;
 }
 
-interface PostCommentProps {
+interface ArticleCommentProps {
   boardId: string;
 }
 
-export default function PostComment({ boardId }: PostCommentProps) {
+export default function ArticleComment({ boardId }: ArticleCommentProps) {
   const {
     register,
     handleSubmit,

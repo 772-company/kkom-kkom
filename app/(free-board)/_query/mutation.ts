@@ -7,15 +7,9 @@ import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
-interface UploadArticleMutationProps {
-  close: () => void;
-}
-
-export function useUploadArticleMutation({
-  close,
-}: UploadArticleMutationProps) {
+export function useUploadArticleMutation() {
   return useMutation({
-    mutationFn: (data: { image: File; title: string; content: string }) =>
+    mutationFn: (data: { image: string; title: string; content: string }) =>
       postArticles({
         image: data.image,
         title: data.title,

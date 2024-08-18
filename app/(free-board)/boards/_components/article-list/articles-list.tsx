@@ -8,9 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense, useCallback, useEffect } from "react";
 
-// import ArticleModal from "../../_components/article-modal";
-import EditArticleModal from "../../../_components/article-modal/edit-article-modal";
 import Card from "../../../_components/card";
+// import ArticleModal from "../../_components/article-modal";
+import EditArticleModal from "../../../_components/handle-article-modal/edit-article-modal";
 import ArticleCard from "./article-card";
 // import {
 //   useDeleteArticleMutation,

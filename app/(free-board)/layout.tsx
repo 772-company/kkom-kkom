@@ -1,7 +1,7 @@
 import Medal from "@/public/icons/medal.svg";
 import { Suspense } from "react";
 
-import AddArticle from "./_components/add-article";
+import UploadArticleButton from "./_components/upload-article-button";
 import ArticleRankingChart from "./boards/_components/article-ranking-chart";
 import ArticleSearchBar from "./boards/_components/article-search-bar";
 import SkeletonRankingChart from "./boards/_components/skeleton-components/skeleton-ranking-chart";
@@ -32,7 +32,7 @@ export default function Layout({
           </section>
           {children}
         </section>
-        <AddArticle />
+        <UploadArticleButton />
       </div>
     </>
   );

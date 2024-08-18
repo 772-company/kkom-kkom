@@ -6,7 +6,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export default function useArticlesCommentsQuery(articleId: number) {
   return useInfiniteQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", { articleId }],
     queryFn: ({ pageParam }) =>
       getArticlesArticleIdComments({ cursor: pageParam, articleId }),
     initialPageParam: 0,

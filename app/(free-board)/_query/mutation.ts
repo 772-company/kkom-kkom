@@ -159,16 +159,18 @@ export function usePostCommentsMutation({
         articleId: data.articleId,
         data: { content: data.content },
       }),
-    onMutate: async ({ content }) => {
-      await queryClient.cancelQueries({ queryKey: ["comments"] });
+    onMutate: async ({ articleId, content }) => {
+      await queryClient.cancelQueries({
+        queryKey: ["comments", { articleId }],
+      });
 
       const previousComments = queryClient.getQueryData<
         InfiniteData<GetArticlesArticleIdCommentsResponse>
-      >(["comments"]);
+      >(["comments", { articleId }]);
 
       if (previousComments) {
         queryClient.setQueryData(
-          ["comments"],
+          ["comments", { articleId }],
           (prev: InfiniteData<GetArticlesArticleIdCommentsResponse>) => {
             return {
               pages: [
@@ -202,11 +204,16 @@ export function usePostCommentsMutation({
       if (context?.previousComments) {
         queryClient.setQueryData<
           InfiniteData<GetArticlesArticleIdCommentsResponse>
-        >(["comments"], context.previousComments);
+        >(
+          ["comments", { articleId: variables.articleId }],
+          context.previousComments,
+        );
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    onSettled: (data, error, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments", { articleId: variables.articleId }],
+      });
     },
   });
 }
@@ -222,5 +229,3 @@ export function usePostCommentsMutation({
 // TODO - 게시글 좋아요 mutation Optimistic mutation 적용
 
 // TODO - 게시글 싫어요 mutation Optimistic mutation 적용
-
-// TODO - 게시글 조회수 증가 mutation Optimistic mutation 적용

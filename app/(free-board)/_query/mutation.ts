@@ -134,3 +134,42 @@ export function useUploadImageMutation() {
     },
   });
 }
+
+// TODO - 댓글 등록 mutation Optimistic mutation 적용
+
+// export function usePostCommentsMutation() {
+//   const queryClient = useQueryClient();
+//   return useMutation({
+//     mutationFn: (data: { articleId: number; content: string }) =>
+//       postArticlesArticleIdComments({
+//         articleId: data.articleId,
+//         data: { content: data.content },
+//       }),
+//     onMutate: async () => {
+//       await queryClient.
+//     },
+//     onSuccess: () => {
+//       toast.update("postComments", {
+//         render: "댓글이 성공적으로 등록되었습니다",
+//         type: "success",
+//         isLoading: false,
+//         hideProgressBar: false,
+//         autoClose: 1000,
+//       });
+//     },
+//   });
+// }
+
+// TODO - 댓글 삭제 mutation Optimistic mutation 적용
+
+// TODO - 댓글 수정 mutation Optimistic mutation 적용
+
+// TODO - 댓글 좋아요 mutation Optimistic mutation 적용
+
+// TODO - 댓글 싫어요 mutation Optimistic mutation 적용
+
+// TODO - 게시글 좋아요 mutation Optimistic mutation 적용
+
+// TODO - 게시글 싫어요 mutation Optimistic mutation 적용
+
+// TODO - 게시글 조회수 증가 mutation Optimistic mutation 적용

@@ -2,6 +2,8 @@
 
 import useClickOutside from "@/hooks/use-click-outside";
 import ProfileIcon from "@/public/icons/default-profile.svg";
+import { KebabHover } from "@/public/icons/kebab-hover";
+import { KebabLarge } from "@/public/icons/kebab-large";
 import { convertDateToYMD } from "@/utils/convert-date";
 import { ButtonHTMLAttributes, useCallback, useState } from "react";
 
@@ -49,30 +51,9 @@ export function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="group-hover:hidden"
-        >
-          <circle cx="12" cy="7.5" r="1.5" fill="#64748B" />
-          <circle cx="12" cy="12" r="1.5" fill="#64748B" />
-          <circle cx="12" cy="16.5" r="1.5" fill="#64748B" />
-        </svg>
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="hidden group-hover:block"
-        >
-          <circle cx="12" cy="7.5" r="1.5" fill="#41ff30" />
-          <circle cx="12" cy="12" r="1.5" fill="#41ff30" />
-          <circle cx="12" cy="16.5" r="1.5" fill="#41ff30" />
-        </svg>
+        <KebabHover className="group-hover:hidden" />
+
+        <KebabLarge className="hidden group-hover:block" />
       </button>
       {isOpen && (
         <div className="absolute right-0 z-10 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer xl:w-[120px]">

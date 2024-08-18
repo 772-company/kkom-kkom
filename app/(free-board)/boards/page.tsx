@@ -5,7 +5,7 @@ import ArticlesList from "./_components/article-list/articles-list";
 import ArticleOrderbyDropdown from "./_components/article-orderby-dropdown";
 import ArticleResetButton from "./_components/article-reset-button";
 import ArticleTagList from "./_components/article-tag-list";
-import SkeletonArticleList from "./_components/skeleton-components/skeleton-article-list";
+import SkeletonCardList from "./_components/skeleton-components/skeleton-card-list";
 
 export default async function Page({
   searchParams,
@@ -30,7 +30,7 @@ export default async function Page({
         </section>
       </header>
       <ArticleTagList searchParams={searchParams} />
-      <Suspense fallback={<SkeletonArticleList />}>
+      <Suspense fallback={<SkeletonCardList />}>
         <ArticlesList searchParams={searchParams} />
       </Suspense>
     </section>

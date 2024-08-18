@@ -2,7 +2,7 @@ import Card from "@/app/(free-board)/_components/card";
 
 import SkeletonPagination from "./skeleton-article-pagination";
 
-export default function SkeletonArticleList() {
+export default function SkeletonCardList() {
   return (
     <section className="mt-6 flex animate-pulse flex-col gap-6 md:mt-8">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((article) => (

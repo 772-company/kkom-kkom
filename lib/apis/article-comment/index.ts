@@ -32,18 +32,16 @@ export async function postArticlesArticleIdComments({
 
 interface GetArticlesArticleIdCommentsRequest {
   articleId: number;
-  limit: number;
-  cursor?: number;
+  cursor: number;
 }
 
 export async function getArticlesArticleIdComments({
   articleId,
-  limit,
-  cursor = 0,
+  cursor,
 }: GetArticlesArticleIdCommentsRequest) {
   try {
     const params = new URLSearchParams({
-      limit: String(limit),
+      limit: "10",
       cursor: String(cursor),
     });
     const response = await instance<GetArticlesArticleIdCommentsResponse>(

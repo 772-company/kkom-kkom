@@ -1,6 +1,12 @@
 import { getArticlesArticleId } from "@/lib/apis/article";
+import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { instance } from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -38,9 +44,11 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { boardId } }: Props) {
+  const queryClient = new QueryClient();
   const article = await getArticlesArticleId({ articleId: Number(boardId) });
+
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
         <h1>{article.title}</h1>
         <ArticleKebabButton
@@ -68,6 +76,6 @@ export default async function Page({ params: { boardId } }: Props) {
       />
       <ArticleComment boardId={boardId} />
       <CommentsList boardId={boardId} />
-    </>
+    </HydrationBoundary>
   );
 }

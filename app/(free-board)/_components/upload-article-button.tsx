@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/button/button";
-import Modal from "@/components/modal/modal";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { SubmitHandler } from "react-hook-form";
 
@@ -13,22 +12,19 @@ export default function UploadArticleButton() {
   const handlePost: SubmitHandler<SubmitFormType> = (formData) => {
     uploadPostMutation.mutate({
       content: formData.content,
-      image: formData.image,
+      image: formData.image as string,
       title: formData.title,
     });
   };
   const overlay = useCustomOverlay(({ close }) => {
     return (
-      <Modal close={close} closeOnFocusOut={false}>
-        <Modal.HeaderWithClose className="fixed right-7 top-7" />
-        <ArticleModal
-          close={close}
-          defaultContent={null}
-          defaultImage={null}
-          defaultTitle={null}
-          onSubmit={handlePost}
-        />
-      </Modal>
+      <ArticleModal
+        close={close}
+        defaultContent={null}
+        defaultImage={null}
+        defaultTitle={null}
+        onSubmit={handlePost}
+      />
     );
   });
 

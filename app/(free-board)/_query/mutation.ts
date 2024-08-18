@@ -3,6 +3,8 @@ import {
   patchArticlesArticleId,
   postArticles,
 } from "@/lib/apis/article";
+import { uploadImage } from "@/lib/apis/image";
+import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -115,6 +117,20 @@ export function usePatchArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
+    },
+  });
+}
+
+export function useUploadImageMutation() {
+  return useMutation({
+    mutationFn: (file: File) => uploadImage(file),
+    onError: (error) => {
+      console.error(error);
+      if (error instanceof ResponseError) {
+        showToast("error", error.message);
+        return;
+      }
+      showToast("error", "이미지 업로드에 실패했습니다.");
     },
   });
 }

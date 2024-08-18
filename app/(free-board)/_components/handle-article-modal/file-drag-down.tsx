@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useReducer } from "react";
 import { useDropzone } from "react-dropzone";
 
-import ModalCancel from "./modal-cancel";
+import ModalCancel from "../modal-cancel";
 
 interface PreviewAction {
   type: "setFileToPreview" | "removePreview";
@@ -79,7 +79,7 @@ export default function FileDragDown({
 
   return (
     <>
-      {file === null ? null : (
+      {file === null && defaultPreview === null ? null : (
         <header className="flex items-center justify-between gap-2">
           <ArrowReturn handleCancel={handleCancel} />
           <Button

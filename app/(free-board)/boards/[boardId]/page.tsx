@@ -1,5 +1,4 @@
 import { getArticlesArticleId } from "@/lib/apis/article";
-import { myFetch } from "@/lib/apis/myFetch";
 import { instance } from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
 import type { Metadata } from "next";
@@ -60,12 +59,7 @@ export default async function Page({ params: { boardId } }: Props) {
       </section>
       <section>{article.content}</section>
       <section className="relative mx-auto mb-20 mt-6 aspect-square w-[50%]">
-        <Image
-          src={"/icons/alert.svg"}
-          alt="thumbnail"
-          layout="fill"
-          sizes="50%"
-        />
+        <Image src={article.image} alt="thumbnail" layout="fill" sizes="50%" />
       </section>
       <LikeSection
         boardId={boardId}

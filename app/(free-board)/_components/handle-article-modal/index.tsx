@@ -1,3 +1,4 @@
+import Modal from "@/components/modal/modal";
 import useNextPage from "@/hooks/use-next-page";
 import usePreventScroll from "@/hooks/use-prevent-scroll";
 import { useCallback, useEffect, useState } from "react";
@@ -14,12 +15,14 @@ interface HandleArticleModalProps {
   onSubmit: SubmitHandler<SubmitFormType>;
 }
 
+// 폼에서 처리되기 전의 데이터 타입
 export interface FormType {
   title: string;
   content: string;
-  image: File;
+  image: File | string;
 }
 
+// 모든 처리가 끝난 데이터 타입
 export interface SubmitFormType {
   title: string;
   content: string;
@@ -43,24 +46,28 @@ export default function HandleArticleModal({
   usePreventScroll();
 
   return (
-    <section className="relative">
-      {isNext ? (
-        <ArticleForm
-          file={imageFile}
-          handlePrev={handlePrev}
-          handlePost={onSubmit}
-          defaultContent={defaultContent}
-          defaultTitle={defaultTitle}
-          close={close}
-        />
-      ) : (
-        <FileDragDown
-          file={imageFile}
-          onSelect={handleImageFile}
-          defaultPreview={defaultImage}
-          handleNext={handleNext}
-        />
-      )}
-    </section>
+    <Modal close={close} closeOnFocusOut={false}>
+      <Modal.HeaderWithClose className="fixed right-7 top-7" />
+      <section className="relative">
+        {isNext ? (
+          <ArticleForm
+            file={imageFile}
+            handlePrev={handlePrev}
+            handlePost={onSubmit}
+            defaultContent={defaultContent}
+            defaultTitle={defaultTitle}
+            defaultImage={imageFile === null ? defaultImage : null}
+            close={close}
+          />
+        ) : (
+          <FileDragDown
+            file={imageFile}
+            onSelect={handleImageFile}
+            defaultPreview={defaultImage}
+            handleNext={handleNext}
+          />
+        )}
+      </section>
+    </Modal>
   );
 }

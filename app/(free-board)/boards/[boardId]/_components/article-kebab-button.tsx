@@ -1,6 +1,15 @@
 "use client";
 
 import { KebabButton } from "@/app/(free-board)/_components/card";
+import HandleArticleModal, {
+  FormType,
+  SubmitFormType,
+} from "@/app/(free-board)/_components/handle-article-modal";
+import ModalDelete from "@/app/(free-board)/_components/modal-delete";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import { PatchArticlesArticleIdResponse } from "@/lib/apis/type";
+import { useCallback } from "react";
+import { SubmitHandler } from "react-hook-form";
 
 import {
   useDeleteArticleMutation,
@@ -20,19 +29,41 @@ export default function ArticleKebabButton({
   content,
   title,
 }: ArticleKebabButtonProps) {
-  const deleteArticleMutation = useDeleteArticleMutation();
   const patchArticleMutation = usePatchArticleMutation();
+  const handlePatch: SubmitHandler<SubmitFormType> = useCallback(
+    (formData) => {
+      patchArticleMutation.mutate({
+        articleId: Number(boardId),
+        image: formData.image,
+        title: formData.title,
+        content: formData.content,
+      });
+    },
+    [boardId, content, image, patchArticleMutation, title],
+  );
 
-  const handleDelete = () => {
-    deleteArticleMutation.mutate(Number(boardId));
-  };
-  const handlePatch = () => {
-    patchArticleMutation.mutate({
-      articleId: Number(boardId),
-      image,
-      title,
-      content,
-    });
-  };
-  return <KebabButton onDelete={handleDelete} onPatch={handlePatch} />;
+  const editOverlay = useCustomOverlay(({ close }) => (
+    <HandleArticleModal
+      close={close}
+      defaultContent={content}
+      defaultImage={image}
+      defaultTitle={title}
+      onSubmit={handlePatch}
+    />
+  ));
+
+  const deleteArticleMutation = useDeleteArticleMutation();
+  const handleDelete = useCallback(
+    (id: string) => {
+      deleteArticleMutation.mutate(Number(id));
+    },
+    [deleteArticleMutation],
+  );
+  const deleteOverlay = useCustomOverlay(({ close }) => (
+    <ModalDelete close={close} onDelete={() => handleDelete(boardId)} />
+  ));
+
+  return (
+    <KebabButton onDelete={deleteOverlay.open} onPatch={editOverlay.open} />
+  );
 }

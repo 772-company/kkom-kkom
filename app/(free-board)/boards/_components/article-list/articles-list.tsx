@@ -1,21 +1,7 @@
 import Pagination from "@/app/(free-board)/boards/_components/pagination/pagination";
-import SkeletonPagination from "@/app/(free-board)/boards/_components/skeleton-components/skeleton-article-pagination";
-import Modal from "@/components/modal/modal";
-import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getArticles } from "@/lib/apis/article";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense, useCallback, useEffect } from "react";
 
-import Card from "../../../_components/card";
-// import ArticleModal from "../../_components/article-modal";
-import EditArticleModal from "../../../_components/handle-article-modal/edit-article-modal";
 import ArticleCard from "./article-card";
-// import {
-//   useDeleteArticleMutation,
-//   usePatchArticleMutation,
-// } from "../../_query/query";
 import NoArticle from "./no-article";
 
 interface ArticlesListProps {

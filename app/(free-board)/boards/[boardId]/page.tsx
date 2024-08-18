@@ -1,7 +1,7 @@
 import { getArticlesArticleId } from "@/lib/apis/article";
-import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { instance } from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
+import { getUser } from "@/lib/apis/user";
 import {
   HydrationBoundary,
   QueryClient,
@@ -11,8 +11,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { DateDescription, Profile } from "../../_components/card";
-import ArticleComment from "./_components/article-comment";
 import ArticleKebabButton from "./_components/article-kebab-button";
+import CommentForm from "./_components/comment-form";
 import CommentsList from "./_components/comments-list";
 import LikeSection from "./_components/like-section";
 
@@ -46,7 +46,10 @@ export async function generateMetadata({
 export default async function Page({ params: { boardId } }: Props) {
   const queryClient = new QueryClient();
   const article = await getArticlesArticleId({ articleId: Number(boardId) });
-
+  await queryClient.prefetchQuery({
+    queryKey: ["getUser"],
+    queryFn: getUser,
+  });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
@@ -67,14 +70,14 @@ export default async function Page({ params: { boardId } }: Props) {
       </section>
       <section>{article.content}</section>
       <section className="relative mx-auto mb-20 mt-6 aspect-square w-[50%]">
-        <Image src={article.image} alt="thumbnail" layout="fill" sizes="50%" />
+        <Image src={article.image} alt="thumbnail" priority fill sizes="50%" />
       </section>
       <LikeSection
         boardId={boardId}
         isClicked={article.isLiked}
         likeCount={article.likeCount}
       />
-      <ArticleComment boardId={boardId} />
+      <CommentForm boardId={boardId} />
       <CommentsList boardId={boardId} />
     </HydrationBoundary>
   );

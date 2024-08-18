@@ -3,10 +3,16 @@ import {
   patchArticlesArticleId,
   postArticles,
 } from "@/lib/apis/article";
+import { postArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { uploadImage } from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
+import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
-import { useMutation } from "@tanstack/react-query";
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 export function useUploadArticleMutation() {
@@ -135,30 +141,75 @@ export function useUploadImageMutation() {
   });
 }
 
-// TODO - 댓글 등록 mutation Optimistic mutation 적용
+interface PostCommentsMutation {
+  image: string;
+  nickname: string;
+  id: number;
+}
 
-// export function usePostCommentsMutation() {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: (data: { articleId: number; content: string }) =>
-//       postArticlesArticleIdComments({
-//         articleId: data.articleId,
-//         data: { content: data.content },
-//       }),
-//     onMutate: async () => {
-//       await queryClient.
-//     },
-//     onSuccess: () => {
-//       toast.update("postComments", {
-//         render: "댓글이 성공적으로 등록되었습니다",
-//         type: "success",
-//         isLoading: false,
-//         hideProgressBar: false,
-//         autoClose: 1000,
-//       });
-//     },
-//   });
-// }
+export function usePostCommentsMutation({
+  image,
+  nickname,
+  id,
+}: PostCommentsMutation) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { articleId: number; content: string }) =>
+      postArticlesArticleIdComments({
+        articleId: data.articleId,
+        data: { content: data.content },
+      }),
+    onMutate: async ({ content }) => {
+      await queryClient.cancelQueries({ queryKey: ["comments"] });
+
+      const previousComments = queryClient.getQueryData<
+        InfiniteData<GetArticlesArticleIdCommentsResponse>
+      >(["comments"]);
+
+      if (previousComments) {
+        queryClient.setQueryData(
+          ["comments"],
+          (prev: InfiniteData<GetArticlesArticleIdCommentsResponse>) => {
+            return {
+              pages: [
+                {
+                  list: [
+                    {
+                      writer: {
+                        image,
+                        nickname,
+                        id,
+                      },
+                      updatedAt: new Date().toISOString(),
+                      createdAt: new Date().toISOString(),
+                      content,
+                      id: -1,
+                    },
+                    ...prev.pages[0].list,
+                  ],
+                },
+                ...prev.pages,
+              ],
+              pageParams: prev.pageParams,
+            };
+          },
+        );
+      }
+
+      return { previousComments };
+    },
+    onError: (error, variables, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData<
+          InfiniteData<GetArticlesArticleIdCommentsResponse>
+        >(["comments"], context.previousComments);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    },
+  });
+}
 
 // TODO - 댓글 삭제 mutation Optimistic mutation 적용
 

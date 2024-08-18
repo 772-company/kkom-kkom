@@ -21,6 +21,9 @@ export async function postArticlesArticleIdComments({
       {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
         withCredentials: true,
       },
     );

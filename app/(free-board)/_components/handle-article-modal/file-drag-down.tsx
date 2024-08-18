@@ -79,7 +79,7 @@ export default function FileDragDown({
 
   return (
     <>
-      {file === null && defaultPreview === null ? null : (
+      {file === null && preview === null ? null : (
         <header className="flex items-center justify-between gap-2">
           <ArrowReturn handleCancel={handleCancel} />
           <Button

@@ -1,4 +1,4 @@
-import TeamProfile from "@/public/icons/img.svg";
+import TeamProfile from "@/public/icons/image.svg";
 import MyProfile from "@/public/icons/my-profile.svg";
 import X from "@/public/icons/x.svg";
 import Image from "next/image";

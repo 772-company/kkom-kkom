@@ -6,6 +6,7 @@ import {
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
   PatchTeamIdGroupsIdResponse,
+  PostTeamIdGroupsResponse,
 } from "../type";
 
 interface GetGroupInfoProps {
@@ -153,6 +154,33 @@ export async function deleteTeamMember({
           withCredentials: true,
         },
       );
+    return response;
+  } catch (error) {
+    if (error instanceof ResponseError && error.response) {
+      const response: { message: string } = await error.response?.json();
+      if (response) {
+        throw new Error(response.message);
+      }
+    } else {
+      throw error;
+    }
+  }
+}
+
+//NOTE - 그룹 생성
+export async function postGroup({
+  userEmail,
+  token,
+}: PostGroupInvitationProps) {
+  try {
+    const response = await instance<PostTeamIdGroupsResponse>(`/groups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      body: JSON.stringify({ userEmail, token }),
+    });
     return response;
   } catch (error) {
     if (error instanceof ResponseError && error.response) {

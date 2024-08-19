@@ -1,19 +1,15 @@
-import { string } from "yup";
-
-import { myFetch } from "../myFetch";
 import { ResponseError } from "../myFetch/clientFetch";
+import { instance } from "../myFetch/instance";
 import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
-
-const URL = process.env.NEXT_PUBLIC_KKOM_KKOM_URL;
 
 export const getTaskList = async (
   groupId: string,
   taskListId: number,
 ): Promise<GetTaskListResponse> => {
   try {
-    const response = await myFetch<GetTaskListResponse>(
-      `${URL}/groups/${groupId}/task-lists/${taskListId}`,
+    const response = await instance<GetTaskListResponse>(
+      `/groups/${groupId}/task-lists/${taskListId}`,
       {
         method: "GET",
         headers: {
@@ -43,17 +39,18 @@ export async function patchTaskListName({
   name,
 }: PatchTaskListNameProps) {
   try {
-    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
+    const response =
+      await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+        `/groups/${groupId}/task-lists/${taskListId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name }),
+          withCredentials: true,
         },
-        body: JSON.stringify({ name }),
-        withCredentials: true,
-      },
-    );
+      );
     return response;
   } catch (error) {
     if (error instanceof ResponseError && error.response) {
@@ -73,8 +70,8 @@ export const patchTaskList = async (
   data: { name: string },
 ) => {
   try {
-    const response = await myFetch(
-      `${URL}/groups${groupId}/task-lists/${taskListId}`,
+    const response = await instance(
+      `/groups${groupId}/task-lists/${taskListId}`,
       {
         method: "PATCH",
         headers: {
@@ -101,13 +98,14 @@ export async function deleteTaskList({
   taskListId,
 }: DeleteTaskListProps) {
   try {
-    const response = await myFetch<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
-      `${process.env.NEXT_PUBLIC_KKOM_KKOM_URL}/groups/${groupId}/task-lists/${taskListId}`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
+    const response =
+      await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+        `/groups/${groupId}/task-lists/${taskListId}`,
+        {
+          method: "DELETE",
+          withCredentials: true,
+        },
+      );
     return response;
   } catch (error) {
     throw error;
@@ -116,7 +114,7 @@ export async function deleteTaskList({
 
 export const postTaskList = async (groupId: string, data: { name: string }) => {
   try {
-    const response = await myFetch(`${URL}/groups/${groupId}/task-lists`, {
+    const response = await instance(`/groups/${groupId}/task-lists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -143,8 +141,8 @@ export const patchChangeTaskListIndex = async (
   data: { displayIndex: number },
 ) => {
   try {
-    const response = await myFetch(
-      `${URL}/groups/${groupId}/task-lists/${taskListId}/order`,
+    const response = await instance(
+      `/groups/${groupId}/task-lists/${taskListId}/order`,
       {
         method: "PATCH",
         headers: {

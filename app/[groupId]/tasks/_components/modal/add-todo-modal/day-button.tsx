@@ -19,6 +19,7 @@ const DayButton = ({ field, name, value }: DayButtonProps) => {
 
   return (
     <button
+      type="button"
       onClick={handleClickButton}
       className={`${field.value?.includes(value) ? "bg-brand-primary" : "bg-[#18212F]"} h-[48px] w-[44px] rounded-xl`}
     >

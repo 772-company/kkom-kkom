@@ -2,7 +2,9 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { postTask } from "@/lib/apis/task";
+import { addTodoModalSchema } from "@/schemas/task";
 import { convertDateToY_M_D } from "@/utils/convert-date";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -56,7 +58,13 @@ const AddTodoModal = ({
     },
   });
 
-  const { control, handleSubmit, register, watch } = useForm<TodoFormType>({
+  const {
+    control,
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm<TodoFormType>({
     mode: "onSubmit",
     defaultValues: {
       name: "",
@@ -93,7 +101,11 @@ const AddTodoModal = ({
           id="name"
           isModal={true}
           register={register}
+          {...register("name", {
+            required: "제목을 입력해주세요",
+          })}
         />
+        {errors.name?.message}
       </div>
 
       <div className="flex h-[349px] w-[336px] flex-col gap-4">
@@ -126,7 +138,7 @@ const AddTodoModal = ({
       </div>
       {formData.frequencyType === "MONTHLY" && <div>매달</div>}
       {formData.frequencyType === "WEEKLY" && (
-        <div className="flex h-[79px] w-full flex-col gap-3">
+        <div className="flex h-[100px] w-full flex-col gap-3">
           <label>반복요일</label>
           <div className="flex gap-2">
             {REPEAT_ARRAY.map((e, i) => (
@@ -134,12 +146,21 @@ const AddTodoModal = ({
                 key={i}
                 control={control}
                 name="weekDays"
+                rules={{
+                  validate: (value) => {
+                    if (typeof value !== "undefined" && value.length < 2) {
+                      return "2개이상 입력해주세요";
+                    }
+                    return;
+                  },
+                }}
                 render={({ field }) => (
                   <DayButton name={e.name} value={e.value} field={field} />
                 )}
               />
             ))}
           </div>
+          <p>{errors.weekDays?.message}</p>
         </div>
       )}
 

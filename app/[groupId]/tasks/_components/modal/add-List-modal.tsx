@@ -2,19 +2,16 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { postTaskList } from "@/lib/apis/task-list";
+import { addTodoListModalSchema } from "@/schemas/task";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 interface AddListModalProps {
   groupId: string;
   close: () => void;
 }
-const SCHEMEA = yup
-  .object()
-  .shape({ name: yup.string().required("목록명을 입력하세요.") });
 
 const AddListModal = ({ groupId, close }: AddListModalProps) => {
   const {
@@ -25,7 +22,7 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
   } = useForm({
     mode: "onChange",
     defaultValues: { name: "" },
-    resolver: yupResolver(SCHEMEA),
+    resolver: yupResolver(addTodoListModalSchema),
   });
   const queryClient = useQueryClient();
   const { data, mutate, isPending, error } = useMutation({

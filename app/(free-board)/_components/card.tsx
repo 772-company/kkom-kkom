@@ -4,6 +4,7 @@ import useClickOutside from "@/hooks/use-click-outside";
 import ProfileIcon from "@/public/icons/default-profile.svg";
 import { KebabHover } from "@/public/icons/kebab-hover";
 import { KebabLarge } from "@/public/icons/kebab-large";
+import LikeButtonColored from "@/public/icons/like-button-colored";
 import { convertDateToYMD } from "@/utils/convert-date";
 import { ButtonHTMLAttributes, useCallback, useState } from "react";
 
@@ -140,45 +141,7 @@ export function LikeCountSection({
       className={`flex items-center gap-1 text-sm font-normal leading-4 text-text-disabled`}
     >
       <button type="button" {...props}>
-        {isClicked ? (
-          <svg
-            width={size}
-            height={size}
-            viewBox="0 0 24 24"
-            fill="url(#gradient1)"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="gradient1">
-                <stop offset="0%" stopColor="#10B981" />
-                <stop offset="100%" stopColor="#A3E635" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20"
-              stroke="url(#gradient1)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        ) : (
-          <svg
-            width={size}
-            height={size}
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20"
-              stroke="rgba(100, 116, 139, 1)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
+        <LikeButtonColored size={size} isClicked={isClicked} />
       </button>
       <span className="mb-0.5 flex h-4 items-center">
         {likeCount > 9999 ? "9999+" : likeCount}

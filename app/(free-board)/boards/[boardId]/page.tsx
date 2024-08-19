@@ -44,18 +44,25 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { boardId } }: Props) {
+  const articleId = Number(boardId);
   const queryClient = new QueryClient();
   const article = await getArticlesArticleId({ articleId: Number(boardId) });
-  await queryClient.prefetchQuery({
-    queryKey: ["getUser"],
-    queryFn: getUser,
-  });
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ["getUser"],
+      queryFn: getUser,
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ["article", { articleId }],
+      queryFn: () => getArticlesArticleId({ articleId }),
+    }),
+  ]);
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
         <h1>{article.title}</h1>
         <ArticleKebabButton
-          boardId={boardId}
+          articleId={articleId}
           image={article.image}
           content={article.content}
           title={article.title}
@@ -72,13 +79,11 @@ export default async function Page({ params: { boardId } }: Props) {
       <section className="relative mx-auto mb-20 mt-6 aspect-square w-[50%]">
         <Image src={article.image} alt="thumbnail" priority fill sizes="50%" />
       </section>
-      <LikeSection
-        boardId={boardId}
-        isClicked={article.isLiked}
-        likeCount={article.likeCount}
-      />
-      <CommentForm boardId={boardId} />
-      <CommentsList boardId={boardId} />
+      <section className="flex justify-center">
+        <LikeSection articleId={articleId} />
+      </section>
+      <CommentForm articleId={articleId} />
+      <CommentsList articleId={articleId} />
     </HydrationBoundary>
   );
 }

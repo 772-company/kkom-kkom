@@ -19,15 +19,14 @@ interface CommentForm {
 }
 
 interface ArticleCommentProps {
-  boardId: string;
+  articleId: number;
 }
 
-export default function CommentForm({ boardId }: ArticleCommentProps) {
+export default function CommentForm({ articleId }: ArticleCommentProps) {
   const { register, handleSubmit, setValue } = useForm({
     mode: "onSubmit",
     resolver: yupResolver(commentSchema),
   });
-  const articleId = Number(boardId);
   const { data: user } = useUserQuery();
   const { isFetching } = useArticlesCommentsQuery(articleId);
   const { mutate, isPending } = usePostCommentsMutation();

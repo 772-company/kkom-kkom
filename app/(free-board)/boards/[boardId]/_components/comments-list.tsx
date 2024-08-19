@@ -6,8 +6,11 @@ import Image from "next/image";
 
 import CommentCard from "./comment-card";
 
-export default function CommentsList({ boardId }: { boardId: string }) {
-  const articleId = Number(boardId);
+interface CommentListProps {
+  articleId: number;
+}
+
+export default function CommentsList({ articleId }: CommentListProps) {
   const { data, fetchNextPage, hasNextPage, isFetching, status } =
     useArticlesCommentsQuery(articleId);
 

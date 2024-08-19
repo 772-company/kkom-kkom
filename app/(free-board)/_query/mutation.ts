@@ -1,7 +1,9 @@
 import {
   deleteArticlesArticleId,
+  deleteArticlesArticleIdLike,
   patchArticlesArticleId,
   postArticles,
+  postArticlesArticleIdLike,
 } from "@/lib/apis/article";
 import {
   deleteCommentsCommentId,
@@ -10,7 +12,10 @@ import {
 } from "@/lib/apis/article-comment";
 import { uploadImage } from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
-import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
+import {
+  GetArticlesArticleIdCommentsResponse,
+  GetArticlesArticleIdResponse,
+} from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import {
   InfiniteData,
@@ -407,5 +412,56 @@ export function usePatchCommentsMutation() {
   });
 }
 
-// TODO - 게시글 좋아요 mutation Optimistic mutation 적용
-// TODO - 게시글 싫어요 mutation Optimistic mutation 적용
+interface HandleArticleLikeMutationProps {
+  articleId: number;
+  isLiked: boolean;
+}
+
+export function useHandleArticleLikeMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ articleId, isLiked }: HandleArticleLikeMutationProps) => {
+      return isLiked
+        ? deleteArticlesArticleIdLike({ articleId })
+        : postArticlesArticleIdLike({ articleId });
+    },
+    onMutate: async ({ articleId, isLiked }) => {
+      await queryClient.cancelQueries({
+        queryKey: ["article", { articleId }],
+      });
+      const previousArticle =
+        queryClient.getQueryData<GetArticlesArticleIdResponse>([
+          "article",
+          { articleId },
+        ]);
+      queryClient.setQueryData<
+        GetArticlesArticleIdResponse,
+        [string, { articleId: number }],
+        GetArticlesArticleIdResponse
+      >(["article", { articleId }], (input) =>
+        input
+          ? {
+              ...input,
+              isLiked: isLiked === false,
+              likeCount:
+                isLiked === false ? input.likeCount + 1 : input.likeCount - 1,
+            }
+          : input,
+      );
+      return { previousArticle };
+    },
+    onError: (error, { articleId }, context) => {
+      if (context?.previousArticle) {
+        queryClient.setQueryData<GetArticlesArticleIdResponse>(
+          ["article", { articleId }],
+          context.previousArticle,
+        );
+      }
+    },
+    onSettled: (data, error, { articleId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ["article", { articleId }],
+      });
+    },
+  });
+}

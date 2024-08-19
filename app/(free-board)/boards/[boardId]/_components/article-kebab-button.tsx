@@ -14,14 +14,14 @@ import {
 } from "../../../_query/mutation";
 
 interface ArticleKebabButtonProps {
-  boardId: string;
+  articleId: number;
   image: string;
   content: string;
   title: string;
 }
 
 export default function ArticleKebabButton({
-  boardId,
+  articleId,
   image,
   content,
   title,
@@ -30,13 +30,13 @@ export default function ArticleKebabButton({
   const handlePatch = useCallback(
     (formData: ArticleType) => {
       patchArticleMutation.mutate({
-        articleId: Number(boardId),
+        articleId,
         image: formData.image,
         title: formData.title,
         content: formData.content,
       });
     },
-    [patchArticleMutation, boardId],
+    [patchArticleMutation, articleId],
   );
 
   const editOverlay = useCustomOverlay(({ close }) => (
@@ -57,7 +57,10 @@ export default function ArticleKebabButton({
     [deleteArticleMutation],
   );
   const deleteOverlay = useCustomOverlay(({ close }) => (
-    <ModalDelete close={close} onDelete={() => handleDelete(boardId)} />
+    <ModalDelete
+      close={close}
+      onDelete={() => handleDelete(String(articleId))}
+    />
   ));
 
   return (

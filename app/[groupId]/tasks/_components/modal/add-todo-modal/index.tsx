@@ -6,7 +6,7 @@ import { addTodoModalSchema } from "@/schemas/task";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "./day-button";
@@ -71,7 +71,7 @@ const AddTodoModal = ({
       description: "",
       startDate: date,
       frequencyType: "ONCE",
-      monthDay: 0,
+      monthDay: 1,
       weekDays: [],
     },
   });
@@ -136,10 +136,14 @@ const AddTodoModal = ({
           render={({ field }) => <FrequencyDropdown field={field} />}
         />
       </div>
-      {formData.frequencyType === "MONTHLY" && <div>매달</div>}
+      {formData.frequencyType === "MONTHLY" && (
+        <div className="flex h-[100px] w-full flex-col gap-3">
+          <label>반복 일</label>
+        </div>
+      )}
       {formData.frequencyType === "WEEKLY" && (
         <div className="flex h-[100px] w-full flex-col gap-3">
-          <label>반복요일</label>
+          <label>반복 요일</label>
           <div className="flex gap-2">
             {REPEAT_ARRAY.map((e, i) => (
               <Controller
@@ -149,7 +153,7 @@ const AddTodoModal = ({
                 rules={{
                   validate: (value) => {
                     if (typeof value !== "undefined" && value.length < 2) {
-                      return "2개이상 입력해주세요";
+                      return "2개이상 요일을 선택 해주세요";
                     }
                     return;
                   },

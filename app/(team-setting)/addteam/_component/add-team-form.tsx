@@ -3,20 +3,31 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
+import { postGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 interface AddTeamFormValue {
-  image?: string;
-  teamName?: string;
+  teamProfile?: string;
+  teamName: string;
 }
 
 const AddTeamForm = () => {
-  const { register, handleSubmit, setValue } = useForm<AddTeamFormValue>({});
+  const { register, handleSubmit, setValue, watch } = useForm<AddTeamFormValue>(
+    {},
+  );
+  const watchedTeamName = watch("teamName") || "";
+  const router = useRouter();
 
   const onSubmit = async (data: AddTeamFormValue) => {
     try {
+      const response = await postGroup({
+        image: data.teamProfile,
+        name: data.teamName,
+      });
       showToast("success", "팀을 생성하였습니다.");
+      router.push(`/${response?.id}`);
     } catch (error) {
       showToast("error", "팀 생성에 실패하였습니다.");
     }
@@ -30,7 +41,7 @@ const AddTeamForm = () => {
             <div className="flex flex-col gap-[12px]">
               <h1 className="text-text-primary">팀 프로필</h1>
               <ProfileInput<AddTeamFormValue>
-                id="image"
+                id="teamProfile"
                 type="teamProfile"
                 setValue={setValue}
               />
@@ -43,7 +54,11 @@ const AddTeamForm = () => {
               placeholder="팀 이름을 입력해 주세요."
             />
           </div>
-          <Button btnSize="large" btnStyle="solid">
+          <Button
+            btnSize="large"
+            btnStyle="solid"
+            disabled={!watchedTeamName.trim()}
+          >
             생성하기
           </Button>
         </div>

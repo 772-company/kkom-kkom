@@ -167,11 +167,13 @@ export async function deleteTeamMember({
   }
 }
 
+interface PostGroupProps {
+  image?: string;
+  name: string;
+}
+
 //NOTE - 그룹 생성
-export async function postGroup({
-  userEmail,
-  token,
-}: PostGroupInvitationProps) {
+export async function postGroup({ image, name }: PostGroupProps) {
   try {
     const response = await instance<PostTeamIdGroupsResponse>(`/groups`, {
       method: "POST",
@@ -179,7 +181,7 @@ export async function postGroup({
         "Content-Type": "application/json",
       },
       withCredentials: true,
-      body: JSON.stringify({ userEmail, token }),
+      body: JSON.stringify({ image, name }),
     });
     return response;
   } catch (error) {

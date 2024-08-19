@@ -2,11 +2,9 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { postTask } from "@/lib/apis/task";
-import { addTodoModalSchema } from "@/schemas/task";
 import { convertDateToY_M_D } from "@/utils/convert-date";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "./day-button";
@@ -187,8 +185,6 @@ const AddTodoModal = ({
               const { weekDays, ...newData } = data;
               mutate(newData);
             } else if (data.frequencyType === "WEEKLY") {
-              console.log(data.weekDays);
-
               const { monthDay, ...newData } = data;
               mutate(newData);
             } else {

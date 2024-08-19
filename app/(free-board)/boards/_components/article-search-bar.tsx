@@ -3,8 +3,8 @@
 import { BasicInput } from "@/components/input-field/basic-input";
 import SearchIcon from "@/public/icons/search.svg";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next-nprogress-bar";
+import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ArticleSearchBarForm {
@@ -14,7 +14,6 @@ interface ArticleSearchBarForm {
 export default function ArticleSearchBar() {
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { amount: "some" });
-  const [isShow, setIsShow] = useState(true);
   const {
     handleSubmit,
     register,
@@ -28,14 +27,6 @@ export default function ArticleSearchBar() {
       router.push(`/boards?keyword=${data.keyword}`);
     }
   };
-
-  useEffect(() => {
-    if (isInView) {
-      setIsShow(true);
-    } else {
-      setIsShow(false);
-    }
-  }, [isInView]);
 
   return (
     <>
@@ -53,16 +44,16 @@ export default function ArticleSearchBar() {
         <SearchIcon className="absolute left-4 top-3 h-6 w-6 md:top-4" />
       </form>
       <AnimatePresence>
-        {!isShow && (
+        {!isInView && (
           <motion.section
             transition={{ type: "tween", duration: 0.3 }}
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2"
+            className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2 shadow-xl"
           >
             <form
-              className="relative mx-auto w-full max-w-[1200px]"
+              className="relative mx-auto w-full max-w-[1200px] pt-1"
               onSubmit={handleSubmit(onSubmit)}
             >
               <BasicInput

@@ -3,6 +3,7 @@ import {
   OverlayProvider,
   OverlayStoreProvider,
 } from "@/providers/modal-store-provider";
+import ProgressBarProvider from "@/providers/progress-bar-provider";
 import ToastProvider from "@/providers/toast-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -32,17 +33,19 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <QueryProviders>
-          <ToastProvider>
-            <OverlayStoreProvider>
-              <Header />
-              <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
-                {children}
-              </main>
-              <OverlayProvider />
-            </OverlayStoreProvider>
-          </ToastProvider>
-        </QueryProviders>
+        <ProgressBarProvider>
+          <QueryProviders>
+            <ToastProvider>
+              <OverlayStoreProvider>
+                <Header />
+                <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
+                  {children}
+                </main>
+                <OverlayProvider />
+              </OverlayStoreProvider>
+            </ToastProvider>
+          </QueryProviders>
+        </ProgressBarProvider>
       </body>
     </html>
   );

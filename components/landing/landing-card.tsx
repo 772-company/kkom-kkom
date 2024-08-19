@@ -17,7 +17,7 @@ export default function LandingCard({ variant }: LandingCardProps) {
 
   return (
     <section
-      className={`${isSecond ? "animate-slide-in-right border border-border-primary border-opacity-10 bg-background-secondary" : "animate-slide-in-left bg-slate-950"} animate-slide-in mx-auto flex h-[467px] w-full max-w-[996px] flex-col justify-between rounded-[40px] pb-[51px] md:h-[354px] xl:h-[419px]`}
+      className={`${isSecond ? "animate-slide-in-right border border-border-primary border-opacity-10 bg-background-secondary" : "animate-slide-in-left bg-slate-950"} animate-slide-in mx-auto flex h-[467px] min-h-[467px] w-full max-w-[996px] flex-col justify-between rounded-[40px] pb-[51px] md:h-[354px] md:min-h-[354px] xl:h-[419px] xl:min-h-[419px]`}
     >
       <div className="flex justify-center md:h-full">
         <div

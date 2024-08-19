@@ -1,6 +1,5 @@
 import Modal from "@/components/modal/modal";
 import { deleteRecurring } from "@/lib/apis/recurring";
-import { deleteTask } from "@/lib/apis/task";
 import Alert from "@/public/icons/alert.svg";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useQueryClient } from "@tanstack/react-query";
@@ -31,9 +30,14 @@ const DeleteTodoModal = ({
       deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
     onSuccess: () => {
       close();
-      queryClient.invalidateQueries({
-        queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
-      });
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["getGroupInfo"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
+        }),
+      ]);
     },
   });
   const handleClickRemoveTodo = () => {

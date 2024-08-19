@@ -2,6 +2,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { postTask } from "@/lib/apis/task";
+import usePostTask from "@/lib/apis/task/hooks/use-post-task";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -44,17 +45,7 @@ const AddTodoModal = ({
   date,
   close,
 }: AddTodoModalProps) => {
-  const queryClient = useQueryClient();
-  const { isPending, mutate } = useMutation({
-    mutationFn: (data: TodoFormType) =>
-      postTask(groupId, taskListId ?? -1, data),
-    onSuccess: () => {
-      close();
-      queryClient.invalidateQueries({
-        queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
-      });
-    },
-  });
+  const { isPending, mutate } = usePostTask(groupId, taskListId, date, close);
 
   const {
     control,

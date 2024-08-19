@@ -44,6 +44,8 @@ export default function FileDragDown({
         setPreview(null);
         onSelect(null);
       }}
+      description="선택한 사진은 초기화됩니다."
+      title="다른 사진을 선택하시겠습니까?"
     />
   ));
 

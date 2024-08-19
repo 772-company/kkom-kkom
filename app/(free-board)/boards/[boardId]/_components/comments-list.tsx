@@ -7,8 +7,9 @@ import Image from "next/image";
 import CommentCard from "./comment-card";
 
 export default function CommentsList({ boardId }: { boardId: string }) {
+  const articleId = Number(boardId);
   const { data, fetchNextPage, hasNextPage, isFetching, status } =
-    useArticlesCommentsQuery(Number(boardId));
+    useArticlesCommentsQuery(articleId);
 
   return (
     <>
@@ -33,7 +34,11 @@ export default function CommentsList({ boardId }: { boardId: string }) {
             {data.pages ? (
               data.pages.map((commentPage) =>
                 commentPage.list.map((comment) => (
-                  <CommentCard key={comment.id} comment={comment} />
+                  <CommentCard
+                    key={comment.id}
+                    comment={comment}
+                    articleId={articleId}
+                  />
                 )),
               )
             ) : (

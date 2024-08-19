@@ -3,7 +3,10 @@ import {
   patchArticlesArticleId,
   postArticles,
 } from "@/lib/apis/article";
-import { postArticlesArticleIdComments } from "@/lib/apis/article-comment";
+import {
+  deleteCommentsCommentId,
+  postArticlesArticleIdComments,
+} from "@/lib/apis/article-comment";
 import { uploadImage } from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
@@ -14,6 +17,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+
+import { article } from "../boards/mock";
 
 export function useUploadArticleMutation() {
   return useMutation({
@@ -176,12 +181,53 @@ export function usePostCommentsMutation() {
       >(["comments", { articleId }]);
 
       if (previousComments) {
-        queryClient.setQueryData(
+        queryClient.setQueryData<
+          InfiniteData<
+            GetArticlesArticleIdCommentsResponse,
+            GetArticlesArticleIdCommentsResponse["nextCursor"]
+          >,
+          [string, { articleId: number }],
+          InfiniteData<
+            GetArticlesArticleIdCommentsResponse,
+            GetArticlesArticleIdCommentsResponse["nextCursor"]
+          >
+        >(
           ["comments", { articleId }],
-          (prev: InfiniteData<GetArticlesArticleIdCommentsResponse>) => {
+          (
+            input:
+              | InfiniteData<
+                  GetArticlesArticleIdCommentsResponse,
+                  GetArticlesArticleIdCommentsResponse["nextCursor"]
+                >
+              | undefined,
+          ) => {
+            if (!input) {
+              return {
+                pages: [
+                  {
+                    nextCursor: 0,
+                    list: [
+                      {
+                        writer: {
+                          image,
+                          nickname,
+                          id,
+                        },
+                        updatedAt: new Date().toISOString(),
+                        createdAt: new Date().toISOString(),
+                        content,
+                        id: -1,
+                      },
+                    ],
+                  },
+                ],
+                pageParams: [0],
+              };
+            }
             return {
               pages: [
                 {
+                  nextCursor: 0,
                   list: [
                     {
                       writer: {
@@ -194,17 +240,16 @@ export function usePostCommentsMutation() {
                       content,
                       id: -1,
                     },
-                    ...prev.pages[0].list,
+                    ...input.pages[0].list,
                   ],
                 },
-                ...prev.pages,
+                ...input.pages,
               ],
-              pageParams: prev.pageParams,
+              pageParams: input.pageParams,
             };
           },
         );
       }
-
       return { previousComments };
     },
     onError: (error, variables, context) => {
@@ -225,13 +270,71 @@ export function usePostCommentsMutation() {
   });
 }
 
-// TODO - 댓글 삭제 mutation Optimistic mutation 적용
+interface DeleteCommentsMutation {
+  commentId: number;
+  articleId: number;
+}
+
+export function useDeleteCommentsMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ commentId, articleId }: DeleteCommentsMutation) =>
+      deleteCommentsCommentId({
+        commentId,
+      }),
+    onMutate: async ({ articleId, commentId }) => {
+      await queryClient.cancelQueries({
+        queryKey: ["comments", { articleId }],
+      });
+
+      const previousComments = queryClient.getQueryData<
+        InfiniteData<GetArticlesArticleIdCommentsResponse>
+      >(["comments", { articleId }]);
+
+      queryClient.setQueryData<
+        InfiniteData<
+          GetArticlesArticleIdCommentsResponse,
+          GetArticlesArticleIdCommentsResponse["nextCursor"]
+        >,
+        [string, { articleId: number }],
+        InfiniteData<
+          GetArticlesArticleIdCommentsResponse,
+          GetArticlesArticleIdCommentsResponse["nextCursor"]
+        >
+      >(["comments", { articleId }], (input) => {
+        if (!input) {
+          return input;
+        } else {
+          return {
+            pages: input.pages.map((page) => ({
+              nextCursor: page.nextCursor,
+              list: page.list.filter((comment) => comment.id !== commentId),
+            })),
+            pageParams: input.pageParams,
+          };
+        }
+      });
+      return { previousComments };
+    },
+    onError: (error, variables, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData<
+          InfiniteData<GetArticlesArticleIdCommentsResponse>
+        >(
+          ["comments", { articleId: variables.articleId }],
+          context.previousComments,
+        );
+      }
+    },
+    onSettled: (data, error, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments", { articleId: variables.articleId }],
+      });
+    },
+  });
+}
 
 // TODO - 댓글 수정 mutation Optimistic mutation 적용
-
-// TODO - 댓글 좋아요 mutation Optimistic mutation 적용
-
-// TODO - 댓글 싫어요 mutation Optimistic mutation 적용
 
 // TODO - 게시글 좋아요 mutation Optimistic mutation 적용
 

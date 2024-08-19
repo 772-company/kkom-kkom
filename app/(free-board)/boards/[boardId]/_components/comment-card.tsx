@@ -1,7 +1,11 @@
 "use client";
 
 import Card from "@/app/(free-board)/_components/card";
+import ModalCancel from "@/app/(free-board)/_components/modal-cancel";
+import { useDeleteCommentsMutation } from "@/app/(free-board)/_query/mutation";
+import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import {
@@ -14,16 +18,32 @@ import {
 
 interface CommentCardProps {
   comment: GetArticlesArticleIdCommentsResponse["list"][0];
+  articleId: number;
 }
-export default function CommentCard({ comment }: CommentCardProps) {
+export default function CommentCard({ comment, articleId }: CommentCardProps) {
   const lineRef = useRef<HTMLParagraphElement>(null);
   const contentRef = useRef<HTMLParagraphElement>(null);
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
 
-  const handleDelete = useCallback(() => {
-    // TODO delete 요청
-    console.log(comment.id);
-  }, [comment.id]);
+  const { mutate: deleteMutation, isPending } = useDeleteCommentsMutation();
+  const { isFetching } = useArticlesCommentsQuery(articleId);
+
+  const deleteCommentOverlay = useCustomOverlay(({ close }) => (
+    <ModalCancel
+      close={close}
+      onCancel={() => {
+        if (isPending || isFetching) {
+          alert("삭제 중입니다. 잠시만 기다려주세요.");
+        } else {
+          deleteMutation({ commentId: comment.id, articleId });
+        }
+      }}
+      title="댓글을 삭제하시겠습니까?"
+      description="삭제된 댓글은 복구할 수 없습니다."
+    />
+  ));
+
+  const handleDelete = deleteCommentOverlay.open;
   const handlePatch = useCallback(() => {
     // TODO patch 요청
     console.log(comment.id);

@@ -4,13 +4,14 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
+import { uploadImage } from "@/lib/apis/image";
 import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 interface AddTeamFormValue {
-  teamProfile?: string;
+  teamProfile?: File;
   teamName: string;
 }
 
@@ -27,6 +28,7 @@ const AddTeamForm = () => {
     onSuccess: (response) => {
       showToast("success", "팀을 생성하였습니다.");
       router.push(`/${response.id}`);
+      router.refresh();
     },
     onError: () => {
       showToast("error", "팀 생성에 실패하였습니다.");

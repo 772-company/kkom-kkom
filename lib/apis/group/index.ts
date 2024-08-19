@@ -185,13 +185,6 @@ export async function postGroup({ image, name }: PostGroupProps) {
     });
     return response;
   } catch (error) {
-    if (error instanceof ResponseError && error.response) {
-      const response: { message: string } = await error.response?.json();
-      if (response) {
-        throw new Error(response.message);
-      }
-    } else {
-      throw error;
-    }
+    throw error;
   }
 }

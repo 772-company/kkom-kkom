@@ -3,7 +3,7 @@ import First from "@/public/images/landing-first.svg";
 
 export default function LandingFirstCard() {
   return (
-    <section className="mx-auto mt-[48px] h-[467px] w-full max-w-[996px] rounded-[40px] bg-gradient-to-r from-brand-primary to-brand-tertiary p-[1px] shadow-[0px_0px_12px_2px_#FFFFFF40] md:mt-[119px] md:h-[354px] xl:mt-[180px] xl:h-[419px]">
+    <section className="animate-slide-in-left mx-auto mt-[48px] h-[467px] w-full max-w-[996px] rounded-[40px] bg-gradient-to-r from-brand-primary to-brand-tertiary p-[1px] shadow-[0px_0px_12px_2px_#FFFFFF40] md:mt-[119px] md:h-[354px] xl:mt-[180px] xl:h-[419px]">
       <div className="flex h-full justify-center rounded-[40px] bg-background-primary">
         <div className="flex flex-col justify-end gap-[40px] md:flex-row-reverse md:items-end md:gap-[100px]">
           <div className="flex flex-col gap-4 md:h-full md:justify-center">

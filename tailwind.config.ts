@@ -13,6 +13,20 @@ const config: Config = {
       xl: "1280px",
     },
     extend: {
+      keyframes: {
+        "slide-in-left": {
+          "0%": { transform: "translateX(-50px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(50px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+      },
+      animation: {
+        "slide-in-left": "slide-in-left 1s ease-out",
+        "slide-in-right": "slide-in-right 1s ease-out",
+      },
       translate: {
         "-full": "-100%", // 'translate-x--full': '-100%'
       },

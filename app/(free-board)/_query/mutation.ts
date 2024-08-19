@@ -145,24 +145,28 @@ export function useUploadImageMutation() {
 }
 
 interface PostCommentsMutation {
-  image: string;
+  articleId: number;
+  content: string;
+  image: string | null;
   nickname: string;
   id: number;
 }
 
-export function usePostCommentsMutation({
-  image,
-  nickname,
-  id,
-}: PostCommentsMutation) {
+export function usePostCommentsMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: { articleId: number; content: string }) =>
+    mutationFn: ({
+      articleId,
+      content,
+      id,
+      image,
+      nickname,
+    }: PostCommentsMutation) =>
       postArticlesArticleIdComments({
-        articleId: data.articleId,
-        data: { content: data.content },
+        articleId,
+        data: { content },
       }),
-    onMutate: async ({ articleId, content }) => {
+    onMutate: async ({ articleId, content, id, image, nickname }) => {
       await queryClient.cancelQueries({
         queryKey: ["comments", { articleId }],
       });

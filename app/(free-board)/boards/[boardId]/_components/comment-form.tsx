@@ -1,7 +1,9 @@
 "use client";
 
 import { usePostCommentsMutation } from "@/app/(free-board)/_query/mutation";
-import { useUserQuery } from "@/app/(free-board)/_query/query";
+import useArticlesCommentsQuery, {
+  useUserQuery,
+} from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
 import { BasicTextarea } from "@/components/input-field/textarea";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,25 +23,33 @@ interface ArticleCommentProps {
 }
 
 export default function CommentForm({ boardId }: ArticleCommentProps) {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     mode: "onSubmit",
     resolver: yupResolver(schema),
   });
+  const articleId = Number(boardId);
   const { data: user } = useUserQuery();
+  const { isFetching } = useArticlesCommentsQuery(articleId);
+  const { mutate, isPending } = usePostCommentsMutation();
 
-  const { mutate } = usePostCommentsMutation({
-    image: user?.image || "",
-    nickname: user?.nickname || "",
-    id: user?.id || 0,
-  });
-
-  const onSubmit: SubmitHandler<CommentForm> = (data) => {
-    mutate({ articleId: Number(boardId), content: data.content });
+  const onSubmit: SubmitHandler<CommentForm> = (formData) => {
+    if (isFetching || isPending) {
+      alert(
+        "도배 방지를 위하여 글을 입력한 후 일정시간 동안 추가입력을 제한하고 있습니다.",
+      );
+      return;
+    }
+    if (!user) {
+      alert("잠시 후에 다시 시도해주세요.");
+      return;
+    }
+    mutate({
+      articleId,
+      content: formData.content,
+      id: user.id,
+      image: user.image,
+      nickname: user.nickname,
+    });
     setValue("content", "");
   };
 
@@ -60,16 +70,9 @@ export default function CommentForm({ boardId }: ArticleCommentProps) {
       />
       <section className="mt-4 flex justify-end border-b border-text-primary border-opacity-10 pb-8 md:pb-10">
         <Button
-          btnSize="x-small"
-          btnStyle="solid"
-          className="block w-[74px] md:hidden"
-        >
-          등록
-        </Button>
-        <Button
           btnSize="large"
           btnStyle="solid"
-          className="hidden w-[184px] md:block"
+          className="h-[32px] w-[74px] py-1.5 text-sm md:h-[48px] md:w-[184px] md:py-3 md:text-base"
         >
           등록
         </Button>

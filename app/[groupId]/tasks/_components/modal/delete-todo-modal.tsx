@@ -31,7 +31,6 @@ const DeleteTodoModal = ({
       deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
     onSuccess: () => {
       close();
-
       queryClient.invalidateQueries({
         queryKey: ["getTasks", taskListId],
       });
@@ -61,6 +60,7 @@ const DeleteTodoModal = ({
           closeBtnStyle="outlined_secondary"
           confirmBtnStyle="danger"
           close={close}
+          disabled={isPending}
           onClick={handleClickRemoveTodo}
           buttonDescription="삭제하기"
         />

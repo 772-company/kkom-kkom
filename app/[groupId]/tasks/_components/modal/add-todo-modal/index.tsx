@@ -1,16 +1,12 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
-import { postTask } from "@/lib/apis/task";
 import usePostTask from "@/lib/apis/task/hooks/use-post-task";
-import { convertDateToY_M_D } from "@/utils/convert-date";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "./day-button";
 import FrequencyDropdown from "./frequency-dropdown";
-import TimeButton from "./time-button";
 import TodoCalendarButton from "./todo-calendar-button";
 
 interface AddTodoModalProps {
@@ -54,7 +50,7 @@ const AddTodoModal = ({
     watch,
     formState: { errors },
   } = useForm<TodoFormType>({
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       name: "",
       description: "",
@@ -64,7 +60,7 @@ const AddTodoModal = ({
       weekDays: [],
     },
   });
-  const formData = watch();
+  const formData = watch("frequencyType");
 
   const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
     if (taskListId !== -1) {
@@ -76,7 +72,6 @@ const AddTodoModal = ({
         mutate(newData);
       } else {
         const { monthDay, weekDays, ...newData } = data;
-        console.log(newData);
         mutate(newData);
       }
     }
@@ -107,9 +102,9 @@ const AddTodoModal = ({
             id="name"
             isModal={true}
             register={register}
-            {...register("name", {
-              required: "제목을 입력해주세요",
-            })}
+            // {...register("name", {
+            //   required: "제목을 입력해주세요",
+            // })}
           />
           {errors.name?.message}
         </div>
@@ -137,7 +132,7 @@ const AddTodoModal = ({
             render={({ field }) => <FrequencyDropdown field={field} />}
           />
         </div>
-        {formData.frequencyType === "MONTHLY" && (
+        {formData === "MONTHLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 일</label>
             <input
@@ -161,19 +156,11 @@ const AddTodoModal = ({
                   e.preventDefault();
                 }
               }}
-              // onChange={(e) => {
-              //   let value = parseInt(e.target.value, 10);
-              //   if (value < 1) {
-              //     e.target.value = "1";
-              //   } else if (value > 31) {
-              //     e.target.value = "31";
-              //   }
-              // }}
               placeholder="Day"
-            ></input>
+            />
           </div>
         )}
-        {formData.frequencyType === "WEEKLY" && (
+        {formData === "WEEKLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 요일</label>
 

@@ -28,19 +28,19 @@ const TodoCalendarButton = ({ field }: CalendarButtonProps) => {
       {value}
     </Button>
   ));
+  const handleChange = (date: Date | null) => {
+    if (date) {
+      field.onChange(date);
+    }
+  };
   CustomTodoCalendarButton.displayName = "CustomTodoCalendarButton";
   return (
     <DatePicker
       selected={field.value}
-      onChange={(date) => {
-        if (date) {
-          field.onChange(date);
-        }
-      }}
-      calendarClassName="mt-1"
+      onChange={handleChange}
       dateFormat="yyyy년 MM월 dd일"
       customInput={
-        <CustomTodoCalendarButton className="mr-2 h-[48px] w-[204px] bg-background-secondary text-text-default" />
+        <CustomTodoCalendarButton className="h-[48px] w-[336px] bg-background-secondary text-text-default" />
       }
     />
   );

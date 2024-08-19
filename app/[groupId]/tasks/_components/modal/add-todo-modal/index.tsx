@@ -113,19 +113,14 @@ const AddTodoModal = ({
           {errors.name?.message}
         </div>
 
-        <div className="flex h-[349px] w-[336px] flex-col gap-4">
-          <label className="mt-2">시작 날짜 및 시간</label>
-          <div className="flex h-[314px] w-[336px] flex-col gap-2">
+        <div className="flex h-[300px] w-[336px] flex-col gap-4">
+          <label>시작 날짜 및 시간</label>
+          <div className="flex h-[258px] w-[336px]">
             <div className="flex h-[48px] w-full">
               <Controller
                 name="startDate"
                 control={control}
                 render={({ field }) => <TodoCalendarButton field={field} />}
-              />
-              <Controller
-                name="startDate"
-                control={control}
-                render={({ field }) => <TimeButton field={field} />}
               />
             </div>
           </div>
@@ -142,12 +137,12 @@ const AddTodoModal = ({
           />
         </div>
         {formData.frequencyType === "MONTHLY" && (
-          <div className="flex h-[100px] w-full flex-col gap-3">
+          <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 일</label>
           </div>
         )}
         {formData.frequencyType === "WEEKLY" && (
-          <div className="flex h-[100px] w-full flex-col gap-3">
+          <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 요일</label>
             <div className="flex gap-2">
               {REPEAT_ARRAY.map((e, i) => (
@@ -173,7 +168,7 @@ const AddTodoModal = ({
           </div>
         )}
 
-        <div className="w-full">
+        <div className="mt-7 w-full">
           <BasicInput
             isModal={true}
             label="할 일 메모"
@@ -189,7 +184,7 @@ const AddTodoModal = ({
           type="submit"
           btnSize="large"
           btnStyle="solid"
-          className="mt-9 w-[336px]"
+          className="mx-auto mt-9 w-[336px]"
         >
           만들기
         </Button>

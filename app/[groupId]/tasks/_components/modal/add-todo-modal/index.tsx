@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import DayButton from "./day-button";
 import FrequencyDropdown from "./frequency-dropdown";
 import TimeButton from "./time-button";
 import TodoCalendarButton from "./todo-calendar-button";
@@ -23,8 +24,19 @@ export interface TodoFormType {
   description: string;
   startDate: Date;
   frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
-  monthDay: number;
+  monthDay?: number;
+  weekDays?: number[];
 }
+
+const REPEAT_ARRAY = [
+  { name: "월", value: 0 },
+  { name: "화", value: 1 },
+  { name: "수", value: 2 },
+  { name: "목", value: 3 },
+  { name: "금", value: 4 },
+  { name: "토", value: 5 },
+  { name: "일", value: 6 },
+];
 
 const AddTodoModal = ({
   groupId,
@@ -44,15 +56,18 @@ const AddTodoModal = ({
     },
   });
 
-  const { control, handleSubmit, register } = useForm<TodoFormType>({
+  const { control, handleSubmit, register, watch } = useForm<TodoFormType>({
     mode: "onSubmit",
     defaultValues: {
       name: "",
       description: "",
       startDate: date,
       frequencyType: "ONCE",
+      monthDay: 0,
+      weekDays: [],
     },
   });
+  const formData = watch();
 
   return (
     <Modal
@@ -109,6 +124,24 @@ const AddTodoModal = ({
           render={({ field }) => <FrequencyDropdown field={field} />}
         />
       </div>
+      {formData.frequencyType === "MONTHLY" && <div>매달</div>}
+      {formData.frequencyType === "WEEKLY" && (
+        <div className="flex h-[79px] w-full flex-col gap-3">
+          <label>반복요일</label>
+          <div className="flex gap-2">
+            {REPEAT_ARRAY.map((e, i) => (
+              <Controller
+                key={i}
+                control={control}
+                name="weekDays"
+                render={({ field }) => (
+                  <DayButton name={e.name} value={e.value} field={field} />
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="w-full">
         <BasicInput
@@ -125,7 +158,18 @@ const AddTodoModal = ({
         disabled={isPending}
         onClick={handleSubmit((data) => {
           if (taskListId !== -1) {
-            mutate(data);
+            if (data.frequencyType === "MONTHLY") {
+              const { weekDays, ...newData } = data;
+              mutate(newData);
+            } else if (data.frequencyType === "WEEKLY") {
+              console.log(data.weekDays);
+
+              const { monthDay, ...newData } = data;
+              mutate(newData);
+            } else {
+              const { monthDay, weekDays, ...newData } = data;
+              mutate(newData);
+            }
           }
         })}
         type="button"

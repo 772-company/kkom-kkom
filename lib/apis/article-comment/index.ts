@@ -73,6 +73,9 @@ export async function patchCommentsCommentId({
       `/comments/${commentId}`,
       {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
         withCredentials: true,
       },

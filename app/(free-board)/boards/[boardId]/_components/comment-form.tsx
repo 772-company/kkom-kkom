@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { object, string } from "yup";
 
-const schema = object().shape({
+export const commentSchema = object().shape({
   content: string().required("내용을 입력해주세요"),
 });
 
@@ -25,7 +25,7 @@ interface ArticleCommentProps {
 export default function CommentForm({ boardId }: ArticleCommentProps) {
   const { register, handleSubmit, setValue } = useForm({
     mode: "onSubmit",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(commentSchema),
   });
   const articleId = Number(boardId);
   const { data: user } = useUserQuery();
@@ -66,7 +66,7 @@ export default function CommentForm({ boardId }: ArticleCommentProps) {
         id="content"
         register={register}
         placeholder="댓글을 입력해주세요."
-        className="focus:ring-primary h-[104px] w-full rounded-lg border border-border-primary bg-background-secondary px-6 py-4 text-sm text-text-primary focus:outline-none focus:ring focus:ring-opacity-50 md:text-base"
+        className="focus:ring-primary h-[104px] w-full resize-none rounded-lg border border-border-primary bg-background-secondary px-6 py-4 text-sm text-text-primary focus:outline-none focus:ring focus:ring-opacity-50 md:text-base"
       />
       <section className="mt-4 flex justify-end border-b border-text-primary border-opacity-10 pb-8 md:pb-10">
         <Button

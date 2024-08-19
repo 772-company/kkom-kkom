@@ -5,6 +5,7 @@ import {
 } from "@/lib/apis/article";
 import {
   deleteCommentsCommentId,
+  patchCommentsCommentId,
   postArticlesArticleIdComments,
 } from "@/lib/apis/article-comment";
 import { uploadImage } from "@/lib/apis/image";
@@ -253,6 +254,7 @@ export function usePostCommentsMutation() {
       return { previousComments };
     },
     onError: (error, variables, context) => {
+      showToast("error", "댓글 등록에 실패했습니다.");
       if (context?.previousComments) {
         queryClient.setQueryData<
           InfiniteData<GetArticlesArticleIdCommentsResponse>
@@ -334,7 +336,75 @@ export function useDeleteCommentsMutation() {
   });
 }
 
-// TODO - 댓글 수정 mutation Optimistic mutation 적용
+interface PatchCommentsMutation {
+  commentId: number;
+  data: { content: string };
+  articleId: number;
+}
+
+export function usePatchCommentsMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ commentId, data, articleId }: PatchCommentsMutation) =>
+      patchCommentsCommentId({ data, commentId }),
+    onMutate: async ({ articleId, data: { content }, commentId }) => {
+      await queryClient.cancelQueries({
+        queryKey: ["comments", { articleId }],
+      });
+
+      const previousComments = queryClient.getQueryData<
+        InfiniteData<GetArticlesArticleIdCommentsResponse>
+      >(["comments", { articleId }]);
+
+      queryClient.setQueryData<
+        InfiniteData<
+          GetArticlesArticleIdCommentsResponse,
+          GetArticlesArticleIdCommentsResponse["nextCursor"]
+        >,
+        [string, { articleId: number }],
+        InfiniteData<
+          GetArticlesArticleIdCommentsResponse,
+          GetArticlesArticleIdCommentsResponse["nextCursor"]
+        >
+      >(["comments", { articleId }], (input) => {
+        if (!input) {
+          return input;
+        } else {
+          return {
+            pages: input.pages.map((page) => ({
+              nextCursor: page.nextCursor,
+              list: page.list.map((comment) => {
+                if (comment.id === commentId) {
+                  return {
+                    ...comment,
+                    updatedAt: new Date().toISOString(),
+                    content,
+                  };
+                } else {
+                  return comment;
+                }
+              }),
+            })),
+            pageParams: input.pageParams,
+          };
+        }
+      });
+      return { previousComments };
+    },
+    onError: (error, { articleId }, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData<
+          InfiniteData<GetArticlesArticleIdCommentsResponse>
+        >(["comments", { articleId }], context.previousComments);
+      }
+    },
+    onSettled: (data, error, { articleId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments", { articleId }],
+      });
+    },
+  });
+}
 
 // TODO - 게시글 좋아요 mutation Optimistic mutation 적용
 

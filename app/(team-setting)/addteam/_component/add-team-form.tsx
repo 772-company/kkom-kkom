@@ -4,7 +4,6 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
-import { uploadImage } from "@/lib/apis/image";
 import { showToast } from "@/lib/show-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

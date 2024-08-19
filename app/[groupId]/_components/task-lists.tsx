@@ -10,7 +10,7 @@ import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
 import _debounce from "lodash/debounce";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
@@ -41,7 +41,6 @@ const COLORS = [
 ];
 
 const TaskList = ({ taskList, groupId }: TaskListProps) => {
-  const router = useRouter();
   const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListNameEdit
       close={close}
@@ -68,9 +67,9 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
   const isDone = numberOfDone === taskList.tasks.length ? true : false;
 
   return (
-    <div
+    <Link
+      href={`/${groupId}/tasks`}
       className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary"
-      onClick={() => router.push(`/${groupId}/tasks`)}
     >
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
@@ -98,7 +97,7 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
         />
       </div>
-    </div>
+    </Link>
   );
 };
 

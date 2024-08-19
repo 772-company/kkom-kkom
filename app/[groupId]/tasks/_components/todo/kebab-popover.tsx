@@ -3,7 +3,7 @@ import Kebab from "@/public/icons/kebab-small.svg";
 import React from "react";
 
 interface KebabPopoverProps {
-  openEditModal: () => void;
+  openEditModal?: () => void;
   openDeleteModal: () => void;
 }
 

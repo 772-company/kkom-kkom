@@ -8,6 +8,7 @@ import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import React from "react";
 
 import CheckBox from "../check-box";
+import DeleteTodoModal from "../modal/delete-todo-modal";
 import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
@@ -33,7 +34,9 @@ const TodoBox = ({
   handleClickTodoBox,
   dateString,
 }: TodoBoxProps) => {
-  // const deleteTodoModalOverlay = useCustomOverlay();
+  const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
+    <DeleteTodoModal title={title} close={close} />
+  ));
 
   const { year, month, day } = convertDateToYMD(new Date(dateString));
   const { ampm, hoursString, minutesString } = convertDateToTime(
@@ -67,7 +70,7 @@ const TodoBox = ({
             </p>
           </div>
         </div>
-        {/* <KebabPopover /> */}
+        <KebabPopover openDeleteModal={deleteTodoModalOverlay.open} />
       </div>
       <div className="flex items-center gap-[10px]">
         <Calendar width={16} height={16} />

@@ -12,11 +12,12 @@ import { useQuery } from "@tanstack/react-query";
 import _debounce from "lodash/debounce";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
 
 import ModalTaskListAdd from "./modal/modal-task-list-add";
 import ModalTaskListDelete from "./modal/modal-task-list-delete";
 import ModalTaskListNameEdit from "./modal/modal-task-list-name-edit";
+import { StrictModeDroppable } from "./strict-mode-droppable";
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
@@ -174,7 +175,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
         )}
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
+        <StrictModeDroppable droppableId="droppable">
           {(provided) => (
             <div
               ref={provided.innerRef}
@@ -207,7 +208,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
               {provided.placeholder} {/* 드래그 중 빈 공간 유지 */}
             </div>
           )}
-        </Droppable>
+        </StrictModeDroppable>
       </DragDropContext>
     </div>
   );

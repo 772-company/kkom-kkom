@@ -36,6 +36,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.52.1",
+    "react-lottie-player": "^2.1.0",
     "react-toastify": "^10.0.5",
     "recharts": "^2.11.0",
     "tailwind-merge": "^2.4.0",

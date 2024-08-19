@@ -1,13 +1,46 @@
 import Modal from "@/components/modal/modal";
+import { deleteRecurring } from "@/lib/apis/recurring";
+import { deleteTask } from "@/lib/apis/task";
 import Alert from "@/public/icons/alert.svg";
+import { convertDateToY_M_D } from "@/utils/convert-date";
+import { useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 
 interface DeleteTodoModalProps {
+  groupId: string;
+  taskListId: number | undefined;
+  taskId: number;
+  recurringId: number;
+  date: Date;
   title: string;
   close: () => void;
 }
-const DeleteTodoModal = ({ title, close }: DeleteTodoModalProps) => {
-  const handleClickRemoveTodo = () => {};
+const DeleteTodoModal = ({
+  date,
+  groupId,
+  taskListId,
+  taskId,
+  recurringId,
+  title,
+  close,
+}: DeleteTodoModalProps) => {
+  const queryClient = useQueryClient();
+  const { isPending, mutate } = useMutation({
+    mutationFn: () =>
+      deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
+    onSuccess: () => {
+      close();
+      queryClient.invalidateQueries({
+        queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
+      });
+    },
+  });
+  const handleClickRemoveTodo = () => {
+    if (taskListId !== -1) {
+      mutate();
+    }
+  };
   return (
     <Modal
       closeOnFocusOut

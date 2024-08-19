@@ -30,3 +30,26 @@ export const postRecurring = async (
     throw error;
   }
 };
+
+export const deleteRecurring = async (
+  groupId: string,
+  taskListId: number,
+  taskId: number,
+  recurringId: number,
+) => {
+  console.log(groupId, taskListId, taskId, recurringId);
+
+  try {
+    const response = await myFetch(
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
+      {
+        method: "DELETE",
+
+        withCredentials: true,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

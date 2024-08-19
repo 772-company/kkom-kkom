@@ -59,6 +59,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           tasks &&
           tasks.map((e) => (
             <TodoBox
+              recurringId={e.recurringId}
               groupId={groupId}
               taskListId={selectedButton}
               id={e.id}

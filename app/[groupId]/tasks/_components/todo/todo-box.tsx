@@ -12,6 +12,7 @@ import DeleteTodoModal from "../modal/delete-todo-modal";
 import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
+  recurringId: number;
   groupId: string;
   taskListId: number | undefined;
   date: Date;
@@ -26,8 +27,9 @@ interface TodoBoxProps {
 const TodoBox = ({
   groupId,
   taskListId,
-  date,
   id,
+  recurringId,
+  date,
   commentCount,
   title,
   doneAt,
@@ -35,7 +37,15 @@ const TodoBox = ({
   dateString,
 }: TodoBoxProps) => {
   const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
-    <DeleteTodoModal title={title} close={close} />
+    <DeleteTodoModal
+      groupId={groupId}
+      taskListId={taskListId}
+      taskId={id}
+      recurringId={recurringId}
+      date={date}
+      title={title}
+      close={close}
+    />
   ));
 
   const { year, month, day } = convertDateToYMD(new Date(dateString));

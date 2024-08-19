@@ -17,7 +17,7 @@ export default async function Page({
   };
 }) {
   return (
-    <section className="mt-8 pb-12">
+    <section className="mt-4 pb-12">
       <header className="mb-6 flex h-10 items-center justify-between text-base font-medium text-text-primary md:h-11">
         <ArticleHeader searchParams={searchParams} />
         <section className="flex gap-3">

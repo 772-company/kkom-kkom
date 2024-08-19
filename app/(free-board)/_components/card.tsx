@@ -3,7 +3,6 @@
 import useClickOutside from "@/hooks/use-click-outside";
 import ProfileIcon from "@/public/icons/default-profile.svg";
 import { convertDateToYMD } from "@/utils/convert-date";
-import Image from "next/image";
 import { ButtonHTMLAttributes, useCallback, useState } from "react";
 
 Card.KebabButton = KebabButton;
@@ -19,7 +18,7 @@ interface CardProps {
 export default function Card({ children, className }: CardProps) {
   return (
     <section
-      className={`rounded-xl border border-background-tertiary bg-background-secondary ${className}`}
+      className={`rounded-xl border border-background-tertiary bg-background-secondary hover:bg-background-tertiary ${className}`}
     >
       {children}
     </section>
@@ -78,7 +77,7 @@ export function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
       {isOpen && (
         <div className="absolute right-0 z-10 flex w-[94px] flex-col rounded-xl bg-background-tertiary hover:cursor-pointer xl:w-[120px]">
           <div
-            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
+            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-brand-primary hover:underline"
             onClick={handlePatch}
           >
             <div className="flex h-full w-full items-center justify-center px-[14px] text-xs xl:text-sm">
@@ -86,7 +85,7 @@ export function KebabButton({ onPatch, onDelete, ...props }: KebabButtonProps) {
             </div>
           </div>
           <div
-            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline"
+            className="h-10 w-full border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-brand-primary hover:underline"
             onClick={handleDelete}
           >
             <div className="flex h-full w-full items-center justify-center px-[14px] text-xs xl:text-sm">

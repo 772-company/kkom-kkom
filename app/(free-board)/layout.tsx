@@ -22,7 +22,7 @@ export default function Layout({
         </header>
         <section className="mt-6 md:mt-8">
           <section className="border-b border-text-primary border-opacity-10">
-            <header className="mb-3 flex items-center gap-1 text-base font-medium text-text-primary">
+            <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
               <Medal width={16} height={16} />
               <h2 className="selection:bg-inherit">베스트 랭킹</h2>
             </header>

@@ -2,14 +2,11 @@
 
 import { KebabButton } from "@/app/(free-board)/_components/card";
 import HandleArticleModal, {
-  FormType,
-  SubmitFormType,
+  ArticleType,
 } from "@/app/(free-board)/_components/handle-article-modal";
 import ModalDelete from "@/app/(free-board)/_components/modal-delete";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import { PatchArticlesArticleIdResponse } from "@/lib/apis/type";
 import { useCallback } from "react";
-import { SubmitHandler } from "react-hook-form";
 
 import {
   useDeleteArticleMutation,
@@ -30,8 +27,8 @@ export default function ArticleKebabButton({
   title,
 }: ArticleKebabButtonProps) {
   const patchArticleMutation = usePatchArticleMutation();
-  const handlePatch: SubmitHandler<SubmitFormType> = useCallback(
-    (formData) => {
+  const handlePatch = useCallback(
+    (formData: ArticleType) => {
       patchArticleMutation.mutate({
         articleId: Number(boardId),
         image: formData.image,
@@ -39,7 +36,7 @@ export default function ArticleKebabButton({
         content: formData.content,
       });
     },
-    [boardId, content, image, patchArticleMutation, title],
+    [patchArticleMutation, boardId],
   );
 
   const editOverlay = useCustomOverlay(({ close }) => (

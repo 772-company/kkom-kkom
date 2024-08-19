@@ -1,8 +1,7 @@
 import Modal from "@/components/modal/modal";
 import useNextPage from "@/hooks/use-next-page";
 import usePreventScroll from "@/hooks/use-prevent-scroll";
-import { useCallback, useEffect, useState } from "react";
-import { SubmitHandler } from "react-hook-form";
+import { useCallback, useState } from "react";
 
 import ArticleForm from "./article-form";
 import FileDragDown from "./file-drag-down";
@@ -12,18 +11,16 @@ interface HandleArticleModalProps {
   defaultTitle: string | null;
   defaultContent: string | null;
   defaultImage: string | null;
-  onSubmit: SubmitHandler<SubmitFormType>;
+  onSubmit: (formData: ArticleType) => void;
 }
 
-// 폼에서 처리되기 전의 데이터 타입
 export interface FormType {
   title: string;
   content: string;
   image: File | string;
 }
 
-// 모든 처리가 끝난 데이터 타입
-export interface SubmitFormType {
+export interface ArticleType {
   title: string;
   content: string;
   image: string;
@@ -56,7 +53,7 @@ export default function HandleArticleModal({
             handlePost={onSubmit}
             defaultContent={defaultContent}
             defaultTitle={defaultTitle}
-            defaultImage={imageFile === null ? defaultImage : null}
+            defaultImage={defaultImage}
             close={close}
           />
         ) : (

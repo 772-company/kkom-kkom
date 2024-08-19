@@ -130,13 +130,16 @@ export function usePatchArticleMutation() {
 export function useUploadImageMutation() {
   return useMutation({
     mutationFn: (file: File) => uploadImage(file),
+    onSuccess: (data) => {
+      return data;
+    },
     onError: (error) => {
       console.error(error);
       if (error instanceof ResponseError) {
         showToast("error", error.message);
-        return;
       }
       showToast("error", "이미지 업로드에 실패했습니다.");
+      throw error;
     },
   });
 }

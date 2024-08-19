@@ -2,22 +2,18 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import { BasicTextarea } from "@/components/input-field/textarea";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import { uploadImage } from "@/lib/apis/image";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
-import { showToast } from "@/lib/show-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
-import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
-import { FormType, SubmitFormType } from ".";
+import { ArticleType, FormType } from ".";
 import { useUploadImageMutation } from "../../_query/mutation";
 import { ModalError } from "../modal-error";
 import { articleFormSchema } from "./schema";
 
-interface TextFormProps {
+interface ArticleFormProps {
   file: File | null;
   handlePrev: () => void;
-  handlePost: SubmitHandler<SubmitFormType>;
+  handlePost: (formData: ArticleType) => void;
   defaultContent: string | null;
   defaultTitle: string | null;
   defaultImage: string | null;
@@ -32,9 +28,8 @@ export default function ArticleForm({
   defaultTitle,
   defaultImage,
   close,
-}: TextFormProps) {
+}: ArticleFormProps) {
   const {
-    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -42,7 +37,7 @@ export default function ArticleForm({
     defaultValues: {
       title: defaultTitle || "",
       content: defaultContent || "",
-      image: defaultImage || "",
+      image: file || defaultImage || "",
     },
     mode: "onSubmit",
     resolver: yupResolver(articleFormSchema),
@@ -54,13 +49,11 @@ export default function ArticleForm({
         errors.image?.message ||
         errors.title?.message ||
         errors.content?.message ||
-        ""
+        "알 수 없는 오류가 발생했습니다."
       }
     />
   ));
-  const { mutate, data: imageData } = useUploadImageMutation();
-
-  const isImage = file || defaultImage;
+  const { mutateAsync } = useUploadImageMutation();
 
   const onInValidate = (
     e: FieldErrors<{
@@ -73,27 +66,24 @@ export default function ArticleForm({
   };
   const onSubmit = async (data: FormType) => {
     close();
-    const newFormData: SubmitFormType = {
+    const newFormData: ArticleType = {
       title: data.title,
       content: data.content,
       image: "",
     };
-    if (!file && defaultImage) {
-      newFormData.image = defaultImage;
-    } else if (file) {
-      mutate(file);
-      newFormData.image = imageData?.url || "";
+    if (typeof data.image !== "string") {
+      const { url } = await mutateAsync(data.image);
+      newFormData.image = url;
     } else {
-      throw new Error("이미지가 없습니다.");
+      newFormData.image = data.image;
+    }
+    if (!newFormData.image) {
+      console.error(newFormData);
+      errorOverlay.open();
+      return;
     }
     handlePost(newFormData);
   };
-
-  useEffect(() => {
-    if (isImage) {
-      setValue("image", isImage);
-    }
-  }, [isImage, setValue]);
 
   return (
     <>

@@ -15,7 +15,6 @@ export const articleFormSchema: ObjectSchema<FormType> = object().shape({
   title: string().required("제목을 꼭 입력해주세요!"),
   content: string().required("내용을 꼭 입력해주세요!"),
   image: mixed<File | string>()
-    .nonNullable("이미지를 꼭 업로드해주세요.")
     .required("이미지를 꼭 업로드해주세요.")
     .test("fileSize", "파일 사이즈가 너무 큽니다", (value) => {
       if (typeof value === "string") {

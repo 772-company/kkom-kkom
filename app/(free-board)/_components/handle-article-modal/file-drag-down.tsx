@@ -3,31 +3,10 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import ArrowReturn from "@/public/icons/arrow-return";
 import MediaIcon from "@/public/icons/media-icon.svg";
 import Image from "next/image";
-import { useEffect, useReducer } from "react";
+import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import ModalCancel from "../modal-cancel";
-
-interface PreviewAction {
-  type: "setFileToPreview" | "removePreview";
-  payload?: File;
-}
-
-interface PreviewState {
-  preview: string | null;
-}
-
-function reducer(state: PreviewState, action: PreviewAction) {
-  switch (action.type) {
-    case "setFileToPreview":
-      if (!action.payload) throw new Error("파일이 꼭 필요합니다.");
-      return { preview: URL.createObjectURL(action.payload) };
-    case "removePreview":
-      return { preview: null };
-    default:
-      return state;
-  }
-}
 
 interface FileDragDownProps {
   file: File | null;
@@ -42,9 +21,10 @@ export default function FileDragDown({
   defaultPreview,
   handleNext,
 }: FileDragDownProps) {
-  const [{ preview }, dispatch] = useReducer(reducer, {
-    preview: defaultPreview,
-  });
+  const [preview, setPreview] = useState(
+    file ? URL.createObjectURL(file) : defaultPreview ? defaultPreview : null,
+  );
+
   const { open, getRootProps, getInputProps } = useDropzone({
     noClick: file === null,
     noKeyboard: true,
@@ -52,8 +32,8 @@ export default function FileDragDown({
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
+      setPreview(URL.createObjectURL(acceptedFiles[0]));
       onSelect(acceptedFiles[0]);
-      dispatch({ type: "setFileToPreview", payload: acceptedFiles[0] });
     },
   });
 
@@ -61,7 +41,7 @@ export default function FileDragDown({
     <ModalCancel
       close={close}
       onCancel={() => {
-        dispatch({ type: "removePreview" });
+        setPreview(null);
         onSelect(null);
       }}
     />
@@ -71,15 +51,9 @@ export default function FileDragDown({
     cancelOverlay.open();
   };
 
-  useEffect(() => {
-    if (file !== null) {
-      dispatch({ type: "setFileToPreview", payload: file });
-    }
-  }, [file, dispatch]);
-
   return (
     <>
-      {file === null && preview === null ? null : (
+      {preview === null ? null : (
         <header className="flex items-center justify-between gap-2">
           <ArrowReturn handleCancel={handleCancel} />
           <Button

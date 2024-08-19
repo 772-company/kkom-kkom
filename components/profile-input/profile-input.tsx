@@ -98,7 +98,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
           id={id}
           type="file"
           className="hidden"
-          accept=".jpg, jpeg, .png"
+          accept=".jpg, .jpeg, .png"
           onChange={handleChangeFile}
           {...rest}
         />

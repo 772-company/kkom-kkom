@@ -5,6 +5,7 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -20,17 +21,20 @@ const AddTeamForm = () => {
   const watchedTeamName = watch("teamName") || "";
   const router = useRouter();
 
-  const onSubmit = async (data: AddTeamFormValue) => {
-    try {
-      const response = await postGroup({
-        image: data.teamProfile,
-        name: data.teamName,
-      });
+  const createTeamMutation = useMutation({
+    mutationFn: (data: AddTeamFormValue) =>
+      postGroup({ image: data.teamProfile, name: data.teamName }),
+    onSuccess: (response) => {
       showToast("success", "팀을 생성하였습니다.");
-      router.push(`/${response?.id}`);
-    } catch (error) {
+      router.push(`/${response.id}`);
+    },
+    onError: () => {
       showToast("error", "팀 생성에 실패하였습니다.");
-    }
+    },
+  });
+
+  const onSubmit = (data: AddTeamFormValue) => {
+    createTeamMutation.mutate(data);
   };
 
   return (
@@ -57,9 +61,9 @@ const AddTeamForm = () => {
           <Button
             btnSize="large"
             btnStyle="solid"
-            disabled={!watchedTeamName.trim()}
+            disabled={!watchedTeamName.trim() || createTeamMutation.isPending}
           >
-            생성하기
+            {createTeamMutation.isPending ? "생성 중..." : "생성하기"}
           </Button>
         </div>
       </form>

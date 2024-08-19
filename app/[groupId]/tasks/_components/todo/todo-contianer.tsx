@@ -20,7 +20,7 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
   return (
-    <main>
+    <div>
       <TodoHeader
         groupId={groupId}
         onClickButton={handleClickButton}
@@ -33,7 +33,7 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
         date={date}
         groupId={groupId}
       />
-    </main>
+    </div>
   );
 };
 

@@ -38,11 +38,13 @@ interface MainPaginationProps {
     page?: string;
     keyword?: string;
   };
+  className?: string;
 }
 
 export default function Pagination({
   total,
   searchParams,
+  className,
 }: MainPaginationProps) {
   const page = Number(searchParams.page || "1");
   const orderBy = searchParams.orderBy || "recent";
@@ -62,7 +64,9 @@ export default function Pagination({
   );
 
   return (
-    <PaginationStructure className="fixed bottom-0 left-0 right-0 z-50 border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2">
+    <PaginationStructure
+      className={`fixed bottom-0 left-0 right-0 z-50 border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2 ${className}`}
+    >
       <PaginationContent className="mx-auto flex w-full max-w-[1200px] gap-2">
         <PaginationItem>
           <PaginationIndicator

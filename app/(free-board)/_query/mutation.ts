@@ -392,6 +392,7 @@ export function usePatchCommentsMutation() {
       return { previousComments };
     },
     onError: (error, { articleId }, context) => {
+      showToast("error", "댓글 수정에 실패했습니다.");
       if (context?.previousComments) {
         queryClient.setQueryData<
           InfiniteData<GetArticlesArticleIdCommentsResponse>
@@ -407,5 +408,4 @@ export function usePatchCommentsMutation() {
 }
 
 // TODO - 게시글 좋아요 mutation Optimistic mutation 적용
-
 // TODO - 게시글 싫어요 mutation Optimistic mutation 적용

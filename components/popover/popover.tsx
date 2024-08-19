@@ -88,9 +88,9 @@ const Popover = ({
   };
 
   return (
-    <PopOver open={open} onOpenChange={setOpen}>
+    <PopOver open={open} onOpenChange={(props) => setOpen(props)}>
       <div className={`${className}`}>
-        <PopoverTrigger>
+        <PopoverTrigger onClick={(e) => e.stopPropagation()}>
           <div
             className={`${triggerClassName} flex items-center justify-center gap-[5px]`}
           >
@@ -117,7 +117,8 @@ const Popover = ({
             <button
               className="h-full w-full text-[14px] hover:text-[15px]"
               key={index}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 item.onClick && item.onClick();
                 handleClose();
               }}

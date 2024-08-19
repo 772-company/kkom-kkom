@@ -40,15 +40,21 @@ export default async function ArticlesList({
   });
 
   return (
-    <section className="mt-6 flex flex-col gap-6 md:mt-8">
-      {articles && articles.length > 0 ? (
-        articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))
-      ) : (
-        <NoArticle searchParams={searchParams} />
-      )}
-      <Pagination total={totalCount} searchParams={searchParams} />
-    </section>
+    <>
+      <section className="mt-6 flex flex-col gap-6 md:mt-8 xl:grid xl:grid-cols-2 xl:grid-rows-5">
+        {articles && articles.length > 0 ? (
+          articles.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))
+        ) : (
+          <NoArticle searchParams={searchParams} />
+        )}
+      </section>
+      <Pagination
+        className="mt-6"
+        total={totalCount}
+        searchParams={searchParams}
+      />
+    </>
   );
 }

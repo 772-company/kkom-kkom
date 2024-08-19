@@ -14,8 +14,8 @@ export default function ArticleHeader({ searchParams }: ArticleHeaderProps) {
         "게시글 목록"
       ) : (
         <span>
-          <span className="font-black text-[#41ff30]">{keyword}</span> 에 대한
-          검색 결과입니다.
+          <span className="font-black text-brand-primary">{keyword}</span> 에
+          대한 검색 결과입니다.
         </span>
       )}
     </h2>

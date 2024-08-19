@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 import { ComponentProps, forwardRef } from "react";
 
-import { LinkButton } from "../../../../../components/button/button";
+import Button, { LinkButton } from "../../../../../components/button/button";
 import PaginationIndicator from "./pagination-indicator";
 
 const PaginationStructure = ({
@@ -38,11 +38,13 @@ interface MainPaginationProps {
     page?: string;
     keyword?: string;
   };
+  className?: string;
 }
 
 export default function Pagination({
   total,
   searchParams,
+  className,
 }: MainPaginationProps) {
   const page = Number(searchParams.page || "1");
   const orderBy = searchParams.orderBy || "recent";
@@ -52,11 +54,19 @@ export default function Pagination({
     total % 10 === 0 ? Math.floor(total / 10) : Math.floor(total / 10) + 1;
 
   const pageNumberList = [page - 2, page - 1, page, page + 1, page + 2].map(
-    (i) => (i < 1 || i > maxIndex ? 0 : i),
+    (i) => {
+      if (i >= 1 && i <= maxIndex) {
+        return i;
+      } else {
+        return 0;
+      }
+    },
   );
 
   return (
-    <PaginationStructure className="fixed bottom-0 left-0 right-0 z-50 border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2">
+    <PaginationStructure
+      className={`fixed bottom-0 left-0 right-0 z-50 border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2 ${className}`}
+    >
       <PaginationContent className="mx-auto flex w-full max-w-[1200px] gap-2">
         <PaginationItem>
           <PaginationIndicator
@@ -74,19 +84,28 @@ export default function Pagination({
             disabled={page === 1}
           />
         </PaginationItem>
-        {pageNumberList.map((i, index) => {
-          if (i === 0) {
-            return <PaginationItem key={index}></PaginationItem>;
+        {pageNumberList.map((pageNumber, index) => {
+          if (pageNumber === 0) {
+            return (
+              <PaginationItem key={index}>
+                <Button
+                  btnSize="large"
+                  disabled
+                  btnStyle="outlined"
+                  className="w-full"
+                />
+              </PaginationItem>
+            );
           }
           return (
             <PaginationItem key={index}>
               <LinkButton
-                href={`/boards?page=${i}&orderBy=${orderBy}&keyword=${keyword}`}
+                href={`/boards?page=${pageNumber}&orderBy=${orderBy}&keyword=${keyword}`}
                 btnSize="large"
-                btnStyle={index === 2 ? "solid" : "outlined"}
+                btnStyle={page === pageNumber ? "solid" : "outlined"}
                 className="w-full"
               >
-                {i}
+                {pageNumber}
               </LinkButton>
             </PaginationItem>
           );
@@ -96,7 +115,7 @@ export default function Pagination({
             page={page + 1}
             src="/icons/arrow-right.svg"
             alt="arrow-right"
-            disabled={page === maxIndex}
+            disabled={page === maxIndex || maxIndex === 0}
           />
         </PaginationItem>
         <PaginationItem>
@@ -104,7 +123,7 @@ export default function Pagination({
             page={maxIndex}
             src="/icons/arrow-last.svg"
             alt="arrow-last"
-            disabled={page === maxIndex}
+            disabled={page === maxIndex || maxIndex === 0}
           />
         </PaginationItem>
       </PaginationContent>

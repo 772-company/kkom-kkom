@@ -47,7 +47,7 @@ export default function ArticleOrderbyDropdown({
           {options.map((option, i) => (
             <Dropdown.Item
               key={i}
-              className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-[#41ff30] hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-[#41ff30]" : orderBy === null && i === 0 ? "text-[#41ff30]" : ""}`}
+              className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-brand-primary hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-brand-primary" : orderBy === null && i === 0 ? "text-brand-primary" : ""}`}
               value={option.value}
             >
               <LinkWithProgress

@@ -76,6 +76,7 @@ const AddTodoModal = ({
         mutate(newData);
       } else {
         const { monthDay, weekDays, ...newData } = data;
+        console.log(newData);
         mutate(newData);
       }
     }
@@ -139,11 +140,43 @@ const AddTodoModal = ({
         {formData.frequencyType === "MONTHLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 일</label>
+            <input
+              className="text h-[50px] w-[50px] bg-[#18212F] text-center text-sm font-medium text-text-default"
+              type="number"
+              min="1"
+              max="31"
+              maxLength={2}
+              {...register("monthDay", {
+                onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                  let value = parseInt(e.target.value, 10);
+                  if (value < 1) {
+                    e.target.value = "1";
+                  } else if (value > 31) {
+                    e.target.value = "31";
+                  }
+                },
+              })}
+              onKeyDown={(e) => {
+                if (e.key === "-" || e.key === "+" || e.key === ".") {
+                  e.preventDefault();
+                }
+              }}
+              // onChange={(e) => {
+              //   let value = parseInt(e.target.value, 10);
+              //   if (value < 1) {
+              //     e.target.value = "1";
+              //   } else if (value > 31) {
+              //     e.target.value = "31";
+              //   }
+              // }}
+              placeholder="Day"
+            ></input>
           </div>
         )}
         {formData.frequencyType === "WEEKLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 요일</label>
+
             <div className="flex gap-2">
               {REPEAT_ARRAY.map((e, i) => (
                 <Controller

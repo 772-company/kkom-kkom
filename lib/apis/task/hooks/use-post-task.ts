@@ -18,7 +18,7 @@ const usePostTask = (
     onSuccess: () => {
       close();
       queryClient.invalidateQueries({
-        queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
+        queryKey: ["getTasks", taskListId],
       });
     },
   });

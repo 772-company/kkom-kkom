@@ -18,6 +18,8 @@ export const postTask = async (
   },
 ) => {
   try {
+    console.log(data);
+
     const response = await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks`,
       {

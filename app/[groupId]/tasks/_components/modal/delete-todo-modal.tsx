@@ -25,19 +25,16 @@ const DeleteTodoModal = ({
   close,
 }: DeleteTodoModalProps) => {
   const queryClient = useQueryClient();
+
   const { isPending, mutate } = useMutation({
     mutationFn: () =>
       deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
     onSuccess: () => {
       close();
-      Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: ["getGroupInfo"],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
-        }),
-      ]);
+
+      queryClient.invalidateQueries({
+        queryKey: ["getTasks", taskListId],
+      });
     },
   });
   const handleClickRemoveTodo = () => {

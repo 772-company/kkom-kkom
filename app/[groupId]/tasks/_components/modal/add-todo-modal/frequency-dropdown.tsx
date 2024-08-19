@@ -51,7 +51,10 @@ const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
           field.onChange(value);
         }}
       >
-        <Dropdown.Button className="flex h-[44px] w-[109px] items-center justify-center gap-2 rounded-xl bg-[#18212F] text-sm font-medium text-text-default">
+        <Dropdown.Button
+          type="button"
+          className="flex h-[44px] w-[109px] items-center justify-center gap-2 rounded-xl bg-[#18212F] text-sm font-medium text-text-default"
+        >
           <ToggleClose
             width="24"
             height="24"

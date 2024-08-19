@@ -66,6 +66,21 @@ const AddTodoModal = ({
   });
   const formData = watch();
 
+  const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
+    if (taskListId !== -1) {
+      if (data.frequencyType === "MONTHLY") {
+        const { weekDays, ...newData } = data;
+        mutate(newData);
+      } else if (data.frequencyType === "WEEKLY") {
+        const { monthDay, ...newData } = data;
+        mutate(newData);
+      } else {
+        const { monthDay, weekDays, ...newData } = data;
+        mutate(newData);
+      }
+    }
+  };
+
   return (
     <Modal
       className="flex h-[930px] w-full flex-col items-center gap-4 overflow-y-auto overflow-x-clip p-[32px] sm:h-[80vh] md:w-[384px]"
@@ -83,114 +98,102 @@ const AddTodoModal = ({
         </Modal.Description>
       </header>
 
-      <div className="w-full">
-        <BasicInput
-          label="할 일 제목"
-          placeholder="할 일 제목을 입력해주세요."
-          id="name"
-          isModal={true}
-          register={register}
-          {...register("name", {
-            required: "제목을 입력해주세요",
-          })}
-        />
-        {errors.name?.message}
-      </div>
-
-      <div className="flex h-[349px] w-[336px] flex-col gap-4">
-        <label>시작 날짜 및 시간</label>
-        <div className="flex h-[314px] w-[336px] flex-col gap-2">
-          <div className="flex h-[48px] w-full">
-            <Controller
-              name="startDate"
-              control={control}
-              render={({ field }) => <TodoCalendarButton field={field} />}
-            />
-            <Controller
-              name="startDate"
-              control={control}
-              render={({ field }) => <TimeButton field={field} />}
-            />
-          </div>
+      <form onSubmit={handleSubmit(serveData)}>
+        <div className="w-full">
+          <BasicInput
+            label="할 일 제목"
+            placeholder="할 일 제목을 입력해주세요."
+            id="name"
+            isModal={true}
+            register={register}
+            {...register("name", {
+              required: "제목을 입력해주세요",
+            })}
+          />
+          {errors.name?.message}
         </div>
-      </div>
 
-      <div className="flex h-[79px] w-full flex-col gap-4">
-        <label className="text-base font-medium text-text-primary">
-          반복설정
-        </label>
-        <Controller
-          name="frequencyType"
-          control={control}
-          render={({ field }) => <FrequencyDropdown field={field} />}
-        />
-      </div>
-      {formData.frequencyType === "MONTHLY" && (
-        <div className="flex h-[100px] w-full flex-col gap-3">
-          <label>반복 일</label>
-        </div>
-      )}
-      {formData.frequencyType === "WEEKLY" && (
-        <div className="flex h-[100px] w-full flex-col gap-3">
-          <label>반복 요일</label>
-          <div className="flex gap-2">
-            {REPEAT_ARRAY.map((e, i) => (
+        <div className="flex h-[349px] w-[336px] flex-col gap-4">
+          <label className="mt-2">시작 날짜 및 시간</label>
+          <div className="flex h-[314px] w-[336px] flex-col gap-2">
+            <div className="flex h-[48px] w-full">
               <Controller
-                key={i}
+                name="startDate"
                 control={control}
-                name="weekDays"
-                rules={{
-                  validate: (value) => {
-                    if (typeof value !== "undefined" && value.length < 2) {
-                      return "2개이상 요일을 선택 해주세요";
-                    }
-                    return;
-                  },
-                }}
-                render={({ field }) => (
-                  <DayButton name={e.name} value={e.value} field={field} />
-                )}
+                render={({ field }) => <TodoCalendarButton field={field} />}
               />
-            ))}
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => <TimeButton field={field} />}
+              />
+            </div>
           </div>
-          <p>{errors.weekDays?.message}</p>
         </div>
-      )}
 
-      <div className="w-full">
-        <BasicInput
-          isModal={true}
-          label="할 일 메모"
-          placeholder="메모를 입력해주세요."
-          id="description"
-          className="h-[75px] w-[384px]"
-          register={register}
-        />
-      </div>
+        <div className="flex h-[79px] w-full flex-col gap-4">
+          <label className="text-base font-medium text-text-primary">
+            반복설정
+          </label>
+          <Controller
+            name="frequencyType"
+            control={control}
+            render={({ field }) => <FrequencyDropdown field={field} />}
+          />
+        </div>
+        {formData.frequencyType === "MONTHLY" && (
+          <div className="flex h-[100px] w-full flex-col gap-3">
+            <label>반복 일</label>
+          </div>
+        )}
+        {formData.frequencyType === "WEEKLY" && (
+          <div className="flex h-[100px] w-full flex-col gap-3">
+            <label>반복 요일</label>
+            <div className="flex gap-2">
+              {REPEAT_ARRAY.map((e, i) => (
+                <Controller
+                  key={i}
+                  control={control}
+                  name="weekDays"
+                  rules={{
+                    validate: (value) => {
+                      if (typeof value !== "undefined" && value.length < 2) {
+                        return "2개이상 요일을 선택 해주세요";
+                      }
+                      return;
+                    },
+                  }}
+                  render={({ field }) => (
+                    <DayButton name={e.name} value={e.value} field={field} />
+                  )}
+                />
+              ))}
+            </div>
+            <p>{errors.weekDays?.message}</p>
+          </div>
+        )}
 
-      <Button
-        disabled={isPending}
-        onClick={handleSubmit((data) => {
-          if (taskListId !== -1) {
-            if (data.frequencyType === "MONTHLY") {
-              const { weekDays, ...newData } = data;
-              mutate(newData);
-            } else if (data.frequencyType === "WEEKLY") {
-              const { monthDay, ...newData } = data;
-              mutate(newData);
-            } else {
-              const { monthDay, weekDays, ...newData } = data;
-              mutate(newData);
-            }
-          }
-        })}
-        type="button"
-        btnSize="large"
-        btnStyle="solid"
-        className="mt-9 w-[336px]"
-      >
-        만들기
-      </Button>
+        <div className="w-full">
+          <BasicInput
+            isModal={true}
+            label="할 일 메모"
+            placeholder="메모를 입력해주세요."
+            id="description"
+            className="h-[75px] w-[384px]"
+            register={register}
+          />
+        </div>
+
+        <Button
+          disabled={isPending}
+          type="submit"
+          btnSize="large"
+          btnStyle="solid"
+          className="mt-9 w-[336px]"
+        >
+          만들기
+        </Button>
+      </form>
     </Modal>
   );
 };

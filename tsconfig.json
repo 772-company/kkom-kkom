@@ -28,8 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(auth)/.gitkeep",
-    "app/[groupId]/tasks/_components/modal/add-todo-modal/calendarAnd"
+    "app/(auth)/.gitkeep"
   ],
   "exclude": ["node_modules"]
 }

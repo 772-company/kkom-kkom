@@ -5,9 +5,9 @@ import { Membership } from "@/lib/apis/type";
 import CloseButton from "@/public/icons/x.svg";
 import hamster from "@/public/images/hamster.jpg";
 import { motion } from "framer-motion";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { LegacyRef } from "react";
 
 interface ModalSideMenuProps {

@@ -4,7 +4,7 @@ import { showToast } from "@/lib/show-toast";
 import Alert from "@/public/icons/alert.svg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
 interface ModalWarningProps {

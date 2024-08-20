@@ -8,7 +8,6 @@ import { MouseEventHandler } from "react";
  * ```tsx
  * const handleProgress = useProgress();
  * <Button onClick={handleProgress("/")} />
- * <Link href="/" onClick={handleProgress("/")} />
  * ```
  * @author 이승현
  * @returns

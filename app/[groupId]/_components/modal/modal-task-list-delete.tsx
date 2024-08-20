@@ -3,7 +3,7 @@ import { deleteTaskList } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 interface ModalTaskListDeleteProps {
   close: () => void;

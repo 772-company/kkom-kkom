@@ -5,7 +5,7 @@ import { postTaskList } from "@/lib/apis/task-list";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { ChangeEvent, useState } from "react";
 
 interface ModalTaskListAddProps {

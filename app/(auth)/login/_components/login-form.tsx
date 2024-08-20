@@ -10,7 +10,7 @@ import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAuthError } from "../../_hooks/use-auth-error";

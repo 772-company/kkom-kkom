@@ -3,7 +3,7 @@
 import { LOGGED_IN_USER_CONTENT } from "@/constants/popover-content";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import UserIcon from "@/public/icons/user.svg";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 import Popover from "../popover/popover";
 import ModalLogout from "./components/modal-logout";

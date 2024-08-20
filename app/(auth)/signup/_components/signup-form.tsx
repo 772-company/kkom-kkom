@@ -9,7 +9,7 @@ import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 

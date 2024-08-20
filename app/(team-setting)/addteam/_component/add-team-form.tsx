@@ -8,7 +8,7 @@ import { showToast } from "@/lib/show-toast";
 import { addTeamSchema } from "@/schemas/team";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useForm } from "react-hook-form";
 
 interface AddTeamFormValue {

@@ -1,3 +1,4 @@
+import { uploadImage } from "../image";
 import { myFetch } from "../myFetch";
 import { ResponseError } from "../myFetch/clientFetch";
 import { instance } from "../myFetch/instance";
@@ -6,6 +7,7 @@ import {
   GetTeamIdGroupsIdInvitationResponse,
   GetTeamIdGroupsIdResponse,
   PatchTeamIdGroupsIdResponse,
+  PostTeamIdGroupsResponse,
 } from "../type";
 
 interface GetGroupInfoProps {
@@ -163,5 +165,34 @@ export async function deleteTeamMember({
     } else {
       throw error;
     }
+  }
+}
+
+interface PostGroupProps {
+  image?: File;
+  name: string;
+}
+
+//NOTE - 그룹 생성
+export async function postGroup({ image, name }: PostGroupProps) {
+  try {
+    let url;
+
+    if (image) {
+      const imageResponse = await uploadImage(image);
+      url = imageResponse.url;
+    }
+
+    const response = await instance<PostTeamIdGroupsResponse>(`/groups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      body: JSON.stringify({ image: url, name }),
+    });
+    return response;
+  } catch (error) {
+    throw error;
   }
 }

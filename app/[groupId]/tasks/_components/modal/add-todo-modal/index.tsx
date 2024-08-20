@@ -50,7 +50,7 @@ const AddTodoModal = ({
     watch,
     formState: { errors },
   } = useForm<TodoFormType>({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       name: "",
       description: "",

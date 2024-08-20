@@ -50,7 +50,9 @@ export default function CommentsList({ articleId }: CommentListProps) {
               </section>
             )}
           </section>
-          {hasNextPage && <IntersectionArea func={fetchNextPage} />}
+          {hasNextPage && !isFetching && (
+            <IntersectionArea func={fetchNextPage} />
+          )}
           {isFetching ? (
             <section className="mt-14 flex justify-center">
               <Image

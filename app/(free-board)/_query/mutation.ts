@@ -238,7 +238,7 @@ export function usePostCommentsMutation() {
             return {
               pages: [
                 {
-                  nextCursor: 0,
+                  nextCursor: input.pages[0].nextCursor,
                   list: [
                     {
                       writer: {

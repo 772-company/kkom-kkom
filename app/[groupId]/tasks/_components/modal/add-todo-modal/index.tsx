@@ -2,7 +2,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import usePostTask from "@/lib/apis/task/hooks/use-post-task";
-import React from "react";
+import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "./day-button";
@@ -61,6 +61,7 @@ const AddTodoModal = ({
     },
   });
   const formData = watch("frequencyType");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
     if (taskListId !== -1) {
@@ -136,14 +137,26 @@ const AddTodoModal = ({
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 일</label>
             <input
+              onCompositionStart={(e) => {
+                e.currentTarget.blur();
+              }}
               className="text h-[50px] w-[50px] bg-[#18212F] text-center text-sm font-medium text-text-default"
               type="number"
               min="1"
               max="31"
               maxLength={2}
               {...register("monthDay", {
+                valueAsNumber: true,
+                onBlur(event) {
+                  requestAnimationFrame(() => event.target.focus());
+                },
                 onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                  let value = parseInt(e.target.value, 10);
+                  let value = parseInt(e.target.value);
+                  console.log(value);
+                  if (isNaN(value)) {
+                    e.preventDefault();
+                  }
+
                   if (value < 1) {
                     e.target.value = "1";
                   } else if (value > 31) {

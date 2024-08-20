@@ -1,4 +1,5 @@
 import { uploadImage } from "../image";
+import { myFetch } from "../myFetch";
 import { instance } from "../myFetch/instance";
 import {
   DeleteArticlesArticleIdLikeResponse,
@@ -187,7 +188,7 @@ interface PostViewRequest {
 
 export async function postView({ articleId }: PostViewRequest) {
   try {
-    const response = await fetch(
+    const response = await myFetch<ViewResponse>(
       `${process.env.NEXT_PUBLIC_KKOM_KKOM_VIEW_URL}/view/${articleId}`,
       {
         method: "POST",
@@ -199,8 +200,7 @@ export async function postView({ articleId }: PostViewRequest) {
         }),
       },
     );
-    const data: ViewResponse = await response.json();
-    return data.view;
+    return response.view;
   } catch (e) {
     console.error(e);
   }

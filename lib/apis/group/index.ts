@@ -53,7 +53,7 @@ export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
 
 interface PatchGroupNameProps {
   groupId: string;
-  image?: string;
+  image?: File | string;
   name?: string;
 }
 
@@ -64,6 +64,13 @@ export async function patchGroupInfo({
   name,
 }: PatchGroupNameProps) {
   try {
+    let url;
+
+    if (image instanceof File) {
+      const imageResponse = await uploadImage(image);
+      url = imageResponse.url;
+    } else url = image;
+
     const response = await instance<PatchTeamIdGroupsIdResponse>(
       `/groups/${groupId}`,
       {
@@ -71,7 +78,7 @@ export async function patchGroupInfo({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ image, name }),
+        body: JSON.stringify({ image: url, name }),
         withCredentials: true,
       },
     );

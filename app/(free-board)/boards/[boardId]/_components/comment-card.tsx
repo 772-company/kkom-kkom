@@ -12,6 +12,7 @@ import {
   Fragment,
   useCallback,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -27,6 +28,11 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
   const contentRef = useRef<HTMLParagraphElement>(null);
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
   const [isEdit, setIsEdit] = useState(false);
+
+  const timeDiff = useMemo(
+    () => convertDiffDateFromNow(new Date(comment.updatedAt)),
+    [comment.updatedAt],
+  );
 
   const { mutate: deleteMutation, isPending: isDeletePending } =
     useDeleteCommentsMutation();
@@ -120,8 +126,11 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
             <section className="flex">
               <section className="flex items-center">
                 <Card.Profile name={comment.writer.nickname} className="mr-4" />
-                <time className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]">
-                  {convertDiffDateFromNow(new Date(comment.updatedAt))}{" "}
+                <time
+                  className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]"
+                  suppressHydrationWarning
+                >
+                  {timeDiff}{" "}
                   {comment.updatedAt !== comment.createdAt && "(수정됨)"}
                 </time>
               </section>

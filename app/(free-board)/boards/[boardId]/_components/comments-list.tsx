@@ -11,7 +11,7 @@ interface CommentListProps {
 }
 
 export default function CommentsList({ articleId }: CommentListProps) {
-  const { data, fetchNextPage, hasNextPage, isFetching, status } =
+  const { data, fetchNextPage, hasNextPage, isFetching } =
     useArticlesCommentsQuery(articleId);
 
   return (
@@ -19,7 +19,25 @@ export default function CommentsList({ articleId }: CommentListProps) {
       <h2 className="mb-4 block pt-8 text-base font-medium text-text-primary md:mb-6 md:pt-10 md:text-xl">
         댓글 목록
       </h2>
-      {status === "pending" ? (
+      <section className="flex flex-col gap-4">
+        {data.pages[0].list.length > 0 ? (
+          data.pages.map((commentPage) =>
+            commentPage.list.map((comment) => (
+              <CommentCard
+                key={comment.id}
+                comment={comment}
+                articleId={articleId}
+              />
+            )),
+          )
+        ) : (
+          <p className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
+            아직 작성된 댓글이 없습니다.
+          </p>
+        )}
+      </section>
+      {hasNextPage && !isFetching && <IntersectionArea func={fetchNextPage} />}
+      {isFetching ? (
         <section className="mt-14 flex justify-center">
           <Image
             src="/icons/tube-spinner.svg"
@@ -29,43 +47,7 @@ export default function CommentsList({ articleId }: CommentListProps) {
             className="md:h-auto md:w-auto"
           />
         </section>
-      ) : status === "error" ? (
-        <p>에러 발생</p>
-      ) : (
-        <>
-          <section className="flex flex-col gap-4">
-            {data.pages[0].list.length > 0 ? (
-              data.pages.map((commentPage) =>
-                commentPage.list.map((comment) => (
-                  <CommentCard
-                    key={comment.id}
-                    comment={comment}
-                    articleId={articleId}
-                  />
-                )),
-              )
-            ) : (
-              <p className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
-                아직 작성된 댓글이 없습니다.
-              </p>
-            )}
-          </section>
-          {hasNextPage && !isFetching && (
-            <IntersectionArea func={fetchNextPage} />
-          )}
-          {isFetching ? (
-            <section className="mt-14 flex justify-center">
-              <Image
-                src="/icons/tube-spinner.svg"
-                alt="로딩 중"
-                width={56}
-                height={56}
-                className="md:h-auto md:w-auto"
-              />
-            </section>
-          ) : null}
-        </>
-      )}
+      ) : null}
     </>
   );
 }

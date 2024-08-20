@@ -1,7 +1,6 @@
 "use client";
 
 import { Dropdown } from "@/components/dropdown/dropdown";
-import { useProgress } from "@/hooks/use-progress";
 import ToggleClose from "@/public/icons/toggle.svg";
 import Link from "next/link";
 
@@ -29,7 +28,6 @@ export default function ArticleOrderbyDropdown({
 }: ArticleOrderbyDropdownProps) {
   const orderBy = searchParams.orderBy || "recent";
   const keyword = searchParams.keyword || "";
-  const progress = useProgress();
   return (
     <Dropdown
       selected={orderBy === "like" ? "인기순" : "최신순"}
@@ -60,14 +58,6 @@ export default function ArticleOrderbyDropdown({
                     keyword,
                   }).toString()
                 }
-                onClick={progress(
-                  `/boards?` +
-                    new URLSearchParams({
-                      orderBy: option.value,
-                      page: "1",
-                      keyword,
-                    }).toString(),
-                )}
               >
                 {option.display}
               </Link>

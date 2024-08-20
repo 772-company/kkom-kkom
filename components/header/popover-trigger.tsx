@@ -2,8 +2,8 @@
 
 import { LOGGED_IN_USER_CONTENT } from "@/constants/popover-content";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import { useProgress } from "@/hooks/use-progress";
 import UserIcon from "@/public/icons/user.svg";
+import { useRouter } from "next-nprogress-bar";
 
 import Popover from "../popover/popover";
 import ModalLogout from "./components/modal-logout";
@@ -16,7 +16,7 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
   const modalLogoutOverlay = useCustomOverlay(({ close }) => (
     <ModalLogout close={close} />
   ));
-  const progress = useProgress();
+  const router = useRouter();
   return (
     <div className="flex cursor-pointer items-center gap-2">
       <Popover
@@ -26,15 +26,15 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
         content={[
           {
             text: LOGGED_IN_USER_CONTENT[0],
-            onClick: progress("/myhistory"),
+            onClick: () => router.push("/myhistory"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[1],
-            onClick: progress("/mypage"),
+            onClick: () => router.push("/mypage"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[2],
-            onClick: progress("/participate-team"),
+            onClick: () => router.push("/participate-team"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[3],

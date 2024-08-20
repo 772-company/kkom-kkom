@@ -10,7 +10,7 @@ export default function NoArticle({
   searchParams: { keyword },
 }: NoArticleProps) {
   return (
-    <div className="font-base flex w-full items-center justify-center pb-[200px] pt-[200px] text-lg text-text-primary">
+    <div className="font-base flex w-full items-center justify-center pb-[200px] pt-[200px] text-lg text-text-primary xl:col-span-2 xl:row-span-5">
       {keyword ? (
         <span>
           <span className="font-bold text-brand-primary">{`${keyword} `}</span>

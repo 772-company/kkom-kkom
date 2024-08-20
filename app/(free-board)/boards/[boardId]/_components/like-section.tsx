@@ -1,6 +1,5 @@
 "use client";
 
-import { LikeCountSection } from "@/app/(free-board)/_components/card";
 import { useHandleArticleLikeMutation } from "@/app/(free-board)/_query/mutation";
 import { useArticleQuery } from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
@@ -22,11 +21,11 @@ export default function LikeSection({ articleId }: LikeSectionProps) {
       );
       return;
     }
-    mutate({ articleId, isLiked: isLiked });
+    mutate({ articleId, isLiked });
   };
 
   return (
-    <>
+    <section className="flex justify-center">
       <Button
         btnSize="large"
         btnStyle="outlined_secondary"
@@ -40,6 +39,6 @@ export default function LikeSection({ articleId }: LikeSectionProps) {
           Like {likeCount > 9999 ? "9999+" : likeCount}
         </section>
       </Button>
-    </>
+    </section>
   );
 }

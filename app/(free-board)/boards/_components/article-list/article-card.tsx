@@ -20,6 +20,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       {article.image && (
         <Link
           href={`/boards/${article.id}`}
+          as={"image"}
           className="relative h-24 w-24 md:h-32 md:w-32"
         >
           <Image

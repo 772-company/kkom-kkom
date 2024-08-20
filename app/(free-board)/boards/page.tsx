@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 
-import ArticleHeader from "./_components/article-header";
 import ArticlesList from "./_components/article-list/articles-list";
 import ArticleOrderbyDropdown from "./_components/article-orderby-dropdown";
 import ArticleResetButton from "./_components/article-reset-button";

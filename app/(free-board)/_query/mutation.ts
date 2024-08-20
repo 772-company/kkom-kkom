@@ -22,11 +22,13 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
 import { article } from "../boards/mock";
 
 export function useUploadArticleMutation() {
+  const router = useRouter();
   return useMutation({
     mutationFn: (data: { image: string; title: string; content: string }) =>
       postArticles({
@@ -48,6 +50,7 @@ export function useUploadArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
+      router.refresh();
     },
     onError: (error) => {
       console.error(error);
@@ -93,6 +96,7 @@ export function useDeleteArticleMutation() {
 }
 
 export function usePatchArticleMutation() {
+  const router = useRouter();
   return useMutation({
     mutationFn: ({
       articleId,
@@ -124,6 +128,7 @@ export function usePatchArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
+      router.refresh();
     },
     onError: (error) => {
       console.error(error);

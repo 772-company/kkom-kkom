@@ -359,10 +359,10 @@ export interface PostArticlesArticleIdCommentsResponse {
 }
 
 export interface GetArticlesArticleIdCommentsResponse {
-  nextCursor: number;
+  nextCursor: number | null;
   list: {
     writer: {
-      image: string;
+      image: string | null;
       nickname: string;
       id: number;
     };

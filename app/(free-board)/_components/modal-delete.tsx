@@ -1,17 +1,17 @@
 import Modal from "@/components/modal/modal";
 import Alert from "@/public/icons/alert.svg";
-import { useCallback } from "react";
 
-interface ModalCancelProps {
+export default function ModalDelete({
+  close,
+  onDelete,
+}: {
   close: () => void;
-  onCancel: () => void;
-}
-
-export default function ModalCancel({ close, onCancel }: ModalCancelProps) {
-  const handleClick = useCallback(() => {
-    onCancel();
+  onDelete: () => void;
+}) {
+  const handleClick = () => {
+    onDelete();
     close();
-  }, [close, onCancel]);
+  };
   return (
     <Modal close={close} closeOnFocusOut>
       <header className="flex justify-center pb-4 pt-6">
@@ -19,15 +19,15 @@ export default function ModalCancel({ close, onCancel }: ModalCancelProps) {
       </header>
       <div className="mx-12 text-center md:mx-9">
         <Modal.Title className="mb-4 text-slate-50 md:text-text-primary">
-          다른 사진을 선택하시겠습니까?
+          삭제하시겠습니까?
         </Modal.Title>
         <Modal.Description className="mb-6">
-          선택한 사진은 초기화됩니다.
+          삭제한 데이터는 복구할 수 없습니다.
         </Modal.Description>
         <Modal.TwoButtonSection
           closeBtnStyle="outlined_secondary"
           confirmBtnStyle="danger"
-          buttonDescription="취소하기"
+          buttonDescription="삭제하기"
           onClick={handleClick}
           close={close}
         />

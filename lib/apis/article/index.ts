@@ -11,7 +11,7 @@ import {
 } from "../type";
 
 interface PostArticlesRequest {
-  image: File;
+  image: string;
   title: string;
   content: string;
 }
@@ -22,10 +22,9 @@ export async function postArticles({
   content,
 }: PostArticlesRequest) {
   try {
-    const { url } = await uploadImage(image);
     const response = await instance<PostArticlesResponse>(`/articles`, {
       method: "POST",
-      body: JSON.stringify({ image: url, title, content }),
+      body: JSON.stringify({ image, title, content }),
       headers: {
         "Content-Type": "application/json",
       },

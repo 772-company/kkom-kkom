@@ -21,6 +21,9 @@ export async function postArticlesArticleIdComments({
       {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
         withCredentials: true,
       },
     );
@@ -32,18 +35,16 @@ export async function postArticlesArticleIdComments({
 
 interface GetArticlesArticleIdCommentsRequest {
   articleId: number;
-  limit: number;
-  cursor?: number;
+  cursor: number;
 }
 
 export async function getArticlesArticleIdComments({
   articleId,
-  limit,
-  cursor = 0,
+  cursor,
 }: GetArticlesArticleIdCommentsRequest) {
   try {
     const params = new URLSearchParams({
-      limit: String(limit),
+      limit: "10",
       cursor: String(cursor),
     });
     const response = await instance<GetArticlesArticleIdCommentsResponse>(
@@ -72,6 +73,9 @@ export async function patchCommentsCommentId({
       `/comments/${commentId}`,
       {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
         withCredentials: true,
       },

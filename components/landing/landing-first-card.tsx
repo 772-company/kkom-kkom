@@ -1,9 +1,21 @@
+"use client";
+
 import Folder from "@/public/icons/folder.svg";
 import First from "@/public/images/landing-first.svg";
+import { motion } from "framer-motion";
 
 export default function LandingFirstCard() {
   return (
-    <section className="animate-slide-in-left mx-auto mt-[48px] h-[467px] w-full max-w-[996px] rounded-[40px] bg-gradient-to-r from-brand-primary to-brand-tertiary p-[1px] shadow-[0px_0px_12px_2px_#FFFFFF40] md:mt-[119px] md:h-[354px] xl:mt-[180px] xl:h-[419px]">
+    <motion.section
+      initial={{ opacity: 0, x: -100 }} // 초기 상태: 왼쪽에서 시작
+      whileInView={{ opacity: 1, x: 0 }} // 뷰포트에 들어오면 애니메이션 실행
+      transition={{
+        duration: 0.5, // 애니메이션 지속 시간 설정
+        ease: "easeOut", // 이징 설정
+      }}
+      viewport={{ once: true, amount: 0.5 }} // 애니메이션이 한 번만 실행되도록 설정, 50%가 보이면 실행
+      className="animate-slide-in-left mx-auto mt-[48px] h-[467px] w-full max-w-[996px] rounded-[40px] bg-gradient-to-r from-brand-primary to-brand-tertiary p-[1px] shadow-[0px_0px_12px_2px_#FFFFFF40] md:mt-[119px] md:h-[354px] xl:mt-[180px] xl:h-[419px]"
+    >
       <div className="flex h-full min-h-[467px] justify-center rounded-[40px] bg-background-primary md:min-h-[354px] xl:min-h-[419px]">
         <div className="flex flex-col justify-end gap-[40px] md:flex-row-reverse md:items-end md:gap-[100px]">
           <div className="flex flex-col gap-4 md:h-full md:justify-center">
@@ -18,6 +30,6 @@ export default function LandingFirstCard() {
           <First />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

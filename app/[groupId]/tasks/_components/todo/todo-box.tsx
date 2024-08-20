@@ -1,16 +1,18 @@
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import Calendar from "@/public/icons/calendar.svg";
 import Comment from "@/public/icons/comment.svg";
-import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
-import classNames from "classnames";
 import React from "react";
 
 import CheckBox from "../check-box";
+import DeleteTodoModal from "../modal/delete-todo-modal";
+import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
+  recurringId: number;
   groupId: string;
   taskListId: number | undefined;
   date: Date;
@@ -21,17 +23,31 @@ interface TodoBoxProps {
   doneAt: string | null;
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
+
 const TodoBox = ({
   groupId,
   taskListId,
-  date,
   id,
+  recurringId,
+  date,
   commentCount,
   title,
   doneAt,
   handleClickTodoBox,
   dateString,
 }: TodoBoxProps) => {
+  const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
+    <DeleteTodoModal
+      groupId={groupId}
+      taskListId={taskListId}
+      taskId={id}
+      recurringId={recurringId}
+      date={date}
+      title={title}
+      close={close}
+    />
+  ));
+
   const { year, month, day } = convertDateToYMD(new Date(dateString));
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(dateString),
@@ -64,14 +80,7 @@ const TodoBox = ({
             </p>
           </div>
         </div>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log("test");
-          }}
-        >
-          <Kebab width={16} height={16} />
-        </button>
+        <KebabPopover openDeleteModal={deleteTodoModalOverlay.open} />
       </div>
       <div className="flex items-center gap-[10px]">
         <Calendar width={16} height={16} />

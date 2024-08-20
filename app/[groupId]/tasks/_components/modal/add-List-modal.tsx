@@ -2,6 +2,8 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { postTaskList } from "@/lib/apis/task-list";
+import { addTodoListModalSchema } from "@/schemas/task";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -12,9 +14,15 @@ interface AddListModalProps {
 }
 
 const AddListModal = ({ groupId, close }: AddListModalProps) => {
-  const { register, handleSubmit, reset } = useForm({
-    mode: "onBlur",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
     defaultValues: { name: "" },
+    resolver: yupResolver(addTodoListModalSchema),
   });
   const queryClient = useQueryClient();
   const { data, mutate, isPending, error } = useMutation({
@@ -41,7 +49,7 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
     <Modal
       close={close}
       closeOnFocusOut
-      className="flex w-[384px] w-full flex-col items-center justify-center sm:h-[422px] md:h-[304px]"
+      className="flex w-[384px] w-full flex-col items-center justify-center overflow-auto sm:h-[422px] md:h-[304px]"
     >
       <div className="flex h-[224px] w-[280px] flex-col">
         {isPending && <div className="self-center">로딩중...</div>}
@@ -65,6 +73,7 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
                 className="h-[48px]"
                 isModal={true}
               />
+              {errors.name && <p>{errors.name.message}</p>}
             </header>
 
             <Button

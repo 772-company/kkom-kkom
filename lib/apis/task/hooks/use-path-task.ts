@@ -25,7 +25,8 @@ const usePatchTask = (
       ]);
     },
   });
-  return { mutate, isPending };
+
+  return { mutate, tooglePending: isPending, isPending };
 };
 
 export default usePatchTask;

@@ -11,9 +11,10 @@ export const postTask = async (
   data: {
     name: string;
     description: string;
-    startDate: string;
+    startDate: Date;
     frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
-    monthDay: number;
+    monthDay?: number;
+    weekDays?: number[];
   },
 ) => {
   try {

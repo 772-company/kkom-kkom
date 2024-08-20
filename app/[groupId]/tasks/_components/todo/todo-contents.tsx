@@ -1,9 +1,12 @@
+import ButtonFloating from "@/components/button-floating/button-floating";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import useGetTasks from "@/lib/apis/task/hooks/use-get-tasks";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import React from "react";
 
 import useSelectButton from "../../_hooks/use-select-button";
 import useSideBar from "../../_hooks/use-side-bar";
+import AddTodoModal from "../modal/add-todo-modal";
 import NoList from "../no-items/no-list";
 import NoTodo from "../no-items/no-todo";
 import SideBar from "../side-bar";
@@ -19,8 +22,19 @@ interface TodoContentsProps {
 const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
   const { handleClickName, selectedButton } = useSelectButton(taskLists);
   const { tasks, isPending } = useGetTasks(groupId, selectedButton, date);
-
   const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
+  const addTodoOverlay = useCustomOverlay(({ close }) => (
+    <AddTodoModal
+      groupId={groupId}
+      taskListId={selectedButton}
+      close={close}
+      date={date}
+    />
+  ));
+
+  const hanleClickAddTodoButton = () => {
+    addTodoOverlay.open();
+  };
 
   if (taskLists.length === 0) {
     return <NoList />;
@@ -45,6 +59,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           tasks &&
           tasks.map((e) => (
             <TodoBox
+              recurringId={e.recurringId}
               groupId={groupId}
               taskListId={selectedButton}
               id={e.id}
@@ -57,14 +72,24 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
               date={date}
             />
           ))}
+
         <SideBar
-          gropId={groupId}
+          groupId={groupId}
           date={date}
           taskListId={selectedButton}
           todoId={todoId}
           isOpen={isSideBarOpen}
           handleCancelButton={handleCancel}
         />
+      </div>
+      <div className="fixed bottom-8 right-[30px] h-[48px] w-[125px]">
+        <ButtonFloating
+          btnStyle="solid"
+          btnSize="large"
+          onClick={hanleClickAddTodoButton}
+        >
+          할 일 추가
+        </ButtonFloating>
       </div>
     </>
   );

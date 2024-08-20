@@ -2,6 +2,7 @@ import ButtonFloating from "@/components/button-floating/button-floating";
 import ProfileIcon from "@/components/profile-Icon/profile-icon";
 import useClickOutside from "@/hooks/use-click-outside";
 import useGetTask from "@/lib/apis/task/hooks/use-get-task";
+import usePatchTask from "@/lib/apis/task/hooks/use-path-task";
 import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
@@ -15,7 +16,7 @@ import CommentInput from "./comment-input";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {
-  gropId: string;
+  groupId: string;
   taskListId: number | undefined;
   todoId: number | undefined;
   handleCancelButton: () => void;
@@ -29,14 +30,26 @@ const SideBar = ({
   todoId,
   handleCancelButton,
   isOpen,
-  gropId,
+  groupId,
 }: SideBarProps) => {
   const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
   const { isPending, taskDetail, comment } = useGetTask(
-    gropId,
+    groupId,
     taskListId,
     todoId,
   );
+  const { mutate, isPending: toogleIsPending } = usePatchTask(
+    date,
+    groupId,
+    taskListId,
+    todoId ?? -1,
+    taskDetail?.doneAt ?? null,
+  );
+  const habdleClickToggleButton = () => {
+    if (todoId !== -1) {
+      mutate();
+    }
+  };
   const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
   const convertedDate = convertDateToYMD(new Date(taskDetail?.date ?? ""));
   const { ampm, hoursString, minutesString } = convertDateToTime(
@@ -45,7 +58,7 @@ const SideBar = ({
 
   return (
     <div
-      className={`fixed right-0 top-[60px] flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
+      className={`fixed right-0 top-[60px] z-10 flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
     >
       <div
         ref={ref}
@@ -125,13 +138,29 @@ const SideBar = ({
               </div>
             </div>
             <div className="fixed right-3 top-[85%] w-[111px]">
-              <ButtonFloating
-                btnSize="medium"
-                btnStyle="solid"
-                className="text-sm"
-              >
-                완료하기
-              </ButtonFloating>
+              {taskDetail?.doneAt ? (
+                <ButtonFloating
+                  disabled={toogleIsPending}
+                  btnSize="medium"
+                  btnStyle="outlined"
+                  className="text-sm"
+                  name="canel"
+                  onClick={habdleClickToggleButton}
+                >
+                  완료 취소하기
+                </ButtonFloating>
+              ) : (
+                <ButtonFloating
+                  disabled={toogleIsPending}
+                  onClick={habdleClickToggleButton}
+                  btnSize="medium"
+                  btnStyle="solid"
+                  className="text-sm"
+                  name="complete"
+                >
+                  완료하기
+                </ButtonFloating>
+              )}
             </div>
           </>
         )}

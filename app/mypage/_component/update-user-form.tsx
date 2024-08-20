@@ -39,9 +39,8 @@ export default function UpdateUserForm() {
 
   const mutation = useMutation({
     mutationFn: (data: UpdateUserInputValue) => updateAccount(data),
-    // TODO - 멘트가.. 수정 필요
     onMutate: () => {
-      showToast("loading", "고객님의 정보를 수정 중입니다.", {
+      showToast("loading", "계정 정보를 수정 중입니다.", {
         toastId: "updateUserInfo",
       });
     },

@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAuthError } from "../../_hooks/use-auth-error";
@@ -26,6 +27,7 @@ export default function LoginForm() {
     <ModalSendEmail close={close} />
   ));
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,6 +54,7 @@ export default function LoginForm() {
       // NOTE - 로그인 후 랜딩으로 리다이렉트를 위해 push 헤더 업데이트를 위해 refresh
       router.push("/");
       router.refresh();
+      setIsLoading(true);
     },
     onError: handleError,
   });
@@ -90,7 +93,7 @@ export default function LoginForm() {
         btnSize="large"
         btnStyle="solid"
         className="mt-10 w-full"
-        disabled={!isValid || mutation.isPending}
+        disabled={!isValid || isLoading}
       >
         로그인
       </Button>

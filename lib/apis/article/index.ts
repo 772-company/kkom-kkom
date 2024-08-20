@@ -202,6 +202,6 @@ export async function postView({ articleId }: PostViewRequest) {
     const data: ViewResponse = await response.json();
     return data.view;
   } catch (e) {
-    throw e;
+    console.error(e);
   }
 }

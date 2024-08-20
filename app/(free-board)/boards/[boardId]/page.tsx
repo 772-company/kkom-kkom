@@ -80,17 +80,19 @@ export default async function Page({ params: { boardId } }: Props) {
             className="border-l border-border-primary border-opacity-10 pl-4"
           />
         </section>
-        <p className="flex items-center gap-2 px-2 text-xs leading-[14px] text-text-inverse md:text-sm">
-          <Image
-            src={"/icons/eye-on.svg"}
-            width={20}
-            height={20}
-            className="h-[14px] w-[14px] md:h-5 md:w-5"
-            alt="view"
-            sizes="(max-width: 744px) 16px, 20px"
-          />
-          {view > 999 ? view / 1000 + "k" : view}
-        </p>
+        {view && (
+          <p className="flex items-center gap-2 px-2 text-xs leading-[14px] text-text-inverse md:text-sm">
+            <Image
+              src={"/icons/eye-on.svg"}
+              width={20}
+              height={20}
+              className="h-[14px] w-[14px] md:h-5 md:w-5"
+              alt="view"
+              sizes="(max-width: 744px) 16px, 20px"
+            />
+            {view > 999 ? view / 1000 + "k" : view}
+          </p>
+        )}
       </section>
       <section>{article.content}</section>
       <section className="mb-20 mt-6">

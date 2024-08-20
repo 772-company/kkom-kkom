@@ -34,7 +34,6 @@ const SideBar = ({
   isOpen,
   groupId,
 }: SideBarProps) => {
-  const ref = useClickOutside<HTMLDivElement>(handleCancelButton);
   const { isPending, taskDetail, comment } = useGetTask(
     groupId,
     taskListId,
@@ -60,12 +59,10 @@ const SideBar = ({
 
   return (
     <div
-      className={`fixed right-0 top-[60px] z-10 flex h-full w-full flex-row-reverse bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
+      className={`fixed right-0 top-[60px] z-10 flex h-full w-full bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
     >
-      <div
-        ref={ref}
-        className="xl: w-[779px] overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px]"
-      >
+      <div className="flex-grow" onClick={handleCancelButton}></div>
+      <div className="xl: w-[779px] overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px]">
         <PageButton
           className="mb-6"
           types="cancel"

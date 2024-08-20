@@ -62,7 +62,6 @@ const AddTodoModal = ({
   });
   const formData = watch("frequencyType");
   const inputRef = useRef<HTMLInputElement>(null);
-
   const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
     if (taskListId !== -1) {
       if (data.frequencyType === "MONTHLY") {

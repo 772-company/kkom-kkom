@@ -4,9 +4,9 @@ import { Membership } from "@/lib/apis/type";
 import Check from "@/public/icons/dropdown-check.svg";
 import Plus from "@/public/icons/plus.svg";
 import hamster from "@/public/images/hamster.jpg";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { LinkButton } from "../button/button";

@@ -1,6 +1,6 @@
 import Modal from "@/components/modal/modal";
 import { deleteCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 interface ModalLogoutProps {
   close: () => void;

@@ -7,8 +7,8 @@ import { showToast } from "@/lib/show-toast";
 import loadingJson from "@/public/lotties/loading-earthworm.json";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next-nprogress-bar";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
 

@@ -14,7 +14,9 @@ import { MouseEventHandler } from "react";
  */
 export function useProgress() {
   const router = useRouter();
-  const handleProgress: (href: string) => MouseEventHandler = (href) => (e) => {
+  const handleProgress: (
+    href: string,
+  ) => MouseEventHandler<HTMLButtonElement> = (href) => (e) => {
     e.preventDefault();
     router.push(href);
   };

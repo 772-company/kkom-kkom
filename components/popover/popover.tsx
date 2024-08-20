@@ -27,7 +27,7 @@ PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 interface PopoverContentItem {
   text: string | string[];
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 interface PopoverProps {
   triggerImage?: string | StaticImageData;
@@ -119,7 +119,7 @@ const Popover = ({
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                item.onClick && item.onClick();
+                item.onClick && item.onClick(e);
                 handleClose();
               }}
             >

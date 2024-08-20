@@ -34,7 +34,7 @@ export default function CommentsList({ articleId }: CommentListProps) {
       ) : (
         <>
           <section className="flex flex-col gap-4">
-            {data.pages ? (
+            {data.pages[0].list.length > 0 ? (
               data.pages.map((commentPage) =>
                 commentPage.list.map((comment) => (
                   <CommentCard
@@ -45,9 +45,9 @@ export default function CommentsList({ articleId }: CommentListProps) {
                 )),
               )
             ) : (
-              <section className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
+              <p className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
                 아직 작성된 댓글이 없습니다.
-              </section>
+              </p>
             )}
           </section>
           {hasNextPage && !isFetching && (

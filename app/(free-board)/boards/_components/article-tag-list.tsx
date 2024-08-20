@@ -5,15 +5,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 
 interface ArticleTagListProps {
-  searchParams: {
-    orderBy?: "recent" | "like";
-    page?: string;
-    keyword?: string;
-  };
+  keyword: string;
 }
 
-export default function ArticleTagList({ searchParams }: ArticleTagListProps) {
-  const keyword = searchParams.keyword || "";
+export default function ArticleTagList({ keyword }: ArticleTagListProps) {
   const [emblaRef] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",

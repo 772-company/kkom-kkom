@@ -5,14 +5,14 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { SubmitHandler } from "react-hook-form";
 
 import { useUploadArticleMutation } from "../_query/mutation";
-import ArticleModal, { FormType } from "./handle-article-modal";
+import ArticleModal, { ArticleType } from "./handle-article-modal";
 
 export default function UploadArticleButton() {
   const uploadPostMutation = useUploadArticleMutation();
-  const handlePost: SubmitHandler<FormType> = (formData) => {
+  const handlePost: SubmitHandler<ArticleType> = (formData) => {
     uploadPostMutation.mutate({
       content: formData.content,
-      image: formData.image as string,
+      image: formData.image,
       title: formData.title,
     });
   };

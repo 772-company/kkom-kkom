@@ -48,7 +48,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               className="mr-4"
             />
             <Card.DateDescription
-              date={article.createdAt}
+              date={article.updatedAt}
               className="border-l border-l-background-tertiary pl-4"
             />
           </div>

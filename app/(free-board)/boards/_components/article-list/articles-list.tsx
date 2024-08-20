@@ -15,9 +15,7 @@ interface ArticlesListProps {
 export default async function ArticlesList({
   searchParams,
 }: ArticlesListProps) {
-  const orderBy = searchParams.orderBy || "recent";
-  const page = searchParams.page || "1";
-  const keyword = searchParams.keyword || "";
+  const { orderBy, page, keyword } = searchParams;
 
   const { list: articles, totalCount } = await getArticles({
     orderBy,

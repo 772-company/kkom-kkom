@@ -21,7 +21,7 @@ interface CardProps {
 export default function Card({ children, className }: CardProps) {
   return (
     <section
-      className={`rounded-xl border border-background-tertiary bg-background-secondary hover:bg-background-tertiary ${className}`}
+      className={`rounded-xl border border-background-tertiary bg-background-secondary ${className}`}
     >
       {children}
     </section>
@@ -127,13 +127,13 @@ interface LikeCountSectionProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   likeCount: number;
   isClicked: boolean;
-  size?: string;
+  size?: number;
 }
 
 export function LikeCountSection({
   likeCount,
   isClicked,
-  size = "16",
+  size = 16,
   ...props
 }: LikeCountSectionProps) {
   return (

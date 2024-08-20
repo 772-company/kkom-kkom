@@ -14,7 +14,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Card
       key={article.id}
-      className="group/card flex p-4 py-6 duration-300 hover:scale-[1.02] md:px-8"
+      className="group/card flex p-4 py-6 duration-300 hover:bg-background-tertiary md:px-8"
     >
       {article.image && (
         <Link

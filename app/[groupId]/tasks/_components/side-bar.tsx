@@ -12,9 +12,8 @@ import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import { covertFrequency } from "@/utils/convert-frequency";
 import React from "react";
 
-import Comment from "./comment";
-import CommentInput from "./comment-input";
-import FrequencyDropdown from "./modal/add-todo-modal/frequency-dropdown";
+import Comment from "./comment/comment";
+import CommentInput from "./comment/comment-input";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {

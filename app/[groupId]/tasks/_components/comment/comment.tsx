@@ -1,15 +1,16 @@
 import Button from "@/components/button/button";
-import Popover from "@/components/popover/popover";
 import ProfileIcon from "@/components/profile-Icon/profile-icon";
 import useDeleteComment from "@/lib/apis/comment/hooks/use-delete-comment";
 import usePatchComment from "@/lib/apis/comment/hooks/use-patch-comment";
 import { GetCommentResponse } from "@/lib/apis/comment/type";
 import { getUser } from "@/lib/apis/user";
-import Kebab from "@/public/icons/kebab-small.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+
+import useEditComment from "../../_hooks/use-edit-comment";
+import CommentKebabPopOver from "./kebab-pop-over";
 
 interface CommentProps {
   taskListId: number | undefined;
@@ -18,18 +19,13 @@ interface CommentProps {
 }
 
 const Comment = ({ date, taskListId, commentData }: CommentProps) => {
-  const { data } = useQuery({ queryKey: ["getUser"], queryFn: getUser });
-  const [isEidtMode, setIsEditMode] = useState<boolean>(false);
-  const handleCancelEditMode = () => {
-    setIsEditMode(false);
-  };
-  const handleClcikEditMode = () => {
-    setIsEditMode(true);
-  };
+  const { isEidtMode, userData, handleCancelEditMode, handleClickEditMode } =
+    useEditComment();
 
-  const hanleClickDeleteComment = () => {
+  const handleClickDeleteComment = () => {
     deleteCommentMutate();
   };
+
   const { mutate: deleteCommentMutate, isPending: isDeletePending } =
     useDeleteComment(
       taskListId ?? -1,
@@ -38,11 +34,13 @@ const Comment = ({ date, taskListId, commentData }: CommentProps) => {
       date,
       handleCancelEditMode,
     );
-  const { mutate, isPending } = usePatchComment(
+
+  const { mutate: patchCommentMutate, isPending } = usePatchComment(
     commentData.taskId,
     commentData.id,
     handleCancelEditMode,
   );
+
   const { register, handleSubmit } = useForm({
     mode: "onSubmit",
     defaultValues: {
@@ -55,18 +53,10 @@ const Comment = ({ date, taskListId, commentData }: CommentProps) => {
     event?: React.BaseSyntheticEvent,
   ) => {
     if (taskListId !== -1) {
-      mutate(data);
+      patchCommentMutate(data);
     }
   };
-  const array = [
-    data?.id === commentData.userId ? { text: "취소" } : undefined,
-    data?.id === commentData.userId
-      ? { text: "수정하기", onClick: handleClcikEditMode }
-      : undefined,
-    data?.id === commentData.userId
-      ? { text: "삭제하기", onClick: hanleClickDeleteComment }
-      : undefined,
-  ].filter((item) => item !== undefined);
+
   return (
     <div className="flex min-h-[98px] w-full flex-col gap-4 border-b border-border-primary">
       <div className="mb-3">
@@ -108,14 +98,11 @@ const Comment = ({ date, taskListId, commentData }: CommentProps) => {
             </p>
           )}
           {!isEidtMode && (
-            <Popover
-              content={array}
-              triggerWidth={16}
-              triggerHeight={16}
-              triggerSvg={Kebab}
-              triggerImageAlt="케밥"
-              className="h-4 w-4"
-              contentClassName="bg-background-secondary"
+            <CommentKebabPopOver
+              userId={userData?.id}
+              commentUserId={commentData.id}
+              handleClickDeleteComment={handleClickDeleteComment}
+              handleClickEditMode={handleClickEditMode}
             />
           )}
         </div>

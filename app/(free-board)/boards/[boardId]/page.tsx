@@ -76,8 +76,16 @@ export default async function Page({ params: { boardId } }: Props) {
         />
       </section>
       <section>{article.content}</section>
-      <section className="relative mx-auto mb-20 mt-6 aspect-square w-[50%]">
-        <Image src={article.image} alt="thumbnail" priority fill sizes="50%" />
+      <section className="mb-20 mt-6">
+        <Image
+          priority
+          src={article.image}
+          alt="thumbnail"
+          sizes="(max-width: 744px) 80vw, 33vw"
+          className="h-auto w-[80vw] md:w-[33vw]"
+          width={744}
+          height={744}
+        />
       </section>
       <section className="flex justify-center">
         <LikeSection articleId={articleId} />

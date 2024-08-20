@@ -24,6 +24,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           <Image
             fill
             src={article.image}
+            priority
             alt="thumbnail"
             sizes="(min-width: 744px) 128px, 96px"
             className="duration-150"

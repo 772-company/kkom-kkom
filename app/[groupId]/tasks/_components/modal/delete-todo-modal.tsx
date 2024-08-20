@@ -10,17 +10,13 @@ interface DeleteTodoModalProps {
   groupId: string;
   taskListId: number | undefined;
   taskId: number;
-  recurringId: number;
-  date: Date;
   title: string;
   close: () => void;
 }
 const DeleteTodoModal = ({
-  date,
   groupId,
   taskListId,
   taskId,
-  recurringId,
   title,
   close,
 }: DeleteTodoModalProps) => {

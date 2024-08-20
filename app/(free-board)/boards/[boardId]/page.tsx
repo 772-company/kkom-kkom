@@ -1,4 +1,4 @@
-import { getArticlesArticleId } from "@/lib/apis/article";
+import { getArticlesArticleId, postView } from "@/lib/apis/article";
 import { instance } from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
 import { getUser } from "@/lib/apis/user";
@@ -46,17 +46,21 @@ export async function generateMetadata({
 export default async function Page({ params: { boardId } }: Props) {
   const articleId = Number(boardId);
   const queryClient = new QueryClient();
-  const article = await getArticlesArticleId({ articleId: Number(boardId) });
-  await Promise.all([
+
+  const [article, view] = await Promise.all([
+    getArticlesArticleId({ articleId: Number(boardId) }),
+    postView({ articleId: Number(boardId) }),
     queryClient.prefetchQuery({
       queryKey: ["getUser"],
       queryFn: getUser,
     }),
-    queryClient.prefetchQuery({
-      queryKey: ["article", { articleId }],
-      queryFn: () => getArticlesArticleId({ articleId }),
-    }),
   ]);
+
+  await queryClient.prefetchQuery({
+    queryKey: ["article", { articleId }],
+    queryFn: () => article,
+  });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
@@ -68,12 +72,25 @@ export default async function Page({ params: { boardId } }: Props) {
           title={article.title}
         />
       </header>
-      <section className="mb-6 mt-4 flex items-center pb-6">
-        <Profile name={article.writer.nickname} className="mr-4" />
-        <DateDescription
-          date={article.createdAt}
-          className="border-l border-border-primary border-opacity-10 pl-4"
-        />
+      <section className="mb-6 mt-4 flex items-center justify-between pb-6">
+        <section className="flex items-center">
+          <Profile name={article.writer.nickname} className="mr-4" />
+          <DateDescription
+            date={article.createdAt}
+            className="border-l border-border-primary border-opacity-10 pl-4"
+          />
+        </section>
+        <p className="flex items-center gap-2 px-2 text-xs leading-[14px] text-text-inverse md:text-sm">
+          <Image
+            src={"/icons/eye-on.svg"}
+            width={20}
+            height={20}
+            className="h-[14px] w-[14px] md:h-5 md:w-5"
+            alt="view"
+            sizes="(max-width: 744px) 16px, 20px"
+          />
+          {view > 999 ? view / 1000 + "k" : view}
+        </p>
       </section>
       <section>{article.content}</section>
       <section className="mb-20 mt-6">

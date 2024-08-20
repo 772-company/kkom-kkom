@@ -8,6 +8,7 @@ import {
   PatchArticlesArticleIdResponse,
   PostArticlesArticleIdLikeResponse,
   PostArticlesResponse,
+  ViewResponse,
 } from "../type";
 
 interface PostArticlesRequest {
@@ -175,6 +176,31 @@ export async function deleteArticlesArticleIdLike({
       },
     );
     return response;
+  } catch (e) {
+    throw e;
+  }
+}
+
+interface PostViewRequest {
+  articleId: number;
+}
+
+export async function postView({ articleId }: PostViewRequest) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_KKOM_KKOM_VIEW_URL}/view/${articleId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          articleId,
+        }),
+      },
+    );
+    const data: ViewResponse = await response.json();
+    return data.view;
   } catch (e) {
     throw e;
   }

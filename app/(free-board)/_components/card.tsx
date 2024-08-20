@@ -91,7 +91,7 @@ export function Profile({
 }) {
   return (
     <section
-      className={`flex h-[32px] w-[70px] items-center justify-center gap-[6px] text-xs text-text-primary md:w-[81px] md:gap-3 md:text-sm ${className}`}
+      className={`flex h-[32px] items-center justify-center gap-[6px] text-xs text-text-primary md:gap-3 md:text-sm ${className}`}
     >
       <ProfileIcon width={32} height={32} />
       <span className="leading-3 md:leading-[14px]">{name}</span>

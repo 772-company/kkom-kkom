@@ -481,3 +481,7 @@ export interface DeleteArticlesArticleIdLikeResponse {
   isLiked: boolean;
   content: string;
 }
+
+export interface ViewResponse {
+  view: number;
+}

@@ -5,6 +5,8 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
+import { addTeamSchema } from "@/schemas/team";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -16,7 +18,9 @@ interface AddTeamFormValue {
 
 const AddTeamForm = () => {
   const { register, handleSubmit, setValue, watch } = useForm<AddTeamFormValue>(
-    {},
+    {
+      resolver: yupResolver(addTeamSchema),
+    },
   );
   const watchedTeamName = watch("teamName") || "";
   const router = useRouter();

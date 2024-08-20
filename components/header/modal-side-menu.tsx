@@ -2,7 +2,6 @@
 
 import useClickOutside from "@/hooks/use-click-outside";
 import { Membership } from "@/lib/apis/type";
-import Plus from "@/public/icons/plus.svg";
 import CloseButton from "@/public/icons/x.svg";
 import hamster from "@/public/images/hamster.jpg";
 import { motion } from "framer-motion";
@@ -60,7 +59,6 @@ export default function ModalSideMenu({
             className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
             onClick={close}
           >
-            {/* <Plus width={18} height={18} /> */}
             🌈
             <Link href="/addteam">팀 추가하기</Link>
           </li>
@@ -68,7 +66,6 @@ export default function ModalSideMenu({
             className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
             onClick={close}
           >
-            {/* <Plus width={18} height={18} /> */}
             📋
             <Link href="/boards">자유게시판</Link>
           </li>

@@ -1,6 +1,7 @@
 "use client";
 
 import { GetArticlesResponse } from "@/lib/apis/type";
+import { shortenString } from "@/utils/shorten-string";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -42,7 +43,10 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         </section>
         <section className="flex items-center justify-between">
           <div className="flex items-center">
-            <Card.Profile name={article.writer.nickname} className="mr-4" />
+            <Card.Profile
+              name={shortenString(article.writer.nickname, 6)}
+              className="mr-4"
+            />
             <Card.DateDescription
               date={article.createdAt}
               className="border-l border-l-background-tertiary pl-4"

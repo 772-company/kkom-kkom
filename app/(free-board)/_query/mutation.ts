@@ -249,7 +249,7 @@ export function usePostCommentsMutation() {
                     ...input.pages[0].list,
                   ],
                 },
-                ...input.pages,
+                ...input.pages.slice(1),
               ],
               pageParams: input.pageParams,
             };

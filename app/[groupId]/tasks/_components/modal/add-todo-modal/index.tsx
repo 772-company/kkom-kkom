@@ -2,7 +2,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import usePostTask from "@/lib/apis/task/hooks/use-post-task";
-import React from "react";
+import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "./day-button";
@@ -61,6 +61,7 @@ const AddTodoModal = ({
     },
   });
   const formData = watch("frequencyType");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
     if (taskListId !== -1) {
@@ -102,17 +103,14 @@ const AddTodoModal = ({
             id="name"
             isModal={true}
             register={register}
-            // {...register("name", {
-            //   required: "제목을 입력해주세요",
-            // })}
           />
           {errors.name?.message}
         </div>
 
-        <div className="flex h-[300px] w-[336px] flex-col gap-4">
+        <div className="mt-2 flex h-[300px] w-full flex-col gap-4">
           <label>시작 날짜 및 시간</label>
-          <div className="flex h-[258px] w-[336px]">
-            <div className="flex h-[48px] w-full">
+          <div className="h-[258px]">
+            <div className="flex h-[48px]">
               <Controller
                 name="startDate"
                 control={control}
@@ -133,17 +131,25 @@ const AddTodoModal = ({
           />
         </div>
         {formData === "MONTHLY" && (
-          <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
+          <div className="mt-5 flex h-[150px] w-full flex-col gap-3">
             <label>반복 일</label>
             <input
+              onCompositionStart={(e: any) => {
+                e.target.blur();
+                requestAnimationFrame(() => {
+                  e.target.focus();
+                });
+              }}
               className="text h-[50px] w-[50px] bg-[#18212F] text-center text-sm font-medium text-text-default"
               type="number"
               min="1"
               max="31"
               maxLength={2}
               {...register("monthDay", {
+                required: "반복일을 입력해 주세요",
                 onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                  let value = parseInt(e.target.value, 10);
+                  let value = parseInt(e.target.value);
+
                   if (value < 1) {
                     e.target.value = "1";
                   } else if (value > 31) {
@@ -158,6 +164,7 @@ const AddTodoModal = ({
               }}
               placeholder="Day"
             />
+            <p>{errors.monthDay?.message}</p>
           </div>
         )}
         {formData === "WEEKLY" && (

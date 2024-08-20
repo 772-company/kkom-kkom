@@ -40,7 +40,7 @@ const TodoCalendarButton = ({ field }: CalendarButtonProps) => {
       calendarClassName="mt-1"
       dateFormat="yyyy년 MM월 dd일"
       customInput={
-        <CustomTodoCalendarButton className="mr-2 h-[48px] w-[204px] bg-background-secondary text-text-default" />
+        <CustomTodoCalendarButton className="h-[48px] w-[336px] bg-background-secondary text-text-default" />
       }
     />
   );

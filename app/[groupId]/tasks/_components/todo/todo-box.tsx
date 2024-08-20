@@ -5,6 +5,7 @@ import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
+import { covertFrequency } from "@/utils/convert-frequency";
 import React from "react";
 
 import CheckBox from "../check-box";
@@ -12,7 +13,7 @@ import DeleteTodoModal from "../modal/delete-todo-modal";
 import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
-  recurringId: number;
+  frequency: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   groupId: string;
   taskListId: number | undefined;
   date: Date;
@@ -25,10 +26,11 @@ interface TodoBoxProps {
 }
 
 const TodoBox = ({
+  frequency,
   groupId,
   taskListId,
   id,
-  recurringId,
+
   date,
   commentCount,
   title,
@@ -41,8 +43,6 @@ const TodoBox = ({
       groupId={groupId}
       taskListId={taskListId}
       taskId={id}
-      recurringId={recurringId}
-      date={date}
       title={title}
       close={close}
     />
@@ -92,7 +92,9 @@ const TodoBox = ({
           {ampm} {hoursString}:{minutesString}
         </p>
         <Repeat width={16} height={16} />
-        <p className="text-xs text-text-default">매일 반복</p>
+        <p className="text-xs text-text-default">
+          {covertFrequency(frequency)}
+        </p>
       </div>
     </div>
   );

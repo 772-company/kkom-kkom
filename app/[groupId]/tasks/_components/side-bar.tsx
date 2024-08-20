@@ -9,10 +9,12 @@ import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
+import { covertFrequency } from "@/utils/convert-frequency";
 import React from "react";
 
 import Comment from "./comment";
 import CommentInput from "./comment-input";
+import FrequencyDropdown from "./modal/add-todo-modal/frequency-dropdown";
 import PageButton from "./tasks-button";
 
 interface SideBarProps {
@@ -115,7 +117,7 @@ const SideBar = ({
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Repeat width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
-                  매일 반복{" "}
+                  {covertFrequency(taskDetail?.frequency ?? null)}
                 </p>
               </div>
 

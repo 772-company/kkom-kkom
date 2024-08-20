@@ -1,5 +1,6 @@
 import { Dropdown } from "@/components/dropdown/dropdown";
 import ToggleClose from "@/public/icons/toggle.svg";
+import { covertFrequency } from "@/utils/convert-frequency";
 import React, { useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -24,28 +25,10 @@ const DROP_DOWN_OPTIONS: DropDownOptionsType[] = [
 const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
   const [dropDown, setDropDown] = useState<string | null>(null);
 
-  const dropDownFrequencyConvert = (value: string | null) => {
-    switch (value) {
-      case "ONCE":
-        return "한 번";
-
-      case "DAILY":
-        return "매일";
-
-      case "WEEKLY":
-        return "주 반복";
-
-      case "MONTHLY":
-        return "월 반복";
-
-      default:
-        return "반복 안함";
-    }
-  };
   return (
     <div className="h-[40px] w-[109px]">
       <Dropdown
-        selected={dropDownFrequencyConvert(dropDown)}
+        selected={covertFrequency(dropDown)}
         setSelected={(value) => {
           setDropDown(value);
           field.onChange(value);

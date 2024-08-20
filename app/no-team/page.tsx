@@ -19,6 +19,7 @@ export default function Page() {
             btnSize="large"
             btnStyle="outlined"
             href="/participate-team"
+            className="bg-inherit"
           >
             팀 참여하기
           </LinkButton>

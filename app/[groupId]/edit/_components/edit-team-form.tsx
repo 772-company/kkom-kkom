@@ -38,7 +38,6 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
       queryClient.invalidateQueries({ queryKey: ["getGroupInfo", groupId] });
       showToast("success", "팀 정보를 수정하였습니다.");
       router.push(`/${response.id}`);
-      router.refresh();
     },
     onError: () => {
       showToast("error", "팀 정보 수정에 실패하였습니다.");
@@ -74,10 +73,6 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
   const watchedTeamName = watch("teamName", data.name) || "";
 
   const onSubmit: SubmitHandler<EditTeamFormValue> = async (formData) => {
-    if (formData.teamName === data.name) {
-      delete formData.teamName;
-    }
-
     if (formData.teamProfile instanceof File) {
       try {
         const imageToStringResponse = await uploadImage(formData.teamProfile);

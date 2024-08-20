@@ -1,4 +1,5 @@
 import { getArticlesArticleId } from "@/lib/apis/article";
+import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { instance } from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
 import { getUser } from "@/lib/apis/user";
@@ -46,17 +47,26 @@ export async function generateMetadata({
 export default async function Page({ params: { boardId } }: Props) {
   const articleId = Number(boardId);
   const queryClient = new QueryClient();
-  const article = await getArticlesArticleId({ articleId: Number(boardId) });
-  await Promise.all([
+
+  const [article] = await Promise.all([
+    getArticlesArticleId({ articleId }),
+    queryClient.prefetchInfiniteQuery({
+      queryKey: ["comments", { articleId }],
+      queryFn: ({ pageParam }) =>
+        getArticlesArticleIdComments({ cursor: pageParam, articleId }),
+      initialPageParam: 0,
+    }),
     queryClient.prefetchQuery({
       queryKey: ["getUser"],
       queryFn: getUser,
     }),
-    queryClient.prefetchQuery({
-      queryKey: ["article", { articleId }],
-      queryFn: () => getArticlesArticleId({ articleId }),
-    }),
   ]);
+
+  await queryClient.prefetchQuery({
+    queryKey: ["article", { articleId }],
+    queryFn: () => article,
+  });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
@@ -71,7 +81,7 @@ export default async function Page({ params: { boardId } }: Props) {
       <section className="mb-6 mt-4 flex items-center pb-6">
         <Profile name={article.writer.nickname} className="mr-4" />
         <DateDescription
-          date={article.createdAt}
+          date={article.updatedAt}
           className="border-l border-border-primary border-opacity-10 pl-4"
         />
       </section>

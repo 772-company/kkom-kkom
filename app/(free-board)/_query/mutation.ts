@@ -25,32 +25,36 @@ import {
 import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
-import { article } from "../boards/mock";
-
 export function useUploadArticleMutation() {
   const router = useRouter();
   return useMutation({
-    mutationFn: (data: { image: string; title: string; content: string }) =>
-      postArticles({
+    mutationFn: async (data: {
+      image: string;
+      title: string;
+      content: string;
+    }) => {
+      const articleData = await postArticles({
         image: data.image,
         title: data.title,
         content: data.content,
-      }),
+      });
+      return articleData;
+    },
     onMutate: () => {
       showToast("loading", "게시글을 등록 중입니다.", {
         toastId: "uploadArticle",
       });
       close();
     },
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       toast.update("uploadArticle", {
-        render: "게시글이 성공적으로 등록되었습니다",
+        render: "게시글이 성공적으로 등록되었습니다. 해당 게시글로 이동합니다.",
         type: "success",
         isLoading: false,
         hideProgressBar: false,
         autoClose: 1000,
       });
-      router.refresh();
+      router.push(`/boards/${id}`);
     },
     onError: (error) => {
       console.error(error);
@@ -98,7 +102,7 @@ export function useDeleteArticleMutation() {
 export function usePatchArticleMutation() {
   const router = useRouter();
   return useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       articleId,
       image,
       title,
@@ -108,19 +112,21 @@ export function usePatchArticleMutation() {
       image: string;
       title: string;
       content: string;
-    }) =>
-      patchArticlesArticleId({
+    }) => {
+      const articleData = await patchArticlesArticleId({
         articleId,
         image,
         title,
         content,
-      }),
+      });
+      return articleData;
+    },
     onMutate: () => {
       showToast("loading", "게시글을 수정 중입니다.", {
         toastId: "patchArticle",
       });
     },
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       toast.update("patchArticle", {
         render: "게시글이 성공적으로 수정되었습니다",
         type: "success",
@@ -128,7 +134,7 @@ export function usePatchArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
-      router.refresh();
+      router.push(`/boards/${id}`);
     },
     onError: (error) => {
       console.error(error);
@@ -170,6 +176,7 @@ interface PostCommentsMutation {
 
 export function usePostCommentsMutation() {
   const queryClient = useQueryClient();
+  const mockTime = new Date().toISOString();
   return useMutation({
     mutationFn: ({
       articleId,
@@ -224,8 +231,8 @@ export function usePostCommentsMutation() {
                           nickname,
                           id,
                         },
-                        updatedAt: new Date().toISOString(),
-                        createdAt: new Date().toISOString(),
+                        updatedAt: mockTime,
+                        createdAt: mockTime,
                         content,
                         id: -1,
                       },
@@ -246,8 +253,8 @@ export function usePostCommentsMutation() {
                         nickname,
                         id,
                       },
-                      updatedAt: new Date().toISOString(),
-                      createdAt: new Date().toISOString(),
+                      updatedAt: mockTime,
+                      createdAt: mockTime,
                       content,
                       id: -1,
                     },

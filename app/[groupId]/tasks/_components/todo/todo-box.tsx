@@ -5,7 +5,7 @@ import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
-import { frequencyConvert } from "@/utils/frequency-convert";
+import { covertFrequency } from "@/utils/convert-frequency";
 import React from "react";
 
 import CheckBox from "../check-box";
@@ -93,7 +93,7 @@ const TodoBox = ({
         </p>
         <Repeat width={16} height={16} />
         <p className="text-xs text-text-default">
-          {frequencyConvert(frequency)}
+          {covertFrequency(frequency)}
         </p>
       </div>
     </div>

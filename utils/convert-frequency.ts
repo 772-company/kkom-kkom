@@ -1,4 +1,4 @@
-export const frequencyConvert = (value: string | null) => {
+export const covertFrequency = (value: string | null) => {
   switch (value) {
     case "ONCE":
       return "한 번";

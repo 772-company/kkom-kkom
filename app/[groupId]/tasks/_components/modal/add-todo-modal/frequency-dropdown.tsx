@@ -1,6 +1,6 @@
 import { Dropdown } from "@/components/dropdown/dropdown";
 import ToggleClose from "@/public/icons/toggle.svg";
-import { frequencyConvert } from "@/utils/frequency-convert";
+import { covertFrequency } from "@/utils/convert-frequency";
 import React, { useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -28,7 +28,7 @@ const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
   return (
     <div className="h-[40px] w-[109px]">
       <Dropdown
-        selected={frequencyConvert(dropDown)}
+        selected={covertFrequency(dropDown)}
         setSelected={(value) => {
           setDropDown(value);
           field.onChange(value);

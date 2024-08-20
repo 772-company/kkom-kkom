@@ -2,8 +2,8 @@ import Button from "@/components/button/button";
 
 export default function SkeletonPagination() {
   return (
-    <nav className="w-full max-w-[1200px] animate-pulse">
-      <ul className="flex gap-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 animate-pulse border-t border-t-background-tertiary bg-background-secondary pb-2 pt-2">
+      <ul className="mx-auto flex w-full max-w-[1200px] gap-2">
         <li className="flex-1">
           <Button
             btnSize="large"

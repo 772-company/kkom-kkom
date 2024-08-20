@@ -1,38 +1,9 @@
 "use client";
 
-// QueryClient는 useContext기반이기 때문에 클라이언트 컴포넌트여야 한다.
-import {
-  QueryClient,
-  QueryClientProvider,
-  isServer,
-} from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-function makeQueryClient() {
-  return new QueryClient({
-    defaultOptions: {
-      queries: {
-        // 즉시 클라이언트단에서 refetch못하게 하려고 0 초과해서 설정한다.
-        staleTime: 60 * 1000,
-      },
-    },
-  });
-}
-
-let browserQueryClient: QueryClient | undefined = undefined;
-
-function getQueryClient() {
-  if (isServer) {
-    // 서버는 항상 새로운 queryClient를 만든다.
-    return makeQueryClient();
-  } else {
-    // 브라우저에서는 이미 존재하지 않는 한 queryClient를 만든다.
-    // 리액트가 초기 렌더링 중에 멈춰도 새로운 client를 다시 만들지 않는다.
-    // query client 생성이 suspense boundary 아래에 있다면 필요하지 않다.
-    if (!browserQueryClient) browserQueryClient = makeQueryClient();
-    return browserQueryClient;
-  }
-}
+import { getQueryClient } from "./get-query-client";
 
 export default function QueryProviders({
   children,

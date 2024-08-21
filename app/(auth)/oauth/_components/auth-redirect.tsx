@@ -4,10 +4,12 @@ import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
 import { getGoogleTokenResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
+import Spinner from "@/public/icons/tube-spinner.svg";
 import loadingJson from "@/public/lotties/loading-earthworm.json";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
@@ -85,12 +87,13 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
         {provider === "KAKAO" ? "카카오" : "구글"} 계정으로 로그인하고 있어요.
       </h1>
       <div className="flex justify-center">
-        <Lottie
+        {/* <Lottie
           loop
           animationData={loadingJson}
           play
           style={{ width: 350, height: 200 }}
-        />
+        /> */}
+        <Spinner width={120} height={120} className="mt-[30px]" />
       </div>
     </>
   );

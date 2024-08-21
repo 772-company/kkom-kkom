@@ -25,14 +25,12 @@ import {
 import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
+import { ArticleType } from "../_components/handle-article-modal";
+
 export function useUploadArticleMutation() {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (data: {
-      image: string;
-      title: string;
-      content: string;
-    }) => {
+    mutationFn: async (data: ArticleType) => {
       const articleData = await postArticles({
         image: data.image,
         title: data.title,
@@ -100,7 +98,7 @@ export function useDeleteArticleMutation() {
 }
 
 export function usePatchArticleMutation() {
-  const router = useRouter();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({
       articleId,
@@ -113,20 +111,20 @@ export function usePatchArticleMutation() {
       title: string;
       content: string;
     }) => {
-      const articleData = await patchArticlesArticleId({
+      const data = await patchArticlesArticleId({
         articleId,
         image,
         title,
         content,
       });
-      return articleData;
+      return data;
     },
     onMutate: () => {
       showToast("loading", "게시글을 수정 중입니다.", {
         toastId: "patchArticle",
       });
     },
-    onSuccess: ({ id }) => {
+    onSuccess: ({ id: articleId }) => {
       toast.update("patchArticle", {
         render: "게시글이 성공적으로 수정되었습니다",
         type: "success",
@@ -134,7 +132,9 @@ export function usePatchArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
-      router.push(`/boards/${id}`);
+      queryClient.invalidateQueries({
+        queryKey: ["article", { articleId }],
+      });
     },
     onError: (error) => {
       console.error(error);

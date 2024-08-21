@@ -1,5 +1,6 @@
 "use client";
 
+import { useProgress } from "@/hooks/use-progress";
 import { cn } from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
 
@@ -107,10 +108,12 @@ export function LinkButton({
   className,
   ...rest
 }: LinkButtonProps) {
+  const progress = useProgress();
   return (
     <Link
       className={cn(buttonVariants({ className, btnStyle, btnSize }))}
       href={href}
+      onClick={progress(href.toString())}
       {...rest}
     >
       {children}

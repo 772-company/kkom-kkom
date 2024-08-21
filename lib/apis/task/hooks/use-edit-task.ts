@@ -3,31 +3,28 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { patchTask } from "..";
 
-const usePatchTask = (
+const useEditTask = (
   date: Date,
   groupId: string,
   taskListId: number | undefined,
   taskId: number,
-  doneAt?: string | null,
-  isEditModal?: boolean,
-  close?: () => void,
+  close: () => void,
 ) => {
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationFn: (data?: { name: string; description: string }) =>
+    mutationFn: (data: { name: string; description: string }) =>
       patchTask(groupId, taskListId, taskId, {
-        done: !isEditModal && doneAt ? false : true,
-        name: data?.name,
-        description: data?.description,
+        name: data.name,
+        description: data.description,
       }),
     onSuccess: () => {
-      close && close();
+      close();
       Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
+          queryKey: ["getTask", taskId],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["getTask", taskId],
+          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
       ]);
     },
@@ -36,4 +33,4 @@ const usePatchTask = (
   return { mutate, tooglePending: isPending, isPending };
 };
 
-export default usePatchTask;
+export default useEditTask;

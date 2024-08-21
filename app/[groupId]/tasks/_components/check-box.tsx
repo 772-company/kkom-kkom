@@ -1,4 +1,4 @@
-import usePatchTask from "@/lib/apis/task/hooks/use-path-task";
+import useToggleDoneTask from "@/lib/apis/task/hooks/use-toggle-done-task";
 import CheckBoxActive from "@/public/icons/checkbox-active.svg";
 import CheckboxDefault from "@/public/icons/checkbox-default.svg";
 import { checkTodo } from "@/utils/checkTodo";
@@ -18,7 +18,7 @@ const CheckBox = ({
   taskListId,
   taskId,
 }: CheckBoxProps) => {
-  const { mutate, isPending } = usePatchTask(
+  const { mutate, isPending } = useToggleDoneTask(
     date,
     groupId,
     taskListId,

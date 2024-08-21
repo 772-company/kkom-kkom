@@ -1,8 +1,8 @@
 import ButtonFloating from "@/components/button-floating/button-floating";
 import ProfileIcon from "@/components/profile-Icon/profile-icon";
-import useClickOutside from "@/hooks/use-click-outside";
+import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import useGetTask from "@/lib/apis/task/hooks/use-get-task";
-import usePatchTask from "@/lib/apis/task/hooks/use-path-task";
+import useToggleDoneTask from "@/lib/apis/task/hooks/use-toggle-done-task";
 import Calendar from "@/public/icons/calendar.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
@@ -14,7 +14,10 @@ import React from "react";
 
 import Comment from "./comment/comment";
 import CommentInput from "./comment/comment-input";
+import DeleteTodoModal from "./modal/delete-todo-modal";
+import EditTodoModal from "./modal/edit-todo-modal";
 import PageButton from "./tasks-button";
+import KebabPopover from "./todo/kebab-popover";
 
 interface SideBarProps {
   groupId: string;
@@ -38,17 +41,38 @@ const SideBar = ({
     taskListId,
     todoId,
   );
-  const { mutate, isPending: toogleIsPending } = usePatchTask(
+  const { mutate, isPending: toogleIsPending } = useToggleDoneTask(
     date,
     groupId,
     taskListId,
     todoId ?? -1,
     taskDetail?.doneAt ?? null,
   );
+  const editTodoModalOverlay = useCustomOverlay(({ close }) => (
+    <EditTodoModal
+      groupId={groupId}
+      taskListId={taskListId}
+      taskId={taskDetail?.id ?? -1}
+      description={taskDetail?.description ?? ""}
+      title={taskDetail?.name ?? ""}
+      close={close}
+      date={date}
+    />
+  ));
+  const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
+    <DeleteTodoModal
+      groupId={groupId}
+      taskListId={taskListId}
+      taskId={taskDetail?.id ?? -1}
+      title={taskDetail?.name ?? ""}
+      close={close}
+      closeSideBar={handleCancelButton}
+    />
+  ));
 
   const habdleClickToggleButton = () => {
     if (todoId !== -1) {
-      mutate(undefined);
+      mutate();
     }
   };
   const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
@@ -78,7 +102,10 @@ const SideBar = ({
                 {taskDetail?.name}
               </h1>
               <button>
-                <Kebab width={24} height={24} />
+                <KebabPopover
+                  openDeleteModal={deleteTodoModalOverlay.open}
+                  openEditModal={editTodoModalOverlay.open}
+                />
               </button>
             </div>
 

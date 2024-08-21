@@ -1,14 +1,9 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
-import usePatchTask from "@/lib/apis/task/hooks/use-path-task";
-import usePostTask from "@/lib/apis/task/hooks/use-post-task";
+import useEditTask from "@/lib/apis/task/hooks/use-edit-task";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
-
-import DayButton from "../day-button";
-import FrequencyDropdown from "../frequency-dropdown";
-import TodoCalendarButton from "../todo-calendar-button";
+import { useForm } from "react-hook-form";
 
 interface EidtTodoModalProps {
   groupId: string;
@@ -34,13 +29,12 @@ const EditTodoModal = ({
   description,
   close,
 }: EidtTodoModalProps) => {
-  const { mutate, isPending } = usePatchTask(
+  const { mutate, isPending } = useEditTask(
     date,
     groupId,
     taskListId,
     taskId,
-    undefined,
-    true,
+
     close,
   );
   const {
@@ -58,7 +52,9 @@ const EditTodoModal = ({
   const formData = watch();
 
   const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
-    mutate(data);
+    if (taskId !== -1) {
+      mutate(data);
+    }
   };
 
   return (

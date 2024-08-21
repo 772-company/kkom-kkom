@@ -48,7 +48,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
   return (
     <div
       onClick={ModalMemberProfileOverlay.open}
-      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:min-w-[216px] xl:min-w-[382px]"
+      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] hover:bg-background-tertiary active:scale-[0.98] md:min-w-[216px] xl:min-w-[382px]"
     >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
@@ -115,13 +115,13 @@ const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
         {isAdmin && (
           <button
             onClick={ModalMemberAddOverlay.open}
-            className="text-[14px] font-[400] text-brand-primary"
+            className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
           >
             + 새로운 멤버 초대하기
           </button>
         )}
       </div>
-      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
+      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-hidden overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (
           members.map((member) => (
             <MemberCard

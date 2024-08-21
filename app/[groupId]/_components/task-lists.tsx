@@ -75,7 +75,9 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
     >
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
-        <p>{taskList.name}</p>
+        <p>
+          {taskList.displayIndex}. {taskList.name}
+        </p>
       </div>
       <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
@@ -126,6 +128,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
   // taskLists 초기화
   useEffect(() => {
     if (data) {
+      console.log("data: ", data);
       setTaskLists(data.taskLists);
     }
   }, [data]);
@@ -174,7 +177,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
         </div>
         {isAdmin && (
           <button
-            className="text-[14px] font-[400] text-brand-primary"
+            className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
             onClick={ModalTaskListAddOverlay.open}
           >
             + 새로운 목록 추가하기

@@ -12,7 +12,7 @@ import { showToast } from "@/lib/show-toast";
 import { updateUserSchema } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -27,7 +27,7 @@ export interface UpdateUserInputValue {
 
 export default function UpdateUserForm() {
   const queryClient = useQueryClient();
-
+  const [isLoading, setIsLoading] = useState(false);
   const modalResetPasswordOverlay = useCustomOverlay(({ close }) => (
     <ModalResetPassword close={close} />
   ));
@@ -39,21 +39,25 @@ export default function UpdateUserForm() {
 
   const mutation = useMutation({
     mutationFn: (data: UpdateUserInputValue) => updateAccount(data),
-    // TODO - 멘트가.. 수정 필요
     onMutate: () => {
-      showToast("loading", "고객님의 정보를 수정 중입니다.", {
+      showToast("loading", "계정 정보를 수정 중입니다.", {
         toastId: "updateUserInfo",
       });
+      setIsLoading(true);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getUser"] });
-      toast.update("updateUserInfo", {
-        render: "정보가 변경되었습니다.",
-        type: "success",
-        isLoading: false,
-        hideProgressBar: false,
-        autoClose: 1000,
-      });
+    onSuccess: async () => {
+      try {
+        await queryClient.invalidateQueries({ queryKey: ["getUser"] });
+        toast.update("updateUserInfo", {
+          render: "정보가 변경되었습니다.",
+          type: "success",
+          isLoading: false,
+          hideProgressBar: false,
+          autoClose: 1000,
+        });
+      } finally {
+        setIsLoading(false);
+      }
     },
     onError: async (error) => {
       if (error instanceof ResponseError) {
@@ -161,7 +165,8 @@ export default function UpdateUserForm() {
           !isDirty ||
           !isValid ||
           watchedNickname.trim() === "" ||
-          mutation.isPending
+          mutation.isPending ||
+          isLoading
         }
       >
         수정하기

@@ -39,7 +39,9 @@ const TodoHeader = ({
   return (
     <div className="mt-6 flex justify-between">
       <div className="flex items-center">
-        <h2 className="inline-block h-6 w-28">{convertedDate}</h2>
+        <h2 className="inline-block h-6 w-28 text-text-primary">
+          {convertedDate}
+        </h2>
         <div className="flex h-3 items-center gap-1">
           <TaskButton types="arrow" name="left" onClick={onClickButton} />
           <TaskButton types="arrow" name="right" onClick={onClickButton} />

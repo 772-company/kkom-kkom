@@ -61,6 +61,7 @@ const config: Config = {
         },
         border: {
           primary: "#F8FAFC",
+          // primary: "hsl(var(--border-primary) / <alpha-value>)",
         },
         text: {
           primary: "var(--text-primary)",

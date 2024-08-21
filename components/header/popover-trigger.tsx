@@ -27,6 +27,7 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
         content={[
           {
             text: LOGGED_IN_USER_CONTENT[0],
+            onClick: () => router.push("/myhistory"),
           },
           {
             text: LOGGED_IN_USER_CONTENT[1],

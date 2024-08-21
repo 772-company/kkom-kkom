@@ -57,7 +57,7 @@ export default function LoggedInHeaderContent() {
           자유게시판
         </Link>
       </div>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <ThemeToggle />
         <PopoverTrigger nickname={nickname} />
       </div>

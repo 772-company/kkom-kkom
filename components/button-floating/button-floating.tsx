@@ -5,7 +5,7 @@ const FUNDAMENTAL_STYLE =
   "px-[21px] py-[14px] flex cursor-pointer items-center justify-center font-semibold transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:scale-100 gap-1 rounded-[40px] shadow-xl";
 
 const SOLID =
-  "bg-brand-primary text-text-primary hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive";
+  "bg-brand-primary text-white hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive";
 
 const OUTLINED =
   "border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:text-interaction-pressed disabled:border-interaction-inactive disabled:text-interaction-inactive border border-solid bg-white";

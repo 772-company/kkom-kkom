@@ -9,11 +9,12 @@
     --background-tertiary: #cfefe3;
     --background-inverse: #ffffff;
     --text-primary: #0c1814;
-    --text-secondary: #cbd5e1;
-    --text-tertiary: #e2e8f0;
+    --text-secondary: #152721;
+    --text-tertiary: #1b2d27;
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
+    --border-primary: 168 25% 8%;
   }
 
   :root.dark {
@@ -27,5 +28,6 @@
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
+    --border-primary: 210 28% 98% 0.1;
   }
 }

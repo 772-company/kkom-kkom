@@ -83,7 +83,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
             content={[
               { text: "삭제하기", onClick: ModalMemberDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-white"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-text-primary"
           />
         </div>
       )}

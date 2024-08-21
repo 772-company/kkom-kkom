@@ -38,7 +38,7 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
 
   return (
     <div className="flex h-[64px] w-full items-center justify-end rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 px-[24px]">
-      <p className="w-full text-[20px] font-[700] leading-[64px] text-white">
+      <p className="w-full text-[20px] font-[700] leading-[64px] text-text-primary">
         {teamName}
       </p>
       <div className="absolute flex items-center justify-center gap-[30px]">
@@ -52,7 +52,7 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
               { text: "수정하기", onClick: ModalTeamNameEditOverlay.open },
               { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"
           />
         )}
       </div>

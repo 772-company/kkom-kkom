@@ -42,7 +42,7 @@ export default function LandingCard({ variant }: LandingCardProps) {
                 <Done width={24} height={24} />
               )}
             </div>
-            <h3 className="text-lg font-medium leading-[21px] text-white xl:text-2xl">
+            <h3 className="text-lg font-medium leading-[21px] text-text-primary xl:text-2xl">
               {headings[variant][0]}
               <br />
               {headings[variant][1]}

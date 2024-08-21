@@ -1,4 +1,5 @@
 import Modal from "@/components/modal/modal";
+import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { deleteTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
@@ -19,6 +20,7 @@ const ModalTaskListDelete = ({
   taskListId,
 }: ModalTaskListDeleteProps) => {
   const queryClient = useQueryClient();
+  const suffix = useLastConsonantLetterCheck(taskListName) ? "이" : "가";
 
   const deleteTaskListMutation = useMutation({
     mutationFn: (taskListId: number) => deleteTaskList({ groupId, taskListId }),
@@ -45,11 +47,8 @@ const ModalTaskListDelete = ({
       showToast("error", <p>{taskListName} 삭제에 실패하였습니다.</p>);
     },
     onSuccess: () => {
-      showToast("success", `${taskListName}이 삭제되었습니다.`);
+      showToast("success", `${taskListName}${suffix} 삭제되었습니다.`);
       close();
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
     },
   });
 

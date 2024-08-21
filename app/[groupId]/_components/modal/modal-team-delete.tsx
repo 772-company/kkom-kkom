@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/components/modal/modal";
+import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { deleteGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
@@ -20,10 +21,13 @@ const ModalTeamDelete = ({
 }: ModalTeamDeleteProps) => {
   const router = useRouter();
 
+  const suffix1 = useLastConsonantLetterCheck(teamName) ? "이" : "가";
+  const suffix2 = useLastConsonantLetterCheck(teamName) ? "을" : "를";
+
   const mutation = useMutation({
     mutationFn: () => deleteGroup({ groupId }),
     onSuccess: () => {
-      showToast("success", `${teamName}이 삭제 되었습니다.`);
+      showToast("success", `${teamName}${suffix1} 삭제 되었습니다.`);
       close();
       router.push("/");
       router.refresh();
@@ -42,7 +46,10 @@ const ModalTeamDelete = ({
       <div className="flex h-[173px] flex-col items-center justify-center gap-[24px]">
         <div className="flex flex-col items-center gap-[16px]">
           <AlertIcon width={24} height={24} />
-          <Modal.Title>{teamName}을 삭제하시겠어요?</Modal.Title>
+          <Modal.Title>
+            {teamName}
+            {suffix2} 삭제하시겠어요?
+          </Modal.Title>
         </div>
 
         <div className="w-[280px]">

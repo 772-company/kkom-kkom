@@ -1,5 +1,6 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { patchGroupInfo } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
@@ -20,7 +21,7 @@ const ModalTeamNameEdit = ({
 }: ModalTeamNameEditProps) => {
   const [teamName, setTeamName] = useState(currentTeamName);
   const router = useRouter();
-
+  const suffix = useLastConsonantLetterCheck(teamName) ? "으로" : "로";
   const mutation = useMutation({
     mutationFn: (newTeamName: string) =>
       patchGroupInfo({
@@ -28,7 +29,7 @@ const ModalTeamNameEdit = ({
         name: newTeamName,
       }),
     onSuccess: () => {
-      showToast("success", `${teamName}으로 수정되었습니다.`);
+      showToast("success", `${teamName}${suffix} 수정되었습니다.`);
       router.refresh();
       close();
     },

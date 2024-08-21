@@ -1,5 +1,6 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
+import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { postTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
@@ -14,7 +15,7 @@ interface ModalTaskListAddProps {
 
 const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
   const [taskListName, setTaskListName] = useState("");
-
+  const suffix = useLastConsonantLetterCheck(taskListName) ? "을" : "를";
   const queryClient = useQueryClient();
 
   const addTaskListMutation = useMutation({
@@ -55,7 +56,7 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
       );
     },
     onSuccess: () => {
-      showToast("success", `${taskListName}을 추가하였습니다.`);
+      showToast("success", `${taskListName}${suffix} 추가하였습니다.`);
       close();
     },
     onSettled: () => {

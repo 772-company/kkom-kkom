@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
+import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { patchTaskListName } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
@@ -36,6 +37,10 @@ const ModalTaskListNameEdit = ({
       taskListName: currentTaskListName,
     },
   });
+
+  const suffix = useLastConsonantLetterCheck(currentTaskListName)
+    ? "으로"
+    : "로";
 
   const editTaskListMutation = useMutation({
     mutationFn: (data: TaskListNameEditFormValue) =>
@@ -76,7 +81,9 @@ const ModalTaskListNameEdit = ({
     onSuccess: (data) => {
       showToast(
         "success",
-        data ? `${data.name}으로 수정되었습니다.` : "목록 명이 수정되었습니다.",
+        data
+          ? `${data.name}${suffix} 수정되었습니다.`
+          : showToast("success", "수정되었습니다."),
       );
       close();
     },

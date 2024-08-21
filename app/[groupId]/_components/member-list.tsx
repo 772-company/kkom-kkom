@@ -4,6 +4,7 @@ import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -54,7 +55,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
         {member.userImage ? (
           <Image
             src={member.userImage}
-            alt={"유저 프로필"}
+            alt={"유저 프로필 사진"}
             width={24}
             height={24}
             className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
@@ -62,10 +63,15 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />
         )}
+        <div className="flex items-center gap-[4px]">
+          {member.role === "ADMIN" && (
+            <Image src={Crown} alt="왕관" width={20} height={20} />
+          )}
+          <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">
+            {member.userName}
+          </p>
+        </div>
 
-        <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">
-          {member.userName}
-        </p>
         <p className="col-span-2 row-span-1 row-start-2 truncate text-[12px] font-[400] text-text-secondary md:col-span-1 md:col-start-2">
           {member.userEmail}
         </p>

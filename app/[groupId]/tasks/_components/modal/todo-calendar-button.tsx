@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes, DOMAttributes } from "react";
 import DatePicker from "react-datepicker";
 import { ControllerRenderProps } from "react-hook-form";
 
-import { TodoFormType } from ".";
+import { TodoFormType } from "./add-todo-modal";
 
 interface CalendarButtonProps {
   field: ControllerRenderProps<TodoFormType, "startDate">;

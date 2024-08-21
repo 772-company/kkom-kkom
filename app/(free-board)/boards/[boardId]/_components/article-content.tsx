@@ -2,6 +2,7 @@
 
 import { useArticleQuery } from "@/app/(free-board)/_query/query";
 import Image from "next/image";
+import { Fragment } from "react";
 
 export default function ArticleContent({ articleId }: { articleId: number }) {
   const { data: article } = useArticleQuery(articleId);
@@ -9,7 +10,14 @@ export default function ArticleContent({ articleId }: { articleId: number }) {
   if (!article) return null;
   return (
     <>
-      <section>{content}</section>
+      <section>
+        {content.split("\n").map((line, idx) => (
+          <Fragment key={idx}>
+            {line}
+            <br />
+          </Fragment>
+        ))}
+      </section>
       <section className="mb-20 mt-6">
         <Image
           priority

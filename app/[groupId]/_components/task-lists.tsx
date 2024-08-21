@@ -5,11 +5,10 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
 import { patchChangeTaskListIndex, postTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
-import { showToast } from "@/lib/show-toast";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import _debounce from "lodash/debounce";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -104,8 +103,6 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
 };
 
 const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
-  const queryClient = useQueryClient();
-
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListAdd close={close} groupId={groupId} />
   ));

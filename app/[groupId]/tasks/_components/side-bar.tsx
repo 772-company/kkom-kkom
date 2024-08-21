@@ -45,9 +45,10 @@ const SideBar = ({
     todoId ?? -1,
     taskDetail?.doneAt ?? null,
   );
+
   const habdleClickToggleButton = () => {
     if (todoId !== -1) {
-      mutate();
+      mutate(undefined);
     }
   };
   const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));

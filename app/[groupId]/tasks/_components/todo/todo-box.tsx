@@ -19,10 +19,11 @@ interface TodoBoxProps {
   taskListId: number | undefined;
   date: Date;
   id: number;
-  commentCount: number;
-  dateString: string;
   title: string;
+  description: string;
+  commentCount: number;
   doneAt: string | null;
+  dateString: string;
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
@@ -31,6 +32,7 @@ const TodoBox = ({
   taskListId,
   id,
   title,
+  description,
   date,
   doneAt,
   frequency,
@@ -42,6 +44,9 @@ const TodoBox = ({
     <EditTodoModal
       groupId={groupId}
       taskListId={taskListId}
+      taskId={id}
+      description={description}
+      title={title}
       close={close}
       date={date}
     />

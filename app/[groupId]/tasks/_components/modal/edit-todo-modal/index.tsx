@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
+import usePatchTask from "@/lib/apis/task/hooks/use-path-task";
 import usePostTask from "@/lib/apis/task/hooks/use-post-task";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -10,8 +11,11 @@ import FrequencyDropdown from "../frequency-dropdown";
 import TodoCalendarButton from "../todo-calendar-button";
 
 interface EidtTodoModalProps {
-  taskListId: number | undefined;
   groupId: string;
+  taskListId: number | undefined;
+  taskId: number;
+  title: string;
+  description: string;
   date: Date;
   close: () => void;
 }
@@ -24,29 +28,38 @@ export interface TodoFormType {
 const EditTodoModal = ({
   groupId,
   taskListId,
+  taskId,
   date,
+  title,
+  description,
   close,
 }: EidtTodoModalProps) => {
+  const { mutate, isPending } = usePatchTask(
+    date,
+    groupId,
+    taskListId,
+    taskId,
+    undefined,
+    true,
+    close,
+  );
   const {
+    watch,
     handleSubmit,
     register,
-
     formState: { errors },
   } = useForm<TodoFormType>({
     mode: "onSubmit",
     defaultValues: {
-      name: "",
-      description: "",
+      name: title,
+      description: description,
     },
   });
+  const formData = watch();
 
-  // const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
-  //   if (taskListId !== -1) {
-
-  //       mutate(data);
-  //     }
-  //   }
-  // };
+  const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
+    mutate(data);
+  };
 
   return (
     <Modal
@@ -65,7 +78,7 @@ const EditTodoModal = ({
         </Modal.Description>
       </header>
 
-      <form>
+      <form onSubmit={handleSubmit(serveData)}>
         <div className="w-full">
           <BasicInput
             label="할 일 제목"
@@ -89,6 +102,10 @@ const EditTodoModal = ({
         </div>
 
         <Button
+          disabled={
+            (title === formData.name && description === formData.description) ||
+            isPending
+          }
           type="submit"
           btnSize="large"
           btnStyle="solid"

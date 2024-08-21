@@ -8,19 +8,26 @@ const usePatchTask = (
   groupId: string,
   taskListId: number | undefined,
   taskId: number,
-  doneAt: string | null,
+  doneAt?: string | null,
+  isEditModal?: boolean,
+  close?: () => void,
 ) => {
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationFn: () =>
-      patchTask(groupId, taskListId, taskId, { done: doneAt ? false : true }),
+    mutationFn: (data?: { name: string; description: string }) =>
+      patchTask(groupId, taskListId, taskId, {
+        done: !isEditModal && doneAt ? false : true,
+        name: data?.name,
+        description: data?.description,
+      }),
     onSuccess: () => {
+      close && close();
       Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ["getTask", taskId],
+          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
+          queryKey: ["getTask", taskId],
         }),
       ]);
     },

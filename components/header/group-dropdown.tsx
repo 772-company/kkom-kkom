@@ -70,8 +70,9 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               value={membership.group.name}
             >
               <div
-                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${
-                  membership.group.id === selectedGroupId && "bg-slate-700"
+                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-background-tertiary ${
+                  membership.group.id === selectedGroupId &&
+                  "bg-background-tertiary"
                 }`}
                 onClick={() => handleSelect(membership.group.id)}
               >

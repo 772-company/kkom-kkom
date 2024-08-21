@@ -15,15 +15,16 @@ export const buttonVariants = cva(
       },
       btnStyle: {
         solid:
-          "bg-brand-primary text-text-primary  hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive",
+          "bg-brand-primary text-white hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive",
         outlined:
           "border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:text-interaction-pressed disabled:border-interaction-inactive disabled:text-interaction-inactive border border-solid bg-white",
         danger:
-          "bg-status-danger text-text-primary hover:bg-[#f50808] active:bg-[#c22020]",
+          "bg-status-danger text-white hover:bg-[#f50808] active:bg-[#c22020]",
         outlined_secondary:
           "border-text-secondary text-text-default bg-white border border-solid",
-        gradient: "bg-gradient text-text-primary",
-        none_background: "border border-slate-50 text-text-primary font-medium",
+        gradient: "bg-gradient text-white",
+        none_background:
+          "border border-text-primary text-text-primary font-medium",
       },
     },
     defaultVariants: {

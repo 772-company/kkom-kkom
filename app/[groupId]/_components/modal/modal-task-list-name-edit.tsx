@@ -2,10 +2,10 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { patchTaskListName } from "@/lib/apis/task-list";
+import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next-nprogress-bar";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 interface ModalTaskListNameEditProps {
@@ -25,7 +25,7 @@ const ModalTaskListNameEdit = ({
   taskListId,
   currentTaskListName,
 }: ModalTaskListNameEditProps) => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -37,33 +37,56 @@ const ModalTaskListNameEdit = ({
     },
   });
 
-  const mutation = useMutation({
+  const editTaskListMutation = useMutation({
     mutationFn: (data: TaskListNameEditFormValue) =>
       patchTaskListName({
         groupId,
         taskListId,
         name: data.taskListName,
       }),
+
+    onMutate: async (data: TaskListNameEditFormValue) => {
+      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+
+      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+        "groupInfo",
+      ]);
+
+      if (previousData) {
+        queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
+          ...previousData,
+          taskLists: previousData.taskLists.map((taskList) =>
+            taskList.id === taskListId
+              ? { ...taskList, name: data.taskListName }
+              : taskList,
+          ),
+        });
+      }
+      return { previousData, taskListId };
+    },
+    onError: (error: unknown, data: TaskListNameEditFormValue, context) => {
+      queryClient.setQueryData(["groupInfo"], context?.previousData);
+      showToast(
+        "error",
+        error instanceof Error
+          ? error.message
+          : "목록 명 수정에 실패하였습니다.",
+      );
+    },
     onSuccess: (data) => {
       showToast(
         "success",
-        data
-          ? `${data.name}으로 수정되었습니다.`
-          : showToast("success", "수정되었습니다."),
+        data ? `${data.name}으로 수정되었습니다.` : "목록 명이 수정되었습니다.",
       );
-      router.refresh();
       close();
     },
-    onError: (error: unknown) => {
-      showToast(
-        "error",
-        error instanceof Error ? error.message : "수정에 실패하였습니다.",
-      );
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
     },
   });
 
   const onSubmit = (data: TaskListNameEditFormValue) => {
-    mutation.mutate(data);
+    editTaskListMutation.mutate(data);
   };
 
   return (
@@ -84,9 +107,9 @@ const ModalTaskListNameEdit = ({
               <Button
                 btnSize="large"
                 btnStyle="solid"
-                disabled={!isDirty || mutation.isPending}
+                disabled={!isDirty || editTaskListMutation.isPending}
               >
-                {mutation.isPending ? "수정 중..." : "수정하기"}
+                {editTaskListMutation.isPending ? "수정 중..." : "수정하기"}
               </Button>
             </div>
           </form>

@@ -50,7 +50,7 @@ export default function ModalSideMenu({
                   src={membership.group.image || hamster}
                   alt={`${membership.group.name} 이미지`}
                   fill
-                  style={{ objectFit: "cover" }}
+                  className="object-cover"
                 />
               </div>
               <p> {membership.group.name} 팀</p>

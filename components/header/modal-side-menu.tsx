@@ -50,7 +50,7 @@ export default function ModalSideMenu({
               onClick={() => handleRoute(membership.group.id)}
               role="presentation"
             >
-              <div className="relative size-6 overflow-hidden rounded-md">
+              <div className="relative size-6 overflow-hidden rounded-md object-cover">
                 {/* TODO - 기본 이미지 바꾸기 */}
                 <Image
                   src={membership.group.image || hamster}

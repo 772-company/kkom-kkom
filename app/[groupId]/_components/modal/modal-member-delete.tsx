@@ -2,10 +2,10 @@
 
 import Modal from "@/components/modal/modal";
 import { deleteTeamMember } from "@/lib/apis/group";
+import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next-nprogress-bar";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ModalMemberDeleteProps {
   close: () => void;
@@ -20,17 +20,31 @@ const ModalMemberDelete = ({
   memberUserId,
   userName,
 }: ModalMemberDeleteProps) => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: () => deleteTeamMember({ groupId, memberUserId }),
-    onSuccess: () => {
-      showToast("success", `${userName}님이 삭제되었습니다.`);
-      close();
-      router.refresh();
+  const deleteMemberMutation = useMutation({
+    mutationFn: (memberUserId: number) =>
+      deleteTeamMember({ groupId, memberUserId }),
+    onMutate: async (memberUserId) => {
+      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+
+      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+        "groupInfo",
+      ]);
+
+      if (previousData) {
+        queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
+          ...previousData,
+          members: previousData.members.filter(
+            (member) => member.userId !== memberUserId,
+          ),
+        });
+      }
+
+      return { previousData, memberUserId };
     },
-    onError: (error: unknown) => {
-      console.log("error:", error);
+    onError: (error, memberUserId, context) => {
+      queryClient.setQueryData(["groupInfo"], context?.previousData);
       showToast(
         "error",
         error instanceof Error
@@ -38,10 +52,17 @@ const ModalMemberDelete = ({
           : `${userName}님 삭제에 실패하였습니다`,
       );
     },
+    onSuccess: () => {
+      showToast("success", `${userName}님이 삭제되었습니다.`);
+      close();
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
+    },
   });
 
   const handleButtonClick = () => {
-    mutation.mutate();
+    deleteMemberMutation.mutate(memberUserId);
   };
 
   return (
@@ -56,8 +77,10 @@ const ModalMemberDelete = ({
           <Modal.TwoButtonSection
             closeBtnStyle="outlined_secondary"
             confirmBtnStyle="danger"
-            buttonDescription={mutation.isPending ? "삭제 중..." : "삭제하기"}
-            disabled={mutation.isPending}
+            buttonDescription={
+              deleteMemberMutation.isPending ? "삭제 중..." : "삭제하기"
+            }
+            disabled={deleteMemberMutation.isPending}
             close={close}
             onClick={handleButtonClick}
           />

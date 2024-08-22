@@ -1,11 +1,10 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
-import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { postTaskList } from "@/lib/apis/task-list";
+import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next-nprogress-bar";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 
 interface ModalTaskListAddProps {
@@ -15,16 +14,39 @@ interface ModalTaskListAddProps {
 
 const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
   const [taskListName, setTaskListName] = useState("");
-  const router = useRouter();
-  const mutation = useMutation({
-    mutationFn: (data: { name: string }) => postTaskList(groupId, data),
-    onSuccess: () => {
-      showToast("success", `${taskListName}을 추가하였습니다.`);
-      close();
-      router.refresh();
+
+  const queryClient = useQueryClient();
+
+  const addTaskListMutation = useMutation({
+    mutationFn: (newTaskList: { name: string }) =>
+      postTaskList(groupId, newTaskList),
+    onMutate: async (newTaskList) => {
+      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+        "groupInfo",
+      ]);
+
+      if (previousData) {
+        queryClient.setQueriesData(
+          { queryKey: ["groupInfo"] },
+          {
+            ...previousData,
+            taskLists: [
+              ...previousData.taskLists,
+              {
+                id: "temp-id",
+                name: newTaskList.name,
+                displayIndex: previousData.taskLists.length,
+                tasks: [],
+              },
+            ],
+          },
+        );
+      }
+      return { previousData };
     },
-    onError: (error: unknown) => {
-      console.log("error:", error);
+    onError: (error, newTaskList, context) => {
+      queryClient.setQueryData(["groupInfo"], context?.previousData);
       showToast(
         "error",
         error instanceof Error
@@ -32,10 +54,17 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
           : `${taskListName} 추가에 실패하였습니다`,
       );
     },
+    onSuccess: () => {
+      showToast("success", `${taskListName}을 추가하였습니다.`);
+      close();
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
+    },
   });
 
   const handleSubmit = () => {
-    mutation.mutate({ name: taskListName });
+    addTaskListMutation.mutate({ name: taskListName });
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,9 +89,9 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
             btnSize="large"
             btnStyle="solid"
             onClick={handleSubmit}
-            disabled={!taskListName.trim() || mutation.isPending}
+            disabled={!taskListName.trim() || addTaskListMutation.isPending}
           >
-            {mutation.isPending ? "추가 중..." : "추가하기"}
+            {addTaskListMutation.isPending ? "추가 중..." : "추가하기"}
           </Button>
         </div>
       </div>

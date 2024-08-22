@@ -3,7 +3,7 @@
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
-import { patchChangeTaskListIndex } from "@/lib/apis/task-list";
+import { patchChangeTaskListIndex, postTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
@@ -68,8 +68,8 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
   const isDone = numberOfDone === taskList.tasks.length ? true : false;
 
   return (
-    <Link
-      href={`/${groupId}/tasks`}
+    <div
+      // href={`/${groupId}/tasks`}
       className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary"
     >
       <div className="flex gap-[12px]">
@@ -98,7 +98,7 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
           contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"
         />
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -107,7 +107,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
     <ModalTaskListAdd close={close} groupId={groupId} />
   ));
 
-  const { data } = useQuery({
+  const { data } = useQuery<GetTeamIdGroupsIdResponse>({
     queryKey: ["groupInfo"],
     queryFn: () => getGroupInfo({ groupId: groupId }),
   });

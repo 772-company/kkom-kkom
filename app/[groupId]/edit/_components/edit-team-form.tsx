@@ -38,6 +38,7 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
       queryClient.invalidateQueries({ queryKey: ["getGroupInfo", groupId] });
       showToast("success", "팀 정보를 수정하였습니다.");
       router.push(`/${response.id}`);
+      router.refresh();
     },
     onError: () => {
       showToast("error", "팀 정보 수정에 실패하였습니다.");

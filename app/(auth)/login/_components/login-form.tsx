@@ -41,7 +41,6 @@ export default function LoginForm() {
       const response = (await login(data)) as PostAuthSigninResponse;
       return response;
     },
-    // TODO - onMutate 로딩 토스트 추가
     onSuccess: (response: PostAuthSigninResponse) => {
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
       setCookie("refreshToken", response.refreshToken, {
@@ -91,7 +90,7 @@ export default function LoginForm() {
         className="mt-10 w-full"
         disabled={!isValid || isLoading}
       >
-        로그인
+        {mutation.isPending ? "로그인 중" : "로그인"}
       </Button>
     </form>
   );

@@ -46,6 +46,7 @@ const config: Config = {
           rose: "#F43F5E",
           orange: "#F97316",
           yellow: "#EAB308",
+          whiteGreen: "#43c694",
         },
         background: {
           primary: "var(--background-primary)",

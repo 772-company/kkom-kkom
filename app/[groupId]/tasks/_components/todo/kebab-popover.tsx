@@ -25,7 +25,8 @@ const KebabPopover = ({
       triggerWidth={16}
       triggerHeight={16}
       content={constent}
-      contentClassName="h-[80px] w-[120px] bg-background-secondary"
+      className=""
+      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
     />
   );
 };

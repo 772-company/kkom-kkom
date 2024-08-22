@@ -48,7 +48,7 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
               },
               { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-secondary"
           />
         )}
       </div>

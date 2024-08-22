@@ -102,7 +102,7 @@ const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
               { text: "수정하기", onClick: ModalTaskListNameEditOverlay.open },
               { text: "삭제하기", onClick: ModalTaskListDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-secondary"
           />
         </div>
       </div>

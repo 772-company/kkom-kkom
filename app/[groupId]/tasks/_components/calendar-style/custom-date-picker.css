@@ -2,43 +2,45 @@
   display: none;
 }
 
-.react-datepicker.addmodal {
+.react-datepicker.customModal {
   background-color: #1e293b !important;
   border: 1px solid #059669 !important;
   border-radius: 12px !important;
 }
 
-.addmodal .react-datepicker__month-container {
+.customModal .react-datepicker__month-container {
   border-radius: 12px !important;
   width: 336px;
   height: 258px;
   background-color: #1e293b;
 }
-.addmodal .react-datepicker__header {
+.customModal .react-datepicker__header {
   margin-top: 8px;
   background-color: #1e293b;
   border-bottom: none;
 }
-.addmodal .react-datepicker__day {
+.customModal .react-datepicker__day {
   width: 43.43px;
   color: #ffffff !important;
 }
-.addmodal .react-datepicker__day--selected {
-  color: #1e293b !important;
-
+.customModal .react-datepicker__day:hover {
   background-color: #10b981;
 }
-.addmodal .react-datepicker__day-name {
+.customModal .react-datepicker__day--selected {
+  color: #1e293b !important;
+  background-color: #10b981;
+}
+.customModal .react-datepicker__day-name {
   margin-top: 15px;
   width: 43.43px;
   color: #ffffff !important;
 }
-.addmodal .react-datepicker__current-month {
+.customModal .react-datepicker__current-month {
   color: #ffffff !important;
 }
-.addmodal .react-datepicker__month {
+.customModal .react-datepicker__month {
   margin: 0px;
 }
-.addmodal .react-datepicker__day--outside-month {
+.customModal .react-datepicker__day--outside-month {
   color: #64748b !important;
 }

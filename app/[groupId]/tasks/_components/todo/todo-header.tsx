@@ -1,10 +1,10 @@
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import Calendar from "@/public/icons/calendar.svg";
-import { ko } from "date-fns/locale";
 import React, { useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import "../calendar-style/custom-date-picker.css";
 import AddListModal from "../modal/add-List-modal";
 import TaskButton from "../tasks-button";
 
@@ -55,9 +55,9 @@ const TodoHeader = ({
           <DatePicker
             className="h-0 w-0"
             selected={date}
-            locale={ko}
             onChange={onChangeDate}
             ref={datePickerRef}
+            calendarClassName="customModal"
           />
         </div>
       </div>

@@ -119,7 +119,7 @@ const AddTodoModal = ({
           </div>
         </div>
 
-        <div className="flex h-[79px] w-full flex-col gap-4">
+        <div className="mt-[100px] flex h-[79px] w-full flex-col gap-4">
           <label className="text-base font-medium text-text-primary">
             반복설정
           </label>
@@ -170,7 +170,7 @@ const AddTodoModal = ({
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
             <label>반복 요일</label>
 
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               {REPEAT_ARRAY.map((e, i) => (
                 <Controller
                   key={i}

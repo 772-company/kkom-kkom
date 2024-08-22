@@ -6,8 +6,8 @@ import getGroupInfo from "@/lib/apis/group";
 import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import ModalTeamDelete from "./modal/modal-team-delete";
 

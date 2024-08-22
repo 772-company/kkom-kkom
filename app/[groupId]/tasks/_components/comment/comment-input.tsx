@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import TaskButton from "./tasks-button";
+import TaskButton from "../tasks-button";
 
 interface CommentInputProps {
   taskListId: number | undefined;

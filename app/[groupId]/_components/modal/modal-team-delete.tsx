@@ -1,10 +1,10 @@
 "use client";
 
 import Modal from "@/components/modal/modal";
-import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { deleteGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next-nprogress-bar";
 

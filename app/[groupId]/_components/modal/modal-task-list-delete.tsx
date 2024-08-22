@@ -1,9 +1,9 @@
 import Modal from "@/components/modal/modal";
-import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { deleteTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
+import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ModalTaskListDeleteProps {

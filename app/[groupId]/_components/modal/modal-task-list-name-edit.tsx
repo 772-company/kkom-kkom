@@ -1,11 +1,11 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
-import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { patchTaskListName } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
@@ -31,6 +31,7 @@ const ModalTaskListNameEdit = ({
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isDirty },
   } = useForm<TaskListNameEditFormValue>({
     defaultValues: {
@@ -38,9 +39,8 @@ const ModalTaskListNameEdit = ({
     },
   });
 
-  const suffix = useLastConsonantLetterCheck(currentTaskListName)
-    ? "으로"
-    : "로";
+  const taskListName = watch("taskListName");
+  const suffix = useLastConsonantLetterCheck(taskListName) ? "으로" : "로";
 
   const editTaskListMutation = useMutation({
     mutationFn: (data: TaskListNameEditFormValue) =>

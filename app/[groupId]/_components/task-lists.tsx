@@ -126,10 +126,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
 
   useEffect(() => {
     if (data) {
-      const sortedTaskLists = [...data.taskLists].sort(
-        (a, b) => a.displayIndex - b.displayIndex,
-      );
-      setTaskLists(sortedTaskLists);
+      setTaskLists(data.taskLists);
     }
   }, [data]);
 

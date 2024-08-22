@@ -1,10 +1,10 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
-import useLastConsonantLetterCheck from "@/hooks/use-last-consonant-letter-check";
 import { postTaskList } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 

@@ -31,7 +31,7 @@ export default function CommentsList({ articleId }: CommentListProps) {
             )),
           )
         ) : (
-          <p className="flex h-[500px] w-full items-center justify-center text-sm font-medium text-text-default md:text-base">
+          <p className="flex h-[300px] w-full items-center justify-center text-sm font-medium text-text-default md:h-[500px] md:text-base">
             아직 작성된 댓글이 없습니다.
           </p>
         )}

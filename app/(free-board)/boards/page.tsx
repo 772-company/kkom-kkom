@@ -15,7 +15,7 @@ export default async function Page({
     keyword?: string;
   };
 }) {
-  const { orderBy, page, keyword } = searchParams;
+  const { keyword } = searchParams;
   return (
     <section className="mt-4 pb-12">
       <header className="mb-6 flex h-10 items-center justify-between text-base font-medium text-text-primary md:h-11">

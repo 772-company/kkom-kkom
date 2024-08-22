@@ -11,7 +11,12 @@ import { getUser, updateAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { updateUserSchema } from "@/schemas/user";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -32,7 +37,7 @@ export default function UpdateUserForm() {
     <ModalResetPassword close={close} />
   ));
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess } = useSuspenseQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
   });

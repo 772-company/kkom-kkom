@@ -72,7 +72,7 @@ const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
   return (
     <div
       onClick={() => router.push(`/${groupId}/tasks`)}
-      className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary"
+      className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary hover:bg-background-tertiary hover:shadow-lg active:bg-background-tertiary active:shadow-lg"
     >
       <div className="flex gap-[12px]">
         <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>

@@ -13,7 +13,7 @@ import {
   useDeleteArticleMutation,
   usePatchArticleMutation,
 } from "@/app/(free-board)/_query/mutation";
-import { useArticleQuery } from "@/app/(free-board)/_query/query";
+import { useArticleQuery, useUserQuery } from "@/app/(free-board)/_query/query";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { useCallback } from "react";
 
@@ -23,8 +23,11 @@ interface ArticleHeaderProps {
 
 export default function ArticleHeader({ articleId }: ArticleHeaderProps) {
   const { data: article } = useArticleQuery(articleId);
-  const patchArticleMutation = usePatchArticleMutation();
   const { title, content, image } = article;
+  const patchArticleMutation = usePatchArticleMutation();
+  const {
+    data: { id },
+  } = useUserQuery();
   const handlePatch = useCallback(
     (formData: ArticleType) => {
       patchArticleMutation.mutate({
@@ -65,7 +68,12 @@ export default function ArticleHeader({ articleId }: ArticleHeaderProps) {
     <>
       <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
         <h1>{article.title}</h1>
-        <KebabButton onDelete={deleteOverlay.open} onPatch={editOverlay.open} />
+        {id === article.writer.id && (
+          <KebabButton
+            onDelete={deleteOverlay.open}
+            onPatch={editOverlay.open}
+          />
+        )}
       </header>
       <section className="mb-6 mt-4 flex items-center pb-6">
         <Profile name={article.writer.nickname} className="mr-4" />

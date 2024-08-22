@@ -3,7 +3,9 @@
 import Card from "@/app/(free-board)/_components/card";
 import ModalCancel from "@/app/(free-board)/_components/modal-cancel";
 import { useDeleteCommentsMutation } from "@/app/(free-board)/_query/mutation";
-import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";
+import useArticlesCommentsQuery, {
+  useUserQuery,
+} from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
@@ -37,6 +39,9 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
   const { mutate: deleteMutation, isPending: isDeletePending } =
     useDeleteCommentsMutation();
   const { isFetching } = useArticlesCommentsQuery(articleId);
+  const {
+    data: { id },
+  } = useUserQuery();
 
   const deleteCommentOverlay = useCustomOverlay(({ close }) => (
     <ModalCancel
@@ -136,11 +141,13 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
               </section>
             </section>
           </section>
-          <Card.KebabButton
-            className=""
-            onDelete={handleDelete}
-            onPatch={handlePatch}
-          />
+          {id === comment.writer.id && (
+            <Card.KebabButton
+              className=""
+              onDelete={handleDelete}
+              onPatch={handlePatch}
+            />
+          )}
         </>
       ) : (
         <CommentEditCard

@@ -27,7 +27,7 @@ export default function LandingCard({ variant }: LandingCardProps) {
         ease: "easeOut", // 이징 설정
       }}
       viewport={{ once: true, amount: 0.5 }} // 애니메이션이 한 번만 실행되도록 설정, 50%가 보이면 실행
-      className={`${isSecond ? "animate-slide-in-right border border-border-primary border-opacity-10 bg-background-secondary" : "animate-slide-in-left bg-slate-950"} animate-slide-in mx-auto flex h-[467px] min-h-[467px] w-full max-w-[996px] flex-col justify-between rounded-[40px] pb-[51px] md:h-[354px] md:min-h-[354px] xl:h-[419px] xl:min-h-[419px]`}
+      className={`${isSecond ? "animate-slide-in-right border border-border-primary border-opacity-10 bg-background-tertiary" : "animate-slide-in-left bg-background-secondary dark:bg-slate-950"} animate-slide-in mx-auto flex h-[467px] min-h-[467px] w-full max-w-[996px] flex-col justify-between rounded-[40px] pb-[51px] md:h-[354px] md:min-h-[354px] xl:h-[419px] xl:min-h-[419px]`}
     >
       <div className="flex justify-center md:h-full">
         <div
@@ -42,7 +42,7 @@ export default function LandingCard({ variant }: LandingCardProps) {
                 <Done width={24} height={24} />
               )}
             </div>
-            <h3 className="text-lg font-medium leading-[21px] text-white xl:text-2xl">
+            <h3 className="text-lg font-medium leading-[21px] text-text-primary xl:text-2xl">
               {headings[variant][0]}
               <br />
               {headings[variant][1]}

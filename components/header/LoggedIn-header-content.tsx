@@ -7,6 +7,7 @@ import Logo from "@/public/icons/logo.svg";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
+import { ThemeToggle } from "../theme/theme-toggle";
 import GroupDropdown from "./group-dropdown";
 import ModalSideMenu from "./modal-side-menu";
 import PopoverTrigger from "./popover-trigger";
@@ -56,7 +57,10 @@ export default function LoggedInHeaderContent() {
           자유게시판
         </Link>
       </div>
-      <PopoverTrigger nickname={nickname} />
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        <PopoverTrigger nickname={nickname} />
+      </div>
     </>
   );
 }

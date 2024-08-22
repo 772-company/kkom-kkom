@@ -1,6 +1,7 @@
 import Logo from "@/public/icons/logo.svg";
 import Link from "next/link";
 
+import { ThemeToggle } from "../theme/theme-toggle";
 import LoginButton from "./login-button";
 
 export default function NoneLoginHeader() {
@@ -14,7 +15,10 @@ export default function NoneLoginHeader() {
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
         </Link>
       </div>
-      <LoginButton />
+      <div className="flex gap-4">
+        <ThemeToggle />
+        <LoginButton />
+      </div>
     </>
   );
 }

@@ -1,10 +1,12 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     screens: {
@@ -46,10 +48,10 @@ const config: Config = {
           yellow: "#EAB308",
         },
         background: {
-          primary: "#0F172A",
-          secondary: "#1E293B",
-          tertiary: "#334155",
-          inverse: "#FFFFFF",
+          primary: "var(--background-primary)",
+          secondary: "var(--background-secondary)",
+          tertiary: "var(--background-tertiary)",
+          inverse: "var(--background-inverse)",
         },
         interaction: {
           inactive: "#94A3B8",
@@ -59,14 +61,15 @@ const config: Config = {
         },
         border: {
           primary: "#F8FAFC",
+          // primary: "hsl(var(--border-primary) / <alpha-value>)",
         },
         text: {
-          primary: "#F8FAFC",
-          secondary: "#CBD5E1",
-          tertiary: "#E2E8F0",
-          default: "#64748B",
-          inverse: "#FFFFFF",
-          disabled: "#94A3B8",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          tertiary: "var(--text-tertiary)",
+          default: "var(--text-default)",
+          inverse: "var(--text-inverse)",
+          disabled: "var(--text-disabled)",
         },
         status: {
           danger: "#DC2626",

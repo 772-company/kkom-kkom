@@ -15,7 +15,7 @@ export const buttonVariants = cva(
       },
       btnStyle: {
         solid:
-          "bg-brand-primary text-white  hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive",
+          "bg-brand-primary text-white hover:bg-interaction-hover active:bg-interaction-pressed disabled:bg-interaction-inactive",
         outlined:
           "border-brand-primary text-brand-primary hover:border-interaction-hover hover:text-interaction-hover active:border-interaction-pressed active:text-interaction-pressed disabled:border-interaction-inactive disabled:text-interaction-inactive border border-solid bg-white",
         danger:
@@ -23,7 +23,8 @@ export const buttonVariants = cva(
         outlined_secondary:
           "border-text-secondary text-text-default bg-white border border-solid",
         gradient: "bg-gradient text-white",
-        none_background: "border border-slate-50 text-white font-medium",
+        none_background:
+          "border border-text-primary text-text-primary font-medium",
       },
     },
     defaultVariants: {

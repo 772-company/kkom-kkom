@@ -70,8 +70,9 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               value={membership.group.name}
             >
               <div
-                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-slate-700 ${
-                  membership.group.id === selectedGroupId && "bg-slate-700"
+                className={`flex w-full items-center justify-between rounded-lg px-2 py-[7px] hover:bg-background-tertiary ${
+                  membership.group.id === selectedGroupId &&
+                  "bg-background-tertiary"
                 }`}
                 onClick={() => handleSelect(membership.group.id)}
               >
@@ -83,7 +84,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                       fill
                     />
                   </div>
-                  <p className="text-base font-medium text-white">
+                  <p className="text-base font-medium text-text-primary">
                     {membership.group.name}
                   </p>
                 </div>
@@ -94,7 +95,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           {memberships.length > visibleCount ? (
             <button
               onClick={handleShowMore}
-              className="flex w-full justify-center rounded-lg py-[7px] text-white hover:underline"
+              className="flex w-full justify-center rounded-lg py-[7px] text-text-primary hover:underline"
             >
               더보기
             </button>
@@ -102,7 +103,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
             visibleCount > 4 && (
               <button
                 onClick={handleShowLess}
-                className="flex w-full justify-center rounded-lg py-[7px] text-white hover:underline"
+                className="flex w-full justify-center rounded-lg py-[7px] text-text-primary hover:underline"
               >
                 숨기기
               </button>

@@ -1,4 +1,5 @@
 import Header from "@/components/header/header";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import {
   OverlayProvider,
   OverlayStoreProvider,
@@ -9,6 +10,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+import "./globals.css";
 import QueryProviders from "./providers";
 
 export const metadata: Metadata = {
@@ -33,19 +35,21 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <ProgressBarProvider>
-          <QueryProviders>
-            <ToastProvider>
-              <OverlayStoreProvider>
-                <Header />
-                <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
-                  {children}
-                </main>
-                <OverlayProvider />
-              </OverlayStoreProvider>
-            </ToastProvider>
-          </QueryProviders>
-        </ProgressBarProvider>
+        <ThemeProvider enableSystem={false} attribute="class">
+          <ProgressBarProvider>
+            <QueryProviders>
+              <ToastProvider>
+                <OverlayStoreProvider>
+                  <Header />
+                  <main className="min-h-screen bg-background-primary pt-[60px] antialiased">
+                    {children}
+                  </main>
+                  <OverlayProvider />
+                </OverlayStoreProvider>
+              </ToastProvider>
+            </QueryProviders>
+          </ProgressBarProvider>{" "}
+        </ThemeProvider>
       </body>
     </html>
   );

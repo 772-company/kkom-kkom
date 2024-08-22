@@ -59,17 +59,18 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
           tasks &&
           tasks.map((e) => (
             <TodoBox
-              frequency={e.frequency}
+              key={e.id}
               groupId={groupId}
               taskListId={selectedButton}
               id={e.id}
-              dateString={e.date}
               title={e.name}
-              commentCount={e.commentCount}
-              key={e.id}
-              handleClickTodoBox={handleClick}
+              description={e.description}
+              frequency={e.frequency}
               doneAt={e.doneAt}
               date={date}
+              commentCount={e.commentCount}
+              dateString={e.date}
+              handleClickTodoBox={handleClick}
             />
           ))}
 

@@ -10,6 +10,7 @@ import React from "react";
 
 import CheckBox from "../check-box";
 import DeleteTodoModal from "../modal/delete-todo-modal";
+import EditTodoModal from "../modal/edit-todo-modal";
 import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
@@ -18,26 +19,38 @@ interface TodoBoxProps {
   taskListId: number | undefined;
   date: Date;
   id: number;
-  commentCount: number;
-  dateString: string;
   title: string;
+  description: string;
+  commentCount: number;
   doneAt: string | null;
+  dateString: string;
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const TodoBox = ({
-  frequency,
   groupId,
   taskListId,
   id,
-
-  date,
-  commentCount,
   title,
+  description,
+  date,
   doneAt,
-  handleClickTodoBox,
+  frequency,
+  commentCount,
   dateString,
+  handleClickTodoBox,
 }: TodoBoxProps) => {
+  const editTodoModalOverlay = useCustomOverlay(({ close }) => (
+    <EditTodoModal
+      groupId={groupId}
+      taskListId={taskListId}
+      taskId={id}
+      description={description}
+      title={title}
+      close={close}
+      date={date}
+    />
+  ));
   const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
     <DeleteTodoModal
       groupId={groupId}
@@ -80,7 +93,10 @@ const TodoBox = ({
             </p>
           </div>
         </div>
-        <KebabPopover openDeleteModal={deleteTodoModalOverlay.open} />
+        <KebabPopover
+          openEditModal={editTodoModalOverlay.open}
+          openDeleteModal={deleteTodoModalOverlay.open}
+        />
       </div>
       <div className="flex items-center gap-[10px]">
         <Calendar width={16} height={16} />

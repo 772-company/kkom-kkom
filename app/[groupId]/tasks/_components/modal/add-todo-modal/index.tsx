@@ -5,9 +5,9 @@ import usePostTask from "@/lib/apis/task/hooks/use-post-task";
 import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import DayButton from "./day-button";
-import FrequencyDropdown from "./frequency-dropdown";
-import TodoCalendarButton from "./todo-calendar-button";
+import DayButton from "../day-button";
+import FrequencyDropdown from "../frequency-dropdown";
+import TodoCalendarButton from "../todo-calendar-button";
 
 interface AddTodoModalProps {
   taskListId: number | undefined;

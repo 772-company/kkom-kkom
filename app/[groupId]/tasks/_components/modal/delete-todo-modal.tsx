@@ -12,6 +12,7 @@ interface DeleteTodoModalProps {
   taskId: number;
   title: string;
   close: () => void;
+  closeSideBar?: () => void;
 }
 const DeleteTodoModal = ({
   groupId,
@@ -19,6 +20,7 @@ const DeleteTodoModal = ({
   taskId,
   title,
   close,
+  closeSideBar,
 }: DeleteTodoModalProps) => {
   const queryClient = useQueryClient();
 
@@ -26,6 +28,7 @@ const DeleteTodoModal = ({
     mutationFn: () =>
       deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
     onSuccess: () => {
+      closeSideBar && closeSideBar();
       close();
       queryClient.invalidateQueries({
         queryKey: ["getTasks", taskListId],

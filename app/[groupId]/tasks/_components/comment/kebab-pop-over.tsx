@@ -16,7 +16,7 @@ const CommentKebabPopOver = ({
   handleClickEditMode,
 }: KebabPopverProps) => {
   const popOverContent = [
-    { text: "취소" },
+
     { text: "수정하기", onClick: handleClickEditMode },
     { text: "삭제하기", onClick: handleClickDeleteComment },
   ];
@@ -28,7 +28,8 @@ const CommentKebabPopOver = ({
       triggerSvg={Kebab}
       triggerImageAlt="케밥"
       className="h-4 w-4"
-      contentClassName="bg-background-secondary"
+      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
+
     />
   );
 };

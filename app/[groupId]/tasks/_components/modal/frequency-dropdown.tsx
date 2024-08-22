@@ -4,7 +4,7 @@ import { covertFrequency } from "@/utils/convert-frequency";
 import React, { useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
-import { TodoFormType } from ".";
+import { TodoFormType } from "./add-todo-modal";
 
 interface FrequencyDropdownProps {
   field: ControllerRenderProps<TodoFormType, "frequencyType">;

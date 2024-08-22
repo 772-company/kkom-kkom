@@ -21,7 +21,7 @@ export type Membership = {
   group: Group;
 };
 
-export type GetTeamIdUserResponse = {
+export type GetUserResponse = {
   teamId: string;
   image: string | null;
   nickname: string;
@@ -32,13 +32,13 @@ export type GetTeamIdUserResponse = {
   memberships: Membership[];
 };
 
-export type PatchTeamIdUserResponse = {
+export type PatchUserResponse = {
   message: string;
 };
 
-export type DeleteTeamIdUserResponse = {};
+export type DeleteUserResponse = {};
 
-export type GetTeamIdUserGroups = {
+export type GetUserGroups = {
   id: number;
   teamId: string | null;
   name: string;
@@ -47,7 +47,7 @@ export type GetTeamIdUserGroups = {
   updatedAt: string;
 }[];
 
-export type GetTeamIdUserHistoryResponse = {
+export type GetUserHistoryResponse = {
   tasksDone: {
     userId: number;
     deletedAt: string;
@@ -62,19 +62,19 @@ export type GetTeamIdUserHistoryResponse = {
   }[];
 };
 
-export type PostTeamIdUserSendResetPasswordEmailResponse = {
+export type PostUserSendResetPasswordEmailResponse = {
   message: string;
 };
 
-export type PatchTeamIdUserResetPasswordResponse = {
+export type PatchUserResetPasswordResponse = {
   message: string;
 };
 
-export type PatchTeamIdUserPasswordResponse = {
+export type PatchUserPasswordResponse = {
   message: string;
 };
 
-export type GetTeamIdGroupsGroupIdTaskListsIdResponse = {
+export type GetGroupsGroupIdTaskListsIdResponse = {
   groupId: number;
   displayIndex: number;
   updatedAt: string;
@@ -93,7 +93,7 @@ export type GetTeamIdGroupsGroupIdTaskListsIdResponse = {
   }[];
 };
 
-export type PatchTeamIdGroupsGroupIdTaskListsIdResponse = {
+export type PatchGroupsGroupIdTaskListsIdResponse = {
   groupId: number;
   displayIndex: number;
   updatedAt: string;
@@ -102,9 +102,9 @@ export type PatchTeamIdGroupsGroupIdTaskListsIdResponse = {
   id: number;
 };
 
-export type DeleteTeamIdGroupsGroupIdTaskListsIdResponse = {};
+export type DeleteGroupsGroupIdTaskListsIdResponse = {};
 
-export type PostTeamIdGroupsGroupIdTaskListsResponse = {
+export type PostGroupsGroupIdTaskListsResponse = {
   groupId: number;
   displayIndex: number;
   updatedAt: string;
@@ -113,9 +113,9 @@ export type PostTeamIdGroupsGroupIdTaskListsResponse = {
   id: number;
 };
 
-export type PatchTeamIdGroupsGroupIdTaskListsIdOrderResponse = {};
+export type PatchGroupsGroupIdTaskListsIdOrderResponse = {};
 
-export type PostTeamIdGroupsGroupIdTaskListsTaskListIdTasksResponse = {
+export type PostGroupsGroupIdTaskListsTaskListIdTasksResponse = {
   groupId: number;
   taskListId: number;
   monthDay: number;
@@ -129,7 +129,7 @@ export type PostTeamIdGroupsGroupIdTaskListsTaskListIdTasksResponse = {
   id: number;
 };
 
-export type GetTeamIdGroupsGroupIdTaskListsTaskListIdTasksResponse = {
+export type GetGroupsGroupIdTaskListsTaskListIdTasksResponse = {
   recurringId: number;
   frequency: string;
   userId: number;
@@ -140,7 +140,7 @@ export type GetTeamIdGroupsGroupIdTaskListsTaskListIdTasksResponse = {
   id: number;
 }[];
 
-export type PatchTeamIdGroupsGroupIdTaskListsTaskListIdTasksTaskIdResponse = {
+export type PatchGroupsGroupIdTaskListsTaskListIdTasksTaskIdResponse = {
   userId: number;
   recurringId: number;
   frequency: string;
@@ -152,13 +152,11 @@ export type PatchTeamIdGroupsGroupIdTaskListsTaskListIdTasksTaskIdResponse = {
   id: number;
 };
 
-export type DeleteTeamIdGroupsGroupIdTaskListsTaskListIdTasksTaskIdResponse =
-  {};
+export type DeleteGroupsGroupIdTaskListsTaskListIdTasksTaskIdResponse = {};
 
-export type DeleteTeamIdGroupsGroupIdTaskListsTaskListIdTasksTaskIdAllResponse =
-  {};
+export type DeleteGroupsGroupIdTaskListsTaskListIdTasksTaskIdAllResponse = {};
 
-export type PostTeamIdOauthApps = {
+export type PostOauthApps = {
   createdAt: string;
   updatedAt: string;
   appSecret: string;
@@ -168,7 +166,7 @@ export type PostTeamIdOauthApps = {
   id: number;
 };
 
-export type PostTeamIdImagesUploadResponse = {
+export type PostImagesUploadResponse = {
   url: string;
 };
 
@@ -184,7 +182,7 @@ export type Tasks = {
   frequency: string;
 };
 
-export type GetTeamIdGroupsIdResponse = {
+export type GetGroupsIdResponse = {
   updatedAt: string;
   createdAt: string;
   image: string | null;
@@ -209,7 +207,7 @@ export type GetTeamIdGroupsIdResponse = {
   }[];
 };
 
-export type PatchTeamIdGroupsIdResponse = {
+export type PatchGroupsIdResponse = {
   updatedAt: string;
   createdAt: string;
   image: string | null;
@@ -217,9 +215,9 @@ export type PatchTeamIdGroupsIdResponse = {
   id: number;
 };
 
-export type DeleteTeamIdGroupsIdResponse = {};
+export type DeleteGroupsIdResponse = {};
 
-export type PostTeamIdGroupsResponse = {
+export type PostGroupsResponse = {
   updatedAt: string;
   createdAt: string;
   image: string | null;
@@ -227,7 +225,7 @@ export type PostTeamIdGroupsResponse = {
   id: number;
 };
 
-export type GetTeamIdGroupsIdMemberMemberUserIdResponse = {
+export type GetGroupsIdMemberMemberUserIdResponse = {
   role: string;
   userImage: string;
   userEmail: string;
@@ -236,19 +234,18 @@ export type GetTeamIdGroupsIdMemberMemberUserIdResponse = {
   userId: number;
 };
 
-export type DeleteTeamIdGroupsIdMemberMemberUserIdResponse = {};
+export type DeleteGroupsIdMemberMemberUserIdResponse = {};
 
-// TODO: Fix the type 기획서가 제대로 정의되지 않았습니다. -> 제가 수정했어요 (지현이)
-export type GetTeamIdGroupsIdInvitationResponse = string;
+export type GetGroupsIdInvitationResponse = string;
 
-export type PostTeamIdGroupsAcceptInvitationResponse = {
+export type PostGroupsAcceptInvitationResponse = {
   userId: number;
   token: string;
 };
 
-export type PostTeamIdGroupsIdMemberResponse = {};
+export type PostGroupsIdMemberResponse = {};
 
-export type GetTeamIdGroupsIdTasksResponse = {
+export type GetGroupsIdTasksResponse = {
   recurringId: number;
   frequency: string;
   userId: number;
@@ -259,7 +256,7 @@ export type GetTeamIdGroupsIdTasksResponse = {
   id: number;
 }[];
 
-export type GetTeamIdTasksTaskIdCommentsResponse = {
+export type GetTasksTaskIdCommentsResponse = {
   user: {
     teamId: string;
     image: string | null;
@@ -278,7 +275,7 @@ export type GetTeamIdTasksTaskIdCommentsResponse = {
   id: number;
 }[];
 
-export type PostTeamIdTasksTaskIdCommentsResponse = {
+export type PostTasksTaskIdCommentsResponse = {
   userId: number;
   taskId: number;
   updatedAt: string;
@@ -287,13 +284,13 @@ export type PostTeamIdTasksTaskIdCommentsResponse = {
   id: number;
 };
 
-export type PatchTeamIdTasksTaskIdCommentsCommentIdResponse = {
+export type PatchTasksTaskIdCommentsCommentIdResponse = {
   content: string;
 };
 
-export type DeleteTeamIdTasksTaskIdCommentsCommentIdResponse = {};
+export type DeleteTasksTaskIdCommentsCommentIdResponse = {};
 
-export type PostTeamIdAuthSignupResponse = {
+export type PostAuthSignupResponse = {
   accessToken: string;
   refreshToken: string;
   user: {
@@ -307,7 +304,7 @@ export type PostTeamIdAuthSignupResponse = {
   };
 };
 
-export type PostTeamIdAuthSigninResponse = {
+export type PostAuthSigninResponse = {
   accessToken: string;
   refreshToken: string;
   user: {
@@ -321,11 +318,11 @@ export type PostTeamIdAuthSigninResponse = {
   };
 };
 
-export type PostTeamIdAuthRefreshTokenResponse = {
+export type PostAuthRefreshTokenResponse = {
   accessToken: string;
 };
 
-export type PostTeamIdAuthSignInProviderResponse = {
+export type PostAuthSignInProviderResponse = {
   accessToken: string;
   refreshToken: string;
   user: {

@@ -2,11 +2,11 @@ import uploadImage from "../image";
 import { ResponseError } from "../myFetch/clientFetch";
 import instance from "../myFetch/instance";
 import {
-  DeleteTeamIdGroupsIdMemberMemberUserIdResponse,
-  GetTeamIdGroupsIdInvitationResponse,
-  GetTeamIdGroupsIdResponse,
-  PatchTeamIdGroupsIdResponse,
-  PostTeamIdGroupsResponse,
+  DeleteGroupsIdMemberMemberUserIdResponse,
+  GetGroupsIdInvitationResponse,
+  GetGroupsIdResponse,
+  PatchGroupsIdResponse,
+  PostGroupsResponse,
 } from "../type";
 
 interface GetGroupInfoProps {
@@ -15,14 +15,11 @@ interface GetGroupInfoProps {
 
 // NOTE - 그룹에 대한 정보
 export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
-  const response = await instance<GetTeamIdGroupsIdResponse>(
-    `/groups/${groupId}`,
-    {
-      method: "GET",
-      cache: "no-store",
-      withCredentials: true,
-    },
-  );
+  const response = await instance<GetGroupsIdResponse>(`/groups/${groupId}`, {
+    method: "GET",
+    cache: "no-store",
+    withCredentials: true,
+  });
   return response;
 }
 
@@ -32,7 +29,7 @@ interface GetGroupInvitationProps {
 
 // NOTE - 그룹 초대 링크
 export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
-  const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
+  const response = await instance<GetGroupsIdInvitationResponse>(
     `/groups/${groupId}/invitation`,
     {
       method: "GET",
@@ -61,17 +58,14 @@ export async function patchGroupInfo({
     url = imageResponse.url;
   } else url = image;
 
-  const response = await instance<PatchTeamIdGroupsIdResponse>(
-    `/groups/${groupId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image: url, name }),
-      withCredentials: true,
+  const response = await instance<PatchGroupsIdResponse>(`/groups/${groupId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({ image: url, name }),
+    withCredentials: true,
+  });
   return response;
 }
 
@@ -81,13 +75,10 @@ interface DeleteGroupProps {
 
 // NOTE - 그룹 삭제
 export async function deleteGroup({ groupId }: DeleteGroupProps) {
-  const response = await instance<PatchTeamIdGroupsIdResponse>(
-    `/groups/${groupId}`,
-    {
-      method: "DELETE",
-      withCredentials: true,
-    },
-  );
+  const response = await instance<PatchGroupsIdResponse>(`/groups/${groupId}`, {
+    method: "DELETE",
+    withCredentials: true,
+  });
   return response;
 }
 
@@ -102,7 +93,7 @@ export async function postGroupInvitation({
   token,
 }: PostGroupInvitationProps) {
   try {
-    const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
+    const response = await instance<GetGroupsIdInvitationResponse>(
       "/groups/accept-invitation",
       {
         method: "POST",
@@ -138,14 +129,13 @@ export async function deleteTeamMember({
   memberUserId,
 }: DeleteTeamMemberProps) {
   try {
-    const response =
-      await instance<DeleteTeamIdGroupsIdMemberMemberUserIdResponse>(
-        `/groups/${groupId}/member/${memberUserId}`,
-        {
-          method: "DELETE",
-          withCredentials: true,
-        },
-      );
+    const response = await instance<DeleteGroupsIdMemberMemberUserIdResponse>(
+      `/groups/${groupId}/member/${memberUserId}`,
+      {
+        method: "DELETE",
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     if (error instanceof ResponseError && error.response) {
@@ -174,7 +164,7 @@ export async function postGroup({ image, name }: PostGroupProps) {
     url = imageResponse.url;
   }
 
-  const response = await instance<PostTeamIdGroupsResponse>("/groups", {
+  const response = await instance<PostGroupsResponse>("/groups", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

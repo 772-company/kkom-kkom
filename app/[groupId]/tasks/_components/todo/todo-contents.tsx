@@ -1,7 +1,7 @@
 import ButtonFloating from "@/components/button-floating/button-floating";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import useGetTasks from "@/lib/apis/task/hooks/use-get-tasks";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import React from "react";
 
 import useSelectButton from "../../_hooks/use-select-button";
@@ -13,7 +13,7 @@ import SideBar from "../side-bar";
 import TodoBox from "./todo-box";
 import TodoListName from "./todo-list-name";
 
-type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
+type TaskLists = GetGroupsIdResponse["taskLists"];
 interface TodoContentsProps {
   taskLists: TaskLists;
   date: Date;

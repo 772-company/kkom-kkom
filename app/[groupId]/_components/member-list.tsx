@@ -3,7 +3,7 @@
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getGroupInfo } from "@/lib/apis/group/index";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
@@ -14,7 +14,7 @@ import ModalMemberDelete from "./modal/modal-member-delete";
 import ModalMemberInvitation from "./modal/modal-member-invitation";
 import ModalMemberProfile from "./modal/modal-member-profile";
 
-type MemberType = GetTeamIdGroupsIdResponse["members"][0];
+type MemberType = GetGroupsIdResponse["members"][0];
 
 interface MemberCardProps {
   member: MemberType;

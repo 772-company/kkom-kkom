@@ -1,6 +1,6 @@
 import { getCookie, setCookie } from "cookies-next";
 
-import { PostTeamIdAuthRefreshTokenResponse } from "../type";
+import { PostAuthRefreshTokenResponse } from "../type";
 import type { MyFetchOptions } from "./types";
 
 export class ResponseError extends Error {
@@ -66,7 +66,7 @@ export async function clientFetch(
         },
       );
       if (newAccessToken.ok) {
-        const newAccessTokenValue: PostTeamIdAuthRefreshTokenResponse =
+        const newAccessTokenValue: PostAuthRefreshTokenResponse =
           await newAccessToken.json();
         setCookie("accessToken", newAccessTokenValue.accessToken);
         const headers = new Headers(init?.headers);

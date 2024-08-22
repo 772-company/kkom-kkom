@@ -1,7 +1,7 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
 import { postTaskList } from "@/lib/apis/task-list";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
@@ -23,7 +23,7 @@ function ModalTaskListAdd({ close, groupId }: ModalTaskListAddProps) {
       postTaskList(groupId, newTaskList),
     onMutate: async (newTaskList) => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
-      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+      const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
       ]);
 

@@ -2,7 +2,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { patchTaskListName } from "@/lib/apis/task-list";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
@@ -53,12 +53,12 @@ function ModalTaskListNameEdit({
     onMutate: async (data: TaskListNameEditFormValue) => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
 
-      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+      const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
       ]);
 
       if (previousData) {
-        queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
+        queryClient.setQueryData<GetGroupsIdResponse>(["groupInfo"], {
           ...previousData,
           taskLists: previousData.taskLists.map((taskList) =>
             taskList.id === taskListId

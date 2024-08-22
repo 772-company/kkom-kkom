@@ -1,7 +1,7 @@
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
-import { PostTeamIdUserSendResetPasswordEmailResponse } from "@/lib/apis/type";
+import { PostUserSendResetPasswordEmailResponse } from "@/lib/apis/type";
 import { sendEmail } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { sendEmailSchema } from "@/schemas/auth";
@@ -29,7 +29,7 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
     mutationFn: async (data: SendEmailInputValue) => {
       const response = (await sendEmail(
         data,
-      )) as PostTeamIdUserSendResetPasswordEmailResponse;
+      )) as PostUserSendResetPasswordEmailResponse;
       return response;
     },
     onMutate: () => {
@@ -37,7 +37,7 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
         toastId: "sendEmail",
       });
     },
-    onSuccess: (response: PostTeamIdUserSendResetPasswordEmailResponse) => {
+    onSuccess: (response: PostUserSendResetPasswordEmailResponse) => {
       toast.update("sendEmail", {
         render: response.message,
         type: "success",

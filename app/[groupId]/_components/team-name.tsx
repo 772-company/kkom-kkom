@@ -7,9 +7,9 @@ import Gear from "@/public/icons/gear.svg";
 import Thumbnail from "@/public/images/thumbnail-team.png";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import ModalTeamDelete from "./modal/modal-team-delete";
-import ModalTeamNameEdit from "./modal/modal-team-name-edit";
 
 interface TeamNameProps {
   groupId: string;
@@ -17,20 +17,14 @@ interface TeamNameProps {
 }
 
 const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
+  const router = useRouter();
+
   const { data } = useQuery({
     queryKey: ["groupInfo"],
     queryFn: () => getGroupInfo({ groupId: groupId }),
   });
 
   const teamName = data ? data?.name : "";
-
-  const ModalTeamNameEditOverlay = useCustomOverlay(({ close }) => (
-    <ModalTeamNameEdit
-      close={close}
-      groupId={groupId}
-      currentTeamName={teamName}
-    />
-  ));
 
   const ModalTeamDeleteOverlay = useCustomOverlay(({ close }) => (
     <ModalTeamDelete close={close} teamName={teamName} groupId={groupId} />
@@ -49,7 +43,10 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
             triggerHeight={24}
             triggerWidth={24}
             content={[
-              { text: "수정하기", onClick: ModalTeamNameEditOverlay.open },
+              {
+                text: "수정하기",
+                onClick: () => router.push(`/${groupId}/edit`),
+              },
               { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
             ]}
             contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"

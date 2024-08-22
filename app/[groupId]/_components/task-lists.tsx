@@ -10,7 +10,7 @@ import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
 import _debounce from "lodash/debounce";
-import Link from "next/link";
+import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 
@@ -66,10 +66,11 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
   ).length;
 
   const isDone = numberOfDone === taskList.tasks.length ? true : false;
+  const router = useRouter();
 
   return (
     <div
-      // href={`/${groupId}/tasks`}
+      onClick={() => router.push(`/${groupId}/tasks`)}
       className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary"
     >
       <div className="flex gap-[12px]">
@@ -87,16 +88,22 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
             {numberOfDone} / {taskList.tasks.length}
           </p>
         </div>
-        <Popover
-          triggerSvg={Kebab}
-          triggerHeight={16}
-          triggerWidth={16}
-          content={[
-            { text: "수정하기", onClick: ModalTaskListNameEditOverlay.open },
-            { text: "삭제하기", onClick: ModalTaskListDeleteOverlay.open },
-          ]}
-          contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"
-        />
+        <div
+          onClick={(event) => {
+            event.stopPropagation(); // 클릭 이벤트 전파 중지
+          }}
+        >
+          <Popover
+            triggerSvg={Kebab}
+            triggerHeight={16}
+            triggerWidth={16}
+            content={[
+              { text: "수정하기", onClick: ModalTaskListNameEditOverlay.open },
+              { text: "삭제하기", onClick: ModalTaskListDeleteOverlay.open },
+            ]}
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-white"
+          />
+        </div>
       </div>
     </div>
   );

@@ -20,15 +20,20 @@ export default async function TeamPage({
 
   const queryClient = new QueryClient();
 
+  const [groupInfo, userInfo] = await Promise.all([
+    getGroupInfo({ groupId }),
+    getUser(),
+  ]);
+
   await queryClient.prefetchQuery({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => groupInfo,
   });
 
-  const userInfo = await getUser();
-  const { members } = await getGroupInfo({ groupId });
+  // const userInfo = await getUser();
+  // const { members } = await getGroupInfo({ groupId });
 
-  const adminMemberName = members.find(
+  const adminMemberName = groupInfo.members.find(
     (member) => member.role === "ADMIN",
   )?.userName;
 

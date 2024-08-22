@@ -59,6 +59,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
             width={24}
             height={24}
             className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
+            style={{ objectFit: "cover" }}
           ></Image>
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />

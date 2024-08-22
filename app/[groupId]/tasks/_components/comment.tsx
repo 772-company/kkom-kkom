@@ -35,7 +35,8 @@ const Comment = (commentData: GetCommentResponse) => {
             </p>
           </div>
           <p className="text-sm font-normal text-text-secondary">
-            {convertDiffDateFromNow(new Date(commentData.createdAt))}
+            {convertDiffDateFromNow(new Date(commentData.updatedAt))}
+            {commentData.updatedAt !== commentData.createdAt && "(수정됨)"}
           </p>
         </div>
       </div>

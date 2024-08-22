@@ -13,11 +13,10 @@ interface PopoverTriggerProps {
 }
 
 export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
-  const router = useRouter();
   const modalLogoutOverlay = useCustomOverlay(({ close }) => (
     <ModalLogout close={close} />
   ));
-
+  const router = useRouter();
   return (
     <div className="flex cursor-pointer items-center gap-2">
       <Popover

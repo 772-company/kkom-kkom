@@ -53,7 +53,7 @@ export default function ArticleSearchBar() {
             className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2 shadow-xl"
           >
             <form
-              className="relative mx-auto w-full max-w-[1200px] pt-1"
+              className="relative mx-auto mt-1 w-full max-w-[1200px] px-4 md:px-0"
               onSubmit={handleSubmit(onSubmit)}
             >
               <BasicInput
@@ -62,7 +62,7 @@ export default function ArticleSearchBar() {
                 placeholder="검색어를 입력해주세요"
                 className="h-12 pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
               />
-              <SearchIcon className="absolute left-4 top-3 h-6 w-6 md:top-4" />
+              <SearchIcon className="absolute left-8 top-3 h-6 w-6 md:left-4 md:top-4" />
             </form>
           </motion.section>
         )}

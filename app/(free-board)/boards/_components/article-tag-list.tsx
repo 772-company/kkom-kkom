@@ -1,24 +1,21 @@
 "use client";
 
 import SEARCH_TAGS from "@/constants/search-tags";
+import { useProgress } from "@/hooks/use-progress";
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 
 interface ArticleTagListProps {
-  searchParams: {
-    orderBy?: "recent" | "like";
-    page?: string;
-    keyword?: string;
-  };
+  keyword: string;
 }
 
-export default function ArticleTagList({ searchParams }: ArticleTagListProps) {
-  const keyword = searchParams.keyword || "";
+export default function ArticleTagList({ keyword }: ArticleTagListProps) {
   const [emblaRef] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",
     dragFree: true,
   });
+  const progress = useProgress();
 
   return (
     <section className="flex flex-1 items-center overflow-hidden text-text-primary">
@@ -32,6 +29,7 @@ export default function ArticleTagList({ searchParams }: ArticleTagListProps) {
               <Link
                 className={`w-fit break-keep rounded-2xl bg-background-tertiary px-3 py-2 text-xs selection:bg-background-tertiary hover:text-brand-primary md:px-6 md:text-sm ${keyword === tag ? "text-brand-primary" : ""}`}
                 href={`/boards?keyword=${tag}`}
+                onClick={progress(`/boards?keyword=${tag}`)}
               >
                 {"#" + tag}
               </Link>

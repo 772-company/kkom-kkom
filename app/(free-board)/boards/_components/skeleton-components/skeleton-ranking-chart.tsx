@@ -4,7 +4,7 @@ export default function SkeletonRankingChart() {
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((article, i) => (
         <li
           key={i}
-          className={`flex items-center justify-between gap-1 ${i <= 2 && "font-bold text-[#fe6c08]"}`}
+          className={`flex animate-pulse items-center justify-between gap-1 ${i <= 2 && "font-bold text-[#fe6c08]"}`}
         >
           <span className="h-6"></span>
         </li>

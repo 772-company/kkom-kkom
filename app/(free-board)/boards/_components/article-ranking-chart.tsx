@@ -24,7 +24,7 @@ export default async function ArticleRankingChart() {
             </Link>
           </span>
           <div className="flex-shrink-0 text-sm font-normal text-text-disabled">
-            {convertDiffDateFromNow(new Date(article.createdAt))}
+            {convertDiffDateFromNow(new Date(article.updatedAt))}
           </div>
         </li>
       ))}

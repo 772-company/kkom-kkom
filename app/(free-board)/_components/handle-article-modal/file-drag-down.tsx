@@ -70,15 +70,15 @@ export default function FileDragDown({
         </header>
       )}
       <section>
-        <section className="mx-auto max-h-[60vh] max-w-[60vh] px-5 pt-5">
+        <section className="xl mx-auto h-full w-full px-5 pt-5">
           <div
             {...getRootProps()}
             className="flex h-full w-full flex-col items-center"
           >
-            <section className="relative aspect-square w-full">
+            <section className="relative w-full">
               <input {...getInputProps()} />
               {preview === null ? (
-                <section className="relative inset-0 flex h-full w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-background-tertiary bg-white">
+                <section className="relative inset-0 flex h-full w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-background-tertiary bg-white py-4 md:aspect-square">
                   <MediaIcon />
                   <p className="text-xl font-bold">
                     사진과 동영상을 여기에 놓으세요
@@ -94,15 +94,17 @@ export default function FileDragDown({
                   </Button>
                 </section>
               ) : (
-                <div className="relative inset-0 mx-auto h-full w-full rounded-xl bg-white">
+                <div className="relative inset-0 mx-auto rounded-xl bg-white">
                   <Image
-                    fill
                     src={preview}
+                    height={0}
+                    width={0}
                     alt="preview"
+                    sizes="60vh"
                     onLoad={() => {
                       URL.revokeObjectURL(preview);
                     }}
-                    className="rounded-xl hover:cursor-pointer"
+                    className="h-full w-full rounded-xl hover:cursor-pointer"
                   />
                 </div>
               )}

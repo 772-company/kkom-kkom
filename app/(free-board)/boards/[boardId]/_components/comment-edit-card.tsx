@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "@/app/(free-board)/_components/card";
 import { usePatchCommentsMutation } from "@/app/(free-board)/_query/mutation";
 import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";

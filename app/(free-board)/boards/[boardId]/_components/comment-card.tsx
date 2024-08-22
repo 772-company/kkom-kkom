@@ -3,7 +3,9 @@
 import Card from "@/app/(free-board)/_components/card";
 import ModalCancel from "@/app/(free-board)/_components/modal-cancel";
 import { useDeleteCommentsMutation } from "@/app/(free-board)/_query/mutation";
-import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";
+import useArticlesCommentsQuery, {
+  useUserQuery,
+} from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
@@ -12,6 +14,7 @@ import {
   Fragment,
   useCallback,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -28,9 +31,17 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
   const [isEdit, setIsEdit] = useState(false);
 
+  const timeDiff = useMemo(
+    () => convertDiffDateFromNow(new Date(comment.updatedAt)),
+    [comment.updatedAt],
+  );
+
   const { mutate: deleteMutation, isPending: isDeletePending } =
     useDeleteCommentsMutation();
   const { isFetching } = useArticlesCommentsQuery(articleId);
+  const {
+    data: { id },
+  } = useUserQuery();
 
   const deleteCommentOverlay = useCustomOverlay(({ close }) => (
     <ModalCancel
@@ -120,18 +131,23 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
             <section className="flex">
               <section className="flex items-center">
                 <Card.Profile name={comment.writer.nickname} className="mr-4" />
-                <time className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]">
-                  {convertDiffDateFromNow(new Date(comment.updatedAt))}{" "}
+                <time
+                  className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]"
+                  suppressHydrationWarning
+                >
+                  {timeDiff}{" "}
                   {comment.updatedAt !== comment.createdAt && "(수정됨)"}
                 </time>
               </section>
             </section>
           </section>
-          <Card.KebabButton
-            className=""
-            onDelete={handleDelete}
-            onPatch={handlePatch}
-          />
+          {id === comment.writer.id && (
+            <Card.KebabButton
+              className=""
+              onDelete={handleDelete}
+              onPatch={handlePatch}
+            />
+          )}
         </>
       ) : (
         <CommentEditCard

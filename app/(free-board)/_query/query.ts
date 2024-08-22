@@ -3,10 +3,13 @@
 import { getArticlesArticleId } from "@/lib/apis/article";
 import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { getUser } from "@/lib/apis/user";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 export default function useArticlesCommentsQuery(articleId: number) {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryKey: ["comments", { articleId }],
     queryFn: ({ pageParam }) =>
       getArticlesArticleIdComments({ cursor: pageParam, articleId }),
@@ -16,14 +19,14 @@ export default function useArticlesCommentsQuery(articleId: number) {
 }
 
 export function useUserQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
   });
 }
 
 export function useArticleQuery(articleId: number) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["article", { articleId }],
     queryFn: () => getArticlesArticleId({ articleId }),
   });

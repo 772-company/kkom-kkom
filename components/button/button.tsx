@@ -108,13 +108,13 @@ export function LinkButton({
   className,
   ...rest
 }: LinkButtonProps) {
-  const handleClick = useProgress();
+  const progress = useProgress();
   return (
     <Link
       className={cn(buttonVariants({ className, btnStyle, btnSize }))}
       href={href}
+      onClick={progress(href.toString())}
       {...rest}
-      onClick={handleClick(href.toString())}
     >
       {children}
     </Link>

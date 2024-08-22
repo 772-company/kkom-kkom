@@ -10,6 +10,7 @@ import { Suspense } from "react";
 
 import SkeletonArticleContent from "../_components/skeleton-components/skeleton-article-content";
 import SkeletonArticleHeader from "../_components/skeleton-components/skeleton-article-header";
+import SkeletonArticleLikeSection from "../_components/skeleton-components/skeleton-article-like-section";
 import SkeletonCommentForm from "../_components/skeleton-components/skeleton-comment-form";
 import SkeletonCommentList from "../_components/skeleton-components/skeleton-comment-list";
 import ArticleContent from "./_components/article-content";
@@ -73,6 +74,8 @@ export default async function Page({ params: { boardId } }: Props) {
       </Suspense>
       <Suspense fallback={<SkeletonArticleContent />}>
         <ArticleContent articleId={articleId} />
+      </Suspense>
+      <Suspense fallback={<SkeletonArticleLikeSection />}>
         <LikeSection articleId={articleId} />
       </Suspense>
       <Suspense fallback={<SkeletonCommentForm />}>

@@ -26,13 +26,13 @@ export interface TodoFormType {
 }
 
 const REPEAT_ARRAY = [
-  { name: "월", value: 0 },
-  { name: "화", value: 1 },
-  { name: "수", value: 2 },
-  { name: "목", value: 3 },
-  { name: "금", value: 4 },
-  { name: "토", value: 5 },
-  { name: "일", value: 6 },
+  { name: "월", value: 1 },
+  { name: "화", value: 2 },
+  { name: "수", value: 3 },
+  { name: "목", value: 4 },
+  { name: "금", value: 5 },
+  { name: "토", value: 6 },
+  { name: "일", value: 0 },
 ];
 
 const AddTodoModal = ({
@@ -139,7 +139,7 @@ const AddTodoModal = ({
                   e.target.focus();
                 });
               }}
-              className="text h-[50px] w-[50px] bg-[#18212F] text-center text-sm font-medium text-text-default"
+              className="text h-[50px] w-[50px] rounded-[12px] bg-[#18212F] text-center text-sm font-medium text-text-default"
               type="number"
               min="1"
               max="31"

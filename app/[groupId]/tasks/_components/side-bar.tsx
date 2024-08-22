@@ -14,10 +14,8 @@ import React from "react";
 
 import Comment from "./comment/comment";
 import CommentInput from "./comment/comment-input";
-
 import DeleteTodoModal from "./modal/delete-todo-modal";
 import EditTodoModal from "./modal/edit-todo-modal";
-
 import PageButton from "./tasks-button";
 import KebabPopover from "./todo/kebab-popover";
 
@@ -103,12 +101,11 @@ const SideBar = ({
               >
                 {taskDetail?.name}
               </h1>
-              <button>
-                <KebabPopover
-                  openDeleteModal={deleteTodoModalOverlay.open}
-                  openEditModal={editTodoModalOverlay.open}
-                />
-              </button>
+
+              <KebabPopover
+                openDeleteModal={deleteTodoModalOverlay.open}
+                openEditModal={editTodoModalOverlay.open}
+              />
             </div>
 
             <div className="flex flex-col gap-6">

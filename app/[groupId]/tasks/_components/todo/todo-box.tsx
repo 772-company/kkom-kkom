@@ -19,6 +19,7 @@ interface TodoBoxProps {
   taskListId: number | undefined;
   date: Date;
   id: number;
+  recurringId: number;
   title: string;
   description: string;
   commentCount: number;
@@ -31,6 +32,7 @@ const TodoBox = ({
   groupId,
   taskListId,
   id,
+  recurringId,
   title,
   description,
   date,
@@ -56,6 +58,7 @@ const TodoBox = ({
       groupId={groupId}
       taskListId={taskListId}
       taskId={id}
+      recurringId={recurringId}
       title={title}
       close={close}
     />

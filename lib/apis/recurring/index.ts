@@ -37,6 +37,10 @@ export const deleteRecurring = async (
   taskId: number,
   recurringId: number,
 ) => {
+  console.log(
+    `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
+  );
+
   try {
     const response = await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,

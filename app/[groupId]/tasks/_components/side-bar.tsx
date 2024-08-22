@@ -14,10 +14,8 @@ import React from "react";
 
 import Comment from "./comment/comment";
 import CommentInput from "./comment/comment-input";
-
 import DeleteTodoModal from "./modal/delete-todo-modal";
 import EditTodoModal from "./modal/edit-todo-modal";
-
 import PageButton from "./tasks-button";
 import KebabPopover from "./todo/kebab-popover";
 
@@ -66,6 +64,7 @@ const SideBar = ({
       groupId={groupId}
       taskListId={taskListId}
       taskId={taskDetail?.id ?? -1}
+      recurringId={taskDetail?.recurringId ?? -1}
       title={taskDetail?.name ?? ""}
       close={close}
       closeSideBar={handleCancelButton}

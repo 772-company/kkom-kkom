@@ -10,6 +10,7 @@ interface DeleteTodoModalProps {
   groupId: string;
   taskListId: number | undefined;
   taskId: number;
+  recurringId: number;
   title: string;
   close: () => void;
   closeSideBar?: () => void;
@@ -18,6 +19,7 @@ const DeleteTodoModal = ({
   groupId,
   taskListId,
   taskId,
+  recurringId,
   title,
   close,
   closeSideBar,
@@ -26,7 +28,7 @@ const DeleteTodoModal = ({
 
   const { isPending, mutate } = useMutation({
     mutationFn: () =>
-      deleteRecurring(groupId, taskListId ?? -1, taskId, taskId),
+      deleteRecurring(groupId, taskListId ?? -1, taskId, recurringId),
     onSuccess: () => {
       closeSideBar && closeSideBar();
       close();
@@ -36,7 +38,7 @@ const DeleteTodoModal = ({
     },
   });
   const handleClickRemoveTodo = () => {
-    if (taskListId !== -1) {
+    if (taskListId !== -1 || recurringId != -1) {
       mutate();
     }
   };

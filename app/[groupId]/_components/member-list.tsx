@@ -4,6 +4,7 @@ import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -48,13 +49,13 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
   return (
     <div
       onClick={ModalMemberProfileOverlay.open}
-      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] md:min-w-[216px] xl:min-w-[382px]"
+      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] hover:bg-background-tertiary active:scale-[0.98] md:min-w-[216px] xl:min-w-[382px]"
     >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
           <Image
             src={member.userImage}
-            alt={"유저 프로필"}
+            alt={"유저 프로필 사진"}
             width={24}
             height={24}
             className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
@@ -62,10 +63,15 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />
         )}
+        <div className="flex items-center gap-[4px]">
+          {member.role === "ADMIN" && (
+            <Image src={Crown} alt="왕관" width={20} height={20} />
+          )}
+          <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">
+            {member.userName}
+          </p>
+        </div>
 
-        <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">
-          {member.userName}
-        </p>
         <p className="col-span-2 row-span-1 row-start-2 truncate text-[12px] font-[400] text-text-secondary md:col-span-1 md:col-start-2">
           {member.userEmail}
         </p>
@@ -115,13 +121,13 @@ const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
         {isAdmin && (
           <button
             onClick={ModalMemberAddOverlay.open}
-            className="text-[14px] font-[400] text-brand-primary"
+            className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
           >
             + 새로운 멤버 초대하기
           </button>
         )}
       </div>
-      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
+      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-hidden overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (
           members.map((member) => (
             <MemberCard

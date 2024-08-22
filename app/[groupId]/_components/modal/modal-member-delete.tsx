@@ -49,7 +49,7 @@ const ModalMemberDelete = ({
         "error",
         error instanceof Error
           ? error.message
-          : `${userName}님 삭제에 실패하였습니다`,
+          : `${userName}님 삭제에 실패하였습니다.`,
       );
     },
     onSuccess: () => {

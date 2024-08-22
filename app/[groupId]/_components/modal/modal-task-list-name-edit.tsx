@@ -5,6 +5,7 @@ import { patchTaskListName } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
+import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
@@ -30,12 +31,16 @@ const ModalTaskListNameEdit = ({
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isDirty },
   } = useForm<TaskListNameEditFormValue>({
     defaultValues: {
       taskListName: currentTaskListName,
     },
   });
+
+  const taskListName = watch("taskListName");
+  const suffix = useLastConsonantLetterCheck(taskListName) ? "으로" : "로";
 
   const editTaskListMutation = useMutation({
     mutationFn: (data: TaskListNameEditFormValue) =>
@@ -76,7 +81,9 @@ const ModalTaskListNameEdit = ({
     onSuccess: (data) => {
       showToast(
         "success",
-        data ? `${data.name}으로 수정되었습니다.` : "목록 명이 수정되었습니다.",
+        data
+          ? `${data.name}${suffix} 수정되었습니다.`
+          : showToast("success", "수정되었습니다."),
       );
       close();
     },

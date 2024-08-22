@@ -22,6 +22,7 @@ export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
       {
         method: "GET",
         cache: "no-store",
+        withCredentials: true,
       },
     );
     return response;

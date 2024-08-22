@@ -24,6 +24,7 @@ type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 interface TaskListProps {
   taskList: TaskListType;
   groupId: string;
+  index: number;
 }
 
 interface TaskListsProps {
@@ -41,7 +42,7 @@ const COLORS = [
   "bg-point-purple",
 ];
 
-const TaskList = ({ taskList, groupId }: TaskListProps) => {
+const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
   const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListNameEdit
       close={close}
@@ -59,7 +60,7 @@ const TaskList = ({ taskList, groupId }: TaskListProps) => {
     />
   ));
 
-  const colorIndex = taskList.displayIndex % 7;
+  const colorIndex = index % 7;
   const pointColor = COLORS[colorIndex];
   const numberOfDone = taskList.tasks.filter(
     (tasks) => tasks.doneAt != null,
@@ -123,44 +124,41 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
     data ? data.taskLists : [],
   );
 
-  // taskLists 초기화
   useEffect(() => {
     if (data) {
       setTaskLists(data.taskLists);
     }
   }, [data]);
 
-  // 드래그가 끝났을 때 호출되는 함수
-  const onDragEnd = (result: any) => {
+  const onDragEnd = async (result: any) => {
     const { source, destination } = result;
 
-    // 드래그 종료 위치가 유효하지 않으면 아무것도 하지 않음
     if (!destination) {
       return;
     }
 
-    // 상태 업데이트를 위해 taskLists 배열 복사
     const updatedTaskLists = Array.from(taskLists);
-
-    // 드래그한 항목을 원래 위치에서 제거
     const [movedTaskList] = updatedTaskLists.splice(source.index, 1);
-
-    // 드래그한 항목을 새로운 위치에 삽입
     updatedTaskLists.splice(destination.index, 0, movedTaskList);
 
-    // 이동한 tasklist의 displayIndex 재설정
-    updatedTaskLists.forEach((taskLists, index) => {
-      taskLists.displayIndex = index;
-    });
+    const updates = updatedTaskLists.map((taskList, index) => ({
+      taskListId: taskList.id,
+      displayIndex: index,
+    }));
 
     setTaskLists(updatedTaskLists);
 
-    // 모든 taskList의 displayIndex를 서버에 업데이트
-    updatedTaskLists.forEach((taskList, index) => {
-      patchChangeTaskListIndex(groupId, taskList.id, {
-        displayIndex: index,
-      }).catch(console.error);
-    });
+    // 비동기 요청 병렬로 처리
+    try {
+      await Promise.all(
+        updates.map(({ taskListId, displayIndex }) =>
+          patchChangeTaskListIndex(groupId, taskListId, { displayIndex }),
+        ),
+      );
+      console.log("순서 업데이트 성공");
+    } catch (error) {
+      console.error("순서 업데이트 중 오류 발생", error);
+    }
   };
 
   return (
@@ -174,7 +172,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
         </div>
         {isAdmin && (
           <button
-            className="text-[14px] font-[400] text-brand-primary"
+            className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
             onClick={ModalTaskListAddOverlay.open}
           >
             + 새로운 목록 추가하기
@@ -202,7 +200,11 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <TaskList taskList={taskList} groupId={groupId} />
+                        <TaskList
+                          taskList={taskList}
+                          groupId={groupId}
+                          index={index}
+                        />
                       </div>
                     )}
                   </Draggable>

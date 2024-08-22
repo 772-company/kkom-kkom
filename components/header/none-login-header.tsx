@@ -1,4 +1,5 @@
-import Logo from "@/public/icons/logo.svg";
+import Pin from "@/public/icons/pin.png";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ThemeToggle } from "../theme/theme-toggle";
@@ -9,8 +10,8 @@ export default function NoneLoginHeader() {
     <>
       <div className="flex items-center gap-4">
         <Link href="/" className="flex items-center gap-1">
-          <div className="size-4 xl:size-6">
-            <Logo width={"100%"} height={"100%"} />
+          <div className="size-6 xl:size-8">
+            <Image src={Pin} alt="로고" />
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
         </Link>

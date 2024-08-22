@@ -3,8 +3,9 @@
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getUser } from "@/lib/apis/user";
 import Menu from "@/public/icons/gnb-menu.svg";
-import Logo from "@/public/icons/logo.svg";
+import Pin from "@/public/icons/pin.png";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ThemeToggle } from "../theme/theme-toggle";
@@ -35,8 +36,8 @@ export default function LoggedInHeaderContent() {
           <Menu width={24} height={24} />
         </div>
         <Link href="/" className="flex items-center gap-1">
-          <div className="size-4 xl:size-6">
-            <Logo width={"100%"} height={"100%"} />
+          <div className="size-6 xl:size-8">
+            <Image src={Pin} alt="로고" />
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
         </Link>

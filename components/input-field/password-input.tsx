@@ -8,7 +8,6 @@ import { BasicInput, BasicInputProps } from "./basic-input";
 
 interface PasswordInputProps<TFormInput extends FieldValues>
   extends BasicInputProps<TFormInput> {
-  // TODO - 함수에 맞게 수정
   onOpenModal?: () => void;
 }
 
@@ -56,7 +55,6 @@ export default function PasswordInput<TFormInput extends FieldValues>({
         error={error}
         {...rest}
       />
-      {/* TODO - 클릭 시 모달 열기 */}
       {isDisabled ? (
         <Button
           btnSize="x-small"

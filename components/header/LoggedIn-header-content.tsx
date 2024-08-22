@@ -34,7 +34,7 @@ export default function LoggedInHeaderContent() {
       <div className="flex items-center gap-4">
         {/* NOTE - 클릭 시 사이드 메뉴  */}
         <div
-          className="md:hidden"
+          className="cursor-pointer md:hidden"
           onClick={modalSideMenuOverlay.open}
           role="presentation"
         >

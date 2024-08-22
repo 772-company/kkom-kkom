@@ -3,7 +3,7 @@
 import useClickOutside from "@/hooks/use-click-outside";
 import { Membership } from "@/lib/apis/type";
 import CloseButton from "@/public/icons/x.svg";
-import hamster from "@/public/images/hamster.jpg";
+import defaultProfile from "@/public/images/default-profile.png";
 import { motion } from "framer-motion";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
@@ -29,7 +29,7 @@ export default function ModalSideMenu({
   };
 
   return (
-    <section className="fixed inset-0 z-40 flex bg-black bg-opacity-50">
+    <section className="fixed inset-0 z-40 flex bg-black bg-opacity-50 md:hidden">
       <motion.div
         ref={modalRef as LegacyRef<HTMLDivElement> | undefined}
         className="relative h-full w-1/2 bg-background-secondary"
@@ -51,9 +51,8 @@ export default function ModalSideMenu({
               role="presentation"
             >
               <div className="relative size-6 overflow-hidden rounded-md object-cover">
-                {/* TODO - 기본 이미지 바꾸기 */}
                 <Image
-                  src={membership.group.image || hamster}
+                  src={membership.group.image || defaultProfile}
                   alt={`${membership.group.name} 이미지`}
                   fill
                   className="object-cover"

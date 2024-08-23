@@ -1,9 +1,6 @@
-import { getArticles } from "@/lib/apis/article";
 import Medal from "@/public/icons/medal.svg";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { Suspense } from "react";
 
-import { getQueryClient } from "../get-query-client";
 import UploadArticleButton from "./_components/upload-article-button";
 import ArticleRankingChart from "./boards/_components/article-ranking-chart";
 import ArticleSearchBar from "./boards/_components/article-search-bar";
@@ -14,36 +11,27 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = getQueryClient();
-
-  queryClient.prefetchQuery({
-    queryKey: ["articles", { page: "1", orderBy: "like", keyword: "" }],
-    queryFn: () => getArticles({ page: "1", orderBy: "like", keyword: "" }),
-  });
-
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="relative mx-4 pb-14 md:mx-6 xl:mx-auto xl:max-w-[1200px]">
-        <header className="mt-8">
-          <h1 className="mb-6 text-lg font-bold text-text-primary selection:bg-inherit">
-            자유게시판
-          </h1>
-          <ArticleSearchBar />
-        </header>
-        <section className="mt-6 md:mt-8">
-          <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
-            <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
-              <Medal width={16} height={16} />
-              <h2 className="selection:bg-inherit">베스트 랭킹</h2>
-            </header>
-            <Suspense fallback={<SkeletonRankingChart />}>
-              <ArticleRankingChart />
-            </Suspense>
-          </section>
-          {children}
+    <div className="relative mx-4 pb-14 md:mx-6 xl:mx-auto xl:max-w-[1200px]">
+      <header className="mt-8">
+        <h1 className="mb-6 text-lg font-bold text-text-primary selection:bg-inherit">
+          자유게시판
+        </h1>
+        <ArticleSearchBar />
+      </header>
+      <section className="mt-6 md:mt-8">
+        <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
+          <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
+            <Medal width={16} height={16} />
+            <h2 className="selection:bg-inherit">베스트 랭킹</h2>
+          </header>
+          <Suspense fallback={<SkeletonRankingChart />}>
+            <ArticleRankingChart />
+          </Suspense>
         </section>
-        <UploadArticleButton />
-      </div>
-    </HydrationBoundary>
+        {children}
+      </section>
+      <UploadArticleButton />
+    </div>
   );
 }

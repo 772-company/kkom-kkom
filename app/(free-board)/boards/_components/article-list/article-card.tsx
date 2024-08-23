@@ -54,10 +54,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </div>
           <div className="flex items-center gap-2">
             <Card.CommentIcon commentCount={article.commentCount} size={16} />
-            <Card.LikeDescription
-              likeCount={article.likeCount}
-              isClicked={true}
-            />
+            <Card.LikeDescription likeCount={article.likeCount} isClicked />
           </div>
         </section>
       </div>

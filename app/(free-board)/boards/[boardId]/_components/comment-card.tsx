@@ -6,7 +6,6 @@ import { useDeleteCommentsMutation } from "@/app/(free-board)/_query/mutation";
 import useArticlesCommentsQuery, {
   useUserQuery,
 } from "@/app/(free-board)/_query/query";
-import Button from "@/components/button/button";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
 import { convertDiffDateFromNow } from "@/utils/convert-date";

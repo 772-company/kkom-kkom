@@ -33,7 +33,7 @@ const ProfileIcon = ({ image, type, width, height }: ProfileIconProps) => {
           className="rounded-full"
           width={width}
           height={height}
-          src={image ? image : "/icons/my-profile.svg"}
+          src={image ? image : "/icons/default-profile.svg"}
           alt="나의이미지"
         />
       )}

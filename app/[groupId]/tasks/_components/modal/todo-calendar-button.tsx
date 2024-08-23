@@ -2,8 +2,10 @@ import Button from "@/components/button/button";
 import React, { forwardRef } from "react";
 import { ButtonHTMLAttributes, DOMAttributes } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { ControllerRenderProps } from "react-hook-form";
 
+import "../calendar-style/custom-date-picker.css";
 import { TodoFormType } from "./add-todo-modal";
 
 interface CalendarButtonProps {
@@ -37,8 +39,9 @@ const TodoCalendarButton = ({ field }: CalendarButtonProps) => {
           field.onChange(date);
         }
       }}
-      calendarClassName="mt-1"
+      calendarClassName="customModal"
       dateFormat="yyyy년 MM월 dd일"
+      shouldCloseOnSelect={false}
       customInput={
         <CustomTodoCalendarButton className="h-[48px] w-[336px] bg-background-secondary text-text-default" />
       }

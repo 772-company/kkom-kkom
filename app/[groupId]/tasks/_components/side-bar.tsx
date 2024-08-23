@@ -102,12 +102,11 @@ const SideBar = ({
               >
                 {taskDetail?.name}
               </h1>
-              <button>
-                <KebabPopover
-                  openDeleteModal={deleteTodoModalOverlay.open}
-                  openEditModal={editTodoModalOverlay.open}
-                />
-              </button>
+
+              <KebabPopover
+                openDeleteModal={deleteTodoModalOverlay.open}
+                openEditModal={editTodoModalOverlay.open}
+              />
             </div>
 
             <div className="flex flex-col gap-6">

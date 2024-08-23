@@ -15,12 +15,11 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Card
       key={article.id}
-      className="group/card flex p-4 py-6 duration-300 hover:bg-background-tertiary md:px-8"
+      className="group/card flex flex-1 border border-black border-opacity-10 p-4 py-6 duration-300 hover:bg-background-tertiary dark:border dark:border-white dark:border-opacity-10 md:px-8"
     >
       {article.image && (
         <Link
           href={`/boards/${article.id}`}
-          as="image"
           className="relative h-24 w-24 md:h-32 md:w-32"
         >
           <Image
@@ -29,7 +28,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             priority
             alt="thumbnail"
             sizes="(min-width: 744px) 128px, 96px"
-            className="duration-150"
+            className="rounded-md duration-150"
           />
         </Link>
       )}
@@ -53,7 +52,13 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               className="border-l border-l-background-tertiary pl-4"
             />
           </div>
-          <Card.LikeDescription likeCount={article.likeCount} isClicked />
+          <div className="flex items-center gap-2">
+            <Card.CommentIcon commentCount={article.commentCount} size={16} />
+            <Card.LikeDescription
+              likeCount={article.likeCount}
+              isClicked={true}
+            />
+          </div>
         </section>
       </div>
     </Card>

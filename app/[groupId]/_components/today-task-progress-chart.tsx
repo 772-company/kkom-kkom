@@ -75,7 +75,7 @@ function TodayTaskProgressChart({
                 fill={
                   entry.name === "numberOfDone"
                     ? "url(#doneGradient)"
-                    : `var(--background-tertiary)`
+                    : "var(--background-tertiary)"
                 }
                 strokeWidth={0}
               />

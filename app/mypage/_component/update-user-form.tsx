@@ -3,7 +3,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
-import { ProfileInput } from "@/components/profile-input/profile-input";
+import ProfileInput from "@/components/profile-input/profile-input";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import uploadImage from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";

@@ -20,7 +20,7 @@ export interface ProfileInputProps<TFormInput extends FieldValues>
 
  */
 
-export function ProfileInput<TFormInput extends FieldValues>({
+export default function ProfileInput<TFormInput extends FieldValues>({
   id,
   type,
   setValue,
@@ -106,5 +106,3 @@ export function ProfileInput<TFormInput extends FieldValues>({
     </>
   );
 }
-
-export default ProfileInput;

@@ -2,7 +2,7 @@
 
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
-import { ProfileInput } from "@/components/profile-input/profile-input";
+import ProfileInput from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import { addTeamSchema } from "@/schemas/team";

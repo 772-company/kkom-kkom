@@ -76,7 +76,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
     if (token && urlState) {
       mutation.mutate({ code: token, state: urlState });
     }
-  }, [token, urlState, mutation]);
+  }, [token, urlState]);
 
   return (
     <>

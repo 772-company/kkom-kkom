@@ -38,7 +38,7 @@ export default function DeleteTodoModal({
     },
   });
   const handleClickRemoveTodo = () => {
-    if (taskListId !== -1 || recurringId != -1) {
+    if (taskListId !== -1 || recurringId !== -1) {
       mutate();
     }
   };

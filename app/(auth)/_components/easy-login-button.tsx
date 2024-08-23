@@ -26,7 +26,7 @@ export default function EasyLoginButton({ domain }: EasyLoginButtonProps) {
     } else {
       setOauthUrl(`${GOOGLE_OAUTH_URL}&state=${state}`);
     }
-  }, []);
+  }, [isKaKaoTalk]);
 
   return (
     <Link

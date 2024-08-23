@@ -30,9 +30,6 @@ export default async function TeamPage({
     queryFn: () => groupInfo,
   });
 
-  // const userInfo = await getUser();
-  // const { members } = await getGroupInfo({ groupId });
-
   const adminMemberName = groupInfo.members.find(
     (member) => member.role === "ADMIN",
   )?.userName;

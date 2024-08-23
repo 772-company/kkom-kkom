@@ -78,6 +78,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
                 fill
                 src={previewImage}
                 alt={type === "teamProfile" ? "팀 이미지" : "내 이미지"}
+                className="object-cover"
               />
             </div>
           ) : (

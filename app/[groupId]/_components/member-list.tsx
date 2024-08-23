@@ -58,7 +58,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
             alt={"유저 프로필 사진"}
             width={24}
             height={24}
-            className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
+            className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full object-cover md:row-span-2 md:h-[32px] md:w-[32px]"
           ></Image>
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />

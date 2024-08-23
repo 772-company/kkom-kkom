@@ -46,6 +46,8 @@ const config: Config = {
           rose: "#F43F5E",
           orange: "#F97316",
           yellow: "#EAB308",
+          whiteGreen: "#43c694",
+          grayGreen: "43c694",
         },
         background: {
           primary: "var(--background-primary)",
@@ -98,11 +100,8 @@ const config: Config = {
             width: "5px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            backgroundColor: "var(--point-whiteGreen)",
             borderRadius: "10px",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: "rgba(255, 255, 255, 1)",
           },
           "&::-webkit-scrollbar-track": {
             backgroundColor: "transparent",

@@ -49,7 +49,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
   return (
     <div
       onClick={ModalMemberProfileOverlay.open}
-      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] hover:bg-background-tertiary active:scale-[0.98] md:min-w-[216px] xl:min-w-[382px]"
+      className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] hover:bg-background-tertiary hover:shadow-lg active:scale-[0.98] md:min-w-[216px] xl:min-w-[382px]"
     >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
@@ -89,7 +89,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
             content={[
               { text: "삭제하기", onClick: ModalMemberDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-text-primary"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-text-secondary"
           />
         </div>
       )}

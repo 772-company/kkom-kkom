@@ -3,7 +3,7 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
-import getGroupInfo, { patchGroupInfo, postGroup } from "@/lib/apis/group";
+import getGroupInfo, { patchGroupInfo } from "@/lib/apis/group";
 import { uploadImage } from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { showToast } from "@/lib/show-toast";

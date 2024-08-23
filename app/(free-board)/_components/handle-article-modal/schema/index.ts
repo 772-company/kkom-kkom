@@ -1,6 +1,6 @@
 import { ObjectSchema, mixed, object, string } from "yup";
 
-import { FormType } from "..";
+import { FormType } from "../types";
 
 function checkIfFilesAreTooBig(file: File): boolean {
   let valid = true;
@@ -11,7 +11,7 @@ function checkIfFilesAreTooBig(file: File): boolean {
   return valid;
 }
 
-export const articleFormSchema: ObjectSchema<FormType> = object().shape({
+const articleFormSchema: ObjectSchema<FormType> = object().shape({
   title: string().required("제목을 꼭 입력해주세요!"),
   content: string().required("내용을 꼭 입력해주세요!"),
   image: mixed<File | string>()
@@ -23,3 +23,5 @@ export const articleFormSchema: ObjectSchema<FormType> = object().shape({
       return checkIfFilesAreTooBig(value);
     }),
 });
+
+export default articleFormSchema;

@@ -31,7 +31,7 @@ export default function ArticleTagList({ keyword }: ArticleTagListProps) {
                 href={`/boards?keyword=${tag}`}
                 onClick={progress(`/boards?keyword=${tag}`)}
               >
-                {"#" + tag}
+                #{tag}
               </Link>
             </div>
           ))}

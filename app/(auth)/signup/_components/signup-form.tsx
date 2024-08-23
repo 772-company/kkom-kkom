@@ -4,23 +4,16 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { signUp } from "@/lib/apis/auth";
-import { PostTeamIdAuthSignupResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import { signUpSchema } from "@/schemas/auth";
+import { SignUpInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next-nprogress-bar";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { useAuthError } from "../../_hooks/use-auth-error";
-
-export interface SignUpInputValue {
-  email: string;
-  nickname: string;
-  password: string;
-  passwordConfirmation: string;
-}
+import useAuthError from "../../_hooks/use-auth-error";
 
 export default function SignUpForm() {
   const router = useRouter();

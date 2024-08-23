@@ -28,7 +28,7 @@ interface PasswordInputProps<TFormInput extends FieldValues>
           label="비밀번호"
           error={errors.password?.message}
         />
- **/
+ */
 export default function PasswordInput<TFormInput extends FieldValues>({
   register,
   id,

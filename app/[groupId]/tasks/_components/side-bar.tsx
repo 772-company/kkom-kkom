@@ -4,7 +4,6 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import useGetTask from "@/lib/apis/task/hooks/use-get-task";
 import useToggleDoneTask from "@/lib/apis/task/hooks/use-toggle-done-task";
 import Calendar from "@/public/icons/calendar.svg";
-import Kebab from "@/public/icons/kebab-small.svg";
 import Repeat from "@/public/icons/repeat.svg";
 import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
@@ -28,14 +27,14 @@ interface SideBarProps {
   date: Date;
 }
 
-const SideBar = ({
+export default function SideBar({
   date,
   taskListId,
   todoId,
   handleCancelButton,
   isOpen,
   groupId,
-}: SideBarProps) => {
+}: SideBarProps) {
   const { isPending, taskDetail, comment } = useGetTask(
     groupId,
     taskListId,
@@ -86,7 +85,11 @@ const SideBar = ({
     <div
       className={`fixed right-0 top-[60px] z-10 flex h-full w-full bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
     >
-      <div className="flex-grow" onClick={handleCancelButton}></div>
+      <div
+        className="flex-grow"
+        onClick={handleCancelButton}
+        role="presentation"
+      />
       <div className="overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px] xl:w-[779px]">
         <PageButton
           className="mb-6"
@@ -200,6 +203,4 @@ const SideBar = ({
       </div>
     </div>
   );
-};
-
-export default SideBar;
+}

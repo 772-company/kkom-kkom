@@ -7,6 +7,7 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
 import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
+import { LoginInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
@@ -14,13 +15,8 @@ import { useRouter } from "next-nprogress-bar";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useAuthError } from "../../_hooks/use-auth-error";
+import useAuthError from "../../_hooks/use-auth-error";
 import ModalSendEmail from "../../reset-password/_components/modal-send-email";
-
-export interface LoginInputValue {
-  email: string;
-  password: string;
-}
 
 export default function LoginForm() {
   const modalSendEmailOverlay = useCustomOverlay(({ close }) => (

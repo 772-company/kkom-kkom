@@ -7,10 +7,12 @@ interface CalendarButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const CalendarButton = ({ type, onClick }: CalendarButtonProps) => {
-  if (type === "left")
+export default function CalendarButton({ type, onClick }: CalendarButtonProps) {
+  if (type === "left") {
     return (
       <button
+        aria-label="left"
+        type="button"
         name="left"
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
         onClick={onClick}
@@ -18,9 +20,12 @@ const CalendarButton = ({ type, onClick }: CalendarButtonProps) => {
         <ArrowLeft width={12} height={12} />
       </button>
     );
-  else if (type === "right")
+  }
+  if (type === "right") {
     return (
       <button
+        aria-label="right"
+        type="button"
         name="right"
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
         onClick={onClick}
@@ -28,6 +33,5 @@ const CalendarButton = ({ type, onClick }: CalendarButtonProps) => {
         <ArrowRight width={12} height={12} />
       </button>
     );
-};
-
-export default CalendarButton;
+  }
+}

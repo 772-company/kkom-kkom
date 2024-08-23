@@ -1,5 +1,5 @@
 import Header from "@/components/header/header";
-import { ThemeProvider } from "@/components/theme/theme-provider";
+import ThemeProvider from "@/components/theme/theme-provider";
 import {
   OverlayProvider,
   OverlayStoreProvider,

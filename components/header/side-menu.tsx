@@ -16,7 +16,11 @@ export default function SideMenu({ memberships }: SideMenuProps) {
   ));
   // TODO - 사이드 메뉴 열기
   return (
-    <div className="md:hidden" onClick={modalSideMenuOverlay.open}>
+    <div
+      className="md:hidden"
+      onClick={modalSideMenuOverlay.open}
+      role="presentation"
+    >
       <Menu width={24} height={24} />
     </div>
   );

@@ -3,14 +3,7 @@ import MyProfile from "@/public/icons/my-profile.svg";
 import X from "@/public/icons/x.svg";
 import Image from "next/image";
 import { ChangeEvent, InputHTMLAttributes, MouseEvent, useState } from "react";
-import React from "react";
-import {
-  FieldValues,
-  Path,
-  PathValue,
-  UseFormResetField,
-  UseFormSetValue,
-} from "react-hook-form";
+import { FieldValues, Path, PathValue, UseFormSetValue } from "react-hook-form";
 
 export interface ProfileInputProps<TFormInput extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -25,9 +18,9 @@ export interface ProfileInputProps<TFormInput extends FieldValues>
  * @author : 김서영
  * @typedef {Object} ProfileInputProps
 
- **/
+ */
 
-export function ProfileInput<TFormInput extends FieldValues>({
+export default function ProfileInput<TFormInput extends FieldValues>({
   id,
   type,
   setValue,
@@ -86,6 +79,7 @@ export function ProfileInput<TFormInput extends FieldValues>({
           )}
           {previewImage && (
             <button
+              aria-label="닫기"
               type="button"
               className="h-30 w-30 absolute left-12 top-1 rounded-full border-2 border-background-primary bg-background-tertiary"
               onClick={handleClearImage}
@@ -112,5 +106,3 @@ export function ProfileInput<TFormInput extends FieldValues>({
     </>
   );
 }
-
-export default ProfileInput;

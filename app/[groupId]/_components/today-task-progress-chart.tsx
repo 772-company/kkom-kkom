@@ -9,10 +9,10 @@ interface TodayTaskProgressChartProps {
   numberOfDone: number;
 }
 
-const TodayTaskProgressChart = ({
+function TodayTaskProgressChart({
   numberOfTasks,
   numberOfDone,
-}: TodayTaskProgressChartProps) => {
+}: TodayTaskProgressChartProps) {
   const numberOfOngoing = numberOfTasks - numberOfDone;
 
   const todayProgressData = [
@@ -69,13 +69,13 @@ const TodayTaskProgressChart = ({
             innerRadius={innerRadius}
             cornerRadius={20}
           >
-            {todayProgressData.map((entry, index) => (
+            {todayProgressData.map((entry) => (
               <Cell
-                key={`cell-${index}`}
+                key={`cell-${entry}`}
                 fill={
                   entry.name === "numberOfDone"
                     ? "url(#doneGradient)"
-                    : `var(--background-tertiary)`
+                    : "var(--background-tertiary)"
                 }
                 strokeWidth={0}
               />
@@ -85,6 +85,6 @@ const TodayTaskProgressChart = ({
       </ResponsiveContainer>
     </div>
   );
-};
+}
 
 export default TodayTaskProgressChart;

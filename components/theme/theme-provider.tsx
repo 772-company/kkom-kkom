@@ -4,7 +4,10 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
 import { useEffect, useState } from "react";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+export default function ThemeProvider({
+  children,
+  ...props
+}: ThemeProviderProps) {
   const [isMount, setMount] = useState(false);
 
   useEffect(() => {

@@ -26,7 +26,7 @@ export const postComment = async (
   data: { content: string },
 ) => {
   try {
-    const response = await myFetch(`${URL}/tasks/${taskId}/comments`, {
+    await myFetch(`${URL}/tasks/${taskId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,17 +46,14 @@ export const patchComment = async (
   data: { content: string },
 ) => {
   try {
-    const response = await myFetch(
-      `${URL}/tasks/${taskId}/comments/${commentId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-        body: JSON.stringify(data),
+    await myFetch(`${URL}/tasks/${taskId}/comments/${commentId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      withCredentials: true,
+      body: JSON.stringify(data),
+    });
   } catch (error) {
     console.error(error);
     throw error;

@@ -20,12 +20,12 @@ interface TaskListNameEditFormValue {
   taskListName: string;
 }
 
-const ModalTaskListNameEdit = ({
+function ModalTaskListNameEdit({
   close,
   groupId,
   taskListId,
   currentTaskListName,
-}: ModalTaskListNameEditProps) => {
+}: ModalTaskListNameEditProps) {
   const queryClient = useQueryClient();
 
   const {
@@ -99,7 +99,12 @@ const ModalTaskListNameEdit = ({
   return (
     <Modal close={close} closeOnFocusOut>
       <div className="relative flex h-[187px] flex-col items-center justify-center gap-[8px]">
-        <button className="absolute right-0 top-0" onClick={close}>
+        <button
+          className="absolute right-0 top-0"
+          onClick={close}
+          aria-label="닫기"
+          type="submit"
+        >
           <XIcon width={24} height={24} />
         </button>
         <div className="flex h-[155px] w-[280px] flex-col justify-center gap-[24px] pt-[32px]">
@@ -124,6 +129,6 @@ const ModalTaskListNameEdit = ({
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalTaskListNameEdit;

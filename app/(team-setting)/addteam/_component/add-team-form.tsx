@@ -16,7 +16,7 @@ interface AddTeamFormValue {
   teamName: string;
 }
 
-const AddTeamForm = () => {
+function AddTeamForm() {
   const { register, handleSubmit, setValue, watch } = useForm<AddTeamFormValue>(
     {
       resolver: yupResolver(addTeamSchema),
@@ -78,6 +78,6 @@ const AddTeamForm = () => {
       </p>
     </div>
   );
-};
+}
 
 export default AddTeamForm;

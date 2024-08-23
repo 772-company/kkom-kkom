@@ -1,5 +1,5 @@
 import { ResponseError } from "../myFetch/clientFetch";
-import { instance } from "../myFetch/instance";
+import instance from "../myFetch/instance";
 import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
 
@@ -7,23 +7,18 @@ export const getTaskList = async (
   groupId: string,
   taskListId: number,
 ): Promise<GetTaskListResponse> => {
-  try {
-    const response = await instance<GetTaskListResponse>(
-      `/groups/${groupId}/task-lists/${taskListId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+  const response = await instance<GetTaskListResponse>(
+    `/groups/${groupId}/task-lists/${taskListId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      withCredentials: true,
+    },
+  );
 
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  return response;
 };
 
 interface PatchTaskListNameProps {
@@ -32,7 +27,7 @@ interface PatchTaskListNameProps {
   name: string;
 }
 
-//NOTE - 할 일 목록 명 수정
+// NOTE - 할 일 목록 명 수정
 export async function patchTaskListName({
   groupId,
   taskListId,
@@ -61,6 +56,7 @@ export async function patchTaskListName({
     } else {
       throw error;
     }
+    return null;
   }
 }
 
@@ -70,17 +66,14 @@ export const patchTaskList = async (
   data: { name: string },
 ) => {
   try {
-    const response = await instance(
-      `/groups${groupId}/task-lists/${taskListId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-        body: JSON.stringify(data),
+    await instance(`/groups${groupId}/task-lists/${taskListId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      withCredentials: true,
+      body: JSON.stringify(data),
+    });
   } catch (error) {
     console.error(error);
     throw error;
@@ -92,29 +85,24 @@ interface DeleteTaskListProps {
   taskListId: number;
 }
 
-//NOTE - 할 일 목록 삭제
+// NOTE - 할 일 목록 삭제
 export async function deleteTaskList({
   groupId,
   taskListId,
 }: DeleteTaskListProps) {
-  try {
-    const response =
-      await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
-        `/groups/${groupId}/task-lists/${taskListId}`,
-        {
-          method: "DELETE",
-          withCredentials: true,
-        },
-      );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+    `/groups/${groupId}/task-lists/${taskListId}`,
+    {
+      method: "DELETE",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 export const postTaskList = async (groupId: string, data: { name: string }) => {
   try {
-    const response = await instance(`/groups/${groupId}/task-lists`, {
+    await instance(`/groups/${groupId}/task-lists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,24 +122,21 @@ export const postTaskList = async (groupId: string, data: { name: string }) => {
   }
 };
 
-//NOTE - 할 일 목록 순서 변경
+// NOTE - 할 일 목록 순서 변경
 export const patchChangeTaskListIndex = async (
   groupId: string,
   taskListId: number,
   data: { displayIndex: number },
 ) => {
   try {
-    const response = await instance(
-      `/groups/${groupId}/task-lists/${taskListId}/order`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        withCredentials: true,
+    await instance(`/groups/${groupId}/task-lists/${taskListId}/order`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(data),
+      withCredentials: true,
+    });
   } catch (error) {
     console.error(error);
     throw error;

@@ -4,12 +4,18 @@ import { covertFrequency } from "@/utils/convert-frequency";
 import React, { useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
-import { TodoFormType } from "./add-todo-modal";
-
 interface FrequencyDropdownProps {
   field: ControllerRenderProps<TodoFormType, "frequencyType">;
 }
 
+interface TodoFormType {
+  name: string;
+  description: string;
+  startDate: Date;
+  frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+  monthDay?: number;
+  weekDays?: number[];
+}
 type DropDownOptionsType = {
   display: string;
   value: TodoFormType["frequencyType"];
@@ -22,7 +28,7 @@ const DROP_DOWN_OPTIONS: DropDownOptionsType[] = [
   { display: "월 반복", value: "MONTHLY" },
 ];
 
-const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
+function FrequencyDropdown({ field }: FrequencyDropdownProps) {
   const [dropDown, setDropDown] = useState<string | null>(null);
 
   return (
@@ -41,13 +47,13 @@ const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
           <ToggleClose
             width="24"
             height="24"
-            className={`h-6 w-6 group-hover:animate-pulse`}
+            className="h-6 w-6 group-hover:animate-pulse"
           />
         </Dropdown.Button>
         <Dropdown.Body className="mt-1 flex h-[160px] w-[109px] flex-col rounded-xl bg-[#18212F]">
-          {DROP_DOWN_OPTIONS.map(({ display, value }, i) => (
+          {DROP_DOWN_OPTIONS.map(({ display, value }) => (
             <Dropdown.Item
-              key={i}
+              key={value}
               className="flex h-[40px] w-[109px] cursor-pointer items-center px-[16px] py-[11px]"
               value={value}
             >
@@ -58,6 +64,6 @@ const FrequencyDropdown = ({ field }: FrequencyDropdownProps) => {
       </Dropdown>
     </div>
   );
-};
+}
 
 export default FrequencyDropdown;

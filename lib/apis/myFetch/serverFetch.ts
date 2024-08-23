@@ -2,23 +2,26 @@
 
 import { cookies } from "next/headers";
 
-import { MyFetchOptions, responseError } from ".";
 import { PostTeamIdAuthRefreshTokenResponse } from "../type";
+import { responseError } from "./error";
+import { MyFetchOptions } from "./types";
 
-export async function serverFetch(
+export default async function serverFetch(
   input: string | URL | globalThis.Request,
   init?: MyFetchOptions,
 ) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  if (init?.withCredentials === true) {
-    const headers = new Headers(init?.headers);
+  let newInit = init;
+
+  if (newInit?.withCredentials === true) {
+    const headers = new Headers(newInit?.headers);
     headers.set("Authorization", `Bearer ${accessToken}`);
-    init = { ...init, headers };
+    newInit = { ...init, headers };
   }
 
-  const res = await fetch(input, init);
+  const res = await fetch(input, newInit);
 
   if (res.status === 401) {
     const refreshTokenValue = cookieStore.get("refreshToken")?.value;
@@ -43,12 +46,11 @@ export async function serverFetch(
           "Authorization",
           `Bearer ${newAccessTokenValue.accessToken}`,
         );
-        const newInit = { ...init, headers };
-        const newRes = await fetch(input, newInit);
+        const newInitAfterFetch = { ...init, headers };
+        const newRes = await fetch(input, newInitAfterFetch);
         return newRes;
-      } else {
-        throw new Error("엑세스 토큰 호출 실패");
       }
+      throw new Error("엑세스 토큰 호출 실패");
     } else {
       throw new Error("로그인을 다시 해주세요!");
     }

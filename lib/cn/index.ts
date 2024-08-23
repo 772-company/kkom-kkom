@@ -1,5 +1,4 @@
-import clsx from "clsx";
-import { ClassValue } from "clsx";
+import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -13,6 +12,6 @@ import { twMerge } from "tailwind-merge";
  *   // variants: cva로 정의한 버튼 조건부 스타일
  *   className={cn(variants({ btnStyle, btnSize, className }))}
  */
-export function cn(...inputs: ClassValue[]) {
+export default function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

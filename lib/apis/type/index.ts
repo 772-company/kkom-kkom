@@ -339,7 +339,7 @@ export type PostTeamIdAuthSignInProviderResponse = {
   };
 };
 
-export interface getGoogleTokenResponse {
+export interface GetGoogleTokenResponse {
   access_token: string;
   id_token: string;
   token_type: string;

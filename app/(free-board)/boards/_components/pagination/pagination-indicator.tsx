@@ -16,7 +16,7 @@ export default function PaginationIndicator({
   disabled,
 }: PaginationIndicatorProps) {
   return (
-    <>
+    <div>
       {!disabled ? (
         <LinkButton
           btnSize="large"
@@ -37,6 +37,6 @@ export default function PaginationIndicator({
           <Image src={src} alt={alt} width={24} height={24} />
         </Button>
       )}
-    </>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import { PostTeamIdUserSendResetPasswordEmailResponse } from "@/lib/apis/type";
 import { sendEmail } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { sendEmailSchema } from "@/schemas/auth";
+import { SendEmailInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,10 +13,6 @@ import { toast } from "react-toastify";
 
 interface ModalSendEmailProps {
   close: () => void;
-}
-
-export interface SendEmailInputValue {
-  email: string;
 }
 
 export default function ModalSendEmail({ close }: ModalSendEmailProps) {

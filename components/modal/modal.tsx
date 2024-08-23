@@ -2,12 +2,13 @@
 
 import Button from "@/components/button/button";
 import useClickOutside from "@/hooks/use-click-outside";
-import { cn } from "@/lib/cn";
+import cn from "@/lib/cn";
 import CloseButton from "@/public/icons/x.svg";
 import { motion } from "framer-motion";
 import {
   ButtonHTMLAttributes,
   LegacyRef,
+  ReactNode,
   createContext,
   useContext,
 } from "react";
@@ -30,14 +31,9 @@ const ModalContext = createContext<ModalContextType | null>(null);
 interface ModalProps {
   closeOnFocusOut: boolean;
   close: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
-
-Modal.Title = Title;
-Modal.HeaderWithClose = HeaderWithClose;
-Modal.Description = Description;
-Modal.TwoButtonSection = TwoButtonSection;
 
 /**
  * 모달 컴포넌트
@@ -92,25 +88,24 @@ export default function Modal({
   });
 
   return (
-    <>
-      <ModalContext.Provider value={{ close }}>
-        <section className={cn(overlayVariants())}>
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.1 }}
-            className={cn(modalVariants({ className }))}
-            ref={
-              closeOnFocusOut
-                ? (modalRef as LegacyRef<HTMLDivElement> | undefined)
-                : null
-            }
-          >
-            {children}
-          </motion.div>
-        </section>
-      </ModalContext.Provider>
-    </>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <ModalContext.Provider value={{ close }}>
+      <section className={cn(overlayVariants())}>
+        <motion.div
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 100 }}
+          transition={{ duration: 0.1 }}
+          className={cn(modalVariants({ className }))}
+          ref={
+            closeOnFocusOut
+              ? (modalRef as LegacyRef<HTMLDivElement> | undefined)
+              : null
+          }
+        >
+          {children}
+        </motion.div>
+      </section>
+    </ModalContext.Provider>
   );
 }
 
@@ -154,7 +149,7 @@ function HeaderWithClose({ className }: HeaderWithCloseProps) {
   const { close } = useModal();
   return (
     <header className={headerWithCloseVariants({ className })}>
-      <button onClick={close}>
+      <button type="button" onClick={close} aria-label="닫기">
         <CloseButton
           className="rounded-xl duration-100 hover:scale-105"
           width={24}
@@ -211,3 +206,7 @@ function TwoButtonSection({
 }
 
 TwoButtonSection.displayName = "Modal.TwoButtonSection";
+Modal.Title = Title;
+Modal.HeaderWithClose = HeaderWithClose;
+Modal.Description = Description;
+Modal.TwoButtonSection = TwoButtonSection;

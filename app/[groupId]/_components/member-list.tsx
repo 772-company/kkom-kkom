@@ -2,7 +2,7 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import getGroupInfo from "@/lib/apis/group";
+import { getGroupInfo } from "@/lib/apis/group/index";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
@@ -27,7 +27,7 @@ interface MemberListProps {
   isAdmin: boolean;
 }
 
-const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
+function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
   const ModalMemberProfileOverlay = useCustomOverlay(({ close }) => (
     <ModalMemberProfile
       close={close}
@@ -48,6 +48,7 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
 
   return (
     <div
+      role="presentation"
       onClick={ModalMemberProfileOverlay.open}
       className="flex h-[73px] min-w-[163.5px] cursor-pointer items-center justify-between rounded-[16px] bg-background-secondary px-[24px] py-[20px] hover:bg-background-tertiary hover:shadow-lg active:scale-[0.98] md:min-w-[216px] xl:min-w-[382px]"
     >
@@ -55,11 +56,11 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
         {member.userImage ? (
           <Image
             src={member.userImage}
-            alt={"유저 프로필 사진"}
+            alt="유저 프로필 사진"
             width={24}
             height={24}
-            className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full object-cover md:row-span-2 md:h-[32px] md:w-[32px]"
-          ></Image>
+            className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
+          />
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />
         )}
@@ -77,7 +78,9 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
         </p>
       </div>
       {isAdmin && (
-        <div
+        <button
+          aria-label="팝오버"
+          type="submit"
           onClick={(event) => {
             event.stopPropagation(); // 클릭 이벤트 전파 중지
           }}
@@ -91,13 +94,13 @@ const MemberCard = ({ member, groupId, isAdmin }: MemberCardProps) => {
             ]}
             contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-text-secondary"
           />
-        </div>
+        </button>
       )}
     </div>
   );
-};
+}
 
-const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
+function MemberList({ groupId, isAdmin }: MemberListProps) {
   const { data } = useQuery({
     queryKey: ["groupInfo"],
     queryFn: () => getGroupInfo({ groupId }),
@@ -120,6 +123,7 @@ const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
         </div>
         {isAdmin && (
           <button
+            type="submit"
             onClick={ModalMemberAddOverlay.open}
             className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
           >
@@ -143,6 +147,6 @@ const MemberList = ({ groupId, isAdmin }: MemberListProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default MemberList;

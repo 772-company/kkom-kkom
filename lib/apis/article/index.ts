@@ -1,5 +1,4 @@
-import { uploadImage } from "../image";
-import { instance } from "../myFetch/instance";
+import instance from "../myFetch/instance";
 import {
   DeleteArticlesArticleIdLikeResponse,
   DeleteArticlesArticleIdResponse,
@@ -21,19 +20,15 @@ export async function postArticles({
   title,
   content,
 }: PostArticlesRequest) {
-  try {
-    const response = await instance<PostArticlesResponse>(`/articles`, {
-      method: "POST",
-      body: JSON.stringify({ image, title, content }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<PostArticlesResponse>("/articles", {
+    method: "POST",
+    body: JSON.stringify({ image, title, content }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+  return response;
 }
 
 interface GetArticlesRequest {
@@ -47,23 +42,19 @@ export async function getArticles({
   keyword = "",
   orderBy = "recent",
 }: GetArticlesRequest) {
-  try {
-    const params = new URLSearchParams({
-      page: String(page),
-      pageSize: String(10),
-      keyword,
-      orderBy,
-    });
-    const response = await instance<GetArticlesResponse>(
-      `/articles?${params.toString()}`,
-      {
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const params = new URLSearchParams({
+    page: String(page),
+    pageSize: String(10),
+    keyword,
+    orderBy,
+  });
+  const response = await instance<GetArticlesResponse>(
+    `/articles?${params.toString()}`,
+    {
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface GetArticlesArticleIdRequest {
@@ -73,17 +64,13 @@ interface GetArticlesArticleIdRequest {
 export async function getArticlesArticleId({
   articleId,
 }: GetArticlesArticleIdRequest) {
-  try {
-    const response = await instance<GetArticlesArticleIdResponse>(
-      `/articles/${articleId}`,
-      {
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<GetArticlesArticleIdResponse>(
+    `/articles/${articleId}`,
+    {
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface PatchArticlesArticleIdRequest {
@@ -99,22 +86,18 @@ export async function patchArticlesArticleId({
   content,
   articleId,
 }: PatchArticlesArticleIdRequest) {
-  try {
-    const response = await instance<PatchArticlesArticleIdResponse>(
-      `/articles/${articleId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ image, title, content }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+  const response = await instance<PatchArticlesArticleIdResponse>(
+    `/articles/${articleId}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ image, title, content }),
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface DeleteArticlesArticleIdRequest {
@@ -124,18 +107,14 @@ interface DeleteArticlesArticleIdRequest {
 export async function deleteArticlesArticleId({
   articleId,
 }: DeleteArticlesArticleIdRequest) {
-  try {
-    const response = await instance<DeleteArticlesArticleIdResponse>(
-      `/articles/${articleId}`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<DeleteArticlesArticleIdResponse>(
+    `/articles/${articleId}`,
+    {
+      method: "DELETE",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface PostArticlesArticleIdLikeRequest {
@@ -145,18 +124,14 @@ interface PostArticlesArticleIdLikeRequest {
 export async function postArticlesArticleIdLike({
   articleId,
 }: PostArticlesArticleIdLikeRequest) {
-  try {
-    const response = await instance<PostArticlesArticleIdLikeResponse>(
-      `/articles/${articleId}/like`,
-      {
-        method: "POST",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<PostArticlesArticleIdLikeResponse>(
+    `/articles/${articleId}/like`,
+    {
+      method: "POST",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface DeleteArticlesArticleIdLikeRequest {
@@ -166,16 +141,12 @@ interface DeleteArticlesArticleIdLikeRequest {
 export async function deleteArticlesArticleIdLike({
   articleId,
 }: DeleteArticlesArticleIdLikeRequest) {
-  try {
-    const response = await instance<DeleteArticlesArticleIdLikeResponse>(
-      `/articles/${articleId}/like`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<DeleteArticlesArticleIdLikeResponse>(
+    `/articles/${articleId}/like`,
+    {
+      method: "DELETE",
+      withCredentials: true,
+    },
+  );
+  return response;
 }

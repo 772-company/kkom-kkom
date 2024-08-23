@@ -52,8 +52,8 @@ export default function ArticleHeader({ articleId }: ArticleHeaderProps) {
 
   const deleteArticleMutation = useDeleteArticleMutation();
   const handleDelete = useCallback(
-    (id: string) => {
-      deleteArticleMutation.mutate(Number(id));
+    (willDeletedId: string) => {
+      deleteArticleMutation.mutate(Number(willDeletedId));
     },
     [deleteArticleMutation],
   );

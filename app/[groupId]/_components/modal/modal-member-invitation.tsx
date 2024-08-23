@@ -6,17 +6,15 @@ import { getGroupInvitation } from "@/lib/apis/group/index";
 import { showToast } from "@/lib/show-toast";
 import XIcon from "@/public/icons/x.svg";
 import { useMutation } from "@tanstack/react-query";
+import { useCallback } from "react";
 
 interface ModalMemberInvitationProps {
   close: () => void;
   groupId: string;
 }
 
-const ModalMemberInvitation = ({
-  close,
-  groupId,
-}: ModalMemberInvitationProps) => {
-  const mutation = useMutation({
+function ModalMemberInvitation({ close, groupId }: ModalMemberInvitationProps) {
+  const inviteMemberMutation = useMutation({
     mutationFn: async () => {
       const result = await getGroupInvitation({ groupId });
       const invitationLink = `${process.env.NEXT_PUBLIC_PARTICIPATE_TEAM_REDIRECT_URL}?token=${result}`;
@@ -32,14 +30,23 @@ const ModalMemberInvitation = ({
     },
   });
 
-  const handleButtonClick = () => {
-    mutation.mutate();
-  };
+  // function handleButtonClick() {
+  //   mutation.mutate();
+  // }
+
+  const handleButtonClick = useCallback(() => {
+    inviteMemberMutation.mutate();
+  }, [inviteMemberMutation]);
 
   return (
     <Modal close={close} closeOnFocusOut>
       <div className="relative flex h-[163px] flex-col items-center justify-center gap-[8px]">
-        <button className="absolute right-0 top-0" onClick={close}>
+        <button
+          className="absolute right-0 top-0"
+          onClick={close}
+          type="submit"
+          aria-label="닫기"
+        >
           <XIcon width={24} height={24} />
         </button>
         <div className="flex h-[131px] w-[280px] flex-col justify-center gap-[24px] pt-[32px]">
@@ -53,14 +60,14 @@ const ModalMemberInvitation = ({
             btnSize="large"
             btnStyle="solid"
             onClick={handleButtonClick}
-            disabled={mutation.isPending}
+            disabled={inviteMemberMutation.isPending}
           >
-            {mutation.isPending ? "복사 중..." : "복사하기"}
+            {inviteMemberMutation.isPending ? "복사 중..." : "복사하기"}
           </Button>
         </div>
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalMemberInvitation;

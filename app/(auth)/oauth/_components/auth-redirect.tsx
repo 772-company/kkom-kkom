@@ -2,17 +2,14 @@
 
 import { oauthLogin } from "@/lib/apis/auth";
 import { myFetch } from "@/lib/apis/myFetch";
-import { getGoogleTokenResponse } from "@/lib/apis/type";
+import { GetGoogleTokenResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import Spinner from "@/public/icons/tube-spinner.svg";
-import loadingJson from "@/public/lotties/loading-earthworm.json";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Lottie from "react-lottie-player";
 
 interface AuthRedirectProps {
   provider: "KAKAO" | "GOOGLE";
@@ -21,8 +18,8 @@ interface AuthRedirectProps {
 export default function AuthRedirect({ provider }: AuthRedirectProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [code, setCode] = useState<string | null>(null);
-  const [state, setState] = useState<string | null>(null);
+  const [token, setCode] = useState<string | null>(null);
+  const [urlState, setState] = useState<string | null>(null);
 
   useEffect(() => {
     const codeParam = searchParams.get("code");
@@ -36,11 +33,11 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
 
   const mutation = useMutation({
     mutationFn: async ({ code, state }: { code: string; state: string }) => {
-      let finalCode = code;
+      let finalCode = token;
 
       if (provider === "GOOGLE") {
         const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-        const tokenResponse = await myFetch<getGoogleTokenResponse>(
+        const tokenResponse = await myFetch<GetGoogleTokenResponse>(
           "https://oauth2.googleapis.com/token",
           {
             method: "POST",
@@ -48,7 +45,7 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              code: code,
+              code,
               client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
               client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
               redirect_uri: redirectUri,
@@ -76,10 +73,10 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
 
   // NOTE - 의존성 배열에 mutation 포함하면 무한 요청됨
   useEffect(() => {
-    if (code && state) {
-      mutation.mutate({ code, state });
+    if (token && urlState) {
+      mutation.mutate({ code: token, state: urlState });
     }
-  }, [code, state]);
+  }, [token, urlState]);
 
   return (
     <>
@@ -87,12 +84,6 @@ export default function AuthRedirect({ provider }: AuthRedirectProps) {
         {provider === "KAKAO" ? "카카오" : "구글"} 계정으로 로그인하고 있어요.
       </h1>
       <div className="flex justify-center">
-        {/* <Lottie
-          loop
-          animationData={loadingJson}
-          play
-          style={{ width: 350, height: 200 }}
-        /> */}
         <Spinner width={120} height={120} className="mt-[30px]" />
       </div>
     </>

@@ -12,10 +12,10 @@ interface TodayTaskProgressProps {
   numberOfDone: number;
 }
 
-const TodayTaskProgress = ({
+function TodayTaskProgress({
   numberOfTasks,
   numberOfDone,
-}: TodayTaskProgressProps) => {
+}: TodayTaskProgressProps) {
   const progressPercent =
     numberOfTasks === 0 ? 0 : Math.round((numberOfDone / numberOfTasks) * 100);
 
@@ -38,7 +38,9 @@ const TodayTaskProgress = ({
       </div>
       <div className="hidden md:block">
         <p className="text-[14px] font-[500] text-text-primary">
-          오늘의<br></br>진행 상황
+          오늘의
+          <br />
+          진행 상황
         </p>
         <p className="bg-gradient-to-r from-brand-primary to-brand-tertiary bg-clip-text text-[40px] font-[700] text-brand-primary text-transparent">
           {progressPercent}%
@@ -46,5 +48,5 @@ const TodayTaskProgress = ({
       </div>
     </div>
   );
-};
+}
 export default TodayTaskProgress;

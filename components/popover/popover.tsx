@@ -6,9 +6,16 @@ import * as React from "react";
 const PopOver = PopoverPrimitive.Root;
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
+// Define types for the PopoverContent props
+interface PopoverContentProps
+  extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
+  align?: "start" | "center" | "end";
+  sideOffset?: number;
+}
+
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+  PopoverContentProps
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
@@ -26,7 +33,7 @@ const PopoverContent = React.forwardRef<
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 interface PopoverContentItem {
-  text: string | string[];
+  text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 interface PopoverProps {
@@ -69,7 +76,7 @@ interface PopoverProps {
             contentClassName="left-[-77px] h-[100px] w-[200px] bg-yellow-200"
           />
    */
-const Popover = ({
+function Popover({
   triggerImage,
   triggerImageAlt,
   triggerSvg: TriggerSvg,
@@ -80,7 +87,7 @@ const Popover = ({
   className,
   triggerClassName,
   contentClassName,
-}: PopoverProps) => {
+}: PopoverProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -113,13 +120,16 @@ const Popover = ({
         <PopoverContent
           className={`${contentClassName} flex flex-col items-center justify-center border-0 shadow-none`}
         >
-          {content.map((item, index) => (
+          {content.map((item) => (
             <button
+              type="submit"
               className="h-full w-full text-[14px] hover:text-[15px]"
-              key={index}
+              key={item.text}
               onClick={(e) => {
                 e.stopPropagation();
-                item.onClick && item.onClick(e);
+                if (item.onClick) {
+                  item.onClick(e);
+                }
                 handleClose();
               }}
             >
@@ -130,6 +140,6 @@ const Popover = ({
       </div>
     </PopOver>
   );
-};
+}
 
 export default Popover;

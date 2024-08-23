@@ -1,10 +1,9 @@
-import { ResetPasswordInputValue } from "@/app/(auth)/reset-password/_components/reset-password-form";
-import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
 import Modal from "@/components/modal/modal";
 import { modalResetPassword } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
+import { ResetPasswordInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -60,7 +59,7 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
             label="새 비밀번호"
             error={errors.password?.message}
             register={register}
-            isModal={true}
+            isModal
           />
           <PasswordInput<ResetPasswordInputValue>
             id="passwordConfirmation"
@@ -68,7 +67,7 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
             label="새 비밀번호 확인"
             error={errors.passwordConfirmation?.message}
             register={register}
-            isModal={true}
+            isModal
           />
         </div>
         <Modal.TwoButtonSection

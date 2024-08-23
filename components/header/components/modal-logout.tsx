@@ -1,6 +1,7 @@
 import Modal from "@/components/modal/modal";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
+import { useCallback } from "react";
 
 interface ModalLogoutProps {
   close: () => void;
@@ -8,13 +9,14 @@ interface ModalLogoutProps {
 
 export default function ModalLogout({ close }: ModalLogoutProps) {
   const router = useRouter();
-  function logout() {
+
+  const logout = useCallback(() => {
     router.push("/");
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     router.refresh();
     close();
-  }
+  }, [router, close]);
 
   return (
     <Modal close={close} closeOnFocusOut>

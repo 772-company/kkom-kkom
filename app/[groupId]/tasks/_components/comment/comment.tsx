@@ -3,10 +3,8 @@ import ProfileIcon from "@/components/profile-Icon/profile-icon";
 import useDeleteComment from "@/lib/apis/comment/hooks/use-delete-comment";
 import usePatchComment from "@/lib/apis/comment/hooks/use-patch-comment";
 import { GetCommentResponse } from "@/lib/apis/comment/type";
-import { getUser } from "@/lib/apis/user";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 import useEditComment from "../../_hooks/use-edit-comment";
@@ -18,24 +16,22 @@ interface CommentProps {
   commentData: GetCommentResponse;
 }
 
-const Comment = ({ date, taskListId, commentData }: CommentProps) => {
+function Comment({ date, taskListId, commentData }: CommentProps) {
   const { isEidtMode, userData, handleCancelEditMode, handleClickEditMode } =
     useEditComment();
+  const { mutate: deleteCommentMutate } = useDeleteComment(
+    taskListId ?? -1,
+    commentData.taskId,
+    commentData.id,
+    date,
+    handleCancelEditMode,
+  );
 
   const handleClickDeleteComment = () => {
     deleteCommentMutate();
   };
 
-  const { mutate: deleteCommentMutate, isPending: isDeletePending } =
-    useDeleteComment(
-      taskListId ?? -1,
-      commentData.taskId,
-      commentData.id,
-      date,
-      handleCancelEditMode,
-    );
-
-  const { mutate: patchCommentMutate, isPending } = usePatchComment(
+  const { mutate: patchCommentMutate } = usePatchComment(
     commentData.taskId,
     commentData.id,
     handleCancelEditMode,
@@ -48,10 +44,7 @@ const Comment = ({ date, taskListId, commentData }: CommentProps) => {
     },
   });
 
-  const serveData = (
-    data: { content: string },
-    event?: React.BaseSyntheticEvent,
-  ) => {
+  const serveData = (data: { content: string }) => {
     if (taskListId !== -1) {
       patchCommentMutate(data);
     }
@@ -126,6 +119,6 @@ const Comment = ({ date, taskListId, commentData }: CommentProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default Comment;

@@ -11,13 +11,14 @@ interface CheckBoxProps {
   taskListId: number | undefined;
   taskId: number;
 }
-const CheckBox = ({
+
+export default function CheckBox({
   doneAt,
   date,
   groupId,
   taskListId,
   taskId,
-}: CheckBoxProps) => {
+}: CheckBoxProps) {
   const { mutate, isPending } = useToggleDoneTask(
     date,
     groupId,
@@ -30,7 +31,7 @@ const CheckBox = ({
     mutate();
   };
   return (
-    <button onClick={handleClick} disabled={isPending}>
+    <button type="button" onClick={handleClick} disabled={isPending}>
       {checkTodo(doneAt, date) ? (
         <CheckBoxActive width={16} height={16} />
       ) : (
@@ -38,6 +39,4 @@ const CheckBox = ({
       )}
     </button>
   );
-};
-
-export default CheckBox;
+}

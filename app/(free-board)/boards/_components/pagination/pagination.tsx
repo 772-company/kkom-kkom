@@ -1,21 +1,21 @@
-import { cn } from "@/lib/cn";
+import cn from "@/lib/cn";
 import { ComponentProps, forwardRef } from "react";
 
 import Button, { LinkButton } from "../../../../../components/button/button";
 import PaginationIndicator from "./pagination-indicator";
 
-const PaginationStructure = ({
-  className,
-  ...props
-}: ComponentProps<"nav">) => (
-  <nav
-    role="navigation"
-    aria-label="pagination"
-    className={cn("", className)}
-    {...props}
-  />
-);
-Pagination.displayName = "Pagination";
+function PaginationStructure({ className, ...props }: ComponentProps<"nav">) {
+  return (
+    <nav
+      role="navigation"
+      aria-label="pagination"
+      className={cn("", className)}
+      {...props}
+    />
+  );
+}
+
+PaginationStructure.displayName = "Pagination";
 
 const PaginationContent = forwardRef<HTMLUListElement, ComponentProps<"ul">>(
   ({ className, ...props }, ref) => (
@@ -57,9 +57,8 @@ export default function Pagination({
     (i) => {
       if (i >= 1 && i <= maxIndex) {
         return i;
-      } else {
-        return 0;
       }
+      return 0;
     },
   );
 
@@ -84,10 +83,10 @@ export default function Pagination({
             disabled={page === 1}
           />
         </PaginationItem>
-        {pageNumberList.map((pageNumber, index) => {
+        {pageNumberList.map((pageNumber) => {
           if (pageNumber === 0) {
             return (
-              <PaginationItem key={index}>
+              <PaginationItem key={pageNumber}>
                 <Button
                   btnSize="large"
                   disabled
@@ -98,7 +97,7 @@ export default function Pagination({
             );
           }
           return (
-            <PaginationItem key={index}>
+            <PaginationItem key={pageNumber}>
               <LinkButton
                 href={`/boards?page=${pageNumber}&orderBy=${orderBy}&keyword=${keyword}`}
                 btnSize="large"

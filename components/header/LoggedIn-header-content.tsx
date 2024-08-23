@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ThemeToggle } from "../theme/theme-toggle";
+import ThemeToggle from "../theme/theme-toggle";
 import GroupDropdown from "./group-dropdown";
 import ModalSideMenu from "./modal-side-menu";
 import PopoverTrigger from "./popover-trigger";
@@ -20,10 +20,11 @@ export default function LoggedInHeaderContent() {
   });
 
   const modalSideMenuOverlay = useCustomOverlay(({ close }) => (
+    /* eslint-disable-next-line */
     <ModalSideMenu close={close} memberships={memberships} />
   ));
 
-  if (!isSuccess || !data) {
+  if (!isSuccess) {
     return null;
   }
   const { memberships, nickname } = data;
@@ -32,7 +33,11 @@ export default function LoggedInHeaderContent() {
     <>
       <div className="flex items-center gap-4">
         {/* NOTE - 클릭 시 사이드 메뉴  */}
-        <div className="md:hidden" onClick={modalSideMenuOverlay.open}>
+        <div
+          className="md:hidden"
+          onClick={modalSideMenuOverlay.open}
+          role="presentation"
+        >
           <Menu width={24} height={24} />
         </div>
         <Link href="/" className="flex items-center gap-1">

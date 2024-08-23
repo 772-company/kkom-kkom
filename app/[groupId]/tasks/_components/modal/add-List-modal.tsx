@@ -13,7 +13,7 @@ interface AddListModalProps {
   close: () => void;
 }
 
-const AddListModal = ({ groupId, close }: AddListModalProps) => {
+function AddListModal({ groupId, close }: AddListModalProps) {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
     resolver: yupResolver(addTodoListModalSchema),
   });
   const queryClient = useQueryClient();
-  const { data, mutate, isPending, error } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data: { name: string }) => postTaskList(groupId, data),
     onSuccess: () => {
       reset({ name: "" });
@@ -35,21 +35,17 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
       });
     },
   });
-  const serveData = (
-    data: { name: string },
-    event?: React.BaseSyntheticEvent,
-  ) => {
-    if (!data.name) {
-      return;
+  const serveData = (data: { name: string }) => {
+    if (!data) {
+      mutate(data);
     }
-    mutate(data);
   };
 
   return (
     <Modal
       close={close}
       closeOnFocusOut
-      className="flex w-[384px] w-full flex-col items-center justify-center overflow-auto sm:h-[422px] md:h-[304px]"
+      className="flex h-[422px] w-full flex-col items-center justify-center overflow-auto md:w-[384px]"
     >
       <div className="flex h-[224px] w-[280px] flex-col">
         {isPending && <div className="self-center">로딩중...</div>}
@@ -71,7 +67,7 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
                 register={register}
                 id="name"
                 className="h-[48px]"
-                isModal={true}
+                isModal
               />
               {errors.name && <p>{errors.name.message}</p>}
             </header>
@@ -90,6 +86,6 @@ const AddListModal = ({ groupId, close }: AddListModalProps) => {
       </div>
     </Modal>
   );
-};
+}
 
 export default AddListModal;

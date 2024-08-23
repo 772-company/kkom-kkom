@@ -1,5 +1,4 @@
-import { useQueries, useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useQueries } from "@tanstack/react-query";
 
 import { getTask } from "..";
 import { getComment } from "../../comment";
@@ -9,9 +8,7 @@ const useGetTask = (
   taskListId: number | undefined,
   taskId: number | undefined,
 ) => {
-  const isValid = () => {
-    return typeof taskId === "number";
-  };
+  const isValid = () => typeof taskId === "number";
   const data = useQueries({
     queries: [
       {

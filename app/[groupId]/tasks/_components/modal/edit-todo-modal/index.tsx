@@ -20,15 +20,15 @@ export interface TodoFormType {
   description: string;
 }
 
-const EditTodoModal = ({
+export default function EditTodoModal({
   groupId,
   taskListId,
   taskId,
   date,
   title,
-  description,
+  description: descriptionValue,
   close,
-}: EidtTodoModalProps) => {
+}: EidtTodoModalProps) {
   const { mutate, isPending } = useEditTask(
     date,
     groupId,
@@ -46,12 +46,12 @@ const EditTodoModal = ({
     mode: "onSubmit",
     defaultValues: {
       name: title,
-      description: description,
+      description: descriptionValue,
     },
   });
   const formData = watch();
 
-  const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
+  const serveData = (data: TodoFormType) => {
     if (taskId !== -1) {
       mutate(data);
     }
@@ -80,7 +80,6 @@ const EditTodoModal = ({
             label="할 일 제목"
             placeholder="할 일 제목을 입력해주세요."
             id="name"
-            isModal={true}
             register={register}
           />
           {errors.name?.message}
@@ -88,7 +87,6 @@ const EditTodoModal = ({
 
         <div className="mt-7 w-full">
           <BasicInput
-            isModal={true}
             label="할 일 메모"
             placeholder="메모를 입력해주세요."
             id="description"
@@ -99,7 +97,8 @@ const EditTodoModal = ({
 
         <Button
           disabled={
-            (title === formData.name && description === formData.description) ||
+            (title === formData.name &&
+              descriptionValue === formData.description) ||
             isPending
           }
           type="submit"
@@ -112,6 +111,4 @@ const EditTodoModal = ({
       </form>
     </Modal>
   );
-};
-
-export default EditTodoModal;
+}

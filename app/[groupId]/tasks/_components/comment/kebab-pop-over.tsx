@@ -9,14 +9,13 @@ interface KebabPopverProps {
   handleClickDeleteComment: () => void;
 }
 
-const CommentKebabPopOver = ({
+function CommentKebabPopOver({
   userId,
   commentUserId,
   handleClickDeleteComment,
   handleClickEditMode,
-}: KebabPopverProps) => {
+}: KebabPopverProps) {
   const popOverContent = [
-
     { text: "수정하기", onClick: handleClickEditMode },
     { text: "삭제하기", onClick: handleClickDeleteComment },
   ];
@@ -29,9 +28,8 @@ const CommentKebabPopOver = ({
       triggerImageAlt="케밥"
       className="h-4 w-4"
       contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
-
     />
   );
-};
+}
 
 export default CommentKebabPopOver;

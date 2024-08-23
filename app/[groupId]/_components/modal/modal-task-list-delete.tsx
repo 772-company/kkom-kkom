@@ -13,18 +13,19 @@ interface ModalTaskListDeleteProps {
   taskListId: number;
 }
 
-const ModalTaskListDelete = ({
+function ModalTaskListDelete({
   close,
   groupId,
   taskListName,
   taskListId,
-}: ModalTaskListDeleteProps) => {
+}: ModalTaskListDeleteProps) {
   const queryClient = useQueryClient();
   const suffix = useLastConsonantLetterCheck(taskListName) ? "이" : "가";
 
   const deleteTaskListMutation = useMutation({
-    mutationFn: (taskListId: number) => deleteTaskList({ groupId, taskListId }),
-    onMutate: async (taskListId) => {
+    mutationFn: (deleteTaskListId: number) =>
+      deleteTaskList({ groupId, taskListId: deleteTaskListId }),
+    onMutate: async (deleteTaskListId) => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
 
       const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
@@ -35,14 +36,14 @@ const ModalTaskListDelete = ({
         queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
           ...previousData,
           taskLists: previousData.taskLists.filter(
-            (taskList) => taskList.id !== taskListId,
+            (taskList) => taskList.id !== deleteTaskListId,
           ),
         });
       }
 
-      return { previousData, taskListId };
+      return { previousData, deleteTaskListId };
     },
-    onError: (error, taskListId, context) => {
+    onError: (error, deleteTaskListId, context) => {
       queryClient.setQueryData(["groupInfo"], context?.previousData);
       showToast("error", <p>{taskListName} 삭제에 실패하였습니다.</p>);
     },
@@ -79,6 +80,6 @@ const ModalTaskListDelete = ({
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalTaskListDelete;

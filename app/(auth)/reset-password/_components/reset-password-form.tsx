@@ -3,20 +3,15 @@
 import Button from "@/components/button/button";
 import PasswordInput from "@/components/input-field/password-input";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
-import { PatchTeamIdUserResetPasswordResponse } from "@/lib/apis/type";
 import { resetPassword } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import { resetPasswordSchema } from "@/schemas/auth";
+import { ResetPasswordInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next-nprogress-bar";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
-export interface ResetPasswordInputValue {
-  passwordConfirmation: string;
-  password: string;
-}
 
 interface ResetPasswordFormProps {
   token: string;
@@ -69,7 +64,6 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   // NOTE - 이메일로 전송된 링크가 아닌 /reset-password로 접근하는 경우
   if (!token) {
     router.push("/login");
-    return;
   }
 
   const onSubmit: SubmitHandler<ResetPasswordInputValue> = async (data) => {

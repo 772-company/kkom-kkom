@@ -16,13 +16,13 @@ interface TodoHeaderUIProps {
   onClickButton: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const TodoHeader = ({
+function TodoHeader({
   groupId,
   date,
   convertedDate,
   onChangeDate,
   onClickButton,
-}: TodoHeaderUIProps) => {
+}: TodoHeaderUIProps) {
   const addListModalOverlay = useCustomOverlay(({ close }) => (
     <AddListModal close={close} groupId={groupId} />
   ));
@@ -45,8 +45,9 @@ const TodoHeader = ({
         <div className="flex h-3 items-center gap-1">
           <TaskButton types="arrow" name="left" onClick={onClickButton} />
           <TaskButton types="arrow" name="right" onClick={onClickButton} />
-
           <button
+            aria-label="calendar"
+            type="button"
             onClick={handleClickCalendar}
             className="relative flex h-6 w-6 items-center justify-center rounded-full bg-background-secondary"
           >
@@ -63,6 +64,7 @@ const TodoHeader = ({
       </div>
 
       <button
+        type="button"
         className="text-sm font-normal text-brand-primary"
         onClick={handleClickAddList}
       >
@@ -70,6 +72,6 @@ const TodoHeader = ({
       </button>
     </div>
   );
-};
+}
 
 export default TodoHeader;

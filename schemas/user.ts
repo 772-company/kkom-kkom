@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const updateUserSchema = yup.object().shape({
+const updateUserSchema = yup.object().shape({
   nickname: yup.string().max(30, "닉네임은 최대 30자까지 가능합니다."),
   image: yup
     .mixed<File | string>()
@@ -18,3 +18,5 @@ export const updateUserSchema = yup.object().shape({
   password: yup.string(),
   email: yup.string(),
 });
+
+export default updateUserSchema;

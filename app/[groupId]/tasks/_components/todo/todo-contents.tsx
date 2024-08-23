@@ -13,13 +13,13 @@ import SideBar from "../side-bar";
 import TodoBox from "./todo-box";
 import TodoListName from "./todo-list-name";
 
-export type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
+type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
 interface TodoContentsProps {
   taskLists: TaskLists;
   date: Date;
   groupId: string;
 }
-const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
+function TodoContents({ taskLists, date, groupId }: TodoContentsProps) {
   const { handleClickName, selectedButton } = useSelectButton(taskLists);
   const { tasks, isPending } = useGetTasks(groupId, selectedButton, date);
   const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
@@ -95,6 +95,6 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
       </div>
     </>
   );
-};
+}
 
 export default TodoContents;

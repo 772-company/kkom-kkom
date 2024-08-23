@@ -1,12 +1,19 @@
 import Button from "@/components/button/button";
-import React, { forwardRef } from "react";
-import { ButtonHTMLAttributes, DOMAttributes } from "react";
+import React, { ButtonHTMLAttributes, DOMAttributes, forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ControllerRenderProps } from "react-hook-form";
 
 import "../calendar-style/custom-date-picker.css";
-import { TodoFormType } from "./add-todo-modal";
+
+interface TodoFormType {
+  name: string;
+  description: string;
+  startDate: Date;
+  frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+  monthDay?: number;
+  weekDays?: number[];
+}
 
 interface CalendarButtonProps {
   field: ControllerRenderProps<TodoFormType, "startDate">;
@@ -15,22 +22,22 @@ interface CalendarButtonProps {
 type CustomButtonProps = DOMAttributes<HTMLButtonElement> &
   ButtonHTMLAttributes<HTMLButtonElement>;
 
-const TodoCalendarButton = ({ field }: CalendarButtonProps) => {
-  const CustomTodoCalendarButton = forwardRef<
-    HTMLButtonElement,
-    CustomButtonProps
-  >(({ value, onClick, className }, ref) => (
-    <Button
-      type="button"
-      btnSize="large"
-      btnStyle="outlined"
-      className={className}
-      onClick={onClick}
-    >
-      {value}
-    </Button>
-  ));
-  CustomTodoCalendarButton.displayName = "CustomTodoCalendarButton";
+const CustomTodoCalendarButton = forwardRef<
+  HTMLButtonElement,
+  CustomButtonProps
+>(({ value, onClick, className }) => (
+  <Button
+    type="button"
+    btnSize="large"
+    btnStyle="outlined"
+    className={className}
+    onClick={onClick}
+  >
+    {value}
+  </Button>
+));
+CustomTodoCalendarButton.displayName = "CustomTodoCalendarButton";
+function TodoCalendarButton({ field }: CalendarButtonProps) {
   return (
     <DatePicker
       selected={field.value}
@@ -47,6 +54,6 @@ const TodoCalendarButton = ({ field }: CalendarButtonProps) => {
       }
     />
   );
-};
+}
 
 export default TodoCalendarButton;

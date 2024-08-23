@@ -14,18 +14,17 @@ interface ModalMemberDeleteProps {
   userName: string;
 }
 
-const ModalMemberDelete = ({
+function ModalMemberDelete({
   close,
   groupId,
   memberUserId,
   userName,
-}: ModalMemberDeleteProps) => {
+}: ModalMemberDeleteProps) {
   const queryClient = useQueryClient();
 
   const deleteMemberMutation = useMutation({
-    mutationFn: (memberUserId: number) =>
-      deleteTeamMember({ groupId, memberUserId }),
-    onMutate: async (memberUserId) => {
+    mutationFn: () => deleteTeamMember({ groupId, memberUserId }),
+    onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
 
       const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
@@ -43,6 +42,7 @@ const ModalMemberDelete = ({
 
       return { previousData, memberUserId };
     },
+    // eslint-disable-next-line
     onError: (error, memberUserId, context) => {
       queryClient.setQueryData(["groupInfo"], context?.previousData);
       showToast(
@@ -62,7 +62,7 @@ const ModalMemberDelete = ({
   });
 
   const handleButtonClick = () => {
-    deleteMemberMutation.mutate(memberUserId);
+    deleteMemberMutation.mutate();
   };
 
   return (
@@ -88,6 +88,6 @@ const ModalMemberDelete = ({
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalMemberDelete;

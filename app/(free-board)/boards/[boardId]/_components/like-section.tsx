@@ -32,9 +32,7 @@ export default function LikeSection({ articleId }: LikeSectionProps) {
         className="mb-8 w-[94px] hover:bg-text-secondary md:mb-10 md:w-[140px]"
         onClick={handleClick}
       >
-        <section
-          className={`flex items-center gap-1 overflow-visible text-sm font-normal leading-4 text-text-disabled`}
-        >
+        <section className="flex items-center gap-1 overflow-visible text-sm font-normal leading-4 text-text-disabled">
           <LikeButtonColored size={24} isClicked={isLiked} />
           Like {likeCount > 9999 ? "9999+" : likeCount}
         </section>

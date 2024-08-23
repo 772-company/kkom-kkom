@@ -1,10 +1,10 @@
-import { instance } from "../myFetch/instance";
+import instance from "../myFetch/instance";
 import {
   DeleteCommentsCommentIdResponse,
+  GetArticlesArticleIdCommentsResponse,
   PatchCommentsCommentIdResponse,
   PostArticlesArticleIdCommentsResponse,
 } from "../type";
-import { GetArticlesArticleIdCommentsResponse } from "../type/index";
 
 interface PostArticlesArticleIdCommentsRequest {
   data: { content: string };
@@ -15,22 +15,18 @@ export async function postArticlesArticleIdComments({
   data,
   articleId,
 }: PostArticlesArticleIdCommentsRequest) {
-  try {
-    const response = await instance<PostArticlesArticleIdCommentsResponse>(
-      `/articles/${articleId}/comments`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+  const response = await instance<PostArticlesArticleIdCommentsResponse>(
+    `/articles/${articleId}/comments`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface GetArticlesArticleIdCommentsRequest {
@@ -42,21 +38,17 @@ export async function getArticlesArticleIdComments({
   articleId,
   cursor,
 }: GetArticlesArticleIdCommentsRequest) {
-  try {
-    const params = new URLSearchParams({
-      limit: "10",
-      cursor: String(cursor),
-    });
-    const response = await instance<GetArticlesArticleIdCommentsResponse>(
-      `/articles/${articleId}/comments?${params.toString()}`,
-      {
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const params = new URLSearchParams({
+    limit: "10",
+    cursor: String(cursor),
+  });
+  const response = await instance<GetArticlesArticleIdCommentsResponse>(
+    `/articles/${articleId}/comments?${params.toString()}`,
+    {
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface PatchCommentsCommentIdRequest {
@@ -68,22 +60,18 @@ export async function patchCommentsCommentId({
   data,
   commentId,
 }: PatchCommentsCommentIdRequest) {
-  try {
-    const response = await instance<PatchCommentsCommentIdResponse>(
-      `/comments/${commentId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        withCredentials: true,
+  const response = await instance<PatchCommentsCommentIdResponse>(
+    `/comments/${commentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+      body: JSON.stringify(data),
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface DeleteCommentsCommentIdRequest {
@@ -93,16 +81,12 @@ interface DeleteCommentsCommentIdRequest {
 export async function deleteCommentsCommentId({
   commentId,
 }: DeleteCommentsCommentIdRequest) {
-  try {
-    const response = await instance<DeleteCommentsCommentIdResponse>(
-      `/comments/${commentId}`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw e;
-  }
+  const response = await instance<DeleteCommentsCommentIdResponse>(
+    `/comments/${commentId}`,
+    {
+      method: "DELETE",
+      withCredentials: true,
+    },
+  );
+  return response;
 }

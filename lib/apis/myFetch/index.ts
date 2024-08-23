@@ -1,9 +1,6 @@
 import { clientFetch } from "./clientFetch";
-import { serverFetch } from "./serverFetch";
-
-export interface MyFetchOptions extends RequestInit {
-  withCredentials?: boolean;
-}
+import serverFetch from "./serverFetch";
+import { MyFetchOptions } from "./types";
 
 /**
  * myFetch는 서버와 클라이언트에서 사용할 수 있는 fetch 함수입니다.
@@ -94,16 +91,16 @@ export async function myFetch<T>(
   init?: MyFetchOptions,
 ): Promise<T> {
   if (typeof window !== "undefined") {
-    const data = await clientFetch(input, init);
-    if (data.status === 204) {
-      //NOTE - no content 일 때
-      return data as T;
+    const response = await clientFetch(input, init);
+    if (response.status === 204) {
+      return response as T;
     }
-    return await data.json();
-  } else {
-    const data = await serverFetch(input, init);
-    return await data.json();
+    const data = await response.json();
+    return data;
   }
+  const response = await serverFetch(input, init);
+  const data = await response.json();
+  return data;
 }
 
 /**
@@ -122,33 +119,3 @@ export const mF =
   (url: string) =>
   <T>(input: string | URL | globalThis.Request, init?: MyFetchOptions) =>
     myFetch<T>(url + input, init);
-
-export interface ResponseError extends Error {
-  response?: Response;
-}
-
-export function responseError(res: Response) {
-  let newMessage = "알 수 없는 에러가 발생했습니다!";
-  switch (res.status) {
-    case 401: {
-      newMessage = "다시 로그인해주세요!";
-      break;
-    }
-    case 403: {
-      newMessage = "권한이 없습니다!";
-      break;
-    }
-    case 404: {
-      newMessage = "잘못된 요청입니다!";
-      break;
-    }
-    case 500: {
-      newMessage = "서버 오류입니다!";
-      break;
-    }
-  }
-  // Error(message)를 만듭니다.
-  const error: ResponseError = new Error(newMessage);
-  error.response = res;
-  return error;
-}

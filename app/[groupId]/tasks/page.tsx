@@ -1,5 +1,5 @@
-import getGroupInfo from "@/lib/apis/group";
-import { getTasks } from "@/lib/apis/task";
+import { getGroupInfo } from "@/lib/apis/group/index";
+import { getTasks } from "@/lib/apis/task/index";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import {
   HydrationBoundary,
@@ -12,7 +12,7 @@ import TodoContainer from "./_components/todo/todo-contianer";
 
 const page = async (context: any) => {
   const queryClient = new QueryClient();
-  const { req, res, query, params } = context;
+  const { params } = context;
   const result = await queryClient.fetchQuery({
     queryKey: ["getGroupInfo"],
     queryFn: () => getGroupInfo({ groupId: params.groupId }),

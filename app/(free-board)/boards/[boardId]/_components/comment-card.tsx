@@ -48,6 +48,7 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
       close={close}
       onCancel={() => {
         if (isDeletePending || isFetching) {
+          /* eslint-disable no-alert */
           alert("삭제 중입니다. 잠시만 기다려주세요.");
         } else {
           deleteMutation({ commentId: comment.id, articleId });
@@ -95,15 +96,15 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
               ref={contentRef}
             >
               <p ref={lineRef}>
-                {comment.content.split("\n").map((line, idx) => (
-                  <Fragment key={idx}>
+                {comment.content.split("\n").map((line) => (
+                  <Fragment key={line}>
                     {line}
                     <br />
                   </Fragment>
                 ))}
               </p>
             </section>
-            {isOpen === null ? null : isOpen ? (
+            {isOpen && isOpen ? (
               <section className="absolute left-0 right-0 top-[70%] h-[70%]">
                 <Button
                   btnSize="x-small"

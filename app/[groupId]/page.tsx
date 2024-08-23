@@ -1,4 +1,4 @@
-import getGroupInfo from "@/lib/apis/group/index";
+import { getGroupInfo } from "@/lib/apis/group/index";
 import { getUser } from "@/lib/apis/user";
 import {
   HydrationBoundary,
@@ -34,7 +34,7 @@ export default async function TeamPage({
     (member) => member.role === "ADMIN",
   )?.userName;
 
-  const isAdmin = adminMemberName === userInfo.nickname ? true : false;
+  const isAdmin = adminMemberName === userInfo.nickname;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

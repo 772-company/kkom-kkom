@@ -2,7 +2,7 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import Modal from "@/components/modal/modal";
 import usePostTask from "@/lib/apis/task/hooks/use-post-task";
-import React, { useRef } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DayButton from "../day-button";
@@ -16,7 +16,7 @@ interface AddTodoModalProps {
   close: () => void;
 }
 
-export interface TodoFormType {
+interface TodoFormType {
   name: string;
   description: string;
   startDate: Date;
@@ -35,13 +35,8 @@ const REPEAT_ARRAY = [
   { name: "일", value: 0 },
 ];
 
-const AddTodoModal = ({
-  groupId,
-  taskListId,
-  date,
-  close,
-}: AddTodoModalProps) => {
-  const { isPending, mutate } = usePostTask(groupId, taskListId, date, close);
+function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
+  const { isPending, mutate } = usePostTask(groupId, taskListId, close);
 
   const {
     control,
@@ -61,8 +56,7 @@ const AddTodoModal = ({
     },
   });
   const formData = watch("frequencyType");
-  const inputRef = useRef<HTMLInputElement>(null);
-  const serveData = (data: TodoFormType, event?: React.BaseSyntheticEvent) => {
+  const serveData = (data: TodoFormType) => {
     if (taskListId !== -1) {
       if (data.frequencyType === "MONTHLY") {
         const { weekDays, ...newData } = data;
@@ -100,14 +94,14 @@ const AddTodoModal = ({
             label="할 일 제목"
             placeholder="할 일 제목을 입력해주세요."
             id="name"
-            isModal={true}
+            isModal
             register={register}
           />
           {errors.name?.message}
         </div>
 
         <div className="mt-2 flex h-[300px] w-full flex-col gap-4">
-          <label>시작 날짜 및 시간</label>
+          <p>시작 날짜 및 시간</p>
           <div className="h-[258px]">
             <div className="flex h-[48px]">
               <Controller
@@ -119,10 +113,10 @@ const AddTodoModal = ({
           </div>
         </div>
 
-        <div className="mt-[100px] flex h-[79px] w-full flex-col gap-4">
-          <label className="text-base font-medium text-text-primary">
+        <div className="flex h-[79px] w-full flex-col gap-4">
+          <div className="text-base font-medium text-text-primary">
             반복설정
-          </label>
+          </div>
           <Controller
             name="frequencyType"
             control={control}
@@ -131,7 +125,7 @@ const AddTodoModal = ({
         </div>
         {formData === "MONTHLY" && (
           <div className="mt-5 flex h-[150px] w-full flex-col gap-3">
-            <label>반복 일</label>
+            <p>반복 일</p>
             <input
               onCompositionStart={(e: any) => {
                 e.target.blur();
@@ -147,7 +141,7 @@ const AddTodoModal = ({
               {...register("monthDay", {
                 required: "반복일을 입력해 주세요",
                 onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                  let value = parseInt(e.target.value);
+                  const value = parseInt(e.target.value, 10);
 
                   if (value < 1) {
                     e.target.value = "1";
@@ -168,12 +162,12 @@ const AddTodoModal = ({
         )}
         {formData === "WEEKLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
-            <label>반복 요일</label>
+            <div>반복 요일</div>
 
-            <div className="flex gap-1">
-              {REPEAT_ARRAY.map((e, i) => (
+            <div className="flex gap-2">
+              {REPEAT_ARRAY.map((e) => (
                 <Controller
-                  key={i}
+                  key={e.value}
                   control={control}
                   name="weekDays"
                   rules={{
@@ -181,7 +175,7 @@ const AddTodoModal = ({
                       if (typeof value !== "undefined" && value.length < 2) {
                         return "2개이상 요일을 선택 해주세요";
                       }
-                      return;
+                      return undefined;
                     },
                   }}
                   render={({ field }) => (
@@ -196,7 +190,7 @@ const AddTodoModal = ({
 
         <div className="mt-7 w-full">
           <BasicInput
-            isModal={true}
+            isModal
             label="할 일 메모"
             placeholder="메모를 입력해주세요."
             id="description"
@@ -217,6 +211,6 @@ const AddTodoModal = ({
       </form>
     </Modal>
   );
-};
+}
 
 export default AddTodoModal;

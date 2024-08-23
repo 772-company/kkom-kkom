@@ -24,7 +24,10 @@ interface ModalDangerProps {
       </Modal>
  * ```
  */
-export function ModalDanger({ handleConfirm, close }: ModalDangerProps) {
+export default function ModalDanger({
+  handleConfirm,
+  close,
+}: ModalDangerProps) {
   const handleClick = () => {
     handleConfirm();
     close();

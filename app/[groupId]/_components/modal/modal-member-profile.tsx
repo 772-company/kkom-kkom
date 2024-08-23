@@ -12,12 +12,12 @@ interface ModalMemberProfileProps {
   userEmail: string;
 }
 
-const ModalMemberProfile = ({
+function ModalMemberProfile({
   close,
   userImage,
   userName,
   userEmail,
-}: ModalMemberProfileProps) => {
+}: ModalMemberProfileProps) {
   const handleButtonClick = async () => {
     try {
       await navigator.clipboard.writeText(userEmail);
@@ -32,7 +32,12 @@ const ModalMemberProfile = ({
   return (
     <Modal close={close} closeOnFocusOut>
       <div className="relative flex h-[218px] flex-col items-center gap-[8px]">
-        <button className="absolute right-0 top-0" onClick={close}>
+        <button
+          className="absolute right-0 top-0"
+          onClick={close}
+          aria-label="닫기"
+          type="submit"
+        >
           <XIcon width={24} height={24} />
         </button>
         <div className="flex h-[186px] w-[280px] flex-col justify-center gap-[24px] pt-[48px]">
@@ -65,6 +70,6 @@ const ModalMemberProfile = ({
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalMemberProfile;

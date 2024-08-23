@@ -2,7 +2,7 @@ import Pin from "@/public/icons/pin.png";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ThemeToggle } from "../theme/theme-toggle";
+import ThemeToggle from "../theme/theme-toggle";
 import LoginButton from "./login-button";
 
 export default function NoneLoginHeader() {

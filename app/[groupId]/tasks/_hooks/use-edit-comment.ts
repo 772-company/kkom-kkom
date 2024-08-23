@@ -1,6 +1,6 @@
 import { getUser } from "@/lib/apis/user";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useEditComment = () => {
   const { data } = useQuery({ queryKey: ["getUser"], queryFn: getUser });

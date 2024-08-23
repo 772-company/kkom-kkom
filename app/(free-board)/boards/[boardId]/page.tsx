@@ -1,7 +1,7 @@
-import { getQueryClient } from "@/app/get-query-client";
+import getQueryClient from "@/app/get-query-client";
 import { getArticlesArticleId } from "@/lib/apis/article";
 import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
-import { instance } from "@/lib/apis/myFetch/instance";
+import instance from "@/lib/apis/myFetch/instance";
 import { GetArticlesArticleIdResponse } from "@/lib/apis/type";
 import { getUser } from "@/lib/apis/user";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -34,16 +34,10 @@ export async function generateMetadata({
       title: `${product.title} | 꼼꼼`,
     };
   } catch (e) {
-    if (e instanceof Error) {
-      console.error(e.message);
-      throw e;
-    } else {
-      console.error(e);
-    }
+    return {
+      title: "알 수 없는 경로입니다.",
+    };
   }
-  return {
-    title: "알 수 없는 경로입니다.",
-  };
 }
 
 export default async function Page({ params: { boardId } }: Props) {

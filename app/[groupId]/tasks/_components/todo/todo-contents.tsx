@@ -63,6 +63,7 @@ const TodoContents = ({ taskLists, date, groupId }: TodoContentsProps) => {
               groupId={groupId}
               taskListId={selectedButton}
               id={e.id}
+              recurringId={e.recurringId}
               title={e.name}
               description={e.description}
               frequency={e.frequency}

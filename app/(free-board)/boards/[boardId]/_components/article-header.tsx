@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  CommentIcon,
   DateDescription,
   KebabButton,
+  LikeCountSection,
   Profile,
 } from "@/app/(free-board)/_components/card";
 import HandleArticleModal, {
@@ -66,7 +68,7 @@ export default function ArticleHeader({ articleId }: ArticleHeaderProps) {
 
   return (
     <>
-      <header className="flex justify-between border-b border-border-primary border-opacity-10 pb-4 pt-6 text-lg font-medium md:mt-14 md:text-xl">
+      <header className="flex justify-between border-b border-black border-opacity-10 pb-4 pt-6 text-lg font-medium dark:border-b dark:border-white dark:border-opacity-10 md:mt-14 md:text-xl">
         <h1>{article.title}</h1>
         {id === article.writer.id && (
           <KebabButton
@@ -75,13 +77,23 @@ export default function ArticleHeader({ articleId }: ArticleHeaderProps) {
           />
         )}
       </header>
-      <section className="mb-6 mt-4 flex items-center pb-6">
-        <Profile name={article.writer.nickname} className="mr-4" />
-        <DateDescription
-          date={article.updatedAt}
-          className="border-l border-border-primary border-opacity-10 pl-4"
-        />
-      </section>
+      <div className="mb-6 mt-4 flex items-center justify-between pb-6">
+        <section className="flex items-center">
+          <Profile name={article.writer.nickname} className="mr-4" />
+          <DateDescription
+            date={article.updatedAt}
+            className="border-l border-border-primary border-opacity-10 pl-4"
+          />
+        </section>
+        <section className="flex items-center gap-4">
+          <LikeCountSection isClicked likeCount={article.likeCount} />
+          <CommentIcon
+            commentCount={article.commentCount}
+            size={16}
+            className=""
+          />
+        </section>
+      </div>
     </>
   );
 }

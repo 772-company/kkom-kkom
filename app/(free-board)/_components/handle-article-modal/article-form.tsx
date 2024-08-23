@@ -108,12 +108,15 @@ export default function ArticleForm({
               id="title"
               label="제목"
               error={errors.title?.message}
+              placeholder="제목을 입력해주세요"
+              className="border border-black border-opacity-10 dark:border-border-primary"
             />
             <BasicTextarea
               register={register}
               id="content"
               label="내용"
-              className="resize-none"
+              placeholder="내용을 입력해주세요"
+              className="resize-none border border-black border-opacity-10 dark:border-border-primary"
               rows={10}
               cols={30}
               error={errors.content?.message}

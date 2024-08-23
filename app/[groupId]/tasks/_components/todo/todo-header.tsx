@@ -45,7 +45,6 @@ function TodoHeader({
         <div className="flex h-3 items-center gap-1">
           <TaskButton types="arrow" name="left" onClick={onClickButton} />
           <TaskButton types="arrow" name="right" onClick={onClickButton} />
-
           <button
             aria-label="calendar"
             type="button"

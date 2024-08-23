@@ -4,8 +4,10 @@ import React, { useState } from "react";
 const useCalender = () => {
   const [date, setDate] = useState<Date>(new Date());
   const convertedDate = covertDate(date);
-  const handleChangeDate = () => {
-    setDate(date);
+  const handleChangeDate = (newDate: Date | null) => {
+    if (newDate) {
+      setDate(newDate);
+    }
   };
   const handleClickButton = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

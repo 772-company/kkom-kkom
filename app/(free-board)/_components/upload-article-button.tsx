@@ -29,8 +29,8 @@ export default function UploadArticleButton() {
   return (
     <Button
       btnSize="x-small"
-      btnStyle="solid"
-      className="fixed bottom-20 right-4 w-[104px] md:right-6 xl:right-[calc(50vw-600px)]"
+      btnStyle="outlined_secondary"
+      className="fixed bottom-20 right-4 w-[104px] border border-black border-opacity-10 dark:border dark:border-white dark:border-opacity-10 md:right-6 xl:right-[calc(50vw-600px)]"
       onClick={overlay.open}
     >
       + 글쓰기

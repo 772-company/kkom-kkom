@@ -37,7 +37,7 @@ interface PopoverContentItem {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 interface PopoverProps {
-  triggerImage?: string | StaticImageData;
+  triggerImage?: string | StaticImageData | null;
   triggerImageAlt?: string;
   triggerSvg?: React.FC<React.SVGProps<SVGSVGElement>>;
   triggerText?: string;
@@ -107,7 +107,7 @@ function Popover({
                 alt={triggerImageAlt}
                 width={triggerWidth}
                 height={triggerHeight}
-                className="object-cover"
+                className="rounded-md object-cover"
                 layout="fixed"
               />
             )}

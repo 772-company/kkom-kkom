@@ -27,7 +27,7 @@ export default function LoggedInHeaderContent() {
   if (!isSuccess) {
     return null;
   }
-  const { memberships, nickname } = data;
+  const { memberships, nickname, image } = data;
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function LoggedInHeaderContent() {
       </div>
       <div className="flex items-center gap-4">
         <ThemeToggle />
-        <PopoverTrigger nickname={nickname} />
+        <PopoverTrigger nickname={nickname} image={image} />
       </div>
     </>
   );

@@ -9,10 +9,14 @@ import Popover from "../popover/popover";
 import ModalLogout from "./components/modal-logout";
 
 interface PopoverTriggerProps {
+  image: string | null;
   nickname: string;
 }
 
-export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
+export default function PopoverTrigger({
+  nickname,
+  image,
+}: PopoverTriggerProps) {
   const modalLogoutOverlay = useCustomOverlay(({ close }) => (
     <ModalLogout close={close} />
   ));
@@ -20,7 +24,9 @@ export default function PopoverTrigger({ nickname }: PopoverTriggerProps) {
   return (
     <div className="flex cursor-pointer items-center gap-2">
       <Popover
-        triggerSvg={UserIcon}
+        triggerImage={image}
+        triggerImageAlt="사용자 프로필"
+        triggerSvg={image ? undefined : UserIcon}
         triggerHeight={24}
         triggerWidth={24}
         content={[

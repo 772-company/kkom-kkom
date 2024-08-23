@@ -15,6 +15,8 @@
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
     --border-primary: 168 25% 8%;
+    --point-whiteGreen: #43c694;
+    --point-grayGreen: #43c694;
   }
 
   :root.dark {
@@ -29,5 +31,7 @@
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
     --border-primary: 210 28% 98% 0.1;
+    --point-whiteGreen: #ffffff;
+    --point-grayGreen: #475569;
   }
 }

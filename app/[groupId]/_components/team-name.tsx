@@ -4,10 +4,9 @@ import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import getGroupInfo from "@/lib/apis/group";
 import Gear from "@/public/icons/gear.svg";
-import Thumbnail from "@/public/images/thumbnail-team.png";
+import ThumbnailSVG from "@/public/images/thumbnail_team.svg";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 import ModalTeamDelete from "./modal/modal-team-delete";
 
@@ -31,12 +30,12 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
   ));
 
   return (
-    <div className="flex h-[64px] w-full items-center justify-end rounded-[12px] border-[1px] border-border-primary/10 bg-border-primary/10 px-[24px]">
+    <div className="flex h-[64px] w-full items-center justify-end rounded-[12px] border-[1px] border-border-primary/10 bg-background-secondary px-[24px]">
       <p className="w-full text-[20px] font-[700] leading-[64px] text-text-primary">
         {teamName}
       </p>
       <div className="absolute flex items-center justify-center gap-[30px]">
-        <Image src={Thumbnail} alt="썸네일" height={64} />
+        <ThumbnailSVG />
         {isAdmin && (
           <Popover
             triggerSvg={Gear}
@@ -49,7 +48,7 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
               },
               { text: "삭제하기", onClick: ModalTeamDeleteOverlay.open },
             ]}
-            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-primary"
+            contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-secondary"
           />
         )}
       </div>

@@ -55,6 +55,7 @@ export default function ButtonFloating({
 }: ButtonFloatingProps) {
   return (
     <button
+      type="submit"
       className={`${FUNDAMENTAL_STYLE} ${BUTTON_STYLE[btnStyle]} ${BUTTON_SIZE[btnSize]} ${className}`}
       {...rest}
     >

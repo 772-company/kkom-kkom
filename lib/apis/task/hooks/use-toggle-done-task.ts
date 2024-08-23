@@ -12,8 +12,7 @@ const useToggleDoneTask = (
 ) => {
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationFn: () =>
-      patchTask(groupId, taskListId, taskId, { done: doneAt ? false : true }),
+    mutationFn: () => patchTask(groupId, taskListId, taskId, { done: !doneAt }),
     onSuccess: () => {
       Promise.all([
         queryClient.invalidateQueries({

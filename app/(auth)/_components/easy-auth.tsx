@@ -14,7 +14,9 @@ export default function EasyAuth({ variant }: EasyLoginProps) {
       </div>
       <div className="mt-4 flex items-center justify-between">
         <p className="text-base font-medium text-text-primary">
-          간편 {variant}하기
+          간편
+          {variant}
+          하기
         </p>
         <div className="flex gap-4">
           <EasyLoginButton domain="kakao" />

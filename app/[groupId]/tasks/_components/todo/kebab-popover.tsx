@@ -7,10 +7,7 @@ interface KebabPopoverProps {
   openDeleteModal: () => void;
 }
 
-const KebabPopover = ({
-  openEditModal,
-  openDeleteModal,
-}: KebabPopoverProps) => {
+function KebabPopover({ openEditModal, openDeleteModal }: KebabPopoverProps) {
   const constent = [
     {
       text: "수정하기",
@@ -29,6 +26,6 @@ const KebabPopover = ({
       contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
     />
   );
-};
+}
 
 export default KebabPopover;

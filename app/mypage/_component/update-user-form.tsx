@@ -5,11 +5,12 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { ProfileInput } from "@/components/profile-input/profile-input";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import { uploadImage } from "@/lib/apis/image";
+import uploadImage from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { getUser, updateAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
-import { updateUserSchema } from "@/schemas/user";
+import updateUserSchema from "@/schemas/user";
+import { UpdateUserInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -17,13 +18,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import ModalResetPassword from "./modal-reset-password";
-
-export interface UpdateUserInputValue {
-  nickname?: string;
-  image?: File | string;
-  password?: string;
-  email?: string;
-}
 
 export default function UpdateUserForm() {
   const queryClient = useQueryClient();
@@ -38,7 +32,7 @@ export default function UpdateUserForm() {
   });
 
   const mutation = useMutation({
-    mutationFn: (data: UpdateUserInputValue) => updateAccount(data),
+    mutationFn: (updateData: UpdateUserInputValue) => updateAccount(updateData),
     onMutate: () => {
       showToast("loading", "계정 정보를 수정 중입니다.", {
         toastId: "updateUserInfo",
@@ -63,7 +57,6 @@ export default function UpdateUserForm() {
       if (error instanceof ResponseError) {
         const response = (await error.response?.json()) as { message: string };
         showToast("error", <p>{response.message}</p>);
-        return;
       } else {
         showToast("error", <p>다시 시도해 주세요</p>);
       }
@@ -82,7 +75,6 @@ export default function UpdateUserForm() {
     resolver: yupResolver(updateUserSchema),
   });
 
-  // NOTE - 초기값 설정
   useEffect(() => {
     if (isSuccess && data) {
       const { nickname, image } = data;
@@ -100,28 +92,27 @@ export default function UpdateUserForm() {
   const { image, email, nickname } = data;
   const watchedNickname = watch("nickname", nickname) || "";
 
-  const onSubmit: SubmitHandler<UpdateUserInputValue> = async (data) => {
-    // NOTE - 닉네임 변경하지 않는 경우 data에 포함 X
-    if (data.nickname === nickname) {
-      delete data.nickname;
+  const onSubmit: SubmitHandler<UpdateUserInputValue> = async (formData) => {
+    // formData의 복사본 생성
+    const updatedData = { ...formData };
+
+    if (updatedData.nickname === nickname) {
+      delete updatedData.nickname;
     }
 
-    // NOTE - image가 파일인 경우 url로 변환
-    if (data.image instanceof File) {
+    if (updatedData.image instanceof File) {
       try {
-        const imageToStringResponse = await uploadImage(data.image);
-        data.image = imageToStringResponse.url;
+        const imageToStringResponse = await uploadImage(updatedData.image);
+        updatedData.image = imageToStringResponse.url;
       } catch (error) {
         if (error instanceof ResponseError) {
           showToast("error", <p>{error.message}</p>);
           return;
-        } else {
-          showToast("error", <p>다시 시도해 주세요</p>);
-          return;
         }
       }
     }
-    mutation.mutate(data);
+
+    mutation.mutate(updatedData);
   };
 
   return (

@@ -1,13 +1,18 @@
-import { TodoFormType } from "@/app/[groupId]/tasks/_components/modal/add-todo-modal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
 
 import { postTask } from "..";
 
+interface TodoFormType {
+  name: string;
+  description: string;
+  startDate: Date;
+  frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
+  monthDay?: number;
+  weekDays?: number[];
+}
 const usePostTask = (
   groupId: string,
   taskListId: number | undefined,
-  date: Date,
   close: () => void,
 ) => {
   const queryClient = useQueryClient();

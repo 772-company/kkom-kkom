@@ -2,7 +2,7 @@
 
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
-import ProfileInput from "@/components/profile-input/profile-input";
+import { ProfileInput } from "@/components/profile-input/profile-input";
 import { postGroup } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
 import { addTeamSchema } from "@/schemas/team";
@@ -16,7 +16,7 @@ interface AddTeamFormValue {
   teamName: string;
 }
 
-const AddTeamForm = () => {
+function AddTeamForm() {
   const { register, handleSubmit, setValue, watch } = useForm<AddTeamFormValue>(
     {
       resolver: yupResolver(addTeamSchema),
@@ -78,6 +78,6 @@ const AddTeamForm = () => {
       </p>
     </div>
   );
-};
+}
 
 export default AddTeamForm;

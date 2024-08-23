@@ -28,7 +28,7 @@ export interface BasicTextareaProps<TFormInput extends FieldValues>
           label="이메일"
           error={errors.email?.message}
         />
- **/
+ */
 export function BasicTextarea<TFormInput extends FieldValues>({
   register,
   id,
@@ -39,28 +39,26 @@ export function BasicTextarea<TFormInput extends FieldValues>({
   ...rest
 }: BasicTextareaProps<TFormInput>) {
   return (
-    <>
-      <div className={`flex flex-col ${isModal ? "gap-2" : "gap-3"}`}>
-        {label && (
-          <label
-            htmlFor={id}
-            className="text-base font-semibold text-text-primary"
-          >
-            {label}
-          </label>
-        )}
-        <textarea
-          className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default read-only:cursor-not-allowed read-only:bg-background-tertiary focus:border-2 focus:outline-none ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"} ${className}`}
-          {...register(id)}
-          {...rest}
-          id={id}
-        />
-        {error && (
-          <p className="ml-[13.5px] text-sm font-medium text-status-danger">
-            {error}
-          </p>
-        )}
-      </div>
-    </>
+    <div className={`flex flex-col ${isModal ? "gap-2" : "gap-3"}`}>
+      {label && (
+        <label
+          htmlFor={id}
+          className="text-base font-semibold text-text-primary"
+        >
+          {label}
+        </label>
+      )}
+      <textarea
+        className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default read-only:cursor-not-allowed read-only:bg-background-tertiary focus:border-2 focus:outline-none ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"} ${className}`}
+        {...register(id)}
+        {...rest}
+        id={id}
+      />
+      {error && (
+        <p className="ml-[13.5px] text-sm font-medium text-status-danger">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }

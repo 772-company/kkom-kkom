@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable no-alert */
 import { usePostCommentsMutation } from "@/app/(free-board)/_query/mutation";
 import useArticlesCommentsQuery, {
   useUserQuery,
@@ -14,7 +15,7 @@ export const commentSchema = object().shape({
   content: string().required("내용을 입력해주세요"),
 });
 
-interface CommentForm {
+interface CommentFormType {
   content: string;
 }
 
@@ -31,7 +32,7 @@ export default function CommentForm({ articleId }: ArticleCommentProps) {
   const { isFetching } = useArticlesCommentsQuery(articleId);
   const { mutate, isPending } = usePostCommentsMutation();
 
-  const onSubmit: SubmitHandler<CommentForm> = (formData) => {
+  const onSubmit: SubmitHandler<CommentFormType> = (formData) => {
     if (isFetching || isPending) {
       alert(
         "도배 방지를 위하여 글을 입력한 후 일정시간 동안 추가입력을 제한하고 있습니다.",

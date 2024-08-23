@@ -1,7 +1,7 @@
 "use client";
 
 import { GetArticlesResponse } from "@/lib/apis/type";
-import { shortenString } from "@/utils/shorten-string";
+import shortenString from "@/utils/shorten-string";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       {article.image && (
         <Link
           href={`/boards/${article.id}`}
-          as={"image"}
+          as="image"
           className="relative h-24 w-24 md:h-32 md:w-32"
         >
           <Image
@@ -53,10 +53,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
               className="border-l border-l-background-tertiary pl-4"
             />
           </div>
-          <Card.LikeDescription
-            likeCount={article.likeCount}
-            isClicked={true}
-          />
+          <Card.LikeDescription likeCount={article.likeCount} isClicked />
         </section>
       </div>
     </Card>

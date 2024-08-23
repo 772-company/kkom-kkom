@@ -11,8 +11,8 @@ export default function ArticleContent({ articleId }: { articleId: number }) {
   return (
     <>
       <section>
-        {content.split("\n").map((line, idx) => (
-          <Fragment key={idx}>
+        {content.split("\n").map((line) => (
+          <Fragment key={line}>
             {line}
             <br />
           </Fragment>

@@ -75,6 +75,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                   "bg-background-tertiary"
                 }`}
                 onClick={() => handleSelect(membership.group.id)}
+                role="presentation"
               >
                 <div className="flex items-center gap-3">
                   <div className="relative size-8 overflow-hidden rounded-md">
@@ -95,6 +96,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           {/* TODO - 더보기 버튼 */}
           {memberships.length > visibleCount ? (
             <button
+              type="button"
               onClick={handleShowMore}
               className="flex w-full justify-center rounded-lg py-[7px] text-text-primary hover:underline"
             >
@@ -103,6 +105,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
           ) : (
             visibleCount > 4 && (
               <button
+                type="button"
                 onClick={handleShowLess}
                 className="flex w-full justify-center rounded-lg py-[7px] text-text-primary hover:underline"
               >

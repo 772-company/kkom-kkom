@@ -10,7 +10,7 @@ export default function SkeletonPagination() {
             btnStyle="outlined"
             className="w-full"
             disabled
-          ></Button>
+          />
         </li>
         <li className="flex-1">
           <Button
@@ -18,27 +18,25 @@ export default function SkeletonPagination() {
             btnStyle="outlined"
             disabled
             className="w-full"
-          ></Button>
+          />
         </li>
-        {[1, 2, 3, 4, 5].map((i, index) => {
-          return (
-            <li className="flex-1" key={index}>
-              <Button
-                btnSize="large"
-                btnStyle={index === 2 ? "solid" : "outlined"}
-                disabled
-                className="w-full"
-              ></Button>
-            </li>
-          );
-        })}
+        {[1, 2, 3, 4, 5].map((i) => (
+          <li className="flex-1" key={i}>
+            <Button
+              btnSize="large"
+              btnStyle={i === 3 ? "solid" : "outlined"}
+              disabled
+              className="w-full"
+            />
+          </li>
+        ))}
         <li className="flex-1">
           <Button
             btnSize="large"
             btnStyle="outlined"
             disabled
             className="w-full"
-          ></Button>
+          />
         </li>
         <li className="flex-1">
           <Button
@@ -46,7 +44,7 @@ export default function SkeletonPagination() {
             btnStyle="outlined"
             disabled
             className="w-full"
-          ></Button>
+          />
         </li>
       </ul>
     </nav>

@@ -1,8 +1,7 @@
 "use client";
 
-import ButtonFloating from "@/components/button-floating/button-floating";
-import getGroupInfo from "@/lib/apis/group";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getGroupInfo } from "@/lib/apis/group/";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 import useCalender from "../../_hooks/use-calendar";
@@ -12,17 +11,17 @@ import TodoHeader from "./todo-header";
 interface TodoContainerProps {
   groupId: string;
 }
-const TodoContainer = ({ groupId }: TodoContainerProps) => {
+function TodoContainer({ groupId: id }: TodoContainerProps) {
   const { data } = useQuery({
     queryKey: ["getGroupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId: id }),
   });
   const { date, convertedDate, handleChangeDate, handleClickButton } =
     useCalender();
   return (
     <div>
       <TodoHeader
-        groupId={groupId}
+        groupId={id}
         onClickButton={handleClickButton}
         date={date}
         convertedDate={convertedDate}
@@ -31,10 +30,10 @@ const TodoContainer = ({ groupId }: TodoContainerProps) => {
       <TodoContents
         taskLists={data ? data?.taskLists : []}
         date={date}
-        groupId={groupId}
+        groupId={id}
       />
     </div>
   );
-};
+}
 
 export default TodoContainer;

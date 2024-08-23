@@ -5,7 +5,7 @@ import Sun from "@/public/icons/sun.svg";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
-export function ThemeToggle() {
+export default function ThemeToggle() {
   const { setTheme, theme } = useTheme();
 
   const handleToggle = () => {
@@ -16,6 +16,7 @@ export function ThemeToggle() {
     <div className="flex items-center">
       <div className="flex h-6 w-11 rounded-full bg-brand-secondary bg-opacity-40 p-[2px] dark:justify-end dark:bg-white">
         <button
+          type="button"
           className="flex size-5 items-center justify-center rounded-full bg-brand-primary dark:bg-background-tertiary"
           onClick={handleToggle}
         >

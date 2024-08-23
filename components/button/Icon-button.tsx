@@ -26,7 +26,7 @@ const IMAGE_STYLE = "rounded-full";
         className="h-[100px] w-[100px] object-cover"
       />
  */
-const IconButton = ({ src, alt, onClick, className }: IconButtonProps) => {
+function IconButton({ src, alt, onClick, className }: IconButtonProps) {
   return (
     <button
       type="button"
@@ -36,6 +36,6 @@ const IconButton = ({ src, alt, onClick, className }: IconButtonProps) => {
       <Image className={`${IMAGE_STYLE}`} src={src} alt={alt} fill />
     </button>
   );
-};
+}
 
 export default IconButton;

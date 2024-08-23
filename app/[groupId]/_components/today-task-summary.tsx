@@ -7,7 +7,7 @@ interface TodayTaskSummaryProps {
   number: number;
 }
 
-const TodayTaskSummary = ({ type, number }: TodayTaskSummaryProps) => {
+function TodayTaskSummary({ type, number }: TodayTaskSummaryProps) {
   return (
     <div className="flex h-[76.5px] w-[142px] items-center justify-between rounded-[12px] bg-background-tertiary p-[16px] md:w-[280px] xl:w-[400px]">
       <div className="flex flex-col justify-center">
@@ -23,6 +23,6 @@ const TodayTaskSummary = ({ type, number }: TodayTaskSummaryProps) => {
       )}
     </div>
   );
-};
+}
 
 export default TodayTaskSummary;

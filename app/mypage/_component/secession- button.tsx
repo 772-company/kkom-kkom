@@ -3,7 +3,7 @@
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import ExitDoor from "@/public/icons/exit-door.svg";
 
-import { ModalSecession } from "./modal-secession";
+import ModalSecession from "./modal-secession";
 
 export default function SecessionButton() {
   const modalSecessionOverlay = useCustomOverlay(({ close }) => (

@@ -12,37 +12,43 @@ interface ButtonProps extends React.DOMAttributes<HTMLButtonElement> {
   disable?: boolean;
 }
 
-const TaskButton = ({
+export default function TaskButton({
   types,
   className,
   disable,
   ...rest
-}: ButtonProps & ButtonClassName & ButtonAttribute) => {
-  if (types === "arrow")
+}: ButtonProps & ButtonClassName & ButtonAttribute) {
+  if (types === "arrow") {
     return (
       <button
+        type="button"
         {...rest}
         name={rest.name}
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
       >
         {rest.name === "left" ? (
           <ArrowLeft width={12} height={12} />
-        ) : rest.name === "right" ? (
-          <ArrowRight width={12} height={12} />
         ) : (
-          ""
+          <ArrowRight width={12} height={12} />
         )}
       </button>
     );
-  else if (types === "cancel")
+  }
+  if (types === "cancel") {
     return (
-      <button className={`h-[24] w-[24px] ${className}`} {...rest}>
+      <button
+        type="button"
+        className={`h-[24] w-[24px] ${className}`}
+        {...rest}
+      >
         <X width={24} height={24} />
       </button>
     );
-  else if (types === "submit")
+  }
+  if (types === "submit") {
     return (
       <button
+        type="button"
         className={`absolute right-1 h-[24px] w-[24px] rounded-full ${disable ? "cursor-default" : "cursor-pointer"}`}
         {...rest}
       >
@@ -53,6 +59,5 @@ const TaskButton = ({
         )}
       </button>
     );
-};
-
-export default TaskButton;
+  }
+}

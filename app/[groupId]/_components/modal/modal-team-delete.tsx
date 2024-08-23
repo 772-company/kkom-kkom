@@ -14,11 +14,7 @@ interface ModalTeamDeleteProps {
   groupId: string;
 }
 
-const ModalTeamDelete = ({
-  close,
-  teamName,
-  groupId,
-}: ModalTeamDeleteProps) => {
+function ModalTeamDelete({ close, teamName, groupId }: ModalTeamDeleteProps) {
   const router = useRouter();
 
   const suffix1 = useLastConsonantLetterCheck(teamName) ? "이" : "가";
@@ -65,6 +61,6 @@ const ModalTeamDelete = ({
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalTeamDelete;

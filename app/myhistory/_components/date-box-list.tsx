@@ -13,8 +13,8 @@ export default async function DateBoxList() {
     }, new Map());
   return (
     <section className="mt-[27px] flex flex-col gap-10 md:mt-6">
-      {[...history.entries()].map(([date, history]) => (
-        <DateBoxCard key={date} date={date} tasksDone={history} />
+      {[...history.entries()].map(([date, tasks]) => (
+        <DateBoxCard key={date} date={date} tasksDone={tasks} />
       ))}
     </section>
   );

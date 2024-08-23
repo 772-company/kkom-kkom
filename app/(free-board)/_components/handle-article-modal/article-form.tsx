@@ -3,12 +3,12 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import { BasicTextarea } from "@/components/input-field/textarea";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FieldErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { ArticleType, FormType } from ".";
 import { useUploadImageMutation } from "../../_query/mutation";
-import { ModalError } from "../modal-error";
-import { articleFormSchema } from "./schema";
+import ModalError from "../modal-error";
+import articleFormSchema from "./schema";
+import { ArticleType, FormType } from "./types";
 
 interface ArticleFormProps {
   file: File | null;
@@ -42,9 +42,10 @@ export default function ArticleForm({
     mode: "onSubmit",
     resolver: yupResolver(articleFormSchema),
   });
-  const errorOverlay = useCustomOverlay(({ close }) => (
+
+  const errorOverlay = useCustomOverlay(({ close: errorOverlayClose }) => (
     <ModalError
-      close={close}
+      close={errorOverlayClose}
       description={
         errors.image?.message ||
         errors.title?.message ||
@@ -55,13 +56,7 @@ export default function ArticleForm({
   ));
   const { mutateAsync } = useUploadImageMutation();
 
-  const onInValidate = (
-    e: FieldErrors<{
-      title: string;
-      content: string;
-      image: File;
-    }>,
-  ) => {
+  const onInValidate = () => {
     errorOverlay.open();
   };
   const onSubmit = async (data: FormType) => {
@@ -78,7 +73,6 @@ export default function ArticleForm({
       newFormData.image = data.image;
     }
     if (!newFormData.image) {
-      console.error(newFormData);
       errorOverlay.open();
       return;
     }

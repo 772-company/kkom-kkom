@@ -2,7 +2,7 @@ import Modal from "@/components/modal/modal";
 import { deleteAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
 import Alert from "@/public/icons/alert.svg";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ interface ModalWarningProps {
  * @author 이승현
  * @param handleConfirm 확인 버튼을 눌렀을 때 실행할 함수
  */
-export function ModalSecession({ close }: ModalWarningProps) {
+export default function ModalSecession({ close }: ModalWarningProps) {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: () => deleteAccount(),

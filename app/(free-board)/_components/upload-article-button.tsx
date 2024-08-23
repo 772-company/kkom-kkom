@@ -16,17 +16,15 @@ export default function UploadArticleButton() {
       title: formData.title,
     });
   };
-  const overlay = useCustomOverlay(({ close }) => {
-    return (
-      <ArticleModal
-        close={close}
-        defaultContent={null}
-        defaultImage={null}
-        defaultTitle={null}
-        onSubmit={handlePost}
-      />
-    );
-  });
+  const overlay = useCustomOverlay(({ close }) => (
+    <ArticleModal
+      close={close}
+      defaultContent={null}
+      defaultImage={null}
+      defaultTitle={null}
+      onSubmit={handlePost}
+    />
+  ));
 
   return (
     <Button

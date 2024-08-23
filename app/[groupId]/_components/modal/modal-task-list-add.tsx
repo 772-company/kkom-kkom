@@ -13,7 +13,7 @@ interface ModalTaskListAddProps {
   groupId: string;
 }
 
-const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
+function ModalTaskListAdd({ close, groupId }: ModalTaskListAddProps) {
   const [taskListName, setTaskListName] = useState("");
   const suffix = useLastConsonantLetterCheck(taskListName) ? "을" : "를";
   const queryClient = useQueryClient();
@@ -75,7 +75,12 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
   return (
     <Modal close={close} closeOnFocusOut>
       <div className="relative flex h-[187px] flex-col items-center justify-center gap-[8px]">
-        <button className="absolute right-0 top-0" onClick={close}>
+        <button
+          className="absolute right-0 top-0"
+          onClick={close}
+          aria-label="닫기"
+          type="submit"
+        >
           <XIcon width={24} height={24} />
         </button>
         <div className="flex h-[155px] w-[280px] flex-col justify-center gap-[24px] pt-[32px]">
@@ -98,6 +103,6 @@ const ModalTaskListAdd = ({ close, groupId }: ModalTaskListAddProps) => {
       </div>
     </Modal>
   );
-};
+}
 
 export default ModalTaskListAdd;

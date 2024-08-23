@@ -10,7 +10,7 @@ import {
   patchCommentsCommentId,
   postArticlesArticleIdComments,
 } from "@/lib/apis/article-comment";
-import { uploadImage } from "@/lib/apis/image";
+import uploadImage from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import {
   GetArticlesArticleIdCommentsResponse,
@@ -25,7 +25,7 @@ import {
 import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
-import { ArticleType } from "../_components/handle-article-modal";
+import type { ArticleType } from "../_components/handle-article-modal/types";
 
 export function useUploadArticleMutation() {
   const router = useRouter();
@@ -42,7 +42,6 @@ export function useUploadArticleMutation() {
       showToast("loading", "게시글을 등록 중입니다.", {
         toastId: "uploadArticle",
       });
-      close();
     },
     onSuccess: ({ id }) => {
       toast.update("uploadArticle", {
@@ -54,8 +53,7 @@ export function useUploadArticleMutation() {
       });
       router.push(`/boards/${id}`);
     },
-    onError: (error) => {
-      console.error(error);
+    onError: () => {
       toast.update("uploadArticle", {
         render: "게시글 등록에 실패했습니다.",
         type: "error",
@@ -85,7 +83,6 @@ export function useDeleteArticleMutation() {
       });
     },
     onError: (error) => {
-      console.error(error);
       toast.update("deleteArticle", {
         render: error.message,
         type: "error",
@@ -137,7 +134,6 @@ export function usePatchArticleMutation() {
       });
     },
     onError: (error) => {
-      console.error(error);
       toast.update("patchArticle", {
         render: error.message,
         type: "error",
@@ -152,10 +148,9 @@ export function usePatchArticleMutation() {
 export function useUploadImageMutation() {
   return useMutation({
     mutationFn: (file: File) => uploadImage(file),
-    onSuccess: (data) => {
-      return data;
-    },
+    onSuccess: (data) => data,
     onError: (error) => {
+      /* eslint-disable no-console */
       console.error(error);
       if (error instanceof ResponseError) {
         showToast("error", error.message);
@@ -178,13 +173,7 @@ export function usePostCommentsMutation() {
   const queryClient = useQueryClient();
   const mockTime = new Date().toISOString();
   return useMutation({
-    mutationFn: ({
-      articleId,
-      content,
-      id,
-      image,
-      nickname,
-    }: PostCommentsMutation) =>
+    mutationFn: ({ articleId, content }: PostCommentsMutation) =>
       postArticlesArticleIdComments({
         articleId,
         data: { content },
@@ -297,7 +286,7 @@ interface DeleteCommentsMutation {
 export function useDeleteCommentsMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ commentId, articleId }: DeleteCommentsMutation) =>
+    mutationFn: ({ commentId }: DeleteCommentsMutation) =>
       deleteCommentsCommentId({
         commentId,
       }),
@@ -323,15 +312,14 @@ export function useDeleteCommentsMutation() {
       >(["comments", { articleId }], (input) => {
         if (!input) {
           return input;
-        } else {
-          return {
-            pages: input.pages.map((page) => ({
-              nextCursor: page.nextCursor,
-              list: page.list.filter((comment) => comment.id !== commentId),
-            })),
-            pageParams: input.pageParams,
-          };
         }
+        return {
+          pages: input.pages.map((page) => ({
+            nextCursor: page.nextCursor,
+            list: page.list.filter((comment) => comment.id !== commentId),
+          })),
+          pageParams: input.pageParams,
+        };
       });
       return { previousComments };
     },
@@ -362,7 +350,7 @@ interface PatchCommentsMutation {
 export function usePatchCommentsMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ commentId, data, articleId }: PatchCommentsMutation) =>
+    mutationFn: ({ commentId, data }: PatchCommentsMutation) =>
       patchCommentsCommentId({ data, commentId }),
     onMutate: async ({ articleId, data: { content }, commentId }) => {
       await queryClient.cancelQueries({
@@ -386,25 +374,23 @@ export function usePatchCommentsMutation() {
       >(["comments", { articleId }], (input) => {
         if (!input) {
           return input;
-        } else {
-          return {
-            pages: input.pages.map((page) => ({
-              nextCursor: page.nextCursor,
-              list: page.list.map((comment) => {
-                if (comment.id === commentId) {
-                  return {
-                    ...comment,
-                    updatedAt: new Date().toISOString(),
-                    content,
-                  };
-                } else {
-                  return comment;
-                }
-              }),
-            })),
-            pageParams: input.pageParams,
-          };
         }
+        return {
+          pages: input.pages.map((page) => ({
+            nextCursor: page.nextCursor,
+            list: page.list.map((comment) => {
+              if (comment.id === commentId) {
+                return {
+                  ...comment,
+                  updatedAt: new Date().toISOString(),
+                  content,
+                };
+              }
+              return comment;
+            }),
+          })),
+          pageParams: input.pageParams,
+        };
       });
       return { previousComments };
     },
@@ -432,11 +418,10 @@ interface HandleArticleLikeMutationProps {
 export function useHandleArticleLikeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ articleId, isLiked }: HandleArticleLikeMutationProps) => {
-      return isLiked
+    mutationFn: ({ articleId, isLiked }: HandleArticleLikeMutationProps) =>
+      isLiked
         ? deleteArticlesArticleIdLike({ articleId })
-        : postArticlesArticleIdLike({ articleId });
-    },
+        : postArticlesArticleIdLike({ articleId }),
     onMutate: async ({ articleId, isLiked }) => {
       await queryClient.cancelQueries({
         queryKey: ["article", { articleId }],

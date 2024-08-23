@@ -2,14 +2,13 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import getGroupInfo from "@/lib/apis/group";
-import { patchChangeTaskListIndex, postTaskList } from "@/lib/apis/task-list";
+import { getGroupInfo } from "@/lib/apis/group";
+import { patchChangeTaskListIndex } from "@/lib/apis/task-list";
 import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
-import _debounce from "lodash/debounce";
 import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
@@ -17,7 +16,7 @@ import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import ModalTaskListAdd from "./modal/modal-task-list-add";
 import ModalTaskListDelete from "./modal/modal-task-list-delete";
 import ModalTaskListNameEdit from "./modal/modal-task-list-name-edit";
-import { StrictModeDroppable } from "./strict-mode-droppable";
+import StrictModeDroppable from "./strict-mode-droppable";
 
 type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
 
@@ -42,7 +41,7 @@ const COLORS = [
   "bg-point-purple",
 ];
 
-const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
+function TaskList({ taskList, groupId, index }: TaskListProps) {
   const ModalTaskListNameEditOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListNameEdit
       close={close}
@@ -66,16 +65,17 @@ const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
     (tasks) => tasks.doneAt != null,
   ).length;
 
-  const isDone = numberOfDone === taskList.tasks.length ? true : false;
+  const isDone = numberOfDone === taskList.tasks.length;
   const router = useRouter();
 
   return (
     <div
+      role="presentation"
       onClick={() => router.push(`/${groupId}/tasks`)}
       className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary hover:bg-background-tertiary hover:shadow-lg active:bg-background-tertiary active:shadow-lg"
     >
       <div className="flex gap-[12px]">
-        <div className={`w-[12px] rounded-l-[12px] ${pointColor}`}></div>
+        <div className={`w-[12px] rounded-l-[12px] ${pointColor}`} />
         <p>{taskList.name}</p>
       </div>
       <div className="flex items-center gap-[10px] pr-[8px]">
@@ -89,7 +89,9 @@ const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
             {numberOfDone} / {taskList.tasks.length}
           </p>
         </div>
-        <div
+        <button
+          type="submit"
+          aria-label="팝오버"
           onClick={(event) => {
             event.stopPropagation(); // 클릭 이벤트 전파 중지
           }}
@@ -104,20 +106,20 @@ const TaskList = ({ taskList, groupId, index }: TaskListProps) => {
             ]}
             contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[80px] text-text-secondary"
           />
-        </div>
+        </button>
       </div>
     </div>
   );
-};
+}
 
-const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
+function TaskLists({ groupId, isAdmin }: TaskListsProps) {
   const ModalTaskListAddOverlay = useCustomOverlay(({ close }) => (
     <ModalTaskListAdd close={close} groupId={groupId} />
   ));
 
   const { data } = useQuery<GetTeamIdGroupsIdResponse>({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId }),
   });
 
   const [taskLists, setTaskLists] = useState<TaskListType[]>(
@@ -148,17 +150,11 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
 
     setTaskLists(updatedTaskLists);
 
-    // 비동기 요청 병렬로 처리
-    try {
-      await Promise.all(
-        updates.map(({ taskListId, displayIndex }) =>
-          patchChangeTaskListIndex(groupId, taskListId, { displayIndex }),
-        ),
-      );
-      console.log("순서 업데이트 성공");
-    } catch (error) {
-      console.error("순서 업데이트 중 오류 발생", error);
-    }
+    await Promise.all(
+      updates.map(({ taskListId, displayIndex }) =>
+        patchChangeTaskListIndex(groupId, taskListId, { displayIndex }),
+      ),
+    );
   };
 
   return (
@@ -172,6 +168,7 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
         </div>
         {isAdmin && (
           <button
+            type="submit"
             className="text-[14px] font-[400] text-brand-primary hover:scale-[1.02] active:scale-[0.98]"
             onClick={ModalTaskListAddOverlay.open}
           >
@@ -181,10 +178,10 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId="droppable">
-          {(provided) => (
+          {(droppableProvided) => (
             <div
-              ref={provided.innerRef}
-              {...provided.droppableProps}
+              ref={droppableProvided.innerRef}
+              {...droppableProvided.droppableProps}
               className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom"
             >
               {taskLists.length > 0 ? (
@@ -194,11 +191,11 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
                     draggableId={taskList.id.toString()}
                     index={index}
                   >
-                    {(provided) => (
+                    {(draggableProvided) => (
                       <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
                       >
                         <TaskList
                           taskList={taskList}
@@ -214,13 +211,13 @@ const TaskLists = ({ groupId, isAdmin }: TaskListsProps) => {
                   아직 할 일 목록이 없습니다.
                 </p>
               )}
-              {provided.placeholder} {/* 드래그 중 빈 공간 유지 */}
+              {droppableProvided.placeholder} {/* 드래그 중 빈 공간 유지 */}
             </div>
           )}
         </StrictModeDroppable>
       </DragDropContext>
     </div>
   );
-};
+}
 
 export default TaskLists;

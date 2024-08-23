@@ -1,4 +1,4 @@
-import { postComment } from "@/lib/apis/comment";
+import { postComment } from "@/lib/apis/comment/index";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -11,7 +11,11 @@ interface CommentInputProps {
   taskId: number | undefined;
   date: Date;
 }
-const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
+export default function CommentInput({
+  taskListId,
+  taskId,
+  date,
+}: CommentInputProps) {
   const queryClient = useQueryClient();
   const {
     formState: { isDirty },
@@ -39,10 +43,7 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
     },
   });
 
-  const serveData = (
-    data: { content: string },
-    event?: React.BaseSyntheticEvent,
-  ) => {
+  const serveData = (data: { content: string }) => {
     if (!data.content || !taskId) {
       return;
     }
@@ -60,10 +61,8 @@ const CommentInput = ({ taskListId, taskId, date }: CommentInputProps) => {
       <TaskButton
         type="submit"
         types="submit"
-        disable={isDirty && !isPending ? false : true}
+        disable={!(isDirty && !isPending)}
       />
     </form>
   );
-};
-
-export default CommentInput;
+}

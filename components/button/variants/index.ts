@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority";
  * 기본값(defaultVariants)은 btnSize: large, btnStyle: solid 입니다.
  * variants를 통해서 내려받는 prop들을 정리합니다.
  */
-export const buttonVariants = cva(
+const buttonVariants = cva(
   "flex cursor-pointer items-center justify-center rounded-xl font-semibold transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:scale-100",
   {
     variants: {
@@ -33,3 +33,5 @@ export const buttonVariants = cva(
     },
   },
 );
+
+export default buttonVariants;

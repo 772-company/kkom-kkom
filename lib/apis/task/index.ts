@@ -18,17 +18,14 @@ export const postTask = async (
   },
 ) => {
   try {
-    const response = await myFetch(
-      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        withCredentials: true,
+    await myFetch(`${URL}/groups/${groupId}/task-lists/${taskListId}/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(data),
+      withCredentials: true,
+    });
   } catch (error) {
     console.error(error);
     throw error;
@@ -90,7 +87,7 @@ export const patchTaskOrder = async (
   data: { displayIndex: number },
 ) => {
   try {
-    const response = await myFetch(
+    await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/order`,
       {
         method: "PATCH",
@@ -113,7 +110,7 @@ export const deleteTask = async (
   taskId: number,
 ) => {
   try {
-    const response = await myFetch(
+    await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}`,
       {
         method: "DELETE",
@@ -157,7 +154,7 @@ export const deleteTaskRecurring = async (
   recurringId: number,
 ) => {
   try {
-    const response = await myFetch(
+    await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
       {
         method: "DELETE",

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import type { NextFetchEvent, NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest, event: NextFetchEvent) {
+export function middleware(request: NextRequest) {
   const hasRefreshToken = request.cookies.has("refreshToken");
   const { pathname } = request.nextUrl;
 

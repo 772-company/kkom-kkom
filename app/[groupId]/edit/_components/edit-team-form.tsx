@@ -3,8 +3,8 @@
 import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import ProfileInput from "@/components/profile-input/profile-input";
-import getGroupInfo, { patchGroupInfo } from "@/lib/apis/group";
-import { uploadImage } from "@/lib/apis/image";
+import { getGroupInfo, patchGroupInfo } from "@/lib/apis/group";
+import uploadImage from "@/lib/apis/image";
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
 import { showToast } from "@/lib/show-toast";
 import { editTeamSchema } from "@/schemas/team";
@@ -23,17 +23,21 @@ interface EditTeamFormProps {
   groupId: string;
 }
 
-const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
+function EditTeamForm({ groupId }: EditTeamFormProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data, isSuccess } = useQuery({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId }),
   });
 
   const createTeamMutation = useMutation({
-    mutationFn: (data: EditTeamFormValue) =>
-      patchGroupInfo({ groupId, image: data.teamProfile, name: data.teamName }),
+    mutationFn: (editTeamFormData: EditTeamFormValue) =>
+      patchGroupInfo({
+        groupId,
+        image: editTeamFormData.teamProfile,
+        name: editTeamFormData.teamName,
+      }),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["getGroupInfo", groupId] });
       showToast("success", "팀 정보를 수정하였습니다.");
@@ -73,11 +77,36 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
 
   const watchedTeamName = watch("teamName", data.name) || "";
 
+  // const onSubmit: SubmitHandler<EditTeamFormValue> = async (formData) => {
+  //   if (formData.teamProfile instanceof File) {
+  //     try {
+  //       const imageToStringResponse = await uploadImage(formData.teamProfile);
+  //       formData.teamProfile = imageToStringResponse.url;
+  //     } catch (error) {
+  //       if (error instanceof ResponseError) {
+  //         showToast("error", <p>{error.message}</p>);
+  //       } else {
+  //         showToast("error", <p>다시 시도해 주세요</p>);
+  //       }
+  //       return;
+  //     }
+  //   }
+
+  //   createTeamMutation.mutate(formData);
+  // };
+
   const onSubmit: SubmitHandler<EditTeamFormValue> = async (formData) => {
-    if (formData.teamProfile instanceof File) {
+    let updatedFormData = { ...formData };
+
+    if (updatedFormData.teamProfile instanceof File) {
       try {
-        const imageToStringResponse = await uploadImage(formData.teamProfile);
-        formData.teamProfile = imageToStringResponse.url;
+        const imageToStringResponse = await uploadImage(
+          updatedFormData.teamProfile,
+        );
+        updatedFormData = {
+          ...updatedFormData,
+          teamProfile: imageToStringResponse.url,
+        };
       } catch (error) {
         if (error instanceof ResponseError) {
           showToast("error", <p>{error.message}</p>);
@@ -88,7 +117,7 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
       }
     }
 
-    createTeamMutation.mutate(formData);
+    createTeamMutation.mutate(updatedFormData);
   };
 
   return (
@@ -131,6 +160,6 @@ const EditTeamForm = ({ groupId }: EditTeamFormProps) => {
       </p>
     </div>
   );
-};
+}
 
 export default EditTeamForm;

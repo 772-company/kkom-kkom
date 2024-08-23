@@ -1,10 +1,10 @@
 "use client";
 
 import { useProgress } from "@/hooks/use-progress";
-import { cn } from "@/lib/cn";
+import cn from "@/lib/cn";
 import Link, { LinkProps } from "next/link";
 
-import { buttonVariants } from "./variants";
+import buttonVariants from "./variants";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
@@ -45,6 +45,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+      type="submit"
       className={cn(
         buttonVariants({
           btnStyle,

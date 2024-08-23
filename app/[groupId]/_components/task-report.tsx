@@ -1,6 +1,6 @@
 "use client";
 
-import getGroupInfo from "@/lib/apis/group";
+import { getGroupInfo } from "@/lib/apis/group";
 import { useQuery } from "@tanstack/react-query";
 
 import TodayTaskProgress from "./today-task-progress";
@@ -10,17 +10,19 @@ interface TaskReportProps {
   groupId: string;
 }
 
-const TaskReport = ({ groupId }: TaskReportProps) => {
+function TaskReport({ groupId }: TaskReportProps) {
   const { data } = useQuery({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId }),
   });
 
   const taskLists = data ? data.taskLists : [];
 
-  const numberOfDone = taskLists.reduce((acc, taskList) => {
-    return acc + taskList.tasks.filter((task) => task.doneAt !== null).length;
-  }, 0);
+  const numberOfDone = taskLists.reduce(
+    (acc, taskList) =>
+      acc + taskList.tasks.filter((task) => task.doneAt !== null).length,
+    0,
+  );
 
   const numberOfTasks = taskLists.reduce(
     (acc, taskList) => acc + taskList.tasks.length,
@@ -42,6 +44,6 @@ const TaskReport = ({ groupId }: TaskReportProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default TaskReport;

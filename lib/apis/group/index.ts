@@ -1,7 +1,6 @@
-import { uploadImage } from "../image";
-import { myFetch } from "../myFetch";
+import uploadImage from "../image";
 import { ResponseError } from "../myFetch/clientFetch";
-import { instance } from "../myFetch/instance";
+import instance from "../myFetch/instance";
 import {
   DeleteTeamIdGroupsIdMemberMemberUserIdResponse,
   GetTeamIdGroupsIdInvitationResponse,
@@ -14,42 +13,33 @@ interface GetGroupInfoProps {
   groupId: string;
 }
 
-//NOTE - 그룹에 대한 정보
+// NOTE - 그룹에 대한 정보
 export async function getGroupInfo({ groupId }: GetGroupInfoProps) {
-  try {
-    const response = await instance<GetTeamIdGroupsIdResponse>(
-      `/groups/${groupId}`,
-      {
-        method: "GET",
-        cache: "no-store",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await instance<GetTeamIdGroupsIdResponse>(
+    `/groups/${groupId}`,
+    {
+      method: "GET",
+      cache: "no-store",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
-
-export default getGroupInfo;
 
 interface GetGroupInvitationProps {
   groupId: string;
 }
 
-//NOTE - 그룹 초대 링크
+// NOTE - 그룹 초대 링크
 export async function getGroupInvitation({ groupId }: GetGroupInvitationProps) {
-  try {
-    const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
-      `/groups/${groupId}/invitation`,
-      {
-        method: "GET",
-      },
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
+    `/groups/${groupId}/invitation`,
+    {
+      method: "GET",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface PatchGroupNameProps {
@@ -58,55 +48,47 @@ interface PatchGroupNameProps {
   name?: string;
 }
 
-//NOTE - 그룹 정보 수정
+// NOTE - 그룹 정보 수정
 export async function patchGroupInfo({
   groupId,
   image,
   name,
 }: PatchGroupNameProps) {
-  try {
-    let url;
+  let url;
 
-    if (image instanceof File) {
-      const imageResponse = await uploadImage(image);
-      url = imageResponse.url;
-    } else url = image;
+  if (image instanceof File) {
+    const imageResponse = await uploadImage(image);
+    url = imageResponse.url;
+  } else url = image;
 
-    const response = await instance<PatchTeamIdGroupsIdResponse>(
-      `/groups/${groupId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: url, name }),
-        withCredentials: true,
+  const response = await instance<PatchTeamIdGroupsIdResponse>(
+    `/groups/${groupId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+      body: JSON.stringify({ image: url, name }),
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface DeleteGroupProps {
   groupId: string;
 }
 
-//NOTE - 그룹 삭제
+// NOTE - 그룹 삭제
 export async function deleteGroup({ groupId }: DeleteGroupProps) {
-  try {
-    const response = await instance<PatchTeamIdGroupsIdResponse>(
-      `/groups/${groupId}`,
-      {
-        method: "DELETE",
-        withCredentials: true,
-      },
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await instance<PatchTeamIdGroupsIdResponse>(
+    `/groups/${groupId}`,
+    {
+      method: "DELETE",
+      withCredentials: true,
+    },
+  );
+  return response;
 }
 
 interface PostGroupInvitationProps {
@@ -114,14 +96,14 @@ interface PostGroupInvitationProps {
   token: string;
 }
 
-//NOTE - 그룹 참여
+// NOTE - 그룹 참여
 export async function postGroupInvitation({
   userEmail,
   token,
 }: PostGroupInvitationProps) {
   try {
     const response = await instance<GetTeamIdGroupsIdInvitationResponse>(
-      `/groups/accept-invitation`,
+      "/groups/accept-invitation",
       {
         method: "POST",
         headers: {
@@ -141,6 +123,7 @@ export async function postGroupInvitation({
     } else {
       throw error;
     }
+    return null;
   }
 }
 
@@ -149,7 +132,7 @@ interface DeleteTeamMemberProps {
   memberUserId: number;
 }
 
-//NOTE - 그룹 멤버 삭제
+// NOTE - 그룹 멤버 삭제
 export async function deleteTeamMember({
   groupId,
   memberUserId,
@@ -173,6 +156,7 @@ export async function deleteTeamMember({
     } else {
       throw error;
     }
+    return null;
   }
 }
 
@@ -181,26 +165,22 @@ interface PostGroupProps {
   name: string;
 }
 
-//NOTE - 그룹 생성
+// NOTE - 그룹 생성
 export async function postGroup({ image, name }: PostGroupProps) {
-  try {
-    let url;
+  let url;
 
-    if (image) {
-      const imageResponse = await uploadImage(image);
-      url = imageResponse.url;
-    }
-
-    const response = await instance<PostTeamIdGroupsResponse>(`/groups`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      body: JSON.stringify({ image: url, name }),
-    });
-    return response;
-  } catch (error) {
-    throw error;
+  if (image) {
+    const imageResponse = await uploadImage(image);
+    url = imageResponse.url;
   }
+
+  const response = await instance<PostTeamIdGroupsResponse>("/groups", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+    body: JSON.stringify({ image: url, name }),
+  });
+  return response;
 }

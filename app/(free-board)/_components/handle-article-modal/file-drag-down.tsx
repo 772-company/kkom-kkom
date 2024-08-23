@@ -3,7 +3,7 @@ import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import ArrowReturn from "@/public/icons/arrow-return";
 import MediaIcon from "@/public/icons/media-icon.svg";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import ModalCancel from "../modal-cancel";
@@ -22,7 +22,7 @@ export default function FileDragDown({
   handleNext,
 }: FileDragDownProps) {
   const [preview, setPreview] = useState(
-    file ? URL.createObjectURL(file) : defaultPreview ? defaultPreview : null,
+    file ? URL.createObjectURL(file) : defaultPreview && defaultPreview,
   );
 
   const { open, getRootProps, getInputProps } = useDropzone({

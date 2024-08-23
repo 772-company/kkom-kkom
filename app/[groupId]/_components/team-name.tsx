@@ -2,7 +2,7 @@
 
 import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import getGroupInfo from "@/lib/apis/group";
+import { getGroupInfo } from "@/lib/apis/group";
 import Gear from "@/public/icons/gear.svg";
 import ThumbnailSVG from "@/public/images/thumbnail_team.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -16,12 +16,12 @@ interface TeamNameProps {
   isAdmin: boolean;
 }
 
-const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
+function TeamName({ groupId, isAdmin }: TeamNameProps) {
   const router = useRouter();
 
   const { data } = useQuery({
     queryKey: ["groupInfo"],
-    queryFn: () => getGroupInfo({ groupId: groupId }),
+    queryFn: () => getGroupInfo({ groupId }),
   });
 
   const teamName = data ? data?.name : "";
@@ -55,6 +55,6 @@ const TeamName = ({ groupId, isAdmin }: TeamNameProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default TeamName;

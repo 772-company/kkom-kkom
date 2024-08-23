@@ -34,7 +34,12 @@ export default function ModalSideMenu({
         ref={modalRef as LegacyRef<HTMLDivElement> | undefined}
         className="relative h-full w-1/2 bg-background-secondary"
       >
-        <button onClick={close} className="absolute right-4 top-4">
+        <button
+          onClick={close}
+          aria-label="닫기"
+          className="absolute right-4 top-4"
+          type="button"
+        >
           <CloseButton width={24} height={24} />
         </button>
         <ul className="mt-[75px] flex cursor-pointer flex-col gap-[20px] px-4 text-sm font-medium text-text-primary">
@@ -43,6 +48,7 @@ export default function ModalSideMenu({
               key={membership.group.id}
               className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
               onClick={() => handleRoute(membership.group.id)}
+              role="presentation"
             >
               <div className="relative size-6 overflow-hidden rounded-md">
                 {/* TODO - 기본 이미지 바꾸기 */}
@@ -59,6 +65,7 @@ export default function ModalSideMenu({
           <li
             className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
             onClick={close}
+            role="presentation"
           >
             🌈
             <Link href="/addteam">팀 추가하기</Link>
@@ -66,6 +73,7 @@ export default function ModalSideMenu({
           <li
             className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
             onClick={close}
+            role="presentation"
           >
             📋
             <Link href="/boards">자유게시판</Link>

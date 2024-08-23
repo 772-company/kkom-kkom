@@ -14,7 +14,7 @@ export const postRecurring = async (
   },
 ) => {
   try {
-    const response = await myFetch(
+    await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/recurring`,
       {
         method: "POST",
@@ -38,7 +38,7 @@ export const deleteRecurring = async (
   recurringId: number,
 ) => {
   try {
-    const response = await myFetch(
+    await myFetch(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks/${taskId}/recurring/${recurringId}`,
       {
         method: "DELETE",

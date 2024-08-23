@@ -1,13 +1,12 @@
-import CloseButton from "@/app/public/icons/x.svg";
 import Button from "@/components/button/button";
-import Modal, { useModal } from "@/components/modal/modal";
+import Modal from "@/components/modal/modal";
 
 interface ModalErrorProps {
   description: string;
   close: () => void;
 }
 
-export function ModalError({ description, close }: ModalErrorProps) {
+export default function ModalError({ description, close }: ModalErrorProps) {
   return (
     <Modal close={close} closeOnFocusOut>
       <Modal.HeaderWithClose />

@@ -11,7 +11,7 @@ export default function SkeletonCardList() {
             key={article}
             className="group/card flex bg-background-tertiary p-4 py-6 md:px-8"
           >
-            <section className="h-24 md:h-32"></section>
+            <section className="h-24 md:h-32" />
           </Card>
         ))}
       </section>

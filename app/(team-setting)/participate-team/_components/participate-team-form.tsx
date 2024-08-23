@@ -15,7 +15,7 @@ interface TeamLinkFormValues {
   token: string;
 }
 
-const ParticipateTeamForm = ({ email }: ParticipateTeamFormProps) => {
+function ParticipateTeamForm({ email }: ParticipateTeamFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -64,6 +64,6 @@ const ParticipateTeamForm = ({ email }: ParticipateTeamFormProps) => {
       </div>
     </form>
   );
-};
+}
 
 export default ParticipateTeamForm;

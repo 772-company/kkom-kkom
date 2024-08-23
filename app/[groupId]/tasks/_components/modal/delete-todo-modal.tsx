@@ -1,9 +1,7 @@
 import Modal from "@/components/modal/modal";
 import { deleteRecurring } from "@/lib/apis/recurring";
 import Alert from "@/public/icons/alert.svg";
-import { convertDateToY_M_D } from "@/utils/convert-date";
-import { useQueryClient } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 
 interface DeleteTodoModalProps {
@@ -15,7 +13,7 @@ interface DeleteTodoModalProps {
   close: () => void;
   closeSideBar?: () => void;
 }
-const DeleteTodoModal = ({
+export default function DeleteTodoModal({
   groupId,
   taskListId,
   taskId,
@@ -23,14 +21,16 @@ const DeleteTodoModal = ({
   title,
   close,
   closeSideBar,
-}: DeleteTodoModalProps) => {
+}: DeleteTodoModalProps) {
   const queryClient = useQueryClient();
 
   const { isPending, mutate } = useMutation({
     mutationFn: () =>
       deleteRecurring(groupId, taskListId ?? -1, taskId, recurringId),
     onSuccess: () => {
-      closeSideBar && closeSideBar();
+      if (closeSideBar) {
+        closeSideBar();
+      }
       close();
       queryClient.invalidateQueries({
         queryKey: ["getTasks", taskListId],
@@ -68,6 +68,4 @@ const DeleteTodoModal = ({
       </div>
     </Modal>
   );
-};
-
-export default DeleteTodoModal;
+}

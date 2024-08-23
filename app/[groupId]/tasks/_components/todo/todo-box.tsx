@@ -28,7 +28,7 @@ interface TodoBoxProps {
   handleClickTodoBox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-const TodoBox = ({
+function TodoBox({
   groupId,
   taskListId,
   id,
@@ -41,7 +41,7 @@ const TodoBox = ({
   commentCount,
   dateString,
   handleClickTodoBox,
-}: TodoBoxProps) => {
+}: TodoBoxProps) {
   const editTodoModalOverlay = useCustomOverlay(({ close }) => (
     <EditTodoModal
       groupId={groupId}
@@ -72,6 +72,7 @@ const TodoBox = ({
   return (
     <div
       data-index={id}
+      role="presentation"
       onClick={handleClickTodoBox}
       className="flex h-[74px] cursor-pointer flex-col justify-center rounded-lg bg-background-secondary px-3"
     >
@@ -117,6 +118,6 @@ const TodoBox = ({
       </div>
     </div>
   );
-};
+}
 
 export default TodoBox;

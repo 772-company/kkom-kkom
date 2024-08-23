@@ -18,7 +18,7 @@ export default function ArticleResetButton({
 }: ArticleResetButtonProps) {
   return (
     <LinkButton
-      href={`/boards`}
+      href="/boards"
       btnSize={btnSize}
       btnStyle={btnStyle}
       className={className}

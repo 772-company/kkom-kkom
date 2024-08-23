@@ -80,7 +80,7 @@ export default function FileDragDown({
               {preview === null ? (
                 <section className="relative inset-0 flex h-full w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-background-tertiary bg-white py-4 md:aspect-square">
                   <MediaIcon />
-                  <p className="text-xl font-bold">
+                  <p className="text-xl font-bold text-black">
                     사진과 동영상을 여기에 놓으세요
                   </p>
                   <Button

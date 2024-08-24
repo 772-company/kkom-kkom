@@ -1,4 +1,4 @@
-import { LinkButton } from "@/components/button/button";
+import LinkButton from "@/components/button/link-button";
 
 interface ArticleResetButtonProps {
   btnSize: "large" | "x-small";

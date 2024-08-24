@@ -1,6 +1,7 @@
+import LinkButton from "@/components/button/link-button";
 import Image from "next/image";
 
-import Button, { LinkButton } from "../../../../../components/button/button";
+import Button from "../../../../../components/button/button";
 
 interface PaginationIndicatorProps {
   page: number;

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="relative mt-[123px] h-[517px] w-full">
+    <footer className="relative mt-[123px] h-[517px] w-full xl:mx-auto xl:max-w-[1920px]">
       <div className="flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl font-semibold text-text-primary md:text-[40px]">
           지금 바로 시작해보세요

@@ -30,7 +30,7 @@ function TodayKkomkkomPeople({ topUsers }: TodayKkomkkomPeopleProps) {
       {topUsers.length === 0 ? (
         <div>
           <p className="text-center">
-            아직 꼼꼼이가
+            아직 칠칠이밖에
             <br className="md:hidden" /> 없습니다.
           </p>
           <p className="text-center">분발하세요!</p>

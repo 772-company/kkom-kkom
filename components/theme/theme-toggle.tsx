@@ -1,8 +1,7 @@
 "use client";
 
-import Moon from "@/public/icons/moon.svg";
-import Sun from "@/public/icons/sun.svg";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import * as React from "react";
 
 export default function ThemeToggle() {
@@ -21,9 +20,19 @@ export default function ThemeToggle() {
           onClick={handleToggle}
         >
           {theme === "light" ? (
-            <Sun width={14} height={14} />
+            <Image
+              src="/icons/sun.svg"
+              alt="라이트 모드 해"
+              width={14}
+              height={14}
+            />
           ) : (
-            <Moon width={14} height={14} />
+            <Image
+              src="/icons/moon.svg"
+              alt="다크 모드 달"
+              width={14}
+              height={14}
+            />
           )}
         </button>
       </div>

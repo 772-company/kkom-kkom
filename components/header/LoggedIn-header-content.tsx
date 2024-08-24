@@ -2,7 +2,6 @@
 
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getUser } from "@/lib/apis/user";
-import Menu from "@/public/icons/gnb-menu.svg";
 import Pin from "@/public/icons/pin.png";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -38,7 +37,12 @@ export default function LoggedInHeaderContent() {
           onClick={modalSideMenuOverlay.open}
           role="presentation"
         >
-          <Menu width={24} height={24} />
+          <Image
+            src="/icons/gnb-menu.svg"
+            alt="사이드바 메뉴"
+            width={24}
+            height={24}
+          />
         </div>
         <Link href="/" className="flex items-center gap-1">
           <div className="size-6 xl:size-8">

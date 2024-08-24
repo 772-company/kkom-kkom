@@ -20,7 +20,7 @@ export default function Layout({
         <ArticleSearchBar />
       </header>
       <section className="mt-6 md:mt-8">
-        <section className="border-b border-text-primary border-opacity-10">
+        <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
           <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
             <Medal width={16} height={16} />
             <h2 className="selection:bg-inherit">베스트 랭킹</h2>

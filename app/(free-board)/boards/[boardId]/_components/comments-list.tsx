@@ -1,6 +1,8 @@
 "use client";
 
-import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";
+import useArticlesCommentsQuery, {
+  useArticleQuery,
+} from "@/app/(free-board)/_query/query";
 import IntersectionArea from "@/components/intersection-area/intersection-area";
 import Image from "next/image";
 
@@ -11,17 +13,22 @@ interface CommentListProps {
 }
 
 export default function CommentsList({ articleId }: CommentListProps) {
-  const { data, fetchNextPage, hasNextPage, isFetching } =
-    useArticlesCommentsQuery(articleId);
+  const {
+    data: commentsData,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useArticlesCommentsQuery(articleId);
+  const { data: article } = useArticleQuery(articleId);
 
   return (
     <>
       <h2 className="mb-4 block pt-8 text-base font-medium text-text-primary md:mb-6 md:pt-10 md:text-xl">
-        댓글 목록
+        댓글 목록 {article.commentCount ? `(${article.commentCount})` : ""}
       </h2>
       <section className="flex flex-col gap-4">
-        {data.pages[0].list.length > 0 ? (
-          data.pages.map((commentPage) =>
+        {commentsData.pages[0].list.length > 0 ? (
+          commentsData.pages.map((commentPage) =>
             commentPage.list.map((comment) => (
               <CommentCard
                 key={comment.id}

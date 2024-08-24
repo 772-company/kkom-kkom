@@ -6,7 +6,6 @@ import { useDeleteCommentsMutation } from "@/app/(free-board)/_query/mutation";
 import useArticlesCommentsQuery, {
   useUserQuery,
 } from "@/app/(free-board)/_query/query";
-import Button from "@/components/button/button";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { GetArticlesArticleIdCommentsResponse } from "@/lib/apis/type";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
@@ -87,12 +86,12 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
   }, []);
 
   return (
-    <Card className="flex p-4 md:px-6 md:py-5">
+    <Card className="flex border border-black border-opacity-10 p-4 dark:border dark:border-white dark:border-opacity-10 md:px-6 md:py-5">
       {!isEdit ? (
         <>
-          <section className="relative flex flex-1 flex-col justify-between gap-8">
+          <section className="relative flex flex-1 flex-col justify-between">
             <section
-              className="relative flex h-16 justify-between overflow-hidden break-all"
+              className="relative flex h-[72px] justify-between overflow-hidden break-all"
               ref={contentRef}
             >
               <p ref={lineRef}>
@@ -104,34 +103,22 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
                 ))}
               </p>
             </section>
-            {isOpen && isOpen ? (
-              <section className="absolute left-0 right-0 top-[70%] h-[70%]">
-                <Button
-                  btnSize="x-small"
-                  btnStyle="outlined_secondary"
-                  onClick={handleOpen}
-                  type="button"
-                  className="mx-auto w-[72px] md:w-[104px]"
-                >
-                  더보기
-                </Button>
-              </section>
-            ) : (
-              <section className="absolute left-0 right-0 top-[70%] h-[70%]">
-                <Button
-                  btnSize="x-small"
-                  btnStyle="outlined_secondary"
-                  onClick={handleClose}
-                  type="button"
-                  className="mx-auto w-[72px] md:w-[104px]"
-                >
-                  접기
-                </Button>
-              </section>
+            {isOpen && (
+              <button
+                onClick={isOpen ? handleOpen : handleClose}
+                type="button"
+                className="mr-auto flex text-interaction-inactive hover:underline"
+              >
+                {isOpen ? "더보기" : "접기"}
+              </button>
             )}
-            <section className="flex">
+            <section className="mt-1 flex">
               <section className="flex items-center">
-                <Card.Profile name={comment.writer.nickname} className="mr-4" />
+                <Card.Profile
+                  name={comment.writer.nickname}
+                  className="mr-4"
+                  image={comment.writer.image}
+                />
                 <time
                   className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]"
                   suppressHydrationWarning
@@ -143,11 +130,7 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
             </section>
           </section>
           {id === comment.writer.id && (
-            <Card.KebabButton
-              className=""
-              onDelete={handleDelete}
-              onPatch={handlePatch}
-            />
+            <Card.KebabButton onDelete={handleDelete} onPatch={handlePatch} />
           )}
         </>
       ) : (

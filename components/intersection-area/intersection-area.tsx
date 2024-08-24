@@ -19,6 +19,6 @@ export default function IntersectionArea({
     if (isInView) {
       func();
     }
-  }, [isInView]);
+  }, [isInView, func]);
   return <section ref={ref}>{children}</section>;
 }

@@ -29,7 +29,7 @@ export default function LikeSection({ articleId }: LikeSectionProps) {
       <Button
         btnSize="large"
         btnStyle="outlined_secondary"
-        className="mb-8 w-[94px] hover:bg-text-secondary md:mb-10 md:w-[140px]"
+        className="mb-8 w-[94px] border border-black border-opacity-10 bg-background-inverse hover:bg-[#e5e5e5] dark:border dark:border-white dark:border-opacity-10 md:mb-10 md:w-[140px]"
         onClick={handleClick}
       >
         <section className="flex items-center gap-1 overflow-visible text-sm font-normal leading-4 text-text-disabled">

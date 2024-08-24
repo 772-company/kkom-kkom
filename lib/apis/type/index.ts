@@ -408,6 +408,7 @@ export interface GetArticlesResponse {
     updatedAt: string;
     createdAt: string;
     likeCount: number;
+    commentCount: number;
     writer: {
       nickname: string;
       id: number;
@@ -431,6 +432,7 @@ export interface GetArticlesArticleIdResponse {
   id: number;
   isLiked: boolean;
   content: string;
+  commentCount: number;
 }
 
 export interface PatchArticlesArticleIdResponse {

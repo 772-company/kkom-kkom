@@ -39,7 +39,7 @@ export default function ArticleSearchBar() {
           register={register}
           id="keyword"
           placeholder="검색어를 입력해주세요"
-          className="h-12 pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
+          className="h-12 border border-black border-opacity-10 pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
         />
         <SearchIcon className="absolute left-4 top-3 h-6 w-6 md:top-4" />
       </form>
@@ -50,17 +50,17 @@ export default function ArticleSearchBar() {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed left-0 right-0 top-[60px] z-30 bg-background-secondary pb-2 shadow-xl"
+            className="fixed left-0 right-0 top-[58px] z-30 bg-background-secondary px-4 pb-2 pt-1 shadow-xl"
           >
             <form
-              className="relative mx-auto mt-1 w-full max-w-[1200px] px-4 md:px-0"
+              className="relative mx-auto w-full max-w-[1200px] rounded-xl px-4 md:px-0"
               onSubmit={handleSubmit(onSubmit)}
             >
               <BasicInput
                 register={register}
                 id="keyword"
                 placeholder="검색어를 입력해주세요"
-                className="h-12 pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
+                className="h-12 bg-background-tertiary pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
               />
               <SearchIcon className="absolute left-8 top-3 h-6 w-6 md:left-4 md:top-4" />
             </form>

@@ -22,13 +22,12 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { useRouter } from "next-nprogress-bar";
 import { toast } from "react-toastify";
 
 import type { ArticleType } from "../_components/handle-article-modal/types";
 
 export function useUploadArticleMutation() {
-  const router = useRouter();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: ArticleType) => {
       const articleData = await postArticles({
@@ -43,15 +42,15 @@ export function useUploadArticleMutation() {
         toastId: "uploadArticle",
       });
     },
-    onSuccess: ({ id }) => {
+    onSuccess: () => {
       toast.update("uploadArticle", {
-        render: "게시글이 성공적으로 등록되었습니다. 해당 게시글로 이동합니다.",
+        render: "게시글이 성공적으로 등록되었습니다.",
         type: "success",
         isLoading: false,
         hideProgressBar: false,
         autoClose: 1000,
       });
-      router.push(`/boards/${id}`);
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
     },
     onError: () => {
       toast.update("uploadArticle", {

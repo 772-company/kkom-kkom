@@ -1,6 +1,6 @@
 "use client";
 
-import { getArticlesArticleId } from "@/lib/apis/article";
+import { getArticles, getArticlesArticleId } from "@/lib/apis/article";
 import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import { getUser } from "@/lib/apis/user";
 import {
@@ -29,5 +29,21 @@ export function useArticleQuery(articleId: number) {
   return useSuspenseQuery({
     queryKey: ["article", { articleId }],
     queryFn: () => getArticlesArticleId({ articleId }),
+  });
+}
+
+export function useArticlesQuery({
+  orderBy = "recent",
+  page = "1",
+  keyword = "",
+}: {
+  page?: string;
+  orderBy?: "like" | "recent";
+  keyword?: string;
+}) {
+  return useSuspenseQuery({
+    queryKey: ["articles", { page, orderBy, keyword }],
+    queryFn: () => getArticles({ page, orderBy, keyword }),
+    staleTime: 2000,
   });
 }

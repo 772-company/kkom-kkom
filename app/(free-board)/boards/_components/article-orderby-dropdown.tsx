@@ -36,18 +36,18 @@ export default function ArticleOrderbyDropdown({
       setSelected={() => {}}
     >
       <section className="text-xs md:text-sm">
-        <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl bg-background-tertiary px-[14px] md:h-11 md:!w-[120px]">
+        <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl border border-black border-opacity-10 bg-background-tertiary px-[14px] dark:border dark:border-white dark:border-opacity-10 md:h-11 md:!w-[120px]">
           <ToggleClose
             width="24"
             height="24"
             className="h-6 w-6 group-hover:animate-pulse"
           />
         </Dropdown.Button>
-        <Dropdown.Body className="!z-10 mt-1 flex w-[94px] flex-col rounded-xl bg-background-tertiary md:w-[120px]">
+        <Dropdown.Body className="!z-10 mt-1 flex w-[94px] flex-col rounded-xl border border-black border-opacity-10 bg-background-tertiary dark:border dark:border-white dark:border-opacity-10 md:w-[120px]">
           {options.map((option, i) => (
             <Dropdown.Item
               key={option.value}
-              className={`h-10 w-[94px] border-b border-text-default first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-brand-primary hover:underline md:h-11 md:w-[120px] ${orderBy === option.value ? "text-brand-primary" : orderBy === null && i === 0 && "text-brand-primary"}`}
+              className={`h-10 w-[94px] border-b border-black border-opacity-10 first:rounded-t-xl last:rounded-b-xl last:border-b-0 hover:text-brand-primary hover:underline dark:border-b dark:border-white dark:border-opacity-10 md:h-11 md:w-[120px] ${orderBy === option.value ? "text-brand-primary" : orderBy === null && i === 0 && "text-brand-primary"}`}
               value={option.value}
             >
               <Link

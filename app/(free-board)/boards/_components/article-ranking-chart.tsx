@@ -5,13 +5,17 @@ import shortenString from "@/utils/shorten-string";
 import Link from "next/link";
 
 export default async function ArticleRankingChart() {
-  const articles = await getArticles({ page: "1", orderBy: "like" });
+  const articles = await getArticles({
+    page: "1",
+    keyword: "",
+    orderBy: "like",
+  });
   return (
-    <ol className="mb-8 grid grid-flow-col grid-cols-1 grid-rows-10 gap-1.5 gap-x-10 rounded-xl border-background-tertiary bg-background-secondary p-5 text-text-primary md:grid-cols-2 md:grid-rows-5">
+    <ol className="mb-8 grid grid-flow-col grid-cols-1 grid-rows-10 gap-1.5 gap-x-10 rounded-xl border border-black border-opacity-10 bg-background-secondary p-5 text-text-primary dark:border dark:border-white dark:border-opacity-10 md:grid-cols-2 md:grid-rows-5">
       {articles.list.map((article, i) => (
         <li
           key={article.id}
-          className={`flex items-center justify-between gap-1 ${i <= 2 ? "font-bold" : "font-light"}`}
+          className={`flex items-center justify-between gap-1 ${i <= 2 ? "font-extrabold" : "font-base"}`}
         >
           <span className="flex gap-1">
             <span className="hover:no-underline">{`${i + 1}. `}</span>

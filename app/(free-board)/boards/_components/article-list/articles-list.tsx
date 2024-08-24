@@ -1,5 +1,7 @@
+"use client";
+
+import { useArticlesQuery } from "@/app/(free-board)/_query/query";
 import Pagination from "@/app/(free-board)/boards/_components/pagination/pagination";
-import { getArticles } from "@/lib/apis/article";
 
 import ArticleCard from "./article-card";
 import NoArticle from "./no-article";
@@ -12,12 +14,12 @@ interface ArticlesListProps {
   };
 }
 
-export default async function ArticlesList({
-  searchParams,
-}: ArticlesListProps) {
+export default function ArticlesList({ searchParams }: ArticlesListProps) {
   const { orderBy, page, keyword } = searchParams;
 
-  const { list: articles, totalCount } = await getArticles({
+  const {
+    data: { list: articles, totalCount },
+  } = useArticlesQuery({
     orderBy,
     page,
     keyword,
@@ -25,7 +27,7 @@ export default async function ArticlesList({
 
   return (
     <>
-      <section className="mt-6 flex flex-col gap-6 md:mt-8 xl:grid xl:grid-cols-2 xl:grid-rows-5">
+      <section className="mt-6 flex flex-col gap-6 md:mt-8 xl:flex-row xl:flex-wrap">
         {articles && articles.length > 0 ? (
           articles.map((article) => (
             <ArticleCard key={article.id} article={article} />

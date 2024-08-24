@@ -1,11 +1,13 @@
 "use client";
 
-import ProfileIcon from "@/components/profile-Icon/profile-icon";
 import useClickOutside from "@/hooks/use-click-outside";
+import Comment from "@/public/icons/comment.svg";
+import ProfileIcon from "@/public/icons/default-profile.svg";
 import { KebabHover } from "@/public/icons/kebab-hover";
 import { KebabLarge } from "@/public/icons/kebab-large";
 import LikeButtonColored from "@/public/icons/like-button-colored";
 import { convertDateToYMD } from "@/utils/convert-date";
+import Image from "next/image";
 import { ButtonHTMLAttributes, useCallback, useState } from "react";
 
 interface CardProps {
@@ -82,20 +84,27 @@ KebabButton.displayName = "KebabIcon";
 export function Profile({
   name,
   className,
+  image,
 }: {
   name: string;
   className?: string;
+  image?: string | null;
 }) {
   return (
     <section
       className={`flex h-[32px] items-center justify-center gap-[6px] text-xs text-text-primary md:gap-3 md:text-sm ${className}`}
     >
-      <ProfileIcon
-        width={32}
-        height={32}
-        image="/icons/img.svg"
-        type="myProfile"
-      />
+      {image ? (
+        <Image
+          alt={image}
+          src={image}
+          width={32}
+          height={32}
+          className="rounded-full"
+        />
+      ) : (
+        <ProfileIcon width={32} height={32} className="rounded-full" />
+      )}
       <span className="leading-3 md:leading-[14px]">{name}</span>
     </section>
   );
@@ -142,7 +151,7 @@ export function LikeCountSection({
       <button type="button" {...props}>
         <LikeButtonColored size={size} isClicked={isClicked} />
       </button>
-      <span className="mb-0.5 flex h-4 items-center">
+      <span className="flex h-4 items-center">
         {likeCount > 9999 ? "9999+" : likeCount}
       </span>
     </section>
@@ -151,7 +160,33 @@ export function LikeCountSection({
 
 LikeCountSection.displayName = "LikeCountSection";
 
+interface CommentIconProps {
+  commentCount: number;
+  size: number;
+  className?: string;
+}
+
+export function CommentIcon({
+  commentCount,
+  size,
+  className,
+}: CommentIconProps) {
+  return (
+    <section
+      className={`flex items-center gap-0.5 text-sm font-normal leading-4 text-text-disabled ${className}`}
+    >
+      <Comment width={size} height={size} />
+      <span className="flex h-4 items-center">
+        {commentCount > 9999 ? "9999+" : commentCount}
+      </span>
+    </section>
+  );
+}
+
+CommentIcon.displayName = "CommentIcon";
+
 Card.KebabButton = KebabButton;
 Card.Profile = Profile;
 Card.DateDescription = DateDescription;
 Card.LikeDescription = LikeCountSection;
+Card.CommentIcon = CommentIcon;

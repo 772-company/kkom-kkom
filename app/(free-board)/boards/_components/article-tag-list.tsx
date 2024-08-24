@@ -27,7 +27,7 @@ export default function ArticleTagList({ keyword }: ArticleTagListProps) {
               className="flex flex-shrink-0 flex-grow-0 justify-center"
             >
               <Link
-                className={`w-fit break-keep rounded-2xl bg-background-tertiary px-3 py-2 text-xs selection:bg-background-tertiary hover:text-brand-primary md:px-6 md:text-sm ${keyword === tag ? "text-brand-primary" : ""}`}
+                className={`w-fit break-keep rounded-2xl border border-black border-opacity-10 bg-background-tertiary px-3 py-2 text-xs font-bold selection:bg-background-tertiary hover:text-brand-primary dark:border dark:border-white dark:border-opacity-10 md:px-6 md:text-sm ${keyword === tag ? "text-brand-primary" : ""}`}
                 href={`/boards?keyword=${tag}`}
                 onClick={progress(`/boards?keyword=${tag}`)}
               >

@@ -6,10 +6,9 @@ import { getGroupInfo } from "@/lib/apis/group";
 import { patchChangeTaskListIndex } from "@/lib/apis/task-list";
 import { GetGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
-import ProgressDone from "@/public/icons/progress-done.svg";
-import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next-nprogress-bar";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 
@@ -81,9 +80,20 @@ function TaskList({ taskList, groupId, index }: TaskListProps) {
       <div className="flex items-center gap-[10px] pr-[8px]">
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
           {isDone ? (
-            <ProgressDone className="h-[16px] w-[16px]" />
+            <Image
+              src="/icons/progress-done.svg"
+              alt="체크 아이콘"
+              width={16}
+              height={16}
+            />
           ) : (
-            <ProgressOngoing className="h-[16px] w-[16px] animate-spin" />
+            <Image
+              src="/icons/progress-ongoing.svg"
+              alt="할 일 스피너"
+              width={16}
+              height={16}
+              className="animate-spin"
+            />
           )}
           <p>
             {numberOfDone} / {taskList.tasks.length}

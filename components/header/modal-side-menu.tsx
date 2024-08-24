@@ -4,7 +4,6 @@ import useClickOutside from "@/hooks/use-click-outside";
 import { Membership } from "@/lib/apis/type";
 import CloseButton from "@/public/icons/x.svg";
 import defaultProfile from "@/public/images/default-profile.png";
-import { motion } from "framer-motion";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,7 +32,7 @@ export default function ModalSideMenu({
 
   return (
     <section className="fixed inset-0 z-40 flex bg-black bg-opacity-50 md:hidden">
-      <motion.div
+      <div
         ref={modalRef as LegacyRef<HTMLDivElement> | undefined}
         className="relative h-full w-1/2 bg-background-secondary"
       >
@@ -81,7 +80,7 @@ export default function ModalSideMenu({
             <Link href="/boards">자유게시판</Link>
           </li>
         </ul>
-      </motion.div>
+      </div>
     </section>
   );
 }

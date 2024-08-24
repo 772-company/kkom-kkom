@@ -10,7 +10,7 @@ export default function LandingHeader() {
   const isLoggedIn = hasCookie("refreshToken", { cookies });
 
   return (
-    <section className="relative h-[547px] w-full">
+    <section className="relative h-[547px] w-full xl:mx-auto xl:max-w-[1920px]">
       <Image
         src={header}
         fill

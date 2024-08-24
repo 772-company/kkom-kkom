@@ -1,9 +1,8 @@
-import header from "@/public/images/landing-header-large.png";
 import { hasCookie } from "cookies-next";
 import { cookies } from "next/headers";
 import Image from "next/image";
 
-import { LinkButton } from "../button/button";
+import LinkButton from "../button/link-button";
 import LoggedInButton from "./logged-in-button";
 
 export default function LandingHeader() {
@@ -12,7 +11,7 @@ export default function LandingHeader() {
   return (
     <section className="relative h-[547px] w-full xl:mx-auto xl:max-w-[1920px]">
       <Image
-        src={header}
+        src="/images/landing-header-large.png"
         fill
         alt="할 일 옮기는 캐릭터와 기차"
         className="object-cover"

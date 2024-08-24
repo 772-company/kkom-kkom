@@ -1,7 +1,7 @@
 "use client";
 
 import { ResponseError } from "@/lib/apis/myFetch/clientFetch";
-import AlertIcon from "@/public/icons/alert.svg";
+import Image from "next/image";
 
 export default function Error({
   error,
@@ -13,7 +13,13 @@ export default function Error({
   return (
     <div className="grid h-lvh place-content-center px-4">
       <div className="text-center">
-        <AlertIcon className="mx-auto mb-3 h-16 w-16 text-text-secondary" />
+        <Image
+          src="/icons/alert.svg"
+          alt=""
+          width={64}
+          height={64}
+          className="mx-auto mb-3 text-text-secondary"
+        />
         <p className="text-2xl font-bold tracking-tight text-text-default sm:text-4xl">
           {error.message}
         </p>

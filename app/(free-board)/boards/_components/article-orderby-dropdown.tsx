@@ -2,7 +2,7 @@
 
 import { Dropdown } from "@/components/dropdown/dropdown";
 import { useProgress } from "@/hooks/use-progress";
-import ToggleClose from "@/public/icons/toggle.svg";
+import Image from "next/image";
 import Link from "next/link";
 
 const options: { display: "최신순" | "인기순"; value: "recent" | "like" }[] = [
@@ -37,10 +37,12 @@ export default function ArticleOrderbyDropdown({
     >
       <section className="text-xs md:text-sm">
         <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl border border-black border-opacity-10 bg-background-tertiary px-[14px] dark:border dark:border-white dark:border-opacity-10 md:h-11 md:!w-[120px]">
-          <ToggleClose
+          <Image
+            src="/icons/toggle.svg"
+            alt=""
             width="24"
             height="24"
-            className="h-6 w-6 group-hover:animate-pulse"
+            className="group-hover:animate-pulse"
           />
         </Dropdown.Button>
         <Dropdown.Body className="!z-10 mt-1 flex w-[94px] flex-col rounded-xl border border-black border-opacity-10 bg-background-tertiary dark:border dark:border-white dark:border-opacity-10 md:w-[120px]">

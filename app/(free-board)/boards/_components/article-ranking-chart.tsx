@@ -1,7 +1,7 @@
 import { getArticles } from "@/lib/apis/article";
-import Fire from "@/public/icons/fire.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import shortenString from "@/utils/shorten-string";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function ArticleRankingChart() {
@@ -24,7 +24,14 @@ export default async function ArticleRankingChart() {
               className="flex gap-1 truncate hover:underline"
             >
               {`${shortenString(article.title, 16)}`}
-              {i <= 2 && <Fire className="h-4 w-4" />}
+              {i <= 2 && (
+                <Image
+                  src="/icons/fire.svg"
+                  alt="Fire"
+                  width={16}
+                  height={16}
+                />
+              )}
             </Link>
           </span>
           <div className="flex-shrink-0 text-sm font-normal text-text-disabled">

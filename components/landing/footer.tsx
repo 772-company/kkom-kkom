@@ -1,4 +1,3 @@
-import footer from "@/public/images/landing-footer-large.png";
 import Image from "next/image";
 
 export default function Footer() {
@@ -14,7 +13,7 @@ export default function Footer() {
         </h3>
       </div>
       <Image
-        src={footer}
+        src="/images/landing-footer-large.webp"
         fill
         alt="할 일 옮기는 캐릭터"
         className="object-cover"

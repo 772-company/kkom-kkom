@@ -1,6 +1,6 @@
 "use client";
 
-import _ from "lodash";
+import { debounce } from "lodash-es";
 import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
@@ -43,9 +43,9 @@ function TodayTaskProgressChart({
 
   useEffect(() => {
     updateRadius();
-    window.addEventListener("resize", _.debounce(updateRadius));
+    window.addEventListener("resize", debounce(updateRadius));
     return () => {
-      window.removeEventListener("resize", _.debounce(updateRadius));
+      window.removeEventListener("resize", debounce(updateRadius));
     };
   }, [outerRadius]);
 

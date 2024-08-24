@@ -1,7 +1,8 @@
+import LinkButton from "@/components/button/link-button";
 import cn from "@/lib/cn";
 import { ComponentProps, forwardRef } from "react";
 
-import Button, { LinkButton } from "../../../../../components/button/button";
+import Button from "../../../../../components/button/button";
 import PaginationIndicator from "./pagination-indicator";
 
 function PaginationStructure({ className, ...props }: ComponentProps<"nav">) {

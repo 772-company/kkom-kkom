@@ -9,7 +9,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { LinkButton } from "../button/button";
+import LinkButton from "../button/link-button";
 import { Dropdown } from "../dropdown/dropdown";
 
 interface GroupDropdownProps {

@@ -49,7 +49,7 @@ export function BasicInput<TFormInput extends FieldValues>({
         </label>
       )}
       <input
-        className={`w-full rounded-xl border border-border-primary border-opacity-10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-background-tertiary disabled:text-text-disabled ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"} ${className}`}
+        className={`w-full rounded-xl border border-border-primary/10 bg-background-secondary px-4 py-[13.5px] text-base font-normal text-text-primary placeholder:text-sm placeholder:font-normal placeholder:text-text-default focus:border-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-background-tertiary disabled:text-text-disabled ${error ? "focus:border-status-danger" : "focus:border-interaction-focus"} ${className}`}
         {...register(id)}
         {...rest}
         id={id}

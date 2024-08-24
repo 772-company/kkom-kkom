@@ -14,7 +14,7 @@
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
-    --border-primary: 168 25% 8%;
+    --border-primary: 12 24 20;
     --point-whiteGreen: #43c694;
     --point-grayGreen: #43c694;
   }
@@ -30,7 +30,7 @@
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
-    --border-primary: 210 28% 98% 0.1;
+    --border-primary: 248 250 252;
     --point-whiteGreen: #ffffff;
     --point-grayGreen: #475569;
   }

@@ -2,7 +2,13 @@ import TeamProfile from "@/public/icons/image.svg";
 import MyProfile from "@/public/icons/my-profile.svg";
 import X from "@/public/icons/x.svg";
 import Image from "next/image";
-import { ChangeEvent, InputHTMLAttributes, MouseEvent, useState } from "react";
+import {
+  ChangeEvent,
+  InputHTMLAttributes,
+  MouseEvent,
+  useCallback,
+  useState,
+} from "react";
 import { FieldValues, Path, PathValue, UseFormSetValue } from "react-hook-form";
 
 export interface ProfileInputProps<TFormInput extends FieldValues>
@@ -35,31 +41,36 @@ export default function ProfileInput<TFormInput extends FieldValues>({
   const DefaultImage = type === "teamProfile" ? TeamProfile : MyProfile;
 
   // NOTE - 파일 선택 시 프리뷰 설정 및 input 값 설정
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      if (file) {
-        const preview = URL.createObjectURL(e.target.files[0]);
-        setValue(id, file as PathValue<TFormInput, Path<TFormInput>>, {
-          shouldValidate: true,
-          shouldDirty: true,
-        });
-        setPreviewImage(preview);
+  const handleChangeFile = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const file = e.target.files[0];
+        if (file) {
+          const preview = URL.createObjectURL(file);
+          setValue(id, file as PathValue<TFormInput, Path<TFormInput>>, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setPreviewImage(preview);
+        }
       }
-    }
-  };
+    },
+    [id, setValue],
+  );
 
   // NOTE - x 버튼 클릭 시 프리뷰 초기화 및 input 초기화
-  const handleClearImage = (e: MouseEvent<HTMLButtonElement>) => {
-    setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setPreviewImage(null);
-    // NOTE - 이벤트 버블링으로 인해 input까지 같이 열려 추가
-    e.preventDefault();
-    e.stopPropagation();
-  };
+  const handleClearImage = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      setValue(id, "" as PathValue<TFormInput, Path<TFormInput>>, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+      setPreviewImage(null);
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    [id, setValue],
+  );
 
   return (
     <>

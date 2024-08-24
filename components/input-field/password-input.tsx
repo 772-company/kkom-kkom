@@ -1,6 +1,6 @@
 import EyeOff from "@/public/icons/eye-off.svg";
 import EyeOn from "@/public/icons/eye-on.svg";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues } from "react-hook-form";
 
 import Button from "../button/button";
@@ -41,9 +41,9 @@ export default function PasswordInput<TFormInput extends FieldValues>({
   // NOTE - readOnly 속성이 rest에 포함되어 있는지 확인(변경하기 버튼이 있는 경우)
   const isDisabled = rest.disabled === true;
 
-  const handleToggleShowPassword = () => {
+  const handleToggleShowPassword = useCallback(() => {
     setShowPassword((prev) => !prev);
-  };
+  }, []);
 
   return (
     <div className="relative">

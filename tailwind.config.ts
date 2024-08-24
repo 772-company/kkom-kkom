@@ -93,18 +93,18 @@ const config: Config = {
     },
   },
   plugins: [
-    function ({ addUtilities }: any) {
-      addUtilities({
-        ".scrollbar-custom": {
+    function ({ addBase }: any) {
+      addBase({
+        "*": {
           "&::-webkit-scrollbar": {
-            width: "5px",
+            width: "7px",
           },
           "&::-webkit-scrollbar-thumb": {
             backgroundColor: "var(--point-whiteGreen)",
             borderRadius: "10px",
           },
           "&::-webkit-scrollbar-track": {
-            backgroundColor: "transparent",
+            backgroundColor: "var(--background-primary)",
           },
         },
       });

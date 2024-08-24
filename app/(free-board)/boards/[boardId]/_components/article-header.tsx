@@ -7,9 +7,8 @@ import {
   LikeCountSection,
   Profile,
 } from "@/app/(free-board)/_components/card";
-import HandleArticleModal, {
-  ArticleType,
-} from "@/app/(free-board)/_components/handle-article-modal";
+import HandleArticleModal from "@/app/(free-board)/_components/handle-article-modal";
+import { ArticleType } from "@/app/(free-board)/_components/handle-article-modal/types";
 import ModalDelete from "@/app/(free-board)/_components/modal-delete";
 import {
   useDeleteArticleMutation,

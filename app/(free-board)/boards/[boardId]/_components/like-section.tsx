@@ -16,6 +16,7 @@ export default function LikeSection({ articleId }: LikeSectionProps) {
   const { likeCount, isLiked } = data;
   const handleClick = () => {
     if (isFetching || isPending) {
+      /* eslint-disable-next-line */
       alert(
         "공감/비공감 후 일정시간 동안 추가적인 공감/비공감을 제한하고 있습니다.",
       );

@@ -2,7 +2,7 @@
 
 import Modal from "@/components/modal/modal";
 import { deleteTeamMember } from "@/lib/apis/group";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -27,12 +27,12 @@ function ModalMemberDelete({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
 
-      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+      const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
       ]);
 
       if (previousData) {
-        queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
+        queryClient.setQueryData<GetGroupsIdResponse>(["groupInfo"], {
           ...previousData,
           members: previousData.members.filter(
             (member) => member.userId !== memberUserId,

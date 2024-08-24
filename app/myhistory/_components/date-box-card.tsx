@@ -1,10 +1,10 @@
-import { GetTeamIdUserHistoryResponse } from "@/lib/apis/type";
+import { GetUserHistoryResponse } from "@/lib/apis/type";
 import CheckBoxActive from "@/public/icons/checkbox-active.svg";
 import { convertDateToYMD } from "@/utils/convert-date";
 
 interface CheckedBoxListProps {
   date: string;
-  tasksDone: GetTeamIdUserHistoryResponse["tasksDone"];
+  tasksDone: GetUserHistoryResponse["tasksDone"];
 }
 
 export default function DateBoxCard({ date, tasksDone }: CheckedBoxListProps) {

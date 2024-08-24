@@ -1,7 +1,7 @@
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import React, { useEffect, useState } from "react";
 
-type TaskLists = GetTeamIdGroupsIdResponse["taskLists"];
+type TaskLists = GetGroupsIdResponse["taskLists"];
 
 function useSelectButton(taskLists: TaskLists) {
   const [selectedButton, setSelectedButton] = useState<number | undefined>(

@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-import { PostTeamIdAuthRefreshTokenResponse } from "../type";
+import { PostAuthRefreshTokenResponse } from "../type";
 import { responseError } from "./error";
 import { MyFetchOptions } from "./types";
 
@@ -39,7 +39,7 @@ export default async function serverFetch(
         },
       );
       if (newAccessToken.ok) {
-        const newAccessTokenValue: PostTeamIdAuthRefreshTokenResponse =
+        const newAccessTokenValue: PostAuthRefreshTokenResponse =
           await newAccessToken.json();
         const headers = new Headers(init?.headers);
         headers.set(

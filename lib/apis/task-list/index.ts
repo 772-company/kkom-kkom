@@ -1,6 +1,6 @@
 import { ResponseError } from "../myFetch/clientFetch";
 import instance from "../myFetch/instance";
-import { PatchTeamIdGroupsGroupIdTaskListsIdResponse } from "../type";
+import { PatchGroupsGroupIdTaskListsIdResponse } from "../type";
 import { GetTaskListResponse } from "./type";
 
 export const getTaskList = async (
@@ -34,18 +34,17 @@ export async function patchTaskListName({
   name,
 }: PatchTaskListNameProps) {
   try {
-    const response =
-      await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
-        `/groups/${groupId}/task-lists/${taskListId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name }),
-          withCredentials: true,
+    const response = await instance<PatchGroupsGroupIdTaskListsIdResponse>(
+      `/groups/${groupId}/task-lists/${taskListId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ name }),
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     if (error instanceof ResponseError && error.response) {
@@ -90,7 +89,7 @@ export async function deleteTaskList({
   groupId,
   taskListId,
 }: DeleteTaskListProps) {
-  const response = await instance<PatchTeamIdGroupsGroupIdTaskListsIdResponse>(
+  const response = await instance<PatchGroupsGroupIdTaskListsIdResponse>(
     `/groups/${groupId}/task-lists/${taskListId}`,
     {
       method: "DELETE",

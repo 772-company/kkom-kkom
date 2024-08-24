@@ -5,7 +5,7 @@ import { BasicInput } from "@/components/input-field/basic-input";
 import PasswordInput from "@/components/input-field/password-input";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { login } from "@/lib/apis/auth";
-import { PostTeamIdAuthSigninResponse } from "@/lib/apis/type";
+import { PostAuthSigninResponse } from "@/lib/apis/type";
 import { loginSchema } from "@/schemas/auth";
 import { LoginInputValue } from "@/type/user";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -38,11 +38,10 @@ export default function LoginForm() {
 
   const mutation = useMutation({
     mutationFn: async (data: LoginInputValue) => {
-      const response = (await login(data)) as PostTeamIdAuthSigninResponse;
+      const response = (await login(data)) as PostAuthSigninResponse;
       return response;
     },
-    // TODO - onMutate 로딩 토스트 추가
-    onSuccess: (response: PostTeamIdAuthSigninResponse) => {
+    onSuccess: (response: PostAuthSigninResponse) => {
       setCookie("accessToken", response.accessToken, { maxAge: 60 * 60 });
       setCookie("refreshToken", response.refreshToken, {
         maxAge: 60 * 60 * 24 * 7,
@@ -91,7 +90,7 @@ export default function LoginForm() {
         className="mt-10 w-full"
         disabled={!isValid || isLoading}
       >
-        로그인
+        {mutation.isPending ? "로그인 중" : "로그인"}
       </Button>
     </form>
   );

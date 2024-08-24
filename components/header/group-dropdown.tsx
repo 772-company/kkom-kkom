@@ -3,7 +3,7 @@
 import { Membership } from "@/lib/apis/type";
 import Check from "@/public/icons/dropdown-check.svg";
 import Plus from "@/public/icons/plus.svg";
-import hamster from "@/public/images/hamster.jpg";
+import defaultProfile from "@/public/images/default-profile.png";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -80,7 +80,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                 <div className="flex items-center gap-3">
                   <div className="relative size-8 overflow-hidden rounded-md">
                     <Image
-                      src={membership.group.image || hamster}
+                      src={membership.group.image || defaultProfile}
                       alt={`${membership.group.name} 이미지`}
                       fill
                       className="object-cover"
@@ -93,7 +93,6 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
               </div>
             </Dropdown.Item>
           ))}
-          {/* TODO - 더보기 버튼 */}
           {memberships.length > visibleCount ? (
             <button
               type="button"

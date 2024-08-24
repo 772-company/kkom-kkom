@@ -1,6 +1,6 @@
 import Modal from "@/components/modal/modal";
 import { deleteTaskList } from "@/lib/apis/task-list";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import { showToast } from "@/lib/show-toast";
 import AlertIcon from "@/public/icons/alert.svg";
 import useLastConsonantLetterCheck from "@/utils/has-last-consonant-letter";
@@ -28,12 +28,12 @@ function ModalTaskListDelete({
     onMutate: async (deleteTaskListId) => {
       await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
 
-      const previousData = queryClient.getQueryData<GetTeamIdGroupsIdResponse>([
+      const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
       ]);
 
       if (previousData) {
-        queryClient.setQueryData<GetTeamIdGroupsIdResponse>(["groupInfo"], {
+        queryClient.setQueryData<GetGroupsIdResponse>(["groupInfo"], {
           ...previousData,
           taskLists: previousData.taskLists.filter(
             (taskList) => taskList.id !== deleteTaskListId,

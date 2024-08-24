@@ -2,28 +2,24 @@ import { LoginInputValue, SignUpInputValue } from "@/type/user";
 
 import instance from "../myFetch/instance";
 import {
-  PostTeamIdAuthSignInProviderResponse,
-  PostTeamIdAuthSigninResponse,
-  PostTeamIdAuthSignupResponse,
+  PostAuthSignInProviderResponse,
+  PostAuthSigninResponse,
+  PostAuthSignupResponse,
 } from "../type";
 
 // NOTE - 로그인
 export async function login(
   data: LoginInputValue,
 ): Promise<
-  | PostTeamIdAuthSigninResponse
-  | { details: Record<string, { message: string }> }
+  PostAuthSigninResponse | { details: Record<string, { message: string }> }
 > {
-  const response = await instance<PostTeamIdAuthSigninResponse>(
-    "/auth/signIn",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+  const response = await instance<PostAuthSigninResponse>("/auth/signIn", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify(data),
+  });
 
   return response;
 }
@@ -32,19 +28,15 @@ export async function login(
 export async function signUp(
   data: SignUpInputValue,
 ): Promise<
-  | PostTeamIdAuthSignupResponse
-  | { details: Record<string, { message: string }> }
+  PostAuthSignupResponse | { details: Record<string, { message: string }> }
 > {
-  const response = await instance<PostTeamIdAuthSignupResponse>(
-    "/auth/signUp",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+  const response = await instance<PostAuthSignupResponse>("/auth/signUp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify(data),
+  });
 
   return response;
 }
@@ -54,12 +46,12 @@ export async function oauthLogin(
   state: string | null,
   code: string | null,
   provider: "KAKAO" | "GOOGLE",
-): Promise<PostTeamIdAuthSignInProviderResponse> {
+): Promise<PostAuthSignInProviderResponse> {
   const redirectUri =
     provider === "KAKAO"
       ? process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
       : process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-  const response = await instance<PostTeamIdAuthSignInProviderResponse>(
+  const response = await instance<PostAuthSignInProviderResponse>(
     `/auth/signIn/${provider}`,
     {
       method: "POST",

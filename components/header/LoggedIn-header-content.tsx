@@ -27,14 +27,14 @@ export default function LoggedInHeaderContent() {
   if (!isSuccess) {
     return null;
   }
-  const { memberships, nickname } = data;
+  const { memberships, nickname, image } = data;
 
   return (
     <>
       <div className="flex items-center gap-4">
         {/* NOTE - 클릭 시 사이드 메뉴  */}
         <div
-          className="md:hidden"
+          className="cursor-pointer md:hidden"
           onClick={modalSideMenuOverlay.open}
           role="presentation"
         >
@@ -65,7 +65,7 @@ export default function LoggedInHeaderContent() {
       </div>
       <div className="flex items-center gap-4">
         <ThemeToggle />
-        <PopoverTrigger nickname={nickname} />
+        <PopoverTrigger nickname={nickname} image={image} />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getGroupInfo } from "@/lib/apis/group";
 import { patchChangeTaskListIndex } from "@/lib/apis/task-list";
-import { GetTeamIdGroupsIdResponse } from "@/lib/apis/type";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
 import Kebab from "@/public/icons/kebab-small.svg";
 import ProgressDone from "@/public/icons/progress-done.svg";
 import ProgressOngoing from "@/public/icons/progress-ongoing.svg";
@@ -18,7 +18,7 @@ import ModalTaskListDelete from "./modal/modal-task-list-delete";
 import ModalTaskListNameEdit from "./modal/modal-task-list-name-edit";
 import StrictModeDroppable from "./strict-mode-droppable";
 
-type TaskListType = GetTeamIdGroupsIdResponse["taskLists"][0];
+type TaskListType = GetGroupsIdResponse["taskLists"][0];
 
 interface TaskListProps {
   taskList: TaskListType;
@@ -117,7 +117,7 @@ function TaskLists({ groupId, isAdmin }: TaskListsProps) {
     <ModalTaskListAdd close={close} groupId={groupId} />
   ));
 
-  const { data } = useQuery<GetTeamIdGroupsIdResponse>({
+  const { data } = useQuery<GetGroupsIdResponse>({
     queryKey: ["groupInfo"],
     queryFn: () => getGroupInfo({ groupId }),
   });

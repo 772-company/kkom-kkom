@@ -54,14 +54,9 @@ export default function Pagination({
   const maxIndex =
     total % 10 === 0 ? Math.floor(total / 10) : Math.floor(total / 10) + 1;
 
-  const pageNumberList = [page - 2, page - 1, page, page + 1, page + 2].map(
-    (i) => {
-      if (i >= 1 && i <= maxIndex) {
-        return i;
-      }
-      return 0;
-    },
-  );
+  const isNotAllowed = (i: number) => i < 1 || i > maxIndex;
+
+  const pageNumberList = [page - 2, page - 1, page, page + 1, page + 2];
 
   return (
     <PaginationStructure
@@ -85,7 +80,7 @@ export default function Pagination({
           />
         </PaginationItem>
         {pageNumberList.map((pageNumber) => {
-          if (pageNumber === 0) {
+          if (isNotAllowed(pageNumber)) {
             return (
               <PaginationItem key={pageNumber}>
                 <Button

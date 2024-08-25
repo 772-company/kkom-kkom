@@ -34,9 +34,9 @@ export default function EditTodoModal({
     groupId,
     taskListId,
     taskId,
-
     close,
   );
+
   const {
     watch,
     handleSubmit,
@@ -49,6 +49,7 @@ export default function EditTodoModal({
       description: descriptionValue,
     },
   });
+
   const formData = watch();
 
   const serveData = (data: TodoFormType) => {

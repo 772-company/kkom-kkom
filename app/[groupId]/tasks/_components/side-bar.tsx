@@ -31,15 +31,16 @@ export default function SideBar({
   date,
   taskListId,
   todoId,
-  handleCancelButton,
   isOpen,
   groupId,
+  handleCancelButton,
 }: SideBarProps) {
   const { isPending, taskDetail, comment } = useGetTask(
     groupId,
     taskListId,
     todoId,
   );
+
   const { mutate, isPending: toogleIsPending } = useToggleDoneTask(
     date,
     groupId,
@@ -47,6 +48,7 @@ export default function SideBar({
     todoId ?? -1,
     taskDetail?.doneAt ?? null,
   );
+
   const editTodoModalOverlay = useCustomOverlay(({ close }) => (
     <EditTodoModal
       groupId={groupId}
@@ -58,6 +60,7 @@ export default function SideBar({
       date={date}
     />
   ));
+
   const deleteTodoModalOverlay = useCustomOverlay(({ close }) => (
     <DeleteTodoModal
       groupId={groupId}
@@ -75,6 +78,7 @@ export default function SideBar({
       mutate();
     }
   };
+
   const updateAt = convertDateToYMD(new Date(taskDetail?.updatedAt ?? ""));
   const convertedDate = convertDateToYMD(new Date(taskDetail?.date ?? ""));
   const { ampm, hoursString, minutesString } = convertDateToTime(
@@ -121,10 +125,12 @@ export default function SideBar({
                     width={32}
                     height={32}
                   />
+
                   <p className="text-[14px] font-medium text-text-primary">
                     {taskDetail?.writer?.nickname}
                   </p>
                 </div>
+
                 <p className="text-[14px] font-normal text-text-secondary">
                   {updateAt.year}.{updateAt.month}.{updateAt.day}
                 </p>
@@ -132,15 +138,20 @@ export default function SideBar({
 
               <div className="flex items-center gap-[10px]">
                 <Calendar width={16} height={16} />
+
                 <p className="text-xs font-normal text-text-default">
                   {convertedDate.year}년 {convertedDate.month}월{" "}
                   {convertedDate.day}일
                 </p>
+
                 <p className="text-xs font-normal text-text-default">|</p>
+
                 <Time width={16} height={16} />
+
                 <p className="text-xs font-normal text-text-default">
                   {ampm} {hoursString}:{minutesString}
                 </p>
+
                 <p className="text-xs font-normal text-text-default">|</p>
                 <Repeat width={16} height={16} />
                 <p className="text-xs font-normal text-text-default">
@@ -149,7 +160,9 @@ export default function SideBar({
               </div>
 
               <div className="min-h-[200px]">
-                <p className="text-sm font-normal">{taskDetail?.description}</p>
+                <p className="text-sm font-normal text-text-primary">
+                  {taskDetail?.description}
+                </p>
               </div>
 
               <div className="flex flex-col gap-6">

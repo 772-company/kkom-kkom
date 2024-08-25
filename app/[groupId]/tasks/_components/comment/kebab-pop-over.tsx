@@ -27,7 +27,7 @@ function CommentKebabPopOver({
       triggerSvg={Kebab}
       triggerImageAlt="케밥"
       className="h-4 w-4"
-      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
+      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary"
     />
   );
 }

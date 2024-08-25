@@ -43,8 +43,14 @@ function TodayKkomkkomPeople({ topUsers }: TodayKkomkkomPeopleProps) {
               tick={{ fill: "var(--text-secondary)", fontSize: 14 }}
             />
             <YAxis className="hidden md:block" />
-            <Tooltip />
-            <Bar dataKey="count" fill="#10B981" barSize={20} />
+            <Tooltip labelStyle={{ color: "#000000", fontSize: 14 }} />
+            <Bar
+              dataKey="count"
+              fill="#10B981"
+              barSize={20}
+              animationEasing="linear"
+              animationDuration={1000}
+            />
           </BarChart>
         </ResponsiveContainer>
       )}

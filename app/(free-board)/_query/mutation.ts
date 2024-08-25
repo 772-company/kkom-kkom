@@ -273,6 +273,9 @@ export function usePostCommentsMutation() {
       queryClient.invalidateQueries({
         queryKey: ["comments", { articleId: variables.articleId }],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["article", { articleId: variables.articleId }],
+      });
     },
   });
 }

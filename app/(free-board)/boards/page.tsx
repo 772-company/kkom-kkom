@@ -18,7 +18,9 @@ export default function Page({
     keyword?: string;
   };
 }) {
-  const { keyword, orderBy, page } = searchParams;
+  const page = searchParams.page || "1";
+  const orderBy = searchParams.orderBy || "recent";
+  const keyword = searchParams.keyword || "";
   const queryClient = getQueryClient();
 
   queryClient.prefetchQuery({
@@ -49,7 +51,7 @@ export default function Page({
             <ArticleOrderbyDropdown searchParams={searchParams} />
           </section>
         </header>
-        <ArticleTagList keyword={keyword || ""} />
+        <ArticleTagList keyword={keyword} />
         <Suspense
           key={JSON.stringify(searchParams)}
           fallback={<SkeletonCardList />}

@@ -4,7 +4,7 @@ import React from "react";
 interface ProfileIconProps {
   width: number;
   height: number;
-  image: string | null;
+  image: string;
   type: "teamProfile" | "myProfile";
 }
 
@@ -28,7 +28,7 @@ export default function ProfileIcon({
           width={width}
           height={height}
           className="rounded-full"
-          src={image ?? "/icons/img.svg"}
+          src={image || "/icons/img.svg"}
           alt="팀이미지"
         />
       )}
@@ -38,7 +38,7 @@ export default function ProfileIcon({
           className="rounded-full"
           width={width}
           height={height}
-          src={image ?? "/icons/my-profile.svg"}
+          src={image || "/icons/default-profile.svg"}
           alt="나의이미지"
         />
       )}

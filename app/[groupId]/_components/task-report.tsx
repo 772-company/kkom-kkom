@@ -103,7 +103,7 @@ function TaskReport({ groupId }: TaskReportProps) {
         <div className="lg:hidden">
           <div
             ref={emblaRef}
-            className="w-[140px] overflow-hidden md:w-[320px]"
+            className="w-[140px] overflow-hidden md:w-[303px]"
           >
             <div className="flex">
               <div>
@@ -119,7 +119,7 @@ function TaskReport({ groupId }: TaskReportProps) {
           </div>
 
           {/* Dot Navigation */}
-          <div className="embla__dots absolute bottom-2 flex h-3 w-[140px] justify-center gap-[3px] md:w-[320px]">
+          <div className="embla__dots absolute bottom-2 flex h-3 w-[140px] justify-center gap-[3px] md:w-[303px]">
             {scrollSnaps.map((_, index) => (
               <button
                 type="button"

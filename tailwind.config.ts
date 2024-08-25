@@ -52,6 +52,7 @@ const config: Config = {
         background: {
           primary: "var(--background-primary)",
           secondary: "var(--background-secondary)",
+          third: "var(--background-third)",
           tertiary: "var(--background-tertiary)",
           inverse: "var(--background-inverse)",
         },

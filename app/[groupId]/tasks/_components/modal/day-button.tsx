@@ -29,7 +29,7 @@ function DayButton({ field, name, value }: DayButtonProps) {
     <button
       type="button"
       onClick={handleClickButton}
-      className={`${field.value?.includes(value) ? "bg-brand-primary" : "bg-[#18212F]"} h-[48px] w-[44px] rounded-xl`}
+      className={`${field.value?.includes(value) ? "bg-brand-primary" : "bg-background-third"} h-[48px] w-[44px] rounded-xl text-text-primary`}
     >
       {name}
     </button>

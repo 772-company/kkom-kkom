@@ -101,7 +101,7 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
         </div>
 
         <div className="mt-2 flex h-[300px] w-full flex-col gap-4">
-          <p>시작 날짜 및 시간</p>
+          <p className="text-text-primary">시작 날짜 및 시간</p>
           <div className="h-[258px]">
             <div className="flex h-[48px]">
               <Controller
@@ -113,7 +113,7 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
           </div>
         </div>
 
-        <div className="flex h-[79px] w-full flex-col gap-4">
+        <div className="mt-[30px] flex h-[79px] w-full flex-col gap-4">
           <div className="text-base font-medium text-text-primary">
             반복설정
           </div>
@@ -124,8 +124,9 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
           />
         </div>
         {formData === "MONTHLY" && (
-          <div className="mt-5 flex h-[150px] w-full flex-col gap-3">
-            <p>반복 일</p>
+          <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
+            <p className="text-text-primary">반복 일</p>
+
             <input
               onCompositionStart={(e: any) => {
                 e.target.blur();
@@ -133,7 +134,7 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
                   e.target.focus();
                 });
               }}
-              className="text h-[50px] w-[50px] rounded-[12px] bg-[#18212F] text-center text-sm font-medium text-text-default"
+              className="h-[50px] w-[50px] rounded-[12px] bg-background-third text-center text-sm font-medium text-text-default"
               type="number"
               min="1"
               max="31"
@@ -142,7 +143,6 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
                 required: "반복일을 입력해 주세요",
                 onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                   const value = parseInt(e.target.value, 10);
-
                   if (value < 1) {
                     e.target.value = "1";
                   } else if (value > 31) {
@@ -157,12 +157,12 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
               }}
               placeholder="Day"
             />
-            <p>{errors.monthDay?.message}</p>
+            <p className="text-text-primary">{errors.monthDay?.message}</p>
           </div>
         )}
         {formData === "WEEKLY" && (
           <div className="mt-5 flex h-[100px] w-full flex-col gap-3">
-            <div>반복 요일</div>
+            <p className="text-text-primary">반복 요일</p>
 
             <div className="flex gap-2">
               {REPEAT_ARRAY.map((e) => (

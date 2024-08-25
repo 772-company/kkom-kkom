@@ -4,7 +4,7 @@ import React from "react";
 interface ProfileIconProps {
   width: number;
   height: number;
-  image: string;
+  image: string | null;
   type: "teamProfile" | "myProfile";
 }
 

@@ -59,7 +59,7 @@ export default function EditTodoModal({
 
   return (
     <Modal
-      className="flex h-[930px] w-full flex-col items-center gap-4 overflow-y-auto overflow-x-clip p-[32px] sm:h-[80vh] md:w-[384px]"
+      className="flex h-[500px] w-full flex-col items-center gap-4 overflow-y-auto overflow-x-clip p-[32px] md:w-[384px]"
       close={close}
       closeOnFocusOut
     >

@@ -1,4 +1,5 @@
 import Button from "@/components/button/button";
+import { useTheme } from "next-themes";
 import React, { ButtonHTMLAttributes, DOMAttributes, forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -37,7 +38,10 @@ const CustomTodoCalendarButton = forwardRef<
   </Button>
 ));
 CustomTodoCalendarButton.displayName = "CustomTodoCalendarButton";
+
 function TodoCalendarButton({ field }: CalendarButtonProps) {
+  const { theme } = useTheme();
+
   return (
     <DatePicker
       selected={field.value}
@@ -46,7 +50,9 @@ function TodoCalendarButton({ field }: CalendarButtonProps) {
           field.onChange(date);
         }
       }}
-      calendarClassName="customModal"
+      calendarClassName={
+        theme === "dark" ? "customDarkModal" : "customLightModal"
+      }
       dateFormat="yyyy년 MM월 dd일"
       shouldCloseOnSelect={false}
       customInput={

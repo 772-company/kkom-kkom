@@ -1,7 +1,7 @@
 import Modal from "@/components/modal/modal";
 import { deleteAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
@@ -19,6 +19,7 @@ interface ModalWarningProps {
  */
 export default function ModalSecession({ close }: ModalWarningProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deleteAccount(),
     onMutate: () => {
@@ -31,6 +32,7 @@ export default function ModalSecession({ close }: ModalWarningProps) {
       router.push("/");
       deleteCookie("accessToken");
       deleteCookie("refreshToken");
+      queryClient.invalidateQueries({ queryKey: ["getUser"] });
       router.refresh();
       toast.update("deleteAccount", {
         render: "탈퇴되었습니다.",

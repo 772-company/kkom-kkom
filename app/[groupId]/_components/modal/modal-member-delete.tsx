@@ -57,7 +57,7 @@ function ModalMemberDelete({
       if (error instanceof Error) {
         message = error.message;
       } else if (isMine) {
-        message = `${teamName}팀 탈퇴에 실패하였습니다.`;
+        message = `${teamName} 탈퇴에 실패하였습니다.`;
       } else {
         message = `${userName}님 삭제에 실패하였습니다.`;
       }
@@ -67,7 +67,7 @@ function ModalMemberDelete({
       showToast(
         "success",
         isMine
-          ? `${teamName}팀에서 탈퇴하였습니다.`
+          ? `${teamName}에서 탈퇴하였습니다.`
           : `${userName}님이 삭제되었습니다.`,
       );
       close();
@@ -90,7 +90,7 @@ function ModalMemberDelete({
         <div className="flex flex-col items-center gap-[16px]">
           <AlertIcon width={24} height={24} />
           {isMine ? (
-            <Modal.Title>{teamName}팀에서 탈퇴하시겠습니까?</Modal.Title>
+            <Modal.Title>{teamName}에서 탈퇴하시겠습니까?</Modal.Title>
           ) : (
             <Modal.Title>{userName}님을 삭제하시겠어요?</Modal.Title>
           )}

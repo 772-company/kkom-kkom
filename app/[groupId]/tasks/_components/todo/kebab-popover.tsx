@@ -23,7 +23,7 @@ function KebabPopover({ openEditModal, openDeleteModal }: KebabPopoverProps) {
       triggerHeight={16}
       content={constent}
       className=""
-      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary"
+      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary"
     />
   );
 }

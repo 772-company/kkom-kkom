@@ -17,7 +17,7 @@ export default function TodoListName({
       onClick={rest.onClick}
       type="button"
     >
-      <p className="h-[19px]">{buttonName}</p>
+      <p className="h-[19px] text-text-primary">{buttonName}</p>
     </button>
   );
 }

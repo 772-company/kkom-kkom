@@ -42,7 +42,7 @@ function FrequencyDropdown({ field }: FrequencyDropdownProps) {
       >
         <Dropdown.Button
           type="button"
-          className="flex h-[44px] w-[109px] items-center justify-center gap-2 rounded-xl bg-[#18212F] text-sm font-medium text-text-default"
+          className="flex h-[44px] w-[109px] items-center justify-center gap-2 rounded-xl bg-background-third text-sm font-medium text-text-default"
         >
           <ToggleClose
             width="24"
@@ -50,11 +50,12 @@ function FrequencyDropdown({ field }: FrequencyDropdownProps) {
             className="h-6 w-6 group-hover:animate-pulse"
           />
         </Dropdown.Button>
-        <Dropdown.Body className="mt-1 flex h-[160px] w-[109px] flex-col rounded-xl bg-[#18212F]">
+
+        <Dropdown.Body className="mt-1 flex h-[160px] w-[109px] flex-col rounded-xl bg-background-third">
           {DROP_DOWN_OPTIONS.map(({ display, value }) => (
             <Dropdown.Item
               key={value}
-              className="flex h-[40px] w-[109px] cursor-pointer items-center px-[16px] py-[11px]"
+              className="flex h-[40px] w-[109px] cursor-pointer items-center px-[16px] py-[11px] text-text-primary"
               value={value}
             >
               {display}

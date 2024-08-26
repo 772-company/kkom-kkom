@@ -6,6 +6,7 @@
   :root {
     --background-primary: #f0fdf9;
     --background-secondary: #e2f4ed;
+    --background-third: #cfefe3;
     --background-tertiary: #cfefe3;
     --background-inverse: #ffffff;
     --text-primary: #0c1814;
@@ -22,6 +23,7 @@
   :root.dark {
     --background-primary: #0f172a;
     --background-secondary: #1e293b;
+    --background-third: #18212f;
     --background-tertiary: #334155;
     --background-inverse: #ffffff;
     --text-primary: #f8fafc;

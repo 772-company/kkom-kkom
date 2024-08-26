@@ -21,6 +21,7 @@ interface MemberCardProps {
   member: MemberType;
   groupId: string;
   isAdmin: boolean;
+  teamName: string;
 }
 
 interface MemberListProps {
@@ -28,7 +29,7 @@ interface MemberListProps {
   isAdmin: boolean;
 }
 
-function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
+function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
   const ModalMemberProfileOverlay = useCustomOverlay(({ close }) => (
     <ModalMemberProfile
       close={close}
@@ -44,6 +45,7 @@ function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
       groupId={groupId}
       memberUserId={member.userId}
       userName={member.userName}
+      teamName={teamName}
     />
   ));
 
@@ -94,7 +96,10 @@ function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
             triggerHeight={16}
             triggerWidth={16}
             content={[
-              { text: "삭제하기", onClick: ModalMemberDeleteOverlay.open },
+              {
+                text: myId === member.userId ? "탈퇴하기" : "삭제하기",
+                onClick: ModalMemberDeleteOverlay.open,
+              },
             ]}
             contentClassName="z-10 border-[1px] absolute right-0 bg-background-secondary border-border-primary/10 w-[120px] h-[40px] text-text-secondary"
           />
@@ -110,6 +115,7 @@ function MemberList({ groupId, isAdmin }: MemberListProps) {
     queryFn: () => getGroupInfo({ groupId }),
   });
 
+  const teamName = data ? data.name : "";
   const members = data ? data.members : [];
 
   const ModalMemberAddOverlay = useCustomOverlay(({ close }) => (
@@ -143,6 +149,7 @@ function MemberList({ groupId, isAdmin }: MemberListProps) {
               isAdmin={isAdmin}
               member={member}
               groupId={groupId}
+              teamName={teamName}
             />
           ))
         ) : (

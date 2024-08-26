@@ -8,8 +8,8 @@ import {
   m,
   useInView,
 } from "framer-motion";
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 

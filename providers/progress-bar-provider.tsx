@@ -1,13 +1,20 @@
 "use client";
 
-import { AppProgressBar } from "next-nprogress-bar";
-import { ReactNode } from "react";
+import { AppProgressBar, startProgress } from "next-nprogress-bar";
+import { useSearchParams } from "next/navigation";
+import { ReactNode, useEffect } from "react";
 
 export default function ProgressBarProvider({
   children,
 }: {
   children: ReactNode;
 }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    startProgress();
+  }, [searchParams]);
+
   return (
     <>
       {children}

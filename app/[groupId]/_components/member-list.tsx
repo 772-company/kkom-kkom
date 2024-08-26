@@ -4,6 +4,7 @@ import Popover from "@/components/popover/popover";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import { getGroupInfo } from "@/lib/apis/group/index";
 import { GetGroupsIdResponse } from "@/lib/apis/type";
+import { getUser } from "@/lib/apis/user";
 import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import Kebab from "@/public/icons/kebab-small.svg";
@@ -46,6 +47,9 @@ function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
     />
   ));
 
+  const { data } = useQuery({ queryKey: ["getUser"], queryFn: getUser });
+  const myId = data ? data.id : "";
+
   return (
     <div
       role="presentation"
@@ -77,7 +81,7 @@ function MemberCard({ member, groupId, isAdmin }: MemberCardProps) {
           {member.userEmail}
         </p>
       </div>
-      {isAdmin && (
+      {(isAdmin || myId === member.userId) && (
         <button
           aria-label="팝오버"
           type="submit"

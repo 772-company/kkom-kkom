@@ -250,7 +250,9 @@ export type GetGroupsIdMemberMemberUserIdResponse = {
 
 export type DeleteGroupsIdMemberMemberUserIdResponse = {};
 
-export type GetGroupsIdInvitationResponse = string;
+export type GetGroupsIdInvitationResponse = {
+  groupId: number;
+};
 
 export type PostGroupsAcceptInvitationResponse = {
   userId: number;

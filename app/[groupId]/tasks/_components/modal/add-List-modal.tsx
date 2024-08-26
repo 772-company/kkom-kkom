@@ -36,7 +36,7 @@ function AddListModal({ groupId, close }: AddListModalProps) {
     },
   });
   const serveData = (data: { name: string }) => {
-    if (!data) {
+    if (data) {
       mutate(data);
     }
   };

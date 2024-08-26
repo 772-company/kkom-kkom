@@ -48,7 +48,7 @@ export default function ModalSideMenu({
           {memberships.map((membership) => (
             <li
               key={membership.group.id}
-              className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
+              className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-background-tertiary"
               onClick={() => handleRoute(membership.group.id)}
               role="presentation"
             >

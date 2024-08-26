@@ -34,7 +34,7 @@ export default function LandingHeader() {
             className="mt-[340px] w-[343px] xl:mt-[360px]"
           >
             지금 시작하기
-          </LinkButton> // 로그인된 경우 계정 설정 페이지를 렌더링
+          </LinkButton>
         )}
       </div>
     </section>

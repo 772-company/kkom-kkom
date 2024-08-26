@@ -1,5 +1,5 @@
 import NotFoundAnimation from "@/components/animation/not-found-animation";
-import { LinkButton } from "@/components/button/button";
+import LinkButton from "@/components/button/link-button";
 
 export default function NotFound() {
   return (

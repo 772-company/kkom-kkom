@@ -1,5 +1,5 @@
 import Modal from "@/components/modal/modal";
-import Alert from "@/public/icons/alert.svg";
+import Image from "next/image";
 
 export default function ModalDelete({
   close,
@@ -15,7 +15,7 @@ export default function ModalDelete({
   return (
     <Modal close={close} closeOnFocusOut>
       <header className="flex justify-center pb-4 pt-6">
-        <Alert width={24} height={24} />
+        <Image src="/icons/alert.svg" alt="경고창" width={24} height={24} />
       </header>
       <div className="mx-12 text-center md:mx-9">
         <Modal.Title className="mb-4 text-slate-50 md:text-text-primary">

@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 
 import ArticleForm from "./article-form";
 import FileDragDown from "./file-drag-down";
+import { ArticleType } from "./types";
 
 interface HandleArticleModalProps {
   close: () => void;
@@ -12,18 +13,6 @@ interface HandleArticleModalProps {
   defaultContent: string | null;
   defaultImage: string | null;
   onSubmit: (formData: ArticleType) => void;
-}
-
-export interface FormType {
-  title: string;
-  content: string;
-  image: File | string;
-}
-
-export interface ArticleType {
-  title: string;
-  content: string;
-  image: string;
 }
 
 export default function HandleArticleModal({

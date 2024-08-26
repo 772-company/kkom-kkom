@@ -27,7 +27,7 @@ export default function ArticlesList({ searchParams }: ArticlesListProps) {
 
   return (
     <>
-      <section className="mt-6 flex flex-col gap-6 md:mt-8 xl:flex-row xl:flex-wrap">
+      <section className="mt-6 flex flex-col gap-6 md:mt-8 xl:grid xl:grid-cols-2 xl:grid-rows-5">
         {articles && articles.length > 0 ? (
           articles.map((article) => (
             <ArticleCard key={article.id} article={article} />

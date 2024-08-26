@@ -1,7 +1,7 @@
 "use client";
 
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
-import ExitDoor from "@/public/icons/exit-door.svg";
+import Image from "next/image";
 
 import ModalSecession from "./modal-secession";
 
@@ -11,7 +11,12 @@ export default function SecessionButton() {
   ));
   return (
     <section className="mt-[24px] flex w-full items-center gap-2">
-      <ExitDoor width={24} height={24} />
+      <Image
+        src="/icons/exit-door.svg"
+        alt="회원 탈퇴 문"
+        width={24}
+        height={24}
+      />
       <button
         onClick={modalSecessionOverlay.open}
         className="text-base font-medium text-status-danger"

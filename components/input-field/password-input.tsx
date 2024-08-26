@@ -1,9 +1,5 @@
 import Image from "next/image";
-<<<<<<< HEAD
-import { useState } from "react";
-=======
 import { useCallback, useState } from "react";
->>>>>>> e4a809e4fb84448d23283afb15ef2e20ae99c6bf
 import { FieldValues } from "react-hook-form";
 
 import Button from "../button/button";

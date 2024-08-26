@@ -20,7 +20,7 @@ function TodayTaskProgress({
     numberOfTasks === 0 ? 0 : Math.round((numberOfDone / numberOfTasks) * 100);
 
   return (
-    <div className="flex items-center gap-[64px]">
+    <div className="flex items-center gap-[34px]">
       <div className="relative">
         <div className="h-[140px] w-[140px] rounded-full border-[30px] border-background-tertiary bg-background-secondary md:h-[170px] md:w-[170px]" />
         <div className="absolute bottom-[40px] left-[40px] flex h-[60px] w-[60px] flex-col items-center justify-center md:hidden">

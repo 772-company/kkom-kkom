@@ -9,7 +9,7 @@ export default function LandingHeader() {
   const isLoggedIn = hasCookie("refreshToken", { cookies });
 
   return (
-    <section className="relative h-[547px] w-full">
+    <section className="relative h-[547px] w-full xl:mx-auto xl:max-w-[1920px]">
       <Image
         src="/images/landing-header-large.webp"
         fill
@@ -33,7 +33,7 @@ export default function LandingHeader() {
             className="mt-[340px] w-[343px] xl:mt-[360px]"
           >
             지금 시작하기
-          </LinkButton> // 로그인된 경우 계정 설정 페이지를 렌더링
+          </LinkButton>
         )}
       </div>
     </section>

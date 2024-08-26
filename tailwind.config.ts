@@ -12,6 +12,7 @@ const config: Config = {
     screens: {
       sm: "375px",
       md: "744px",
+      lg: "1024px",
       xl: "1280px",
     },
     extend: {
@@ -52,6 +53,7 @@ const config: Config = {
         background: {
           primary: "var(--background-primary)",
           secondary: "var(--background-secondary)",
+          third: "var(--background-third)",
           tertiary: "var(--background-tertiary)",
           inverse: "var(--background-inverse)",
         },
@@ -62,8 +64,7 @@ const config: Config = {
           focus: "#10B981",
         },
         border: {
-          primary: "#F8FAFC",
-          // primary: "hsl(var(--border-primary) / <alpha-value>)",
+          primary: "rgb(var(--border-primary) / <alpha-value>)",
         },
         text: {
           primary: "var(--text-primary)",
@@ -88,23 +89,22 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         gradient: "linear-gradient(to right, #10B981, #A3E635)",
       },
-
       fontFamily: { Pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
     },
   },
   plugins: [
-    function ({ addUtilities }: any) {
-      addUtilities({
-        ".scrollbar-custom": {
+    function ({ addBase }: any) {
+      addBase({
+        "*": {
           "&::-webkit-scrollbar": {
-            width: "5px",
+            width: "7px",
           },
           "&::-webkit-scrollbar-thumb": {
             backgroundColor: "var(--point-whiteGreen)",
             borderRadius: "10px",
           },
           "&::-webkit-scrollbar-track": {
-            backgroundColor: "transparent",
+            backgroundColor: "var(--background-primary)",
           },
         },
       });

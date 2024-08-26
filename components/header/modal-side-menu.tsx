@@ -7,7 +7,7 @@ import defaultProfile from "@/public/images/default-profile.png";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import Link from "next/link";
-import { LegacyRef } from "react";
+import { LegacyRef, useCallback } from "react";
 
 interface ModalSideMenuProps {
   close: () => void;
@@ -22,10 +22,13 @@ export default function ModalSideMenu({
     close();
   });
 
-  const handleRoute = (id: number) => {
-    router.push(`/${id}`);
-    close();
-  };
+  const handleRoute = useCallback(
+    (id: number) => {
+      router.push(`/${id}`);
+      close();
+    },
+    [router, close],
+  );
 
   return (
     <section className="fixed inset-0 z-40 flex bg-black bg-opacity-50 md:hidden">

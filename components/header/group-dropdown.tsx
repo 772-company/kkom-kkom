@@ -7,7 +7,7 @@ import defaultProfile from "@/public/images/default-profile.png";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import LinkButton from "../button/link-button";
 import { Dropdown } from "../dropdown/dropdown";
@@ -21,22 +21,30 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
   const router = useRouter();
   const [visibleCount, setVisibleCount] = useState(4);
   const currentGroupId = parseInt(pathname.split("/")[1], 10);
-  const initialGroup =
-    memberships.find((membership) => membership.group.id === currentGroupId) ||
-    memberships[0];
+
+  const initialGroup = useMemo(
+    () =>
+      memberships.find(
+        (membership) => membership.group.id === currentGroupId,
+      ) || memberships[0],
+    [currentGroupId, memberships],
+  );
   const [selectedGroupId, setSelectedGroupId] = useState(initialGroup.group.id);
 
-  const handleSelect = (id: number) => {
-    router.push(`/${id}`);
-  };
+  const handleSelect = useCallback(
+    (id: number) => {
+      router.push(`/${id}`);
+    },
+    [router],
+  );
 
-  const handleShowMore = () => {
+  const handleShowMore = useCallback(() => {
     setVisibleCount((prevCount) => prevCount + 4);
-  };
+  }, []);
 
-  const handleShowLess = () => {
+  const handleShowLess = useCallback(() => {
     setVisibleCount(4);
-  };
+  }, []);
 
   useEffect(() => {
     if (currentGroupId) {

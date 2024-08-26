@@ -39,7 +39,7 @@ export default function ArticleOrderbyDropdown({
         <Dropdown.Button className="h-10 !w-[94px] justify-between rounded-xl border border-black border-opacity-10 bg-background-tertiary px-[14px] dark:border dark:border-white dark:border-opacity-10 md:h-11 md:!w-[120px]">
           <Image
             src="/icons/toggle.svg"
-            alt=""
+            alt="토글"
             width="24"
             height="24"
             className="group-hover:animate-pulse"

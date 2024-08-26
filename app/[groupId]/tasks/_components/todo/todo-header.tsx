@@ -1,5 +1,6 @@
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import Calendar from "@/public/icons/calendar.svg";
+import { useTheme } from "next-themes";
 import React, { useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,6 +24,7 @@ function TodoHeader({
   onChangeDate,
   onClickButton,
 }: TodoHeaderUIProps) {
+  const { theme } = useTheme();
   const addListModalOverlay = useCustomOverlay(({ close }) => (
     <AddListModal close={close} groupId={groupId} />
   ));
@@ -58,7 +60,9 @@ function TodoHeader({
             selected={date}
             onChange={onChangeDate}
             ref={datePickerRef}
-            calendarClassName="customModal"
+            calendarClassName={
+              theme === "dark" ? "customDarkModal" : "customLightModal"
+            }
           />
         </div>
       </div>

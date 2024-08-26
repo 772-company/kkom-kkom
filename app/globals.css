@@ -6,6 +6,7 @@
   :root {
     --background-primary: #f0fdf9;
     --background-secondary: #e2f4ed;
+    --background-third: #cfefe3;
     --background-tertiary: #cfefe3;
     --background-inverse: #ffffff;
     --text-primary: #0c1814;
@@ -14,7 +15,7 @@
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
-    --border-primary: 168 25% 8%;
+    --border-primary: 12 24 20;
     --point-whiteGreen: #43c694;
     --point-grayGreen: #43c694;
   }
@@ -22,6 +23,7 @@
   :root.dark {
     --background-primary: #0f172a;
     --background-secondary: #1e293b;
+    --background-third: #18212f;
     --background-tertiary: #334155;
     --background-inverse: #ffffff;
     --text-primary: #f8fafc;
@@ -30,7 +32,7 @@
     --text-default: #64748b;
     --text-inverse: #ffffff;
     --text-disabled: #94a3b8;
-    --border-primary: 210 28% 98% 0.1;
+    --border-primary: 248 250 252;
     --point-whiteGreen: #ffffff;
     --point-grayGreen: #475569;
   }

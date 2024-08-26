@@ -7,9 +7,9 @@ import * as React from "react";
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme();
 
-  const handleToggle = () => {
+  const handleToggle = React.useCallback(() => {
     setTheme(theme === "light" ? "dark" : "light");
-  };
+  }, [theme, setTheme]);
 
   return (
     <div className="flex items-center">

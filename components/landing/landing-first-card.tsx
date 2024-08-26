@@ -20,7 +20,12 @@ export default function LandingFirstCard() {
           <div className="flex flex-col justify-end gap-[40px] md:flex-row-reverse md:items-end md:gap-[100px]">
             <div className="flex flex-col gap-4 md:h-full md:justify-center">
               <div className="flex size-[48px] items-center justify-center rounded-xl border border-border-primary border-opacity-10 bg-background-secondary shadow-[0px_0px_12px_2px_#00000040]">
-                <Image src="/icons/folder.svg" width={24} height={24} alt="" />
+                <Image
+                  src="/icons/folder.svg"
+                  width={24}
+                  height={24}
+                  alt="폴더"
+                />
               </div>
               <h3 className="text-lg font-medium leading-[21px] text-text-primary xl:text-2xl">
                 그룹으로

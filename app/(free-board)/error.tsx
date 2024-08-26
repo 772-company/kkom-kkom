@@ -15,7 +15,7 @@ export default function Error({
       <div className="text-center">
         <Image
           src="/icons/alert.svg"
-          alt=""
+          alt="경고창"
           width={64}
           height={64}
           className="mx-auto mb-3 text-text-secondary"

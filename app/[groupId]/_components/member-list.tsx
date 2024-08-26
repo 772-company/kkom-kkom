@@ -131,7 +131,7 @@ function MemberList({ groupId, isAdmin }: MemberListProps) {
           </button>
         )}
       </div>
-      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-hidden overflow-y-scroll scrollbar-custom md:grid-cols-3 md:gap-[24px]">
+      <div className="grid h-[170px] grid-cols-2 gap-[16px] overflow-hidden overflow-y-scroll md:grid-cols-3 md:gap-[24px]">
         {members.length > 0 ? (
           members.map((member) => (
             <MemberCard

@@ -103,7 +103,7 @@ export function Profile({
       ) : (
         <Image
           src="/icons/default-profile.svg"
-          alt=""
+          alt="이미지가 없는 경우 기본 이미지"
           width={32}
           height={32}
           className="rounded-full"

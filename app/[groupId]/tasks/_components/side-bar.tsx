@@ -168,9 +168,9 @@ export default function SideBar({
               <div className="flex flex-col gap-6">
                 <div className="flex h-[49px] items-center border-b border-t border-gray-300">
                   <CommentInput
+                    taskListId={taskListId}
                     taskId={taskDetail?.id}
                     date={date}
-                    taskListId={taskListId}
                   />
                 </div>
 

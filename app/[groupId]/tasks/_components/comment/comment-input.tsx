@@ -1,4 +1,6 @@
 import { postComment } from "@/lib/apis/comment/index";
+import { GetCommentResponse } from "@/lib/apis/comment/type";
+import { GetUserResponse } from "@/lib/apis/type";
 import { convertDateToY_M_D } from "@/utils/convert-date";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -28,6 +30,39 @@ export default function CommentInput({
   });
   const { mutate, isPending } = useMutation({
     mutationFn: (data: { content: string }) => postComment(taskId, data),
+    onMutate: async (newComment: { content: string }) => {
+      await queryClient.cancelQueries({ queryKey: ["getComment", taskId] });
+      await queryClient.cancelQueries({ queryKey: ["getUser"] });
+      const userData: GetUserResponse | undefined = queryClient.getQueryData([
+        "getUser",
+      ]);
+      const previousComments: GetCommentResponse[] | undefined =
+        queryClient.getQueryData(["getComment", taskId]);
+      queryClient.setQueryData(
+        ["getComment", taskId],
+        (old: GetCommentResponse[]) => [
+          ...old,
+          {
+            ...newComment,
+            user: { nickname: userData?.nickname, image: userData?.image },
+          },
+        ],
+      );
+      return { previousComments };
+    },
+    onError: (err, newComment, context) => {
+      queryClient.setQueryData(
+        ["getComment", taskId],
+        context?.previousComments,
+      );
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getComment", taskId],
+      });
+    },
+
     onSuccess: () => {
       Promise.all([
         queryClient.invalidateQueries({

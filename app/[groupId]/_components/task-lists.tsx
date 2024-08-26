@@ -182,7 +182,7 @@ function TaskLists({ groupId, isAdmin }: TaskListsProps) {
             <div
               ref={droppableProvided.innerRef}
               {...droppableProvided.droppableProps}
-              className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll scrollbar-custom"
+              className="flex h-[208px] flex-col gap-[10px] overflow-y-scroll"
             >
               {taskLists.length > 0 ? (
                 taskLists.map((taskList, index) => (

@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/app/(free-board)/_components/card";
+import { Profile } from "@/app/(free-board)/_components/card";
 import { usePatchCommentsMutation } from "@/app/(free-board)/_query/mutation";
 import useArticlesCommentsQuery from "@/app/(free-board)/_query/query";
 import Button from "@/components/button/button";
@@ -75,7 +75,7 @@ export default function CommentEditCard({
       </section>
       <section className="flex justify-between">
         <section className="flex items-center">
-          <Card.Profile name={comment.writer.nickname} className="mr-4" />
+          <Profile name={comment.writer.nickname} className="mr-4" />
           <time className="border-l border-border-primary border-opacity-10 pl-4 text-xs font-medium leading-3 text-text-disabled md:text-sm md:leading-[14px]">
             {convertDiffDateFromNow(new Date(comment.updatedAt))}{" "}
             {comment.updatedAt !== comment.createdAt && "(수정됨)"}

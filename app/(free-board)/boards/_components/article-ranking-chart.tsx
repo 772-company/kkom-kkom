@@ -1,14 +1,17 @@
-import { getArticles } from "@/lib/apis/article";
+"use client";
+
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import shortenString from "@/utils/shorten-string";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function ArticleRankingChart() {
-  const articles = await getArticles({
+import { useArticlesQuery } from "../../_query/query";
+
+export default function ArticleRankingChart() {
+  const { data: articles } = useArticlesQuery({
+    orderBy: "like",
     page: "1",
     keyword: "",
-    orderBy: "like",
   });
   return (
     <ol className="mb-8 grid grid-flow-col grid-cols-1 grid-rows-10 gap-1.5 gap-x-10 rounded-xl border border-black border-opacity-10 bg-background-secondary p-5 text-text-primary dark:border dark:border-white dark:border-opacity-10 md:grid-cols-2 md:grid-rows-5">
@@ -21,7 +24,7 @@ export default async function ArticleRankingChart() {
             <span className="hover:no-underline">{`${i + 1}. `}</span>
             <Link
               href={`/boards/${article.id}`}
-              className="flex gap-1 truncate hover:underline"
+              className="flex gap-1 hover:underline"
             >
               {`${shortenString(article.title, 16)}`}
               {i <= 2 && (

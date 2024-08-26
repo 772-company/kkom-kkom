@@ -6,7 +6,6 @@ import {
 } from "@/providers/modal-store-provider";
 import ProgressBarProvider from "@/providers/progress-bar-provider";
 import ToastProvider from "@/providers/toast-provider";
-import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -35,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <ThemeProvider enableSystem={false} attribute="class">
+        <ThemeProvider enableSystem attribute="class">
           <ProgressBarProvider>
             <QueryProviders>
               <ToastProvider>

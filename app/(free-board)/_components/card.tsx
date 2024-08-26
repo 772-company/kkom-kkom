@@ -1,6 +1,7 @@
 "use client";
 
 import useClickOutside from "@/hooks/use-click-outside";
+import DefaultProfile from "@/public/icons/default-profile.svg";
 import { KebabHover } from "@/public/icons/kebab-hover";
 import { KebabLarge } from "@/public/icons/kebab-large";
 import LikeButtonColored from "@/public/icons/like-button-colored";
@@ -101,13 +102,7 @@ export function Profile({
           className="rounded-full"
         />
       ) : (
-        <Image
-          src="/icons/default-profile.svg"
-          alt="이미지가 없는 경우 기본 이미지"
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
+        <DefaultProfile width={32} height={32} className="rounded-full" />
       )}
       <span className="leading-3 md:leading-[14px]">{name}</span>
     </section>

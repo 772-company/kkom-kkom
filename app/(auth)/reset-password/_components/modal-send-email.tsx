@@ -50,7 +50,13 @@ export default function ModalSendEmail({ close }: ModalSendEmailProps) {
     onError: (error: unknown) => {
       if (error instanceof ResponseError) {
         setError("email", { type: "manual" });
-        showToast("error", <p>존재하지 않는 이메일입니다.</p>);
+        toast.update("sendEmail", {
+          render: "존재하지 않는 이메일입니다.",
+          type: "error",
+          isLoading: false,
+          hideProgressBar: false,
+          autoClose: 1000,
+        });
       } else {
         throw error;
       }

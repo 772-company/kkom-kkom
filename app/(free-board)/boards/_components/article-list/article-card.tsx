@@ -42,14 +42,14 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </Link>
         </section>
         <section className="flex items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-0">
             <Card.Profile
               name={shortenString(article.writer.nickname, 6)}
               className="mr-4"
             />
             <Card.DateDescription
               date={article.updatedAt}
-              className="border-l border-l-background-tertiary pl-4"
+              className="border-l border-l-background-tertiary md:pl-4"
             />
           </div>
           <div className="flex items-center gap-2">

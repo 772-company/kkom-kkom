@@ -70,7 +70,7 @@ function TaskList({ taskList, groupId, index }: TaskListProps) {
   return (
     <div
       role="presentation"
-      onClick={() => router.push(`/${groupId}/tasks`)}
+      onClick={() => router.push(`/${groupId}/tasks?id=${taskList.id}`)}
       className="flex h-[40px] cursor-pointer items-center justify-between rounded-[12px] bg-background-secondary text-[14px] font-[500] leading-[40px] text-text-primary hover:bg-background-tertiary hover:shadow-lg active:bg-background-tertiary active:shadow-lg"
     >
       <div className="flex gap-[12px]">

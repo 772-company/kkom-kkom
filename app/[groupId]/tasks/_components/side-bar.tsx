@@ -174,7 +174,7 @@ export default function SideBar({
                   />
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col-reverse gap-4">
                   {comment?.map((e) => (
                     <Comment
                       date={date}

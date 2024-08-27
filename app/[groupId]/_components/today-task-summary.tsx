@@ -17,9 +17,15 @@ function TodayTaskSummary({ type, number }: TodayTaskSummaryProps) {
         <p className="text-[24px] font-[700] text-brand-tertiary">{number}개</p>
       </div>
       {type === "TODO" ? (
-        <Image src={Todo} alt="할 일 아이콘" height={40} width={40} />
+        <Image priority src={Todo} alt="할 일 아이콘" height={40} width={40} />
       ) : (
-        <Image src={Done} alt="완료한 일 아이콘" height={40} width={40} />
+        <Image
+          priority
+          src={Done}
+          alt="완료한 일 아이콘"
+          height={40}
+          width={40}
+        />
       )}
     </div>
   );

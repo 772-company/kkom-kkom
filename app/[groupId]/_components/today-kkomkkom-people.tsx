@@ -23,9 +23,9 @@ function TodayKkomkkomPeople({ topUsers }: TodayKkomkkomPeopleProps) {
   return (
     <div className="mr-[20px] flex h-full w-[200px] flex-col items-center justify-center gap-[5px] md:mr-0 md:w-[320px]">
       <div className="mb-[20px] flex items-center justify-center gap-1">
-        <Image src={Star} width={16} height={16} alt="star" />
+        <Image priority src={Star} width={16} height={16} alt="star" />
         <p className="text-text-primary">오늘의 꼼꼼이</p>
-        <Image src={Star} width={14} height={14} alt="star" />
+        <Image priority src={Star} width={14} height={14} alt="star" />
       </div>
       {topUsers.length === 0 ? (
         <div>

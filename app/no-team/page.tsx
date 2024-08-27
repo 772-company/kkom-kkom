@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Page() {
   return (
     <div className="flex h-[calc(100vh-60px)] flex-col items-center justify-center gap-[48px]">
-      <Image src={NoTeamImg} alt="물건 옮기는 사람들" />
+      <Image priority src={NoTeamImg} alt="물건 옮기는 사람들" />
       <div className="flex flex-col items-center justify-center gap-[80px]">
         <div className="flex flex-col items-center justify-center gap-[4px] text-text-default">
           <p>아직 소속된 팀이 없습니다.</p>

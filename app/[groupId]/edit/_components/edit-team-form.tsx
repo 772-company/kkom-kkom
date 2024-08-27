@@ -77,24 +77,6 @@ function EditTeamForm({ groupId }: EditTeamFormProps) {
 
   const watchedTeamName = watch("teamName", data.name) || "";
 
-  // const onSubmit: SubmitHandler<EditTeamFormValue> = async (formData) => {
-  //   if (formData.teamProfile instanceof File) {
-  //     try {
-  //       const imageToStringResponse = await uploadImage(formData.teamProfile);
-  //       formData.teamProfile = imageToStringResponse.url;
-  //     } catch (error) {
-  //       if (error instanceof ResponseError) {
-  //         showToast("error", <p>{error.message}</p>);
-  //       } else {
-  //         showToast("error", <p>다시 시도해 주세요</p>);
-  //       }
-  //       return;
-  //     }
-  //   }
-
-  //   createTeamMutation.mutate(formData);
-  // };
-
   const onSubmit: SubmitHandler<EditTeamFormValue> = async (formData) => {
     let updatedFormData = { ...formData };
 

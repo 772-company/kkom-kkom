@@ -61,6 +61,7 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
           <Image
+            priority
             src={member.userImage}
             alt="유저 프로필 사진"
             width={24}
@@ -72,7 +73,7 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
         )}
         <div className="flex items-center gap-[4px]">
           {member.role === "ADMIN" && (
-            <Image src={Crown} alt="왕관" width={20} height={20} />
+            <Image priority src={Crown} alt="왕관" width={20} height={20} />
           )}
           <p className="col-span-1 col-start-2 row-span-1 text-[14px] font-[500] text-text-primary">
             {member.userName}

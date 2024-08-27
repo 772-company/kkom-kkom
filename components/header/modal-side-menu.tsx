@@ -60,11 +60,11 @@ export default function ModalSideMenu({
                   className="object-cover"
                 />
               </div>
-              <p> {membership.group.name} 팀</p>
+              <p> {membership.group.name}</p>
             </li>
           ))}
           <li
-            className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
+            className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-background-tertiary"
             onClick={close}
             role="presentation"
           >
@@ -72,7 +72,7 @@ export default function ModalSideMenu({
             <Link href="/addteam">팀 추가하기</Link>
           </li>
           <li
-            className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-slate-700"
+            className="flex h-[35px] items-center gap-3 rounded-lg px-[3px] transition-all duration-100 hover:bg-background-tertiary"
             onClick={close}
             role="presentation"
           >

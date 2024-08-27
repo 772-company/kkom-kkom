@@ -46,13 +46,12 @@ export default function CommentsList({ articleId }: CommentListProps) {
       </section>
       {hasNextPage && !isFetching && <IntersectionArea func={fetchNextPage} />}
       {isFetching ? (
-        <section className="mt-14 flex justify-center">
+        <section className="flex justify-center">
           <Image
             src="/icons/tube-spinner.svg"
             alt="로딩 중"
             width={56}
             height={56}
-            className="md:h-auto md:w-auto"
           />
         </section>
       ) : null}

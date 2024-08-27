@@ -25,7 +25,7 @@ export default function PaginationIndicator({
           href={`/boards?page=${page}`}
           className="w-full"
         >
-          <Image src={src} alt={alt} width={24} height={24} />
+          <Image src={src} priority alt={alt} width={24} height={24} />
         </LinkButton>
       ) : (
         <Button
@@ -35,7 +35,7 @@ export default function PaginationIndicator({
           disabled
           className="w-full"
         >
-          <Image src={src} alt={alt} width={24} height={24} />
+          <Image src={src} priority alt={alt} width={24} height={24} />
         </Button>
       )}
     </div>

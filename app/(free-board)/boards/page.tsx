@@ -41,7 +41,13 @@ export default function Page({
     <HydrationBoundary state={dehydrate(queryClient)}>
       <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
         <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
-          <Image src="/icons/medal.svg" alt="Medal" width={16} height={16} />
+          <Image
+            src="/icons/medal.svg"
+            priority
+            alt="Medal"
+            width={16}
+            height={16}
+          />
           <h2 className="selection:bg-inherit">베스트 랭킹</h2>
         </header>
         <Suspense fallback={<SkeletonRankingChart />}>

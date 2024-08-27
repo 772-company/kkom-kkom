@@ -42,11 +42,12 @@ export default function LoggedInHeaderContent() {
             alt="사이드바 메뉴"
             width={24}
             height={24}
+            priority
           />
         </div>
         <Link href="/" className="flex items-center gap-1">
           <div className="size-6 xl:size-8">
-            <Image src={Pin} alt="로고" />
+            <Image src={Pin} alt="로고" priority />
           </div>
           <h2 className="text-xl font-bold text-brand-primary">KKOM-KKOM</h2>
         </Link>

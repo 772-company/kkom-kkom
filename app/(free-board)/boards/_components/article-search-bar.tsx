@@ -50,6 +50,7 @@ export default function ArticleSearchBar() {
         <Image
           src="/icons/search.svg"
           alt="돋보기"
+          priority
           width={24}
           height={24}
           className="absolute left-4 top-3 md:top-4"

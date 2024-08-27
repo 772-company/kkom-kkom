@@ -1,8 +1,8 @@
 "use client";
 
+import FireIcon from "@/public/icons/fire.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
 import shortenString from "@/utils/shorten-string";
-import Image from "next/image";
 import Link from "next/link";
 
 import { useArticlesQuery } from "../../_query/query";
@@ -27,14 +27,7 @@ export default function ArticleRankingChart() {
               className="flex gap-1 hover:underline"
             >
               {`${shortenString(article.title, 16)}`}
-              {i <= 2 && (
-                <Image
-                  src="/icons/fire.svg"
-                  alt="Fire"
-                  width={16}
-                  height={16}
-                />
-              )}
+              {i <= 2 && <FireIcon width={16} height={16} />}
             </Link>
           </span>
           <div className="flex-shrink-0 text-sm font-normal text-text-disabled">

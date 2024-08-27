@@ -38,6 +38,7 @@ export default function ArticleOrderbyDropdown({
           <Image
             src="/icons/toggle.svg"
             alt="토글"
+            priority
             width="24"
             height="24"
             className="group-hover:animate-pulse"

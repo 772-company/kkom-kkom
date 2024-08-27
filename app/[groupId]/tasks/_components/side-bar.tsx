@@ -22,9 +22,9 @@ interface SideBarProps {
   groupId: string;
   taskListId: number | undefined;
   todoId: number | undefined;
-  handleCancelButton: () => void;
   isOpen: boolean;
   date: Date;
+  handleCancelButton: () => void;
 }
 
 export default function SideBar({
@@ -94,6 +94,7 @@ export default function SideBar({
         onClick={handleCancelButton}
         role="presentation"
       />
+
       <div className="overflow-auto border-t border-background-primary bg-background-secondary p-6 sm:w-full md:w-[435px] xl:w-[779px]">
         <PageButton
           className="mb-6"
@@ -111,6 +112,7 @@ export default function SideBar({
               </h1>
 
               <KebabPopover
+                commentUserId={taskDetail?.writer.id}
                 openDeleteModal={deleteTodoModalOverlay.open}
                 openEditModal={editTodoModalOverlay.open}
               />
@@ -177,8 +179,8 @@ export default function SideBar({
                 <div className="flex flex-col gap-4">
                   {comment?.map((e) => (
                     <Comment
-                      date={date}
                       taskListId={taskListId}
+                      date={date}
                       key={e.id}
                       commentData={e}
                     />

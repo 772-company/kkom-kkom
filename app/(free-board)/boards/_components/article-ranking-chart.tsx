@@ -2,7 +2,6 @@
 
 import FireIcon from "@/public/icons/fire.svg";
 import { convertDiffDateFromNow } from "@/utils/convert-date";
-import shortenString from "@/utils/shorten-string";
 import Link from "next/link";
 
 import { useArticlesQuery } from "../../_query/query";
@@ -18,17 +17,17 @@ export default function ArticleRankingChart() {
       {articles.list.map((article, i) => (
         <li
           key={article.id}
-          className={`flex items-center justify-between gap-1 ${i <= 2 ? "font-extrabold" : "font-base"}`}
+          className={`flex items-center gap-1 ${i <= 2 ? "font-extrabold" : "font-base"}`}
         >
-          <span className="flex gap-1">
+          <span className="flex flex-1 gap-1">
             <span className="hover:no-underline">{`${i + 1}. `}</span>
             <Link
               href={`/boards/${article.id}`}
-              className="flex gap-1 hover:underline"
+              className="line-clamp-1 hover:underline"
             >
-              {`${shortenString(article.title, 16)}`}
-              {i <= 2 && <FireIcon width={16} height={16} />}
+              {article.title}
             </Link>
+            {i <= 2 && <FireIcon width={16} height={16} />}
           </span>
           <div className="flex-shrink-0 text-sm font-normal text-text-disabled">
             {convertDiffDateFromNow(new Date(article.updatedAt))}

@@ -15,6 +15,7 @@ export default function useArticlesCommentsQuery(articleId: number) {
       getArticlesArticleIdComments({ cursor: pageParam, articleId }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 2000,
   });
 }
 
@@ -22,6 +23,7 @@ export function useUserQuery() {
   return useSuspenseQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
+    staleTime: 2000,
   });
 }
 
@@ -29,6 +31,7 @@ export function useArticleQuery(articleId: number) {
   return useSuspenseQuery({
     queryKey: ["article", { articleId }],
     queryFn: () => getArticlesArticleId({ articleId }),
+    staleTime: 2000,
   });
 }
 

@@ -24,7 +24,7 @@ export default function ProfileIcon({
   height,
 }: ProfileIconProps) {
   return (
-    <div>
+    <>
       {type === "teamProfile" &&
         (image ? (
           <Image
@@ -41,7 +41,7 @@ export default function ProfileIcon({
       {type === "myProfile" &&
         (image ? (
           <Image
-            className="rounded-full"
+            className="h-[32px] rounded-full"
             width={width}
             height={height}
             src={image}
@@ -50,6 +50,6 @@ export default function ProfileIcon({
         ) : (
           <DefaultImage width={width} height={height} />
         ))}
-    </div>
+    </>
   );
 }

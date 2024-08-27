@@ -1,10 +1,4 @@
-import Medal from "@/public/icons/medal.svg";
-import { Suspense } from "react";
-
-import UploadArticleButton from "./_components/upload-article-button";
-import ArticleRankingChart from "./boards/_components/article-ranking-chart";
 import ArticleSearchBar from "./boards/_components/article-search-bar";
-import SkeletonRankingChart from "./boards/_components/skeleton-components/skeleton-ranking-chart";
 
 export default function Layout({
   children,
@@ -19,19 +13,7 @@ export default function Layout({
         </h1>
         <ArticleSearchBar />
       </header>
-      <section className="mt-6 md:mt-8">
-        <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
-          <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
-            <Medal width={16} height={16} />
-            <h2 className="selection:bg-inherit">베스트 랭킹</h2>
-          </header>
-          <Suspense fallback={<SkeletonRankingChart />}>
-            <ArticleRankingChart />
-          </Suspense>
-        </section>
-        {children}
-      </section>
-      <UploadArticleButton />
+      <section className="mt-6 md:mt-8">{children}</section>
     </div>
   );
 }

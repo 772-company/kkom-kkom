@@ -40,7 +40,13 @@ export default function ModalResetPassword({ close }: ModalResetPasswordProps) {
       close();
     },
     onError: (response) => {
-      showToast("error", <p>{response.message}</p>);
+      toast.update("updatePassword", {
+        render: response.message,
+        type: "error",
+        isLoading: false,
+        hideProgressBar: false,
+        autoClose: 1000,
+      });
     },
   });
 

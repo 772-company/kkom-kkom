@@ -31,7 +31,12 @@ export default function CheckBox({
     mutate();
   };
   return (
-    <button type="button" onClick={handleClick} disabled={isPending}>
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={isPending}
+      aria-label="check-box"
+    >
       {checkTodo(doneAt, date) ? (
         <CheckBoxActive width={16} height={16} />
       ) : (

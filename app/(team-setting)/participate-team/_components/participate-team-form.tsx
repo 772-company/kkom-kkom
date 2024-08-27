@@ -4,7 +4,8 @@ import Button from "@/components/button/button";
 import { BasicInput } from "@/components/input-field/basic-input";
 import { postGroupInvitation } from "@/lib/apis/group";
 import { showToast } from "@/lib/show-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 interface ParticipateTeamFormProps {
@@ -27,13 +28,16 @@ function ParticipateTeamForm({ email }: ParticipateTeamFormProps) {
 
   const onSubmit = async (data: TeamLinkFormValues) => {
     try {
-      await postGroupInvitation({
+      const response = await postGroupInvitation({
         userEmail: email,
         token: data.token,
       });
-      showToast("success", "팀 참여에 성공하였습니다.");
-      router.push("/");
-      router.refresh();
+      if (response) {
+        showToast("success", "팀 참여에 성공하였습니다.");
+        router.push(`/${response.groupId}`);
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       showToast(
         "error",

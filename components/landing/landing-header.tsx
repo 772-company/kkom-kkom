@@ -1,9 +1,8 @@
-import header from "@/public/images/landing-header-large.png";
 import { hasCookie } from "cookies-next";
 import { cookies } from "next/headers";
 import Image from "next/image";
 
-import { LinkButton } from "../button/button";
+import LinkButton from "../button/link-button";
 import LoggedInButton from "./logged-in-button";
 
 export default function LandingHeader() {
@@ -12,12 +11,13 @@ export default function LandingHeader() {
   return (
     <section className="relative h-[547px] w-full xl:mx-auto xl:max-w-[1920px]">
       <Image
-        src={header}
+        src="/images/landing-header-large.webp"
         fill
+        priority
         alt="할 일 옮기는 캐릭터와 기차"
         className="object-cover"
       />
-      <div className="flex flex-col items-center justify-center gap-1 pt-[55px] md:pt-[100px] xl:pt-[84px]">
+      <div className="relative flex flex-col items-center justify-center gap-1 pt-[55px] md:pt-[100px] xl:pt-[84px]">
         <h2 className="text-2xl font-semibold text-text-primary md:text-[40px]">
           함께 만들어가는 투두 리스트 🛠️
         </h2>
@@ -31,7 +31,7 @@ export default function LandingHeader() {
             btnSize="large"
             btnStyle="gradient"
             href="/login"
-            className="mt-[340px] w-[343px] xl:mt-[360px]"
+            className="relative z-20 mt-[340px] w-[343px] xl:mt-[360px]"
           >
             지금 시작하기
           </LinkButton>

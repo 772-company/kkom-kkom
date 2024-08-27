@@ -14,19 +14,19 @@ export default function ThemeToggle() {
 
   return (
     <div className="flex items-center">
-      <div className="flex h-6 w-11 rounded-full bg-brand-secondary bg-opacity-40 p-[2px] dark:justify-end dark:bg-white">
-        <button
-          type="button"
-          className="flex size-5 items-center justify-center rounded-full bg-brand-primary dark:bg-background-tertiary"
-          onClick={handleToggle}
-        >
+      <button
+        type="button"
+        onClick={handleToggle}
+        className="flex h-6 w-11 rounded-full bg-brand-secondary bg-opacity-40 p-[2px] dark:justify-end dark:bg-white"
+      >
+        <div className="flex size-5 items-center justify-center rounded-full bg-brand-primary dark:bg-background-tertiary">
           {theme === "light" ? (
             <Sun width={14} height={14} />
           ) : (
             <Moon width={14} height={14} />
           )}
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 }

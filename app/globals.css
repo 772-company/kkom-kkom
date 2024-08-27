@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    #nprogress .bar {
+      top: 60px;
+    }
+    #nprogress .peg {
+      box-shadow:
+        0 0px 0px var(--nprogress-color),
+        0 0px 0px var(--nprogress-color);
+    }
+  }
   :root {
     --background-primary: #f0fdf9;
     --background-secondary: #e2f4ed;

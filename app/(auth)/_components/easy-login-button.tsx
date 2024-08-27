@@ -1,8 +1,7 @@
 "use client";
 
 import { GOOGLE_OAUTH_URL, KAKAO_OAUTH_URL } from "@/constants/oauth";
-import Google from "@/public/icons/google.svg";
-import KakaoTalk from "@/public/icons/kakao-talk.svg";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -34,9 +33,19 @@ export default function EasyLoginButton({ domain }: EasyLoginButtonProps) {
       className={`flex size-[42px] items-center justify-center rounded-full ${isKaKaoTalk ? "bg-[#F5E14B]" : "bg-[#F9FAFB]"}`}
     >
       {isKaKaoTalk ? (
-        <KakaoTalk width={26} height={24} />
+        <Image
+          src="/icons/kakao-talk.svg"
+          alt="카카오톡 간편 로그인"
+          width={26}
+          height={26}
+        />
       ) : (
-        <Google width={26} height={24} />
+        <Image
+          src="/icons/google.svg"
+          alt="구글 간편 로그인"
+          width={26}
+          height={26}
+        />
       )}
     </Link>
   );

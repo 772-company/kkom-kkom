@@ -56,9 +56,21 @@ export default function UpdateUserForm() {
     onError: async (error) => {
       if (error instanceof ResponseError) {
         const response = (await error.response?.json()) as { message: string };
-        showToast("error", <p>{response.message}</p>);
+        toast.update("updateUserInfo", {
+          render: response.message,
+          type: "error",
+          isLoading: false,
+          hideProgressBar: false,
+          autoClose: 1000,
+        });
       } else {
-        showToast("error", <p>다시 시도해 주세요</p>);
+        toast.update("updateUserInfo", {
+          render: "다시 시도해 주세요.",
+          type: "error",
+          isLoading: false,
+          hideProgressBar: false,
+          autoClose: 1000,
+        });
       }
     },
   });

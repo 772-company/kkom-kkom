@@ -1,4 +1,4 @@
-import { LinkButton } from "@/components/button/button";
+import LinkButton from "@/components/button/link-button";
 import NoTeamImg from "@/public/images/no-team.png";
 import Image from "next/image";
 

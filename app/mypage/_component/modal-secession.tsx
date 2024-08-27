@@ -1,10 +1,10 @@
 import Modal from "@/components/modal/modal";
 import { deleteAccount } from "@/lib/apis/user";
 import { showToast } from "@/lib/show-toast";
-import Alert from "@/public/icons/alert.svg";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next-nprogress-bar";
+import Image from "next/image";
 import { toast } from "react-toastify";
 
 interface ModalWarningProps {
@@ -19,6 +19,7 @@ interface ModalWarningProps {
  */
 export default function ModalSecession({ close }: ModalWarningProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deleteAccount(),
     onMutate: () => {
@@ -31,6 +32,7 @@ export default function ModalSecession({ close }: ModalWarningProps) {
       router.push("/");
       deleteCookie("accessToken");
       deleteCookie("refreshToken");
+      queryClient.invalidateQueries({ queryKey: ["getUser"] });
       router.refresh();
       toast.update("deleteAccount", {
         render: "탈퇴되었습니다.",
@@ -51,7 +53,7 @@ export default function ModalSecession({ close }: ModalWarningProps) {
   return (
     <Modal close={close} closeOnFocusOut>
       <header className="flex justify-center pb-4 pt-6">
-        <Alert width={24} height={24} />
+        <Image src="/icons/alert.svg" alt="경고창" width={24} height={24} />
       </header>
       <div className="mx-12 text-center md:mx-9">
         <Modal.Title className="mb-2 text-slate-50 md:text-text-primary">

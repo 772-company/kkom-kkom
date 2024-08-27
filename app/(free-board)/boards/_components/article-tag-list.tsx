@@ -1,7 +1,6 @@
 "use client";
 
 import SEARCH_TAGS from "@/constants/search-tags";
-import { useProgress } from "@/hooks/use-progress";
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 
@@ -15,7 +14,6 @@ export default function ArticleTagList({ keyword }: ArticleTagListProps) {
     containScroll: "keepSnaps",
     dragFree: true,
   });
-  const progress = useProgress();
 
   return (
     <section className="flex flex-1 items-center overflow-hidden text-text-primary">
@@ -29,7 +27,6 @@ export default function ArticleTagList({ keyword }: ArticleTagListProps) {
               <Link
                 className={`w-fit break-keep rounded-2xl border border-black border-opacity-10 bg-background-tertiary px-3 py-2 text-xs font-bold selection:bg-background-tertiary hover:text-brand-primary dark:border dark:border-white dark:border-opacity-10 md:px-6 md:text-sm ${keyword === tag ? "text-brand-primary" : ""}`}
                 href={`/boards?keyword=${tag}`}
-                onClick={progress(`/boards?keyword=${tag}`)}
               >
                 #{tag}
               </Link>

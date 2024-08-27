@@ -19,15 +19,16 @@ function CommentKebabPopOver({
     { text: "수정하기", onClick: handleClickEditMode },
     { text: "삭제하기", onClick: handleClickDeleteComment },
   ];
+
   return (
     <Popover
-      content={userId !== commentUserId ? popOverContent : []}
+      content={userId === commentUserId ? popOverContent : []}
       triggerWidth={16}
       triggerHeight={16}
       triggerSvg={Kebab}
       triggerImageAlt="케밥"
       className="h-4 w-4"
-      contentClassName="h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary"
+      contentClassName={`h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary ${userId !== commentUserId && "hidden"}`}
     />
   );
 }

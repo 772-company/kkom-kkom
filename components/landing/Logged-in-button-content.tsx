@@ -3,7 +3,7 @@
 import { getUser } from "@/lib/apis/user";
 import { useQuery } from "@tanstack/react-query";
 
-import { LinkButton } from "../button/button";
+import LinkButton from "../button/link-button";
 
 export default function LoggedInButtonContent() {
   const { data, isSuccess } = useQuery({

@@ -73,7 +73,7 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
 
   return (
     <Modal
-      className="md:h-[930px]w-[384px] flex h-[90vh] w-full flex-col items-center gap-4 overflow-y-auto overflow-x-clip p-[32px]"
+      className="flex h-[90vh] w-full flex-col items-center gap-4 overflow-y-auto overflow-x-clip p-[32px] md:w-[384px]"
       close={close}
       closeOnFocusOut
     >

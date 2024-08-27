@@ -1,3 +1,5 @@
+import DefaultImage from "@/public/icons/default-profile.svg";
+import TeamImage from "@/public/icons/image.svg";
 import Image from "next/image";
 import React from "react";
 
@@ -23,25 +25,31 @@ export default function ProfileIcon({
 }: ProfileIconProps) {
   return (
     <div>
-      {type === "teamProfile" && (
-        <Image
-          width={width}
-          height={height}
-          className="rounded-full"
-          src={image || "/icons/img.svg"}
-          alt="팀이미지"
-        />
-      )}
+      {type === "teamProfile" &&
+        (image ? (
+          <Image
+            width={width}
+            height={height}
+            className="rounded-full"
+            src={image || "/icons/img.svg"}
+            alt="팀이미지"
+          />
+        ) : (
+          <TeamImage width={width} height={height} />
+        ))}
 
-      {type === "myProfile" && (
-        <Image
-          className="rounded-full"
-          width={width}
-          height={height}
-          src={image || "/icons/default-profile.svg"}
-          alt="나의이미지"
-        />
-      )}
+      {type === "myProfile" &&
+        (image ? (
+          <Image
+            className="rounded-full"
+            width={width}
+            height={height}
+            src={image}
+            alt="나의이미지"
+          />
+        ) : (
+          <DefaultImage width={width} height={height} />
+        ))}
     </div>
   );
 }

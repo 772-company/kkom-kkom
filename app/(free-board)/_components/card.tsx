@@ -1,14 +1,13 @@
 "use client";
 
 import useClickOutside from "@/hooks/use-click-outside";
-import Comment from "@/public/icons/comment.svg";
-import ProfileIcon from "@/public/icons/default-profile.svg";
+import DefaultProfile from "@/public/icons/default-profile.svg";
 import { KebabHover } from "@/public/icons/kebab-hover";
 import { KebabLarge } from "@/public/icons/kebab-large";
 import LikeButtonColored from "@/public/icons/like-button-colored";
 import { convertDateToYMD } from "@/utils/convert-date";
 import Image from "next/image";
-import { ButtonHTMLAttributes, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
 interface CardProps {
   children: React.ReactNode;
@@ -103,7 +102,7 @@ export function Profile({
           className="rounded-full"
         />
       ) : (
-        <ProfileIcon width={32} height={32} className="rounded-full" />
+        <DefaultProfile width={32} height={32} className="rounded-full" />
       )}
       <span className="leading-3 md:leading-[14px]">{name}</span>
     </section>
@@ -133,8 +132,7 @@ export function DateDescription({
 
 DateDescription.displayName = "DateDescription";
 
-interface LikeCountSectionProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface LikeCountSectionProps {
   likeCount: number;
   isClicked: boolean;
   size?: number;
@@ -144,13 +142,10 @@ export function LikeCountSection({
   likeCount,
   isClicked,
   size = 16,
-  ...props
 }: LikeCountSectionProps) {
   return (
     <section className="flex items-center gap-1 text-sm font-normal leading-4 text-text-disabled">
-      <button type="button" {...props}>
-        <LikeButtonColored size={size} isClicked={isClicked} />
-      </button>
+      <LikeButtonColored size={size} isClicked={isClicked} />
       <span className="flex h-4 items-center">
         {likeCount > 9999 ? "9999+" : likeCount}
       </span>
@@ -175,7 +170,7 @@ export function CommentIcon({
     <section
       className={`flex items-center gap-0.5 text-sm font-normal leading-4 text-text-disabled ${className}`}
     >
-      <Comment width={size} height={size} />
+      <Image src="/icons/comment.svg" alt="댓글" width={size} height={size} />
       <span className="flex h-4 items-center">
         {commentCount > 9999 ? "9999+" : commentCount}
       </span>

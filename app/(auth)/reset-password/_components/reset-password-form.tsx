@@ -53,7 +53,13 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       if (error instanceof ResponseError) {
         const response = await error.response?.json();
         // NOTE - 토큰 요휴시간(1시간)이 지난 경우
-        showToast("error", <p>{response}</p>);
+        toast.update("resetPassword", {
+          render: response,
+          type: "error",
+          isLoading: false,
+          hideProgressBar: false,
+          autoClose: 1000,
+        });
         router.push("/login");
       } else {
         throw error;

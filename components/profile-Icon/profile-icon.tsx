@@ -30,7 +30,7 @@ export default function ProfileIcon({
           <Image
             width={width}
             height={height}
-            className="rounded-full"
+            className="h-[32px] rounded-full"
             src={image || "/icons/img.svg"}
             alt="팀이미지"
           />

@@ -3,6 +3,7 @@
 import useArticlesCommentsQuery, {
   useArticleQuery,
 } from "@/app/(free-board)/_query/query";
+import LinkButton from "@/components/button/link-button";
 import IntersectionArea from "@/components/intersection-area/intersection-area";
 import Image from "next/image";
 
@@ -55,6 +56,16 @@ export default function CommentsList({ articleId }: CommentListProps) {
           />
         </section>
       ) : null}
+      <section className="mt-8 flex w-full justify-center">
+        <LinkButton
+          href="/boards"
+          btnSize="large"
+          btnStyle="outlined"
+          className="w-[184px]"
+        >
+          목록
+        </LinkButton>
+      </section>
     </>
   );
 }

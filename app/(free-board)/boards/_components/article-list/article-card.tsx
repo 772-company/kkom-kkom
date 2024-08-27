@@ -1,7 +1,6 @@
 "use client";
 
 import { GetArticlesResponse } from "@/lib/apis/type";
-import shortenString from "@/utils/shorten-string";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,20 +35,17 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <section className="flex items-center justify-between">
           <Link
             href={`/boards/${article.id}`}
-            className="inline hover:underline"
+            className="line-clamp-2 hover:underline"
           >
             {article.title}
           </Link>
         </section>
         <section className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Card.Profile
-              name={shortenString(article.writer.nickname, 6)}
-              className="mr-4"
-            />
+          <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-0">
+            <Card.Profile name={article.writer.nickname} className="mr-4" />
             <Card.DateDescription
               date={article.updatedAt}
-              className="border-l border-l-background-tertiary pl-4"
+              className="border-l border-l-background-tertiary md:pl-4"
             />
           </div>
           <div className="flex items-center gap-2">

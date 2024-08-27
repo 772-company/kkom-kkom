@@ -97,7 +97,10 @@ function Popover({
   return (
     <PopOver open={open} onOpenChange={(props) => setOpen(props)}>
       <div className={`${className}`}>
-        <PopoverTrigger onClick={(e) => e.stopPropagation()}>
+        <PopoverTrigger
+          aria-label="button-for-popover"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div
             className={`${triggerClassName} flex items-center justify-center gap-[5px]`}
           >

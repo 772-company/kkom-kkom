@@ -87,6 +87,7 @@ export default function Pagination({
                   btnSize="large"
                   disabled
                   btnStyle="outlined"
+                  aria-label="disabled"
                   className="w-full"
                 />
               </PaginationItem>

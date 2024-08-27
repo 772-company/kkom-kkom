@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
 import ArrowReturn from "@/public/icons/arrow-return";
+import MediaIcon from "@/public/icons/media-icon.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -78,12 +79,7 @@ export default function FileDragDown({
               <input {...getInputProps()} />
               {preview === null ? (
                 <section className="relative inset-0 flex h-full w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-background-tertiary bg-white py-4 md:aspect-square">
-                  <Image
-                    src="/icons/media-icon.svg"
-                    alt="media-icon"
-                    height="77"
-                    width="96"
-                  />
+                  <MediaIcon />
                   <p className="text-xl font-bold text-black">
                     사진과 동영상을 여기에 놓으세요
                   </p>

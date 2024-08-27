@@ -1,13 +1,17 @@
 import getQueryClient from "@/app/get-query-client";
 import { getArticles } from "@/lib/apis/article";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import Image from "next/image";
 import { Suspense } from "react";
 
 import ArticlesList from "./_components/article-list/articles-list";
 import ArticleOrderbyDropdown from "./_components/article-orderby-dropdown";
+import ArticleRankingChart from "./_components/article-ranking-chart";
 import ArticleResetButton from "./_components/article-reset-button";
 import ArticleTagList from "./_components/article-tag-list";
 import SkeletonCardList from "./_components/skeleton-components/skeleton-card-list";
+import SkeletonRankingChart from "./_components/skeleton-components/skeleton-ranking-chart";
+import UploadArticleButton from "./_components/upload-article-button";
 
 export default function Page({
   searchParams,
@@ -28,8 +32,28 @@ export default function Page({
     queryFn: () => getArticles({ page, orderBy, keyword }),
   });
 
+  queryClient.prefetchQuery({
+    queryKey: ["articles", { page: "1", orderBy: "like", keyword: "" }],
+    queryFn: () => getArticles({ page: "1", orderBy: "like", keyword: "" }),
+  });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
+        <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
+          <Image
+            src="/icons/medal.svg"
+            priority
+            alt="Medal"
+            width={16}
+            height={16}
+          />
+          <h2 className="selection:bg-inherit">베스트 랭킹</h2>
+        </header>
+        <Suspense fallback={<SkeletonRankingChart />}>
+          <ArticleRankingChart />
+        </Suspense>
+      </section>
       <section className="mt-4 pb-12">
         <header className="mb-6 flex h-10 items-center justify-between text-base font-medium text-text-primary md:h-11">
           <h2 className="flex-1 selection:bg-inherit">
@@ -59,6 +83,7 @@ export default function Page({
           <ArticlesList searchParams={searchParams} />
         </Suspense>
       </section>
+      <UploadArticleButton />
     </HydrationBoundary>
   );
 }

@@ -66,14 +66,14 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
     setIsEdit(false);
   }, [setIsEdit]);
   const handleOpen = useCallback(() => {
-    setIsOpen(false);
+    setIsOpen(true);
     if (contentRef.current) {
       contentRef.current.style.overflow = "visible";
       contentRef.current.style.height = "fit-content";
     }
   }, []);
   const handleClose = useCallback(() => {
-    setIsOpen(true);
+    setIsOpen(false);
     if (contentRef.current) {
       contentRef.current.style.overflow = "hidden";
       contentRef.current.style.height = "4rem";
@@ -81,7 +81,7 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
   }, []);
   useLayoutEffect(() => {
     if (lineRef?.current && lineRef.current?.scrollHeight > 72) {
-      setIsOpen(true);
+      setIsOpen(false);
     }
   }, []);
 
@@ -103,13 +103,22 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
                 ))}
               </p>
             </section>
-            {isOpen && (
+            {isOpen === false && (
               <button
-                onClick={isOpen ? handleOpen : handleClose}
+                onClick={handleOpen}
                 type="button"
                 className="mr-auto flex text-interaction-inactive hover:underline"
               >
-                {isOpen ? "더보기" : "접기"}
+                더보기
+              </button>
+            )}
+            {isOpen === true && (
+              <button
+                onClick={handleClose}
+                type="button"
+                className="mr-auto flex text-interaction-inactive hover:underline"
+              >
+                접기
               </button>
             )}
             <section className="mt-1 flex">

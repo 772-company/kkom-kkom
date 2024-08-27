@@ -13,6 +13,7 @@ export default function LandingHeader() {
       <Image
         src="/images/landing-header-large.webp"
         fill
+        priority
         alt="할 일 옮기는 캐릭터와 기차"
         className="object-cover"
       />

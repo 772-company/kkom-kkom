@@ -24,6 +24,7 @@ export default function TaskButton({
         type="button"
         {...rest}
         name={rest.name}
+        aria-label="arrow-button"
         className="flex h-4 w-4 items-center justify-center rounded-full bg-background-secondary"
       >
         {rest.name === "left" ? (
@@ -38,7 +39,8 @@ export default function TaskButton({
     return (
       <button
         type="button"
-        className={`h-[24] w-[24px] ${className}`}
+        className={`h-[24px] w-[24px] ${className}`}
+        aria-label="cancel-button"
         {...rest}
       >
         <X width={24} height={24} />

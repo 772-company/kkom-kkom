@@ -8,8 +8,8 @@ import {
   m,
   useInView,
 } from "framer-motion";
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -50,6 +50,7 @@ export default function ArticleSearchBar() {
         <Image
           src="/icons/search.svg"
           alt="돋보기"
+          priority
           width={24}
           height={24}
           className="absolute left-4 top-3 md:top-4"

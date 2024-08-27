@@ -38,6 +38,7 @@ export default function EasyLoginButton({ domain }: EasyLoginButtonProps) {
           alt="카카오톡 간편 로그인"
           width={26}
           height={26}
+          priority
         />
       ) : (
         <Image
@@ -45,6 +46,7 @@ export default function EasyLoginButton({ domain }: EasyLoginButtonProps) {
           alt="구글 간편 로그인"
           width={26}
           height={26}
+          priority
         />
       )}
     </Link>

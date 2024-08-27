@@ -10,7 +10,7 @@ export const loginSchema = yup.object().shape({
     .min(8, "비밀번호는 최소 8자 이상입니다.")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
-      "비밀번호는 숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
+      "숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
     )
     .required("비밀번호를 입력해 주세요"),
 });
@@ -29,7 +29,7 @@ export const signUpSchema = yup.object().shape({
     .min(8, "비밀번호는 최소 8자 이상입니다.")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
-      "비밀번호는 숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
+      "숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
     )
     .required("비밀번호를 입력해 주세요"),
   passwordConfirmation: yup
@@ -44,7 +44,7 @@ export const resetPasswordSchema = yup.object().shape({
     .min(8, "비밀번호는 최소 8자 이상입니다.")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
-      "비밀번호는 숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
+      "숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.",
     )
     .required("비밀번호를 입력해 주세요"),
   passwordConfirmation: yup

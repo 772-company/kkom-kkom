@@ -19,6 +19,7 @@ interface CommentProps {
 function Comment({ date, taskListId, commentData }: CommentProps) {
   const { isEidtMode, userData, handleCancelEditMode, handleClickEditMode } =
     useEditComment();
+
   const { mutate: deleteCommentMutate } = useDeleteComment(
     taskListId ?? -1,
     commentData.taskId,
@@ -73,6 +74,7 @@ function Comment({ date, taskListId, commentData }: CommentProps) {
                 >
                   취소
                 </Button>
+
                 <Button
                   type="submit"
                   btnStyle="outlined"

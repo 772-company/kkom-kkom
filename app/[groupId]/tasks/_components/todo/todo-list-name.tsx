@@ -13,7 +13,7 @@ export default function TodoListName({
   return (
     <button
       {...rest}
-      className={`h-[25px] text-[16px] font-medium ${rest.name === selectedButton?.toString() ? "border- border-b border-solid border-text-tertiary" : "text-text-default"}`}
+      className={`h-[25px] text-[16px] font-medium ${rest.name === selectedButton?.toString() ? "border-b border-solid border-text-tertiary" : "text-text-default"}`}
       onClick={rest.onClick}
       type="button"
     >

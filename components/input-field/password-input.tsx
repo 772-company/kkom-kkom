@@ -76,6 +76,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
               alt="비밀번호 보이게 하는 눈모양 버튼"
               width={24}
               height={24}
+              priority
             />
           ) : (
             <Image
@@ -83,6 +84,7 @@ export default function PasswordInput<TFormInput extends FieldValues>({
               alt="비밀번호 보이지 않게 하는 눈 버튼"
               width={24}
               height={24}
+              priority
             />
           )}
         </button>

@@ -83,6 +83,8 @@ export default function ProfileInput<TFormInput extends FieldValues>({
                 src={previewImage}
                 alt={type === "teamProfile" ? "팀 이미지" : "내 이미지"}
                 className="object-cover"
+                priority
+                sizes="64px"
               />
             </div>
           ) : (

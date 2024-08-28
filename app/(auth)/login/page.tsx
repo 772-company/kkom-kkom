@@ -10,7 +10,7 @@ export default function LoginPage() {
         로그인
       </h1>
       <LoginForm />
-      <div className="mt-6">
+      <div className="mt-6 pb-6">
         <section className="mb-[25px] flex items-center justify-center gap-3">
           <p className="text-sm font-medium text-text-primary">
             아직 계정이 없으신가요 ?

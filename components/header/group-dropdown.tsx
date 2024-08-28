@@ -92,6 +92,7 @@ export default function GroupDropdown({ memberships }: GroupDropdownProps) {
                       alt={`${membership.group.name} 이미지`}
                       fill
                       className="object-cover"
+                      sizes="32px"
                     />
                   </div>
                   <p className="text-base font-medium text-text-primary">

@@ -15,11 +15,10 @@ export const revalidate = 0;
 const page = async (context: any) => {
   const queryClient = new QueryClient();
   const { params, searchParams } = context;
-  console.log(context);
 
   Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ["groupInfo"],
+      queryKey: ["groupInfo", params.groupId],
       queryFn: () => getGroupInfo({ groupId: params.groupId }),
     }),
     queryClient.prefetchQuery({

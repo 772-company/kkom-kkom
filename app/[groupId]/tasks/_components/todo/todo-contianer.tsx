@@ -13,7 +13,7 @@ interface TodoContainerProps {
 }
 function TodoContainer({ groupId: id }: TodoContainerProps) {
   const { data } = useQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", id],
     queryFn: () => getGroupInfo({ groupId: id }),
   });
   const { date, convertedDate, handleChangeDate, handleClickButton } =

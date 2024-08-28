@@ -11,6 +11,7 @@ import TodoHeader from "./todo-header";
 interface TodoContainerProps {
   groupId: string;
 }
+
 function TodoContainer({ groupId: id }: TodoContainerProps) {
   const { data } = useQuery({
     queryKey: ["groupInfo", id],

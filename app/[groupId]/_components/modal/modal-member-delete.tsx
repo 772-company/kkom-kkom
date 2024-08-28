@@ -33,7 +33,7 @@ function ModalMemberDelete({
   const deleteMemberMutation = useMutation({
     mutationFn: () => deleteTeamMember({ groupId, memberUserId }),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+      await queryClient.cancelQueries({ queryKey: ["groupInfo", groupId] });
 
       const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
@@ -76,7 +76,7 @@ function ModalMemberDelete({
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["groupInfo", groupId] });
     },
   });
 

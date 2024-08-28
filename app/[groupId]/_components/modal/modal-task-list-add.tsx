@@ -22,14 +22,14 @@ function ModalTaskListAdd({ close, groupId }: ModalTaskListAddProps) {
     mutationFn: (newTaskList: { name: string }) =>
       postTaskList(groupId, newTaskList),
     onMutate: async (newTaskList) => {
-      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+      await queryClient.cancelQueries({ queryKey: ["groupInfo", groupId] });
       const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
       ]);
 
       if (previousData) {
         queryClient.setQueriesData(
-          { queryKey: ["groupInfo"] },
+          { queryKey: ["groupInfo", groupId] },
           {
             ...previousData,
             taskLists: [

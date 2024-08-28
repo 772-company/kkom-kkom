@@ -26,7 +26,7 @@ function ModalTaskListDelete({
     mutationFn: (deleteTaskListId: number) =>
       deleteTaskList({ groupId, taskListId: deleteTaskListId }),
     onMutate: async (deleteTaskListId) => {
-      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+      await queryClient.cancelQueries({ queryKey: ["groupInfo", groupId] });
 
       const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",

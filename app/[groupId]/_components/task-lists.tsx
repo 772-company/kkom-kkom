@@ -128,7 +128,7 @@ function TaskLists({ groupId, isAdmin }: TaskListsProps) {
   ));
 
   const { data } = useQuery<GetGroupsIdResponse>({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => getGroupInfo({ groupId }),
   });
 

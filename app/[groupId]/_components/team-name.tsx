@@ -19,7 +19,7 @@ function TeamName({ groupId, isAdmin }: TeamNameProps) {
   const router = useRouter();
 
   const { data } = useQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => getGroupInfo({ groupId }),
   });
 

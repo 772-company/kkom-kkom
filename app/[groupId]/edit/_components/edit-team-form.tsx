@@ -27,7 +27,7 @@ function EditTeamForm({ groupId }: EditTeamFormProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data, isSuccess } = useQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => getGroupInfo({ groupId }),
   });
 

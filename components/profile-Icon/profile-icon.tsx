@@ -24,13 +24,13 @@ export default function ProfileIcon({
   height,
 }: ProfileIconProps) {
   return (
-    <div>
+    <>
       {type === "teamProfile" &&
         (image ? (
           <Image
             width={width}
             height={height}
-            className="rounded-full"
+            className={`h-[${height}px] rounded-full object-cover`}
             src={image || "/icons/img.svg"}
             alt="팀이미지"
           />
@@ -41,7 +41,7 @@ export default function ProfileIcon({
       {type === "myProfile" &&
         (image ? (
           <Image
-            className="rounded-full"
+            className={`h-[${height}px] rounded-full object-cover`}
             width={width}
             height={height}
             src={image}
@@ -50,6 +50,6 @@ export default function ProfileIcon({
         ) : (
           <DefaultImage width={width} height={height} />
         ))}
-    </div>
+    </>
   );
 }

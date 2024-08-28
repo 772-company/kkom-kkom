@@ -1,6 +1,7 @@
 "use client";
 
 import { BasicInput } from "@/components/input-field/basic-input";
+import SearchBarIcon from "@/public/icons/search.svg";
 import {
   AnimatePresence,
   LazyMotion,
@@ -8,7 +9,6 @@ import {
   m,
   useInView,
 } from "framer-motion";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -47,10 +47,7 @@ export default function ArticleSearchBar() {
           placeholder="검색어를 입력해주세요"
           className="h-12 border border-black border-opacity-10 pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
         />
-        <Image
-          src="/icons/search.svg"
-          alt="돋보기"
-          priority
+        <SearchBarIcon
           width={24}
           height={24}
           className="absolute left-4 top-3 md:top-4"
@@ -76,9 +73,7 @@ export default function ArticleSearchBar() {
                   placeholder="검색어를 입력해주세요"
                   className="h-12 bg-background-tertiary pl-[48px] text-sm font-normal text-text-default md:h-14 md:pl-[52px] md:text-base"
                 />
-                <Image
-                  src="/icons/search.svg"
-                  alt="돋보기"
+                <SearchBarIcon
                   width={24}
                   height={24}
                   className="absolute left-8 top-3 md:left-4 md:top-4"

@@ -22,6 +22,7 @@ function TodoContainer({ groupId: id }: TodoContainerProps) {
   return (
     <div>
       <TodoHeader
+        members={data ? data?.members : []}
         groupId={id}
         onClickButton={handleClickButton}
         date={date}

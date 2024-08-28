@@ -2,7 +2,6 @@
 
 <img src="public/images/readme-main.png">
 
-> 코드잇 스프린트 프론트엔드 트랙 심화 프로젝트<br>
 > 스마트한 일정 관리 서비스
 
 ## 🔗 [kkom-kkom](https://kkom-kkom.vercel.app/)
@@ -37,31 +36,31 @@
             <th style="vertical-align: top; text-align: center; padding: 10px;">
                 <a href="https://github.com/ssseeo0">김서영</a>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li>유저 기능</li>
-                    <li>소셜 로그인</li>
-                    <li>테마</li>
+                    <li style="list-style-type: none;">유저 기능</li>
+                    <li style="list-style-type: none;">소셜 로그인</li>
+                    <li style="list-style-type: none;">테마</li>
                 </ul>
             </th>
             <th style="vertical-align: top; text-align: center; padding: 10px;">
                 <a href="https://github.com/ldkstellar">이동규</a>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li>테스크 페이지</li>
-                    <li>일정 관리 기능</li>
+                    <li style="list-style-type: none;">테스크 페이지</li>
+                    <li style="list-style-type: none;">일정 관리 기능</li>
                 </ul>
             </th>
             <th style="vertical-align: top; text-align: center; padding: 10px;">
                 <a href="https://github.com/codefug">이승현</a>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li>자유게시판</li>
+                    <li style="list-style-type: none;">자유게시판</li>
                     <li style="line-height: 16px;">공통 오버레이<br>훅 제작</li>
-                    <li>테스크 코드</li>
+                    <li style="list-style-type: none;">테스크 코드</li>
                 </ul>
             </th>
             <th style="vertical-align: top; text-align: center; padding: 10px;">
                 <a href="https://github.com/hyunow">정지현</a>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li>팀 페이지</li>
-                    <li>차트 제작</li>
+                    <li style="list-style-type: none;">팀 페이지</li>
+                    <li style="list-style-type: none;">차트 제작</li>
                 </ul>
             </th>
         </tr>

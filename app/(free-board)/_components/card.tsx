@@ -94,13 +94,15 @@ export function Profile({
       className={`flex h-[32px] items-center justify-center gap-[6px] text-xs text-text-primary md:gap-3 md:text-sm ${className}`}
     >
       {image ? (
-        <Image
-          alt={image}
-          src={image}
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
+        <figure className="relative h-8 w-8">
+          <Image
+            fill
+            sizes="32px"
+            alt={image}
+            src={image}
+            className="rounded-full object-cover"
+          />
+        </figure>
       ) : (
         <DefaultProfile width={32} height={32} className="rounded-full" />
       )}

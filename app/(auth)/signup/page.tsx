@@ -10,7 +10,7 @@ export default function SignUpPage() {
         회원가입
       </h1>
       <SignUpForm />
-      <div className="mt-6 xl:pb-6">
+      <div className="mt-6 pb-6">
         <section className="mb-[25px] flex items-center justify-center gap-3">
           <p className="text-sm font-medium text-text-primary">
             이미 회원이신가요 ?

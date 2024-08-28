@@ -61,12 +61,13 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
     >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
-          <div className="relative col-span-1 row-span-1 size-[24px] object-cover md:row-span-2 md:h-[32px] md:w-[32px]">
+          <div className="relative col-span-1 row-span-1 size-[24px] object-cover md:row-span-2 md:size-[32px]">
             <Image
               src={member.userImage}
               alt="유저 프로필 사진"
               priority
               fill
+              sizes="(min-width: 744px) 32px, 24px"
               className="rounded-full object-cover"
             />
           </div>

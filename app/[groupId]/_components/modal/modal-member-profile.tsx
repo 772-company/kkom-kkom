@@ -51,6 +51,7 @@ function ModalMemberProfile({
                   src={userImage}
                   alt="프로필 이미지"
                   fill
+                  sizes="52px"
                   className="rounded-full object-cover"
                 />
               </div>

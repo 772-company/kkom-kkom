@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
 import { showToast } from "@/lib/show-toast";
+import Crown from "@/public/icons/crown.png";
 import DefaultProfile from "@/public/icons/default-profile.svg";
 import XIcon from "@/public/icons/x.svg";
 import Image from "next/image";
@@ -10,6 +11,7 @@ interface ModalMemberProfileProps {
   userImage: string;
   userName: string;
   userEmail: string;
+  isAdmin: boolean;
 }
 
 function ModalMemberProfile({
@@ -17,6 +19,7 @@ function ModalMemberProfile({
   userImage,
   userName,
   userEmail,
+  isAdmin,
 }: ModalMemberProfileProps) {
   const handleButtonClick = async () => {
     try {
@@ -55,9 +58,16 @@ function ModalMemberProfile({
             )}
 
             <div className="flex flex-col items-center justify-center gap-[8px]">
-              <p className="text-[14px] font-[500] text-text-primary">
-                {userName}
-              </p>
+              <div className="flex items-center gap-[4px]">
+                {isAdmin && (
+                  <Image src={Crown} alt="왕관" width={20} height={20} />
+                )}
+
+                <p className="text-[14px] font-[500] text-text-primary">
+                  {userName}
+                </p>
+              </div>
+
               <p className="text-[12px] font-[400] text-text-secondary">
                 {userEmail}
               </p>

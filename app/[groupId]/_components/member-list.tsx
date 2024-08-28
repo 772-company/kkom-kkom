@@ -36,6 +36,7 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
       userImage={member.userImage}
       userName={member.userName}
       userEmail={member.userEmail}
+      isAdmin={isAdmin}
     />
   ));
 

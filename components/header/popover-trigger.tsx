@@ -29,6 +29,7 @@ export default function PopoverTrigger({
         triggerSvg={image ? undefined : UserIcon}
         triggerHeight={24}
         triggerWidth={24}
+        size="24px"
         content={[
           {
             text: LOGGED_IN_USER_CONTENT[0],

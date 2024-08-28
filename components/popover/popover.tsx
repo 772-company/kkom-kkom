@@ -45,6 +45,7 @@ interface PopoverProps {
   triggerHeight?: number;
   content: PopoverContentItem[];
   className?: string;
+  size?: string;
   triggerClassName?: string;
   contentClassName?: string;
 }
@@ -85,6 +86,7 @@ function Popover({
   triggerHeight,
   content,
   className,
+  size,
   triggerClassName,
   contentClassName,
 }: PopoverProps) {
@@ -105,14 +107,15 @@ function Popover({
             className={`${triggerClassName} flex items-center justify-center gap-[5px]`}
           >
             {triggerImage && triggerImageAlt && (
-              <Image
-                src={triggerImage}
-                alt={triggerImageAlt}
-                width={triggerWidth}
-                height={triggerHeight}
-                className="rounded-md object-cover"
-                layout="fixed"
-              />
+              <section className={`relative size-[${size}]`}>
+                <Image
+                  src={triggerImage}
+                  alt={triggerImageAlt}
+                  fill
+                  sizes={size}
+                  className="rounded-full object-cover"
+                />
+              </section>
             )}
             {TriggerSvg && (
               <TriggerSvg width={triggerWidth} height={triggerHeight} />

@@ -1,6 +1,6 @@
 # 📌 kkom-kkom
 
-![리드미.png](../kkom-kkom/public/images/reamdme-main.png)
+![리드미.png](public/images/reamdme-main.png)
 
 > 코드잇 스프린트 프론트엔드 트랙 심화 프로젝트<br>
 > 스마트한 일정 관리 서비스
@@ -149,5 +149,5 @@
 
 ## 🔖 유저플로우
 
-<img src="../kkom-kkom/public/images/readme-userflow-header.png"> 
-<img src="../kkom-kkom/public/images/readme-userflow.png">
+<img src="public/images/readme-userflow-header.png"> 
+<img src="public/images/readme-userflow.png">

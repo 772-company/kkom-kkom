@@ -81,6 +81,7 @@ function TaskList({ taskList, groupId, index }: TaskListProps) {
         <div className="flex h-[25px] items-center gap-[4px] rounded-[12px] bg-background-primary px-[8px]">
           {isDone ? (
             <Image
+              priority
               src="/icons/progress-done.svg"
               alt="체크 아이콘"
               width={16}
@@ -88,6 +89,7 @@ function TaskList({ taskList, groupId, index }: TaskListProps) {
             />
           ) : (
             <Image
+              priority
               src="/icons/progress-ongoing.svg"
               alt="할 일 스피너"
               width={16}

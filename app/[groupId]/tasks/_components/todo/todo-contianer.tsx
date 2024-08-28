@@ -11,9 +11,10 @@ import TodoHeader from "./todo-header";
 interface TodoContainerProps {
   groupId: string;
 }
+
 function TodoContainer({ groupId: id }: TodoContainerProps) {
   const { data } = useQuery({
-    queryKey: ["getGroupInfo"],
+    queryKey: ["groupInfo", id],
     queryFn: () => getGroupInfo({ groupId: id }),
   });
   const { date, convertedDate, handleChangeDate, handleClickButton } =
@@ -21,6 +22,7 @@ function TodoContainer({ groupId: id }: TodoContainerProps) {
   return (
     <div>
       <TodoHeader
+        members={data ? data?.members : []}
         groupId={id}
         onClickButton={handleClickButton}
         date={date}

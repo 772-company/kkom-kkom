@@ -113,7 +113,7 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
 
 function MemberList({ groupId, isAdmin }: MemberListProps) {
   const { data } = useQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => getGroupInfo({ groupId }),
   });
 

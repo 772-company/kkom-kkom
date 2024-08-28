@@ -20,7 +20,7 @@ interface TodoContentsProps {
   groupId: string;
 }
 function TodoContents({ taskLists, date, groupId }: TodoContentsProps) {
-  const { handleClickName, selectedButton } = useSelectButton(taskLists);
+  const { handleClickName, selectedButton } = useSelectButton();
   const { tasks, isPending } = useGetTasks(groupId, selectedButton, date);
   const { todoId, isSideBarOpen, handleCancel, handleClick } = useSideBar();
   const addTodoOverlay = useCustomOverlay(({ close }) => (

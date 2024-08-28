@@ -1,5 +1,8 @@
 import { useCustomOverlay } from "@/hooks/use-custom-overlay";
+import { GetGroupsIdResponse } from "@/lib/apis/type";
+import { getUser } from "@/lib/apis/user";
 import Calendar from "@/public/icons/calendar.svg";
+import { useQuery } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
 import React, { useRef } from "react";
 import DatePicker from "react-datepicker";
@@ -9,8 +12,10 @@ import "../calendar-style/custom-date-picker.css";
 import AddListModal from "../modal/add-List-modal";
 import TaskButton from "../tasks-button";
 
+type Members = GetGroupsIdResponse["members"];
 interface TodoHeaderUIProps {
   groupId: string;
+  members: Members;
   date: Date;
   convertedDate: string;
   onChangeDate: (date: Date | null) => void;
@@ -20,10 +25,21 @@ interface TodoHeaderUIProps {
 function TodoHeader({
   groupId,
   date,
+  members,
   convertedDate,
   onChangeDate,
   onClickButton,
 }: TodoHeaderUIProps) {
+  const { data: user } = useQuery({ queryKey: ["getUser"], queryFn: getUser });
+  const adminMemberId = members.find(
+    (member) => member.role === "ADMIN",
+  )?.userId;
+
+  const isAdmin =
+    adminMemberId === user?.id &&
+    adminMemberId !== undefined &&
+    user?.id !== undefined;
+
   const { theme } = useTheme();
   const addListModalOverlay = useCustomOverlay(({ close }) => (
     <AddListModal close={close} groupId={groupId} />
@@ -66,14 +82,15 @@ function TodoHeader({
           />
         </div>
       </div>
-
-      <button
-        type="button"
-        className="text-sm font-normal text-brand-primary"
-        onClick={handleClickAddList}
-      >
-        + 새로운 목록 추가하기
-      </button>
+      {isAdmin && (
+        <button
+          type="button"
+          className="text-sm font-normal text-brand-primary"
+          onClick={handleClickAddList}
+        >
+          + 새로운 목록 추가하기
+        </button>
+      )}
     </div>
   );
 }

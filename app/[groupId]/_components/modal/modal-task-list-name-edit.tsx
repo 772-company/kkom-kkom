@@ -51,7 +51,7 @@ function ModalTaskListNameEdit({
       }),
 
     onMutate: async (data: TaskListNameEditFormValue) => {
-      await queryClient.cancelQueries({ queryKey: ["groupInfo"] });
+      await queryClient.cancelQueries({ queryKey: ["groupInfo", groupId] });
 
       const previousData = queryClient.getQueryData<GetGroupsIdResponse>([
         "groupInfo",
@@ -88,7 +88,7 @@ function ModalTaskListNameEdit({
       close();
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["groupInfo", groupId] });
     },
   });
 

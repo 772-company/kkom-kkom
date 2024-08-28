@@ -26,6 +26,9 @@ const useEditTask = (
         queryClient.invalidateQueries({
           queryKey: ["getTasks", taskListId, convertDateToY_M_D(date)],
         }),
+        queryClient.invalidateQueries({
+          queryKey: ["groupInfo", groupId],
+        }),
       ]);
     },
   });

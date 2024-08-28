@@ -26,7 +26,7 @@ export default async function TeamPage({
   ]);
 
   await queryClient.prefetchQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => groupInfo,
   });
 

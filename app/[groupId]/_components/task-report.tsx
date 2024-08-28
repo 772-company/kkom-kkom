@@ -21,7 +21,7 @@ interface UserCompletionCountType {
 
 function TaskReport({ groupId }: TaskReportProps) {
   const { data } = useQuery({
-    queryKey: ["groupInfo"],
+    queryKey: ["groupInfo", groupId],
     queryFn: () => getGroupInfo({ groupId }),
   });
 

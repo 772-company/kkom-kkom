@@ -14,14 +14,14 @@ const useCalender = () => {
   ) => {
     switch (e.currentTarget.name) {
       case "left": {
-        const beforeMonth = new Date(date.setMonth(date.getMonth() - 1));
-        setDate(beforeMonth);
+        const yesterDay = new Date(date.setDate(date.getDate() - 1));
+        setDate(yesterDay);
         break;
       }
 
       case "right": {
-        const nextMonth = new Date(date.setMonth(date.getMonth() + 1));
-        setDate(nextMonth);
+        const tomrrow = new Date(date.setDate(date.getDate() + 1));
+        setDate(tomrrow);
         break;
       }
 

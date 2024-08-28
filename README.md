@@ -53,7 +53,7 @@
                 <ul style="list-style-type: none; padding-left: 0;">
                     <li style="list-style-type: none;">자유게시판</li>
                     <li style="line-height: 16px;">공통 오버레이<br>훅 제작</li>
-                    <li style="list-style-type: none;">테스크 코드</li>
+                    <li style="list-style-type: none;">테스트 코드</li>
                 </ul>
             </th>
             <th style="vertical-align: top; text-align: center; padding: 10px;">

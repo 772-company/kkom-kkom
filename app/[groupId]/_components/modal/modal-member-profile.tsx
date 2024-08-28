@@ -46,13 +46,14 @@ function ModalMemberProfile({
         <div className="flex h-[186px] w-[280px] flex-col justify-center gap-[24px] pt-[48px]">
           <div className="flex flex-col items-center justify-center gap-[24px]">
             {userImage ? (
-              <Image
-                src={userImage}
-                alt="프로필 이미지"
-                width={52}
-                height={52}
-                className="rounded-full"
-              />
+              <div className="relative size-[52px]">
+                <Image
+                  src={userImage}
+                  alt="프로필 이미지"
+                  fill
+                  className="rounded-full object-cover"
+                />
+              </div>
             ) : (
               <DefaultProfile className="h-[52px] w-[52px]" />
             )}

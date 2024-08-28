@@ -61,14 +61,15 @@ function MemberCard({ member, groupId, isAdmin, teamName }: MemberCardProps) {
     >
       <div className="grid grid-cols-[24px_1fr] grid-rows-2 items-center justify-center gap-x-[8px] md:grid-cols-[32px_1fr] md:gap-x-[12px] md:gap-y-[2px]">
         {member.userImage ? (
-          <Image
-            priority
-            src={member.userImage}
-            alt="유저 프로필 사진"
-            width={24}
-            height={24}
-            className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]"
-          />
+          <div className="relative col-span-1 row-span-1 size-[24px] object-cover md:row-span-2 md:h-[32px] md:w-[32px]">
+            <Image
+              src={member.userImage}
+              alt="유저 프로필 사진"
+              priority
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
         ) : (
           <DefaultProfile className="col-span-1 row-span-1 h-[24px] w-[24px] rounded-full md:row-span-2 md:h-[32px] md:w-[32px]" />
         )}

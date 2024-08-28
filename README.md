@@ -1,6 +1,6 @@
 # 📌 kkom-kkom
 
-<img src="public/images/readme-main.png">
+<img src="https://github.com/user-attachments/assets/e67428c0-b96d-49aa-ab1c-b93e1983f982">
 
 > 스마트한 일정 관리 서비스
 
@@ -148,5 +148,5 @@
 
 ## 🔖 유저플로우
 
-<img src="public/images/readme-userflow-header.png"> 
-<img src="public/images/readme-userflow.png">
+<img src="https://github.com/user-attachments/assets/489c43e6-9aea-4609-8d03-28a2b157f80c"> 
+<img src="https://github.com/user-attachments/assets/ebcdac4f-e175-4fbc-bdb7-2c41b09a2c73">

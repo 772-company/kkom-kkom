@@ -1,11 +1,15 @@
-import { GetGroupsIdResponse } from "@/lib/apis/type";
-import React, { useEffect, useState } from "react";
+import convertToInt from "@/utils/convert-to-int";
+import { useSearchParams } from "next/navigation";
+import React, { useState } from "react";
 
-type TaskLists = GetGroupsIdResponse["taskLists"];
+function useSelectButton() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-function useSelectButton(taskLists: TaskLists) {
+  const resultId = convertToInt(id);
+
   const [selectedButton, setSelectedButton] = useState<number | undefined>(
-    taskLists[0]?.id,
+    resultId,
   );
 
   const handleClickName = (
@@ -14,12 +18,6 @@ function useSelectButton(taskLists: TaskLists) {
     const selected = parseInt(e.currentTarget.name, 10);
     setSelectedButton(selected);
   };
-
-  useEffect(() => {
-    if (taskLists) {
-      setSelectedButton(taskLists[taskLists.length - 1]?.id);
-    }
-  }, [taskLists]);
 
   return { handleClickName, selectedButton };
 }

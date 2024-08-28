@@ -10,26 +10,24 @@ import React from "react";
 
 import TodoContainer from "./_components/todo/todo-contianer";
 
+export const revalidate = 0;
+
 const page = async (context: any) => {
   const queryClient = new QueryClient();
-  const { params } = context;
-  const result = await queryClient.fetchQuery({
-    queryKey: ["getGroupInfo"],
-    queryFn: () => getGroupInfo({ groupId: params.groupId }),
-  });
+  const { params, searchParams } = context;
+  console.log(context);
 
-  if (result.taskLists[0]) {
-    convertDateToY_M_D(new Date());
-    await queryClient.prefetchQuery({
-      queryKey: [
-        "getTasks",
-        result.taskLists[0].id,
-        convertDateToY_M_D(new Date()),
-      ],
+  Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ["groupInfo"],
+      queryFn: () => getGroupInfo({ groupId: params.groupId }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ["getTasks", searchParams.id, convertDateToY_M_D(new Date())],
       queryFn: () =>
-        getTasks(params.groupId, result.taskLists[0].id, new Date()),
-    });
-  }
+        getTasks(params.groupId, parseInt(searchParams.id, 10), new Date()),
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

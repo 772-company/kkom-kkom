@@ -21,6 +21,8 @@ const nextConfig = {
         port: "",
       },
     ],
+    loader: "custom",
+    loaderFile: "./my/image/loader.js",
   },
   webpack: (config) => {
     config.module.rules.push({

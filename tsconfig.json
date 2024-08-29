@@ -30,7 +30,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/(auth)/.gitkeep",
-    "next.config.mjs"
+    "next.config.mjs",
+    "my/image/loader.js"
   ],
   "exclude": ["node_modules"]
 }

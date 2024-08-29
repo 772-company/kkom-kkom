@@ -51,6 +51,9 @@ function ModalTaskListDelete({
       showToast("success", `${taskListName}${suffix} 삭제되었습니다.`);
       close();
     },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupInfo"] });
+    },
   });
 
   const handleButtonClick = () => {

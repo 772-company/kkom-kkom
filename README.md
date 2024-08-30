@@ -6,7 +6,7 @@
 
 ## ✨프로젝트 소개
 
-- **팀 기반 일정 관리**: 팀을 생성하고 팀원들을 초대하여, 함께 일정을 생성하고 관리할 수 있습니다. 팀원들과 협력하여 할 일을 설정하고, 매일, 주간, 월간 주기로 반복되는 일정도 간편하게 관리할 수 있습니다.
+- **팀 기반 일정 관리**: 팀을 생성하고 팀원들을 초대하여, 함께 일정을 생성하고 관리할 수 있는 협업 툴을 제공합니다. 팀원들과 협력하여 할 일을 설정하고, 매일, 주간, 월간 주기로 반복되는 일정도 간편하게 관리할 수 있습니다.
 - **실시간 진행 상황 확인**: 오늘 해야 할 일과 진행 상황을 차트를 통해 한눈에 확인할 수 있습니다. 할 일의 완료 여부를 체크하며, 남은 작업량을 쉽게 파악할 수 있습니다.
 - **투명한 일정 공유**: 일정의 상세 내용과 댓글 기능을 통해 팀원 모두가 투명하게 일정을 공유할 수 있습니다. 모든 구성원이 일정을 명확하게 이해하고, 필요한 사항을 논의할 수 있습니다.
 - **자유게시판**: 팀별로만 사용하는 기능 외에도, 모든 사용자가 참여할 수 있는 자유게시판을 통해 다양한 의견을 나눌 수 있습니다.
@@ -75,16 +75,13 @@
 
 ### 🦔 이승현
 
-- 게시글 생성, 수정, 삭제
-- 게시글 댓글 무한 스크롤
-- 댓글 생성, 수정, 삭제
-- 게시판 페이지네이션
-- progress bar
-- overlay custom hook
-- 서버 단과 클라이언트 단에서 refresh rotation을 자동 적용해주는 myFetch 함수를 구현 (간단하게 줄이기..?)
+- 게시글 관련 기능 ( CRUD, 페이지네이션, 낙관적 업데이트 )
+- 게시글 댓글 관련 기능 ( CRUD, 무한스크롤, 낙관적 업데이트 )
+- 오버레이를 위한 overlay custom hook
+- interceptor, base_url등 axios의 기능을 fetch에 더한 myFetch 함수를 구현
 - 버튼 공통 컴포넌트
-- 마이 히스토리
-- 프로젝트 세팅
+- 마이 히스토리 페이지
+- 프로젝트 세팅 ( CI/CD 등 ) 
 
 ### 🐹 정지현
 
@@ -110,33 +107,39 @@
 ### Framework
 
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
-- 선정 이유 블라블라
+
+- Next.js는 SSR과 SSG 기능을 기본 제공하여 SEO에 강점이 있습니다. 최신 App Router 기능을 도입해 페이지와 레이아웃 구조를 유연하게 관리하고, 서버 컴포넌트와 클라이언트 컴포넌트를 구분해 성능을 최적화했습니다. 빠른 페이지 로딩 속도와 향상된 사용자 경험을 제공하고자 Next.js를 선택했습니다.
 
 ### Language
 
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
-- 선정 이유 블라블라
+
+- TypeScript를 사용하면 코드 작성 중 타입을 명시해 버그를 사전에 방지할 수 있으며, 코드의 가독성과 유지보수성을 높일 수 있습니다. 협업 시 컴파일 단계에서 오류를 발견할 수 있어, 개발 생산성을 크게 향상시킬 수 있는 장점이 있습니다. 타입 정의를 통해 더욱 견고한 서비스를 개발하고자 TypeScript를 도입했습니다.
 
 ## Style
 
 <img alt="Tailwind CSS" src ="https://img.shields.io/badge/Tailwind_CSS-06B6D4.svg?&style=for-the-badge&logo=tailwindcss&logoColor=white"/> <img src ="https://img.shields.io/badge/framermotion-666666?style=for-the-badge&logoColor=white"/> <img alt="storybook" src ="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"/>
 
-- 선정 이유 블라블라
-- 선정 이유 블라블라
+- Tailwind CSS : utility-first 방식의 CSS 프레임워크로, 클래스 기반의 빠르고 직관적인 스타일링이 가능합니다. 별도의 CSS 파일을 작성할 필요 없이 컴포넌트 안에서 스타일을 정의할 수 있어 개발 속도를 높이고, 디자인의 일관성을 유지할 수 있습니다. 반복적인 CSS 작성 시간을 줄이고 커스터마이징을 쉽게 하기 위해 Tailwind CSS를 채택했습니다.
+- framer motion : 러닝커브가 높지 않으면서도 안정성이 있는 라이브러리 중에 하나입니다. 사용자 인터페이스에 생동감을 더할 수 있었습니다.
+- storybook: 개발 중 발생할 수 있는 UI 오류를 사전에 방지하고, 일관된 UI 컴포넌트를 관리하기 위해 Storybook을 도입했습니다.
 
 ### Library
 
 <img src="https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> <img src="https://img.shields.io/badge/react--hook--form-663399?style=for-the-badge&logo=react&logoColor=white"> <img src ="https://img.shields.io/badge/zustand-EE4C2C?style=for-the-badge&"/> <img src="https://img.shields.io/badge/pnpm-yellow?style=for-the-badge&logo=pnpm&logoColor=white"/> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
 
-- 선정 이유 블라블라
-- 선정 이유 블라블라
-
+- Tanstack Query : TanStack Query는 서버 상태 관리에 최적화된 라이브러리로, 데이터 패칭과 캐싱, 동기화, 업데이트를 손쉽게 처리할 수 있습니다. 복잡한 비동기 로직을 선언적으로 간결하게 작성하고, 클라이언트와 서버 상태를 분리해 코드의 복잡성을 줄이기 위해 TanStack Query를 도입했습니다.
+- react-hook-form : 이번 프로젝트에서는 form을 사용하는 부분이 굉장히 많았는데요. react-hook-form은 비제어 컴포넌트 관리나 유효성 검사 등 다양한 기능을 손쉽게 할 수 있는 라이브러리로 npm 기준 form중에서 가장 유명한 라이브러리이기에 안정성이 보장됩니다.
+- Zustand : Zustand는 심플하고 가벼운 상태 관리 라이브러리로, 작은 규모의 애플리케이션 상태 관리에 적합합니다. 복잡한 설정이 필요 없으며, 빠르고 직관적인 상태 관리를 위해 Zustand를 채택했습니다.
+- pnpm : pnpm은 빠르고 효율적인 패키지 매니저로, 모듈 설치 속도가 빠르고, 중복된 패키지를 효율적으로 관리해 디스크 공간을 절약할 수 있습니다.  패키지 관리의 효율성을 높이기 위해 pnpm을 사용했습니다.
+- eslint, prettier : 코드 스타일을 자동으로 일관적으로 유지하기 위해 사용하였습니다.  대부분의 규칙은  Airbnb의 코딩 컨벤션을 따랐으나 필요에 따라 예외 규칙은 팀원들과 상의를 통해 수정하였습니다.  팀 내 코드 스타일을 통일하고 유지 보수성을 향상시킵니다.
+  
 ### CI/CD
 
 <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white"/> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
-- 선정 이유 블라블라
-- 선정 이유 블라블라
+- GitHub Actions: GitHub과의 긴밀한 통합으로 코드 변경 시 자동으로 테스트, 빌드, 배포를 수행할 수 있으며, YAML 파일을 통해 유연하게 CI/CD 파이프라인을 구성할 수 있습니다.
+- Vercel: Next.js와 완벽하게 호환되는 서버리스 아키텍처로, Git 저장소와 연결하여 자동으로 빌드 및 배포를 할 수 있습니다. 글로벌 캐싱 네트워크와 간단한 설정으로 높은 성능과 편리성을 제공합니다. 이 두 가지를 결합하면 효율적이고 강력한 CI/CD 환경을 구축할 수 있습니다.
 
 <br/>
 
@@ -328,7 +331,8 @@
 - 변경하기 버튼을 누르면 비밀번호 변경 모달창을 통해 비밀번호를 변경할 수 있습니다.
 - 회원 탈퇴하기 버튼을 누르면 회원 탈퇴 모달창을 통해 탈퇴가 진행됩니다.
   - 탈퇴 후 `/`로 이동합니다.
-  <table style="border-collapse: collapse;">
+
+<table style="border-collapse: collapse;">
       <tbody>
           <tr>
               <td align="center">

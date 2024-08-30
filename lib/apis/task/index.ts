@@ -37,10 +37,9 @@ export const getTasks = async (
   taskListId: number | undefined,
   date?: Date,
 ): Promise<GetTasksResponse> => {
-  const convertedDateToYMD = convertDateToY_M_D(date ?? new Date());
   try {
     const response = await myFetch<GetTasksResponse>(
-      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${date?.toLocaleDateString()}`,
       {
         method: "GET",
         headers: {

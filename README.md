@@ -58,15 +58,14 @@
 
 ### 🐰 김서영
 
-- 소셜 로그인
-- 로그인, 회원가입, 로그아웃
-- 사용자 정보 수정
-- 테마
-- 헤더
+- 소셜 로그인 기능 
+- 로그인, 회원가입, 로그아웃 기능 
+- 사용자 정보 수정 기능 
+- 테마 기능 
 - next.js의 미들웨어를 통해 로그인 상태에 따른 페이지 접근 제한
 - 공통 input 컴포넌트
 - 컴파운트 패턴을 적용한 드롭다운 컴포넌트
-- 랜딩페이지
+- 헤더, 모바일 사이드바, 랜딩페이지
 
 ### 🦨 이동규
 
@@ -180,3 +179,154 @@
 
 <img src="https://github.com/user-attachments/assets/489c43e6-9aea-4609-8d03-28a2b157f80c"> 
 <img src="https://github.com/user-attachments/assets/ebcdac4f-e175-4fbc-bdb7-2c41b09a2c73">
+
+
+## 💡 페이지별 기능 
+
+### 로그인 
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	로그인
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/2e284cf6-9c5d-41fe-9998-ecb279cfa101"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	소셜 로그인 - 카카오
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/86937e7d-9e15-44bf-9007-945e60b85a4d"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	소셜 로그인 - 구글
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/50fcc774-eaac-4198-94ff-b7d3b37e4110"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	비밀번호 변경
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/7dad55fa-c223-4c0e-950b-2edbfa9f17e2"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+### 로그아웃 
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	로그아웃
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/e2f5942e-0ee6-4b03-ba89-3f51d70f54ab"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+### 회원가입 
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	회원가입
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/fb1a3d42-31aa-481f-970c-f6de9884e21d"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+### 마이페이지 
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	사용자 정보 수정 - 이미지, 닉네임
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/b02dac2e-e8f3-43bf-b91a-c2496a8818cf"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+	사용자 정보 수정 - 비밀번호
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/907a9bd1-c1f4-4b9b-a0e2-995813f20697"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+### 테마
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+		테마
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/bd5348c7-a432-4fd4-bd81-9ed6c8894815"/>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -109,22 +109,30 @@
 ### Framework
 
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
+- 선정 이유 블라블라 
 
 ### Language
 
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
+- 선정 이유 블라블라 
 
 ## Style
 
 <img alt="Tailwind CSS" src ="https://img.shields.io/badge/Tailwind_CSS-06B6D4.svg?&style=for-the-badge&logo=tailwindcss&logoColor=white"/> <img src ="https://img.shields.io/badge/framermotion-666666?style=for-the-badge&logoColor=white"/> <img alt="storybook" src ="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"/>
+- 선정 이유 블라블라
+- 선정 이유 블라블라
 
 ### Library
 
 <img src="https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> <img src="https://img.shields.io/badge/react--hook--form-663399?style=for-the-badge&logo=react&logoColor=white"> <img src ="https://img.shields.io/badge/zustand-EE4C2C?style=for-the-badge&"/> <img src="https://img.shields.io/badge/pnpm-yellow?style=for-the-badge&logo=pnpm&logoColor=white"/> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
+- 선정 이유 블라블라
+- 선정 이유 블라블라
 
 ### CI/CD
 
 <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white"/> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+- 선정 이유 블라블라
+- 선정 이유 블라블라
 
 <br/>
 
@@ -376,3 +384,19 @@
         </tr>
     </tbody>
 </table>
+
+
+## 프로젝트 후기 
+### 🐰 김서영
+프로젝특가 한 달 동안 길게 진행되면서, 이전 프로젝트에서 아쉬웠던 부분들을 개선하여 여러 새로운 기술들을 적용해 볼 수 있는 좋은 기회였습니다. 단순히 기능 구현에 그치는 것이 아니라, 재사용성을 고려해 꼼꼼하게 작업한 덕분에 프로젝트명과 팀명처럼 '칠칠이'에서 '꼼꼼이'로 성장할 수 있었던 것 같습니다. 😚 힘든 내색하지 않고 마지막까지 긍정적이고 열정적으로 참여해 주신 팀원들 덕분에 행복하게 작업했던 거 같습니다. 
+백엔드의 잦은 변동에도 불구하고 묵묵히 끝까지 기능 구현을 맡아주신 동규님, 풍부한 지식을 바탕으로 새로운 기술을 적극 도입해 주신 CTO 승현님, 항상 긍정적인 태도로 팀 분위기를 밝게 만들어 주신 지현님 ! 모두 멋진 FE 개발자로 성장하실 거라고 믿어 의심치 않아요 ~ 우리 칠칠이들 너무 고생하셨습니다 ! 🌈🤍
+
+### 🦨 이동규
+
+
+### 🦔 이승현
+
+
+### 🐹 정지현
+
+

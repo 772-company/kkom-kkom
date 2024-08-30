@@ -14,6 +14,7 @@ import EditTodoModal from "../modal/edit-todo-modal";
 import KebabPopover from "./kebab-popover";
 
 interface TodoBoxProps {
+  userId: number;
   frequency: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   groupId: string;
   taskListId: number | undefined;
@@ -29,6 +30,7 @@ interface TodoBoxProps {
 }
 
 function TodoBox({
+  userId,
   groupId,
   taskListId,
   id,
@@ -98,6 +100,7 @@ function TodoBox({
           </div>
         </div>
         <KebabPopover
+          commentUserId={userId}
           openEditModal={editTodoModalOverlay.open}
           openDeleteModal={deleteTodoModalOverlay.open}
         />

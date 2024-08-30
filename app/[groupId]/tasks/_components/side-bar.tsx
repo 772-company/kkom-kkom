@@ -9,7 +9,7 @@ import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import { covertFrequency } from "@/utils/convert-frequency";
-import React from "react";
+import React, { useMemo } from "react";
 
 import Comment from "./comment/comment";
 import CommentInput from "./comment/comment-input";
@@ -84,6 +84,8 @@ export default function SideBar({
   const { ampm, hoursString, minutesString } = convertDateToTime(
     new Date(taskDetail?.date ?? ""),
   );
+
+  useMemo(() => comment?.sort((a, b) => a.id - b.id), [comment]);
 
   return (
     <div

@@ -96,9 +96,13 @@
 - 오늘의 진행 상황 / 오늘의 꼼꼼이 차트
 - 멤버 초대 / 팀 참여 기능
 
+<br/>
+
 ## 🗓️ 개발 기간
 
 > 2023.07.26 ~ 2024.08.28 (4주)
+
+<br/>
 
 ## 🛠️ 기술 스택
 
@@ -121,6 +125,8 @@
 ### CI/CD
 
 <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white"/> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+
+<br/>
 
 ## 📂폴더 구조
 
@@ -175,15 +181,31 @@
 📑.env.local
 ```
 
+<br/>
+
 ## 🔖 유저플로우
 
 <img src="https://github.com/user-attachments/assets/489c43e6-9aea-4609-8d03-28a2b157f80c"> 
 <img src="https://github.com/user-attachments/assets/ebcdac4f-e175-4fbc-bdb7-2c41b09a2c73">
 
+<br/><br/>
 
 ## 💡 페이지별 기능 
 
 ### 로그인 
+- 입력값에 대해 다음 사항들을 확인합니다.
+   - 이메일 형식이 아닐 경우 에러 메세지를 보여줍니다.
+   - 비밀번호는 숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.
+- 모든 입력값들이 정상일 때 로그인 버튼이 활성화됩니다.
+- 로그인에 실패하였을 경우 해당 입력창에 에러 메세지를 보여줍니다.
+   - 비밀번호가 다른 경우
+   - 존재하지 않는 이메일인 경우
+- 구글, 카카오톡으로 간편 로그인할 수 있습니다.
+   - 가입하지 않은 계정 경우 회원가입 후 로그인 처리가 됩니다.
+- 로그인에 성공한 경우 로그인된 상태로 `/`로 이동합니다.
+- 비밀번호가 기억나지 않는 경우 가입한 이메일 계정을 통해 비밀번호를 변경할 수 있습니다.
+   - 입력한 이메일로 비밀번호 변경에 필요한 토큰과 함께 비밀번호 변경 페이지로 이동합니다.
+
 <table style="border-collapse: collapse;">
     <tbody>
         <tr>
@@ -238,7 +260,9 @@
         </tr>
 	     <tr>
             <td>
-	  <img src="https://github.com/user-attachments/assets/7dad55fa-c223-4c0e-950b-2edbfa9f17e2"/>
+	  <img src="https://github.com/user-attachments/assets/ec95689f-cf46-4a03-83c6-0909f2c4aba4"/>
+    	  <img src="https://github.com/user-attachments/assets/518be160-53f2-4466-a50a-f6970ecb3968"/>
+  	  <img src="https://github.com/user-attachments/assets/591dd592-aeda-42ec-89bf-e074079f1342"/>
             </td>
         </tr>
     </tbody>
@@ -247,6 +271,7 @@
 <br/>
 
 ### 로그아웃 
+- 로그아웃 후 `/`로 이동합니다.
 <table style="border-collapse: collapse;">
     <tbody>
         <tr>
@@ -283,11 +308,15 @@
 <br/>
 
 ### 마이페이지 
+- 프로필 이미지와 이름을 변경할 수 있습니다.
+- 변경하기 버튼을 누르면 비밀번호 변경 모달창을 통해 비밀번호를 변경할 수 있습니다.
+- 회원 탈퇴하기 버튼을 누르면 회원 탈퇴 모달창을 통해 탈퇴가 진행됩니다.
+   - 탈퇴 후 `/`로 이동합니다.  
 <table style="border-collapse: collapse;">
     <tbody>
         <tr>
             <td align="center">
-	사용자 정보 수정 - 이미지, 닉네임
+	사용자 정보 수정 - 이미지, 이름 
             </td>
         </tr>
 	     <tr>
@@ -313,9 +342,26 @@
     </tbody>
 </table>
 
+<table style="border-collapse: collapse;">
+    <tbody>
+        <tr>
+            <td align="center">
+		탈퇴
+            </td>
+        </tr>
+	     <tr>
+            <td>
+	  <img src="https://github.com/user-attachments/assets/da8a00c1-1510-4bd8-a918-4851f07e7115"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 <br/>
 
 ### 테마
+- 사용자 시스템 설정에 맞는 테마가 적용됩니다.
+- 헤더에 토글 버튼을 통해 테마를 변경할 수 있습니다.
 <table style="border-collapse: collapse;">
     <tbody>
         <tr>

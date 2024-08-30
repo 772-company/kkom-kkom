@@ -9,7 +9,7 @@ export const postTask = async (
   data: {
     name: string;
     description: string;
-    startDate: string;
+    startDate?: string;
     frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
     monthDay?: number;
     weekDays?: number[];
@@ -35,8 +35,6 @@ export const getTasks = async (
   taskListId: number | undefined,
   date?: Date,
 ): Promise<GetTasksResponse> => {
-  console.log(date?.toString());
-
   try {
     const response = await myFetch<GetTasksResponse>(
       `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${date}`,

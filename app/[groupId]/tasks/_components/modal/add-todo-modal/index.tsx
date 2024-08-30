@@ -61,12 +61,14 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
       if (data.frequencyType === "MONTHLY") {
         const { weekDays, startDate, ...newData } = data;
 
-        mutate({ ...newData, startDate: startDate.toISOString() });
+        mutate({ ...newData });
       } else if (data.frequencyType === "WEEKLY") {
         const { monthDay, startDate, ...newData } = data;
-        mutate({ ...newData, startDate: startDate.toISOString() });
+
+        mutate({ ...newData });
       } else {
         const { monthDay, weekDays, startDate, ...newData } = data;
+        startDate.setHours(startDate.getHours() + 9);
         mutate({ ...newData, startDate: startDate.toISOString() });
       }
     }

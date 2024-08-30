@@ -222,106 +222,39 @@
 - 비밀번호가 기억나지 않는 경우 가입한 이메일 계정을 통해 비밀번호를 변경할 수 있습니다.
   - 입력한 이메일로 비밀번호 변경에 필요한 토큰과 함께 비밀번호 변경 페이지로 이동합니다.
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	로그인
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/2e284cf6-9c5d-41fe-9998-ecb279cfa101"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 로그인                                                                                        |
+| --------------------------------------------------------------------------------------------- |
+| ![로그인](https://github.com/user-attachments/assets/2e284cf6-9c5d-41fe-9998-ecb279cfa101)    |
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	소셜 로그인 - 카카오
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/86937e7d-9e15-44bf-9007-945e60b85a4d"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 소셜 로그인 - 카카오                                                                           |
+| --------------------------------------------------------------------------------------------- |
+| ![소셜 로그인 - 카카오](https://github.com/user-attachments/assets/86937e7d-9e15-44bf-9007-945e60b85a4d)    |
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	소셜 로그인 - 구글
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/50fcc774-eaac-4198-94ff-b7d3b37e4110"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 소셜 로그인 - 구글                                                                           |
+| --------------------------------------------------------------------------------------------- |
+| ![소셜 로그인 - 구글](https://github.com/user-attachments/assets/50fcc774-eaac-4198-94ff-b7d3b37e4110)    |
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	비밀번호 변경
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/ec95689f-cf46-4a03-83c6-0909f2c4aba4"/>
-    	  <img src="https://github.com/user-attachments/assets/518be160-53f2-4466-a50a-f6970ecb3968"/>
-  	  <img src="https://github.com/user-attachments/assets/591dd592-aeda-42ec-89bf-e074079f1342"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 비밀번호 변경                                                                        |
+| --------------------------------------------------------------------------------------------- |
+| ![비밀번호 변경](https://github.com/user-attachments/assets/ec95689f-cf46-4a03-83c6-0909f2c4aba4)  ![비밀번호 변경](https://github.com/user-attachments/assets/518be160-53f2-4466-a50a-f6970ecb3968)  ![비밀번호 변경](https://github.com/user-attachments/assets/591dd592-aeda-42ec-89bf-e074079f1342)   |
 
 <br/>
 
 ### 로그아웃
 
 - 로그아웃 후 `/`로 이동합니다.
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	로그아웃
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/e2f5942e-0ee6-4b03-ba89-3f51d70f54ab"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+| 로그아웃                                                                                      |
+| --------------------------------------------------------------------------------------------- |
+| ![로그아웃](https://github.com/user-attachments/assets/e2f5942e-0ee6-4b03-ba89-3f51d70f54ab)    |
 
 <br/>
 
 ### 회원가입
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	회원가입
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/fb1a3d42-31aa-481f-970c-f6de9884e21d"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 회원가입                                                                                      |
+| --------------------------------------------------------------------------------------------- |
+| ![회원가입-1](https://github.com/user-attachments/assets/f1c2aa2c-6044-47c4-a6ca-fbca1bc6951f) ![회원가입-2](https://github.com/user-attachments/assets/c46dec72-27fd-45b4-96a0-15768e20ae72) |
 
 <br/>
 
@@ -332,50 +265,17 @@
 - 회원 탈퇴하기 버튼을 누르면 회원 탈퇴 모달창을 통해 탈퇴가 진행됩니다.
   - 탈퇴 후 `/`로 이동합니다.
 
-<table style="border-collapse: collapse;">
-      <tbody>
-          <tr>
-              <td align="center">
-  	사용자 정보 수정 - 이미지, 이름 
-              </td>
-          </tr>
-  	     <tr>
-              <td>
-  	  <img src="https://github.com/user-attachments/assets/b02dac2e-e8f3-43bf-b91a-c2496a8818cf"/>
-              </td>
-          </tr>
-      </tbody>
-  </table>
+| 사용자 정보 수정 - 이미지, 이름                                                                |
+| --------------------------------------------------------------------------------------------- |
+| ![사용자 정보 수정](https://github.com/user-attachments/assets/b02dac2e-e8f3-43bf-b91a-c2496a8818cf)    |
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	사용자 정보 수정 - 비밀번호
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/907a9bd1-c1f4-4b9b-a0e2-995813f20697"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 사용자 정보 수정 - 비밀번호                                                               |
+| --------------------------------------------------------------------------------------------- |
+| ![사용자 정보 수정](https://github.com/user-attachments/assets/907a9bd1-c1f4-4b9b-a0e2-995813f20697)    |
 
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-		탈퇴
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/da8a00c1-1510-4bd8-a918-4851f07e7115"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+| 사용자 정보 수정 - 탈퇴                                                               |
+| --------------------------------------------------------------------------------------------- |
+| ![탈퇴](https://github.com/user-attachments/assets/da8a00c1-1510-4bd8-a918-4851f07e7115)    |
 
 <br/>
 
@@ -383,20 +283,10 @@
 
 - 사용자 시스템 설정에 맞는 테마가 적용됩니다.
 - 헤더에 토글 버튼을 통해 테마를 변경할 수 있습니다.
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-		테마
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/bd5348c7-a432-4fd4-bd81-9ed6c8894815"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+  
+| 테마                                                             |
+| --------------------------------------------------------------------------------------------- |
+| ![테마](https://github.com/user-attachments/assets/bd5348c7-a432-4fd4-bd81-9ed6c8894815)    |
 
 <br/>
 
@@ -530,7 +420,7 @@
 
 ### 🐰 김서영
 
-프로젝특가 한 달 동안 길게 진행되면서, 이전 프로젝트에서 아쉬웠던 부분들을 개선하여 여러 새로운 기술들을 적용해 볼 수 있는 좋은 기회였습니다. 단순히 기능 구현에 그치는 것이 아니라, 재사용성을 고려해 꼼꼼하게 작업한 덕분에 프로젝트명과 팀명처럼 '칠칠이'에서 '꼼꼼이'로 성장할 수 있었던 것 같습니다. 😚 힘든 내색하지 않고 마지막까지 긍정적이고 열정적으로 참여해 주신 팀원들 덕분에 행복하게 작업했던 거 같습니다.
+프로젝트가 한 달 동안 길게 진행되면서, 이전 프로젝트에서 아쉬웠던 부분들을 개선하여 여러 새로운 기술들을 적용해 볼 수 있는 좋은 기회였습니다. 단순히 기능 구현에 그치는 것이 아니라, 재사용성을 고려해 꼼꼼하게 작업한 덕분에 프로젝트명과 팀명처럼 '칠칠이'에서 '꼼꼼이'로 성장할 수 있었던 것 같습니다. 😚 힘든 내색하지 않고 마지막까지 긍정적이고 열정적으로 참여해 주신 팀원들 덕분에 행복하게 작업했던 거 같습니다.
 백엔드의 잦은 변동에도 불구하고 묵묵히 끝까지 기능 구현을 맡아주신 동규님, 풍부한 지식을 바탕으로 새로운 기술을 적극 제안해 주신 CTO 승현님, 항상 긍정적인 태도로 팀 분위기를 밝게 만들어 주신 지현님 ! 모두 멋진 FE 개발자로 성장하실 거라고 믿어 의심치 않아요 ~ 우리 칠칠이들 너무 고생하셨습니다 ! 🌈🤍
 
 ### 🦨 이동규

@@ -58,10 +58,10 @@
 
 ### 🐰 김서영
 
-- 소셜 로그인 기능 
-- 로그인, 회원가입, 로그아웃 기능 
-- 사용자 정보 수정 기능 
-- 테마 기능 
+- 소셜 로그인 기능
+- 로그인, 회원가입, 로그아웃 기능
+- 사용자 정보 수정 기능
+- 테마 기능
 - next.js의 미들웨어를 통해 로그인 상태에 따른 페이지 접근 제한
 - 공통 input 컴포넌트
 - 컴파운트 패턴을 적용한 드롭다운 컴포넌트
@@ -69,7 +69,7 @@
 
 ### 🦨 이동규
 
-- 테스트 생성, 수정, 삭제
+- 테스트
 -
 
 ### 🦔 이승현
@@ -109,28 +109,31 @@
 ### Framework
 
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
-- 선정 이유 블라블라 
+- 선정 이유 블라블라
 
 ### Language
 
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
-- 선정 이유 블라블라 
+- 선정 이유 블라블라
 
 ## Style
 
 <img alt="Tailwind CSS" src ="https://img.shields.io/badge/Tailwind_CSS-06B6D4.svg?&style=for-the-badge&logo=tailwindcss&logoColor=white"/> <img src ="https://img.shields.io/badge/framermotion-666666?style=for-the-badge&logoColor=white"/> <img alt="storybook" src ="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"/>
+
 - 선정 이유 블라블라
 - 선정 이유 블라블라
 
 ### Library
 
 <img src="https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> <img src="https://img.shields.io/badge/react--hook--form-663399?style=for-the-badge&logo=react&logoColor=white"> <img src ="https://img.shields.io/badge/zustand-EE4C2C?style=for-the-badge&"/> <img src="https://img.shields.io/badge/pnpm-yellow?style=for-the-badge&logo=pnpm&logoColor=white"/> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
+
 - 선정 이유 블라블라
 - 선정 이유 블라블라
 
 ### CI/CD
 
 <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white"/> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+
 - 선정 이유 블라블라
 - 선정 이유 블라블라
 
@@ -198,21 +201,22 @@
 
 <br/><br/>
 
-## 💡 페이지별 기능 
+## 💡 페이지별 기능
 
-### 로그인 
+### 로그인
+
 - 입력값에 대해 다음 사항들을 확인합니다.
-   - 이메일 형식이 아닐 경우 에러 메세지를 보여줍니다.
-   - 비밀번호는 숫자, 영문, 특수문자(!@#$%^&*)를 포함해야 합니다.
+  - 이메일 형식이 아닐 경우 에러 메세지를 보여줍니다.
+  - 비밀번호는 숫자, 영문, 특수문자(!@#$%^&\*)를 포함해야 합니다.
 - 모든 입력값들이 정상일 때 로그인 버튼이 활성화됩니다.
 - 로그인에 실패하였을 경우 해당 입력창에 에러 메세지를 보여줍니다.
-   - 비밀번호가 다른 경우
-   - 존재하지 않는 이메일인 경우
+  - 비밀번호가 다른 경우
+  - 존재하지 않는 이메일인 경우
 - 구글, 카카오톡으로 간편 로그인할 수 있습니다.
-   - 가입하지 않은 계정 경우 회원가입 후 로그인 처리가 됩니다.
+  - 가입하지 않은 계정 경우 회원가입 후 로그인 처리가 됩니다.
 - 로그인에 성공한 경우 로그인된 상태로 `/`로 이동합니다.
 - 비밀번호가 기억나지 않는 경우 가입한 이메일 계정을 통해 비밀번호를 변경할 수 있습니다.
-   - 입력한 이메일로 비밀번호 변경에 필요한 토큰과 함께 비밀번호 변경 페이지로 이동합니다.
+  - 입력한 이메일로 비밀번호 변경에 필요한 토큰과 함께 비밀번호 변경 페이지로 이동합니다.
 
 <table style="border-collapse: collapse;">
     <tbody>
@@ -278,7 +282,8 @@
 
 <br/>
 
-### 로그아웃 
+### 로그아웃
+
 - 로그아웃 후 `/`로 이동합니다.
 <table style="border-collapse: collapse;">
     <tbody>
@@ -297,7 +302,8 @@
 
 <br/>
 
-### 회원가입 
+### 회원가입
+
 <table style="border-collapse: collapse;">
     <tbody>
         <tr>
@@ -315,25 +321,26 @@
 
 <br/>
 
-### 마이페이지 
+### 마이페이지
+
 - 프로필 이미지와 이름을 변경할 수 있습니다.
 - 변경하기 버튼을 누르면 비밀번호 변경 모달창을 통해 비밀번호를 변경할 수 있습니다.
 - 회원 탈퇴하기 버튼을 누르면 회원 탈퇴 모달창을 통해 탈퇴가 진행됩니다.
-   - 탈퇴 후 `/`로 이동합니다.  
-<table style="border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td align="center">
-	사용자 정보 수정 - 이미지, 이름 
-            </td>
-        </tr>
-	     <tr>
-            <td>
-	  <img src="https://github.com/user-attachments/assets/b02dac2e-e8f3-43bf-b91a-c2496a8818cf"/>
-            </td>
-        </tr>
-    </tbody>
-</table>
+  - 탈퇴 후 `/`로 이동합니다.
+  <table style="border-collapse: collapse;">
+      <tbody>
+          <tr>
+              <td align="center">
+  	사용자 정보 수정 - 이미지, 이름 
+              </td>
+          </tr>
+  	     <tr>
+              <td>
+  	  <img src="https://github.com/user-attachments/assets/b02dac2e-e8f3-43bf-b91a-c2496a8818cf"/>
+              </td>
+          </tr>
+      </tbody>
+  </table>
 
 <table style="border-collapse: collapse;">
     <tbody>
@@ -368,6 +375,7 @@
 <br/>
 
 ### 테마
+
 - 사용자 시스템 설정에 맞는 테마가 적용됩니다.
 - 헤더에 토글 버튼을 통해 테마를 변경할 수 있습니다.
 <table style="border-collapse: collapse;">
@@ -385,19 +393,21 @@
     </tbody>
 </table>
 
+## 프로젝트 후기
 
-## 프로젝트 후기 
 ### 🐰 김서영
-프로젝특가 한 달 동안 길게 진행되면서, 이전 프로젝트에서 아쉬웠던 부분들을 개선하여 여러 새로운 기술들을 적용해 볼 수 있는 좋은 기회였습니다. 단순히 기능 구현에 그치는 것이 아니라, 재사용성을 고려해 꼼꼼하게 작업한 덕분에 프로젝트명과 팀명처럼 '칠칠이'에서 '꼼꼼이'로 성장할 수 있었던 것 같습니다. 😚 힘든 내색하지 않고 마지막까지 긍정적이고 열정적으로 참여해 주신 팀원들 덕분에 행복하게 작업했던 거 같습니다. 
+
+프로젝특가 한 달 동안 길게 진행되면서, 이전 프로젝트에서 아쉬웠던 부분들을 개선하여 여러 새로운 기술들을 적용해 볼 수 있는 좋은 기회였습니다. 단순히 기능 구현에 그치는 것이 아니라, 재사용성을 고려해 꼼꼼하게 작업한 덕분에 프로젝트명과 팀명처럼 '칠칠이'에서 '꼼꼼이'로 성장할 수 있었던 것 같습니다. 😚 힘든 내색하지 않고 마지막까지 긍정적이고 열정적으로 참여해 주신 팀원들 덕분에 행복하게 작업했던 거 같습니다.
 백엔드의 잦은 변동에도 불구하고 묵묵히 끝까지 기능 구현을 맡아주신 동규님, 풍부한 지식을 바탕으로 새로운 기술을 적극 제안해 주신 CTO 승현님, 항상 긍정적인 태도로 팀 분위기를 밝게 만들어 주신 지현님 ! 모두 멋진 FE 개발자로 성장하실 거라고 믿어 의심치 않아요 ~ 우리 칠칠이들 너무 고생하셨습니다 ! 🌈🤍
 
 ### 🦨 이동규
+
 이번 프로젝트를 통해서 디버깅 능력을 많이 키웠고 변경되는 ui 와 api에 대해 대응을 잘 했던 것 같습니다. 팀원들 덕분에 많이 성장하게 된 것 같습니다!
 
 ### 🦔 이승현
+
 처음부터 끝까지 체계적으로 하기 위해서 모두 노력해왔던 것 같습니다. 개인적으로도 기술적으로도 많이 성장했던 프로젝트였습니다. 기억에 많이 남을 것 같아요 감사했어요 😊
 
 ### 🐹 정지현
+
 팀원들이 너무 좋아서 덕분에 배워 가는 점이 많았고 한 달동안 스트레스 받지 않고 프로젝트를 진행할 수 있었어요! 그리고 힘들 땐 순구 테라피가 가능한 최고의 팀!
-
-

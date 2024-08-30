@@ -100,7 +100,7 @@ function TodoBox({
           </div>
         </div>
         <KebabPopover
-          commentUserId={userId}
+          todoUserId={userId}
           openEditModal={editTodoModalOverlay.open}
           openDeleteModal={deleteTodoModalOverlay.open}
         />

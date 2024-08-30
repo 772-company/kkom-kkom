@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 interface KebabPopoverProps {
-  commentUserId?: number;
+  todoUserId?: number;
   openEditModal: () => void;
   openDeleteModal: () => void;
 }
@@ -14,7 +14,7 @@ function KebabPopover({
   openEditModal,
   openDeleteModal,
 
-  commentUserId,
+  todoUserId,
 }: KebabPopoverProps) {
   const { data: user } = useQuery({ queryKey: ["getUser"], queryFn: getUser });
   const constent = [
@@ -32,7 +32,7 @@ function KebabPopover({
       triggerHeight={16}
       content={constent}
       className=""
-      contentClassName={`h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary ${user?.id !== commentUserId && "hidden"}`}
+      contentClassName={`h-[80px] w-[120px] bg-background-secondary !border border-background-tertiary text-text-primary ${user?.id !== todoUserId && "hidden"}`}
     />
   );
 }

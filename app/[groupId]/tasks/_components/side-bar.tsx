@@ -112,7 +112,7 @@ export default function SideBar({
               </h1>
 
               <KebabPopover
-                commentUserId={taskDetail?.writer.id}
+                todoUserId={taskDetail?.writer.id}
                 openDeleteModal={deleteTodoModalOverlay.open}
                 openEditModal={editTodoModalOverlay.open}
               />

@@ -59,14 +59,17 @@ function AddTodoModal({ groupId, taskListId, date, close }: AddTodoModalProps) {
   const serveData = (data: TodoFormType) => {
     if (taskListId !== -1) {
       if (data.frequencyType === "MONTHLY") {
-        const { weekDays, ...newData } = data;
-        mutate(newData);
+        const { weekDays, startDate, ...newData } = data;
+
+        mutate({ ...newData });
       } else if (data.frequencyType === "WEEKLY") {
-        const { monthDay, ...newData } = data;
-        mutate(newData);
+        const { monthDay, startDate, ...newData } = data;
+
+        mutate({ ...newData });
       } else {
-        const { monthDay, weekDays, ...newData } = data;
-        mutate(newData);
+        const { monthDay, weekDays, startDate, ...newData } = data;
+        startDate.setHours(startDate.getHours() + 9);
+        mutate({ ...newData, startDate: startDate.toISOString() });
       }
     }
   };

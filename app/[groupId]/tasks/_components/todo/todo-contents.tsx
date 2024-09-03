@@ -59,6 +59,7 @@ function TodoContents({ taskLists, date, groupId }: TodoContentsProps) {
           tasks &&
           tasks.map((e) => (
             <TodoBox
+              userId={e.writer.id}
               key={e.id}
               groupId={groupId}
               taskListId={selectedButton}

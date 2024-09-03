@@ -1,5 +1,3 @@
-import { convertDateToY_M_D } from "@/utils/convert-date";
-
 import { myFetch } from "../myFetch";
 import { GetTaskResponse, GetTasksResponse } from "./type";
 
@@ -11,7 +9,7 @@ export const postTask = async (
   data: {
     name: string;
     description: string;
-    startDate: Date;
+    startDate?: string;
     frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
     monthDay?: number;
     weekDays?: number[];
@@ -37,10 +35,9 @@ export const getTasks = async (
   taskListId: number | undefined,
   date?: Date,
 ): Promise<GetTasksResponse> => {
-  const convertedDateToYMD = convertDateToY_M_D(date ?? new Date());
   try {
     const response = await myFetch<GetTasksResponse>(
-      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${convertedDateToYMD}`,
+      `${URL}/groups/${groupId}/task-lists/${taskListId}/tasks?date=${date}`,
       {
         method: "GET",
         headers: {

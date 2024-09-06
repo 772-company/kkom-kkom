@@ -9,7 +9,7 @@ import Time from "@/public/icons/time.svg";
 import { checkTodo } from "@/utils/checkTodo";
 import { convertDateToTime, convertDateToYMD } from "@/utils/convert-date";
 import { covertFrequency } from "@/utils/convert-frequency";
-import React from "react";
+import React, { useMemo } from "react";
 
 import Comment from "./comment/comment";
 import CommentInput from "./comment/comment-input";
@@ -85,6 +85,8 @@ export default function SideBar({
     new Date(taskDetail?.date ?? ""),
   );
 
+  useMemo(() => comment?.sort((a, b) => a.id - b.id), [comment]);
+
   return (
     <div
       className={`fixed right-0 top-[60px] z-10 flex h-full w-full bg-transparent ${isOpen ? "translate-x-0 transition-none duration-1000 ease-in md:transition-transform" : "translate-x-full transition-none duration-1000 ease-in md:transition-transform"}`}
@@ -112,7 +114,7 @@ export default function SideBar({
               </h1>
 
               <KebabPopover
-                commentUserId={taskDetail?.writer.id}
+                todoUserId={taskDetail?.writer.id}
                 openDeleteModal={deleteTodoModalOverlay.open}
                 openEditModal={editTodoModalOverlay.open}
               />

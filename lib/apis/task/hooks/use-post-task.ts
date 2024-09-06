@@ -5,7 +5,7 @@ import { postTask } from "..";
 interface TodoFormType {
   name: string;
   description: string;
-  startDate: Date;
+  startDate?: string;
   frequencyType: "ONCE" | "DAILY" | "WEEKLY" | "MONTHLY";
   monthDay?: number;
   weekDays?: number[];

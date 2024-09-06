@@ -95,7 +95,7 @@ function Comment({ date, taskListId, commentData }: CommentProps) {
           {!isEidtMode && (
             <CommentKebabPopOver
               userId={userData?.id}
-              commentUserId={commentData.id}
+              commentUserId={commentData.userId}
               handleClickDeleteComment={handleClickDeleteComment}
               handleClickEditMode={handleClickEditMode}
             />

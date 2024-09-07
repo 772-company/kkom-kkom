@@ -22,6 +22,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import type { ArticleType } from "../_components/handle-article-modal/types";
@@ -65,12 +66,15 @@ export function useUploadArticleMutation() {
 }
 
 export function useDeleteArticleMutation() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (articleId: number) => deleteArticlesArticleId({ articleId }),
     onMutate: () => {
       showToast("loading", "게시글을 삭제 중입니다.", {
         toastId: "deleteArticle",
       });
+      router.push("/boards");
     },
     onSuccess: () => {
       toast.update("deleteArticle", {
@@ -80,6 +84,7 @@ export function useDeleteArticleMutation() {
         hideProgressBar: false,
         autoClose: 1000,
       });
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
     },
     onError: (error) => {
       toast.update("deleteArticle", {
@@ -127,6 +132,9 @@ export function usePatchArticleMutation() {
         isLoading: false,
         hideProgressBar: false,
         autoClose: 1000,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["articles"],
       });
       queryClient.invalidateQueries({
         queryKey: ["article", { articleId }],

@@ -426,25 +426,27 @@
 
 | 게시글 조회 | 게시글 추가 |
 | --- | --- |
-| ![게시글 조회](https://github.com/user-attachments/assets/ddda1149-ed81-4aae-a076-282a5a45dd49) | ![게시글 추가](https://github.com/user-attachments/assets/792ccc33-1400-468e-921b-61a3c5e40828) |
+| ![게시글 조회](https://github.com/user-attachments/assets/1654ffb9-8fd6-45c7-b0ae-8ad1046d2cd7) | ![게시글 추가](https://github.com/user-attachments/assets/4d5235fc-2458-42ed-b4f8-2c3cdb7749fd) |
 
 | 게시글 수정 | 게시글 삭제 |
 | --- | --- |
-|  |  |
-
+| ![게시글 수정](https://github.com/user-attachments/assets/a5984af4-ce9a-4ede-a4f9-0eb360a8a315) | ![게시글 삭제](https://github.com/user-attachments/assets/c2dec205-d5e7-4a8a-b904-9115db283d60) |
 ### 게시글 좋아요, 좋아요 취소
 | 게시글 좋아요, 좋아요 취소 |
 | --- |
-|  |
+| ![게시글 좋아요, 좋아요 취소](https://github.com/user-attachments/assets/1f5f0b60-63bb-42e3-8729-c3485dfc4d79) |
 
 ### 댓글 조회, 추가, 수정, 삭제
-| 댓글 조회 | 댓글 추가 | 
-| --- | --- |
-|  |  |
 
-| 댓글 수정 | 댓글 삭제 | 
+- streaming + 낙관적 업데이트 + 무한 스크롤 (useInfiniteSuspenseQuery)
+
+| 댓글 조회 | 댓글 추가 |
 | --- | --- |
-|  |  |
+| ![댓글 조회](https://github.com/user-attachments/assets/14fd5327-a282-4127-bf9a-7c9f47177548) | ![댓글 추가](https://github.com/user-attachments/assets/e309cc06-9ba3-48e0-a6f6-3c2df7625834) |
+
+| 댓글 수정 | 댓글 삭제 |
+| --- | --- |
+| ![댓글 수정](https://github.com/user-attachments/assets/02c0c0c7-a08e-4454-8bc6-482f7bbe9202) | ![댓글 삭제](https://github.com/user-attachments/assets/0aca2078-fc97-46bd-a285-2bb8a6a2bfce) |
 
 ## 프로젝트 후기
 

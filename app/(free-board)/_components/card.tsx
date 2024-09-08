@@ -97,9 +97,9 @@ export function Profile({
         <figure className="relative h-8 w-8">
           <Image
             fill
-            sizes="32px"
-            alt={image}
+            alt="프로필 이미지"
             src={image}
+            sizes="32px"
             className="rounded-full object-cover"
           />
         </figure>

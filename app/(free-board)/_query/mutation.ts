@@ -305,9 +305,17 @@ export function useDeleteCommentsMutation() {
         queryKey: ["comments", { articleId }],
       });
 
+      await queryClient.cancelQueries({ queryKey: ["article", { articleId }] });
+
       const previousComments = queryClient.getQueryData<
         InfiniteData<GetArticlesArticleIdCommentsResponse>
       >(["comments", { articleId }]);
+
+      const previousArticle =
+        queryClient.getQueryData<GetArticlesArticleIdResponse>([
+          "article",
+          { articleId },
+        ]);
 
       queryClient.setQueryData<
         InfiniteData<
@@ -331,7 +339,21 @@ export function useDeleteCommentsMutation() {
           pageParams: input.pageParams,
         };
       });
-      return { previousComments };
+
+      queryClient.setQueryData<GetArticlesArticleIdResponse>(
+        ["article", { articleId }],
+        (input) => {
+          if (!input) {
+            return input;
+          }
+          return {
+            ...input,
+            commentCount: input.commentCount - 1,
+          };
+        },
+      );
+
+      return { previousComments, previousArticle };
     },
     onError: (error, variables, context) => {
       if (context?.previousComments) {
@@ -342,10 +364,20 @@ export function useDeleteCommentsMutation() {
           context.previousComments,
         );
       }
+
+      if (context?.previousArticle) {
+        queryClient.setQueryData<GetArticlesArticleIdResponse>(
+          ["article", { articleId: variables.articleId }],
+          context.previousArticle,
+        );
+      }
     },
     onSettled: (data, error, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["comments", { articleId: variables.articleId }],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["article", { articleId: variables.articleId }],
       });
     },
   });

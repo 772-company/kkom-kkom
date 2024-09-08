@@ -14,7 +14,7 @@ export default function IntersectionArea({
   func,
 }: InterceptionAreaProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: "some" });
+  const isInView = useInView(ref, { amount: "some", margin: "200px" });
   useEffect(() => {
     if (isInView) {
       func();

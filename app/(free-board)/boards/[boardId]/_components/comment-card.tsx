@@ -79,11 +79,14 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
       contentRef.current.style.height = "4rem";
     }
   }, []);
+
   useLayoutEffect(() => {
     if (lineRef?.current && lineRef.current?.scrollHeight > 72) {
       setIsOpen(false);
+    } else {
+      setIsOpen(null);
     }
-  }, []);
+  }, [comment.content]);
 
   return (
     <Card className="flex border border-black border-opacity-10 p-4 dark:border dark:border-white dark:border-opacity-10 md:px-6 md:py-5">
@@ -95,8 +98,8 @@ export default function CommentCard({ comment, articleId }: CommentCardProps) {
               ref={contentRef}
             >
               <p ref={lineRef}>
-                {comment.content.split("\n").map((line) => (
-                  <Fragment key={line}>
+                {comment.content.split("\n").map((line, index) => (
+                  <Fragment key={`${comment.id} ${line + index}`}>
                     {line}
                     <br />
                   </Fragment>

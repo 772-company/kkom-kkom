@@ -5,7 +5,7 @@ import useArticlesCommentsQuery, {
 } from "@/app/(free-board)/_query/query";
 import LinkButton from "@/components/button/link-button";
 import IntersectionArea from "@/components/intersection-area/intersection-area";
-import Image from "next/image";
+import TubeSpinner from "@/public/icons/tube-spinner.svg";
 
 import CommentCard from "./comment-card";
 
@@ -47,12 +47,7 @@ export default function CommentsList({ articleId }: CommentListProps) {
       {hasNextPage && !isFetching && <IntersectionArea func={fetchNextPage} />}
       {isFetching ? (
         <section className="flex justify-center">
-          <Image
-            src="/icons/tube-spinner.svg"
-            alt="로딩 중"
-            width={56}
-            height={56}
-          />
+          <TubeSpinner width={56} height={56} />
         </section>
       ) : null}
       <section className="mt-8 flex w-full justify-center">

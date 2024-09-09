@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://kkom-kkom.vercel.app/sitemap.xml

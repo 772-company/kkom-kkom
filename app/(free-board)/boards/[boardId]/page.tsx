@@ -1,4 +1,5 @@
 import getQueryClient from "@/app/get-query-client";
+import GtmPageView from "@/components/gtm/gtm-page-view";
 import { getArticlesArticleId } from "@/lib/apis/article";
 import { getArticlesArticleIdComments } from "@/lib/apis/article-comment";
 import instance from "@/lib/apis/myFetch/instance";
@@ -66,6 +67,7 @@ export default async function Page({ params: { boardId } }: Props) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <GtmPageView pageTitle={`boardId: ${boardId}`} />
       <section className="border-b border-black border-opacity-10 dark:border-b dark:border-white dark:border-opacity-10">
         <header className="mb-1 flex items-center gap-1 text-base font-medium text-text-primary">
           <Image src="/icons/medal.svg" alt="Medal" width={16} height={16} />

@@ -6,6 +6,7 @@ import {
 } from "@/providers/modal-store-provider";
 import ProgressBarProvider from "@/providers/progress-bar-provider";
 import ToastProvider from "@/providers/toast-provider";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -34,6 +35,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         <ThemeProvider enableSystem attribute="class">
           <ProgressBarProvider>
             <QueryProviders>

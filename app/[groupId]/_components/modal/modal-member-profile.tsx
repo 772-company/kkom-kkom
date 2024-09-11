@@ -11,7 +11,7 @@ interface ModalMemberProfileProps {
   userImage: string;
   userName: string;
   userEmail: string;
-  isAdmin: boolean;
+  userRole: string;
 }
 
 function ModalMemberProfile({
@@ -19,7 +19,7 @@ function ModalMemberProfile({
   userImage,
   userName,
   userEmail,
-  isAdmin,
+  userRole,
 }: ModalMemberProfileProps) {
   const handleButtonClick = async () => {
     try {
@@ -61,7 +61,7 @@ function ModalMemberProfile({
 
             <div className="flex flex-col items-center justify-center gap-[8px]">
               <div className="flex items-center gap-[4px]">
-                {isAdmin && (
+                {userRole === "ADMIN" && (
                   <Image src={Crown} alt="왕관" width={20} height={20} />
                 )}
 

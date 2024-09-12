@@ -119,7 +119,11 @@ function ModalTaskListNameEdit({
               <Button
                 btnSize="large"
                 btnStyle="solid"
-                disabled={!isDirty || editTaskListMutation.isPending}
+                disabled={
+                  !isDirty ||
+                  !taskListName.trim() ||
+                  editTaskListMutation.isPending
+                }
               >
                 {editTaskListMutation.isPending ? "수정 중..." : "수정하기"}
               </Button>

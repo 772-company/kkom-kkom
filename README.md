@@ -405,8 +405,7 @@
 
 | 팀 참여 |
 | ------- |
-
-![participate](https://github.com/user-attachments/assets/577d12a4-53e2-4c70-a184-095827603a05)
+| ![participate](https://github.com/user-attachments/assets/577d12a4-53e2-4c70-a184-095827603a05) |
 
 ### 이메일 복사
 
@@ -425,18 +424,15 @@
 
 | 할일 리스트 만들기 |
 | ------------------ |
-
-![할일 리스트 만들기](https://github.com/user-attachments/assets/e4ddb814-9a4a-40cf-918a-048d401696c0)
+| ![할일 리스트 만들기](https://github.com/user-attachments/assets/e4ddb814-9a4a-40cf-918a-048d401696c0) |
 
 | 할일 만들기 |
 | ----------- |
-
-![할일 추가](https://github.com/user-attachments/assets/7b0cb2e2-7171-4190-af8a-6bf41c11b336)
+| ![할일 추가](https://github.com/user-attachments/assets/7b0cb2e2-7171-4190-af8a-6bf41c11b336) |
 
 | 댓글 추가 수정 및 삭제 |
 | ---------------------- |
-
-![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/7b80d8ca-f12a-4e0b-94b7-03946caad98f)
+| ![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/7b80d8ca-f12a-4e0b-94b7-03946caad98f) |
 
 ### 자유게시판 페이지
 

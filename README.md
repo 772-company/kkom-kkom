@@ -448,11 +448,11 @@
 
 | 게시글 조회                                                                                     | 게시글 추가                                                                                     |
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| ![게시글 조회](https://github.com/user-attachments/assets/1654ffb9-8fd6-45c7-b0ae-8ad1046d2cd7) | ![게시글 추가](https://github.com/user-attachments/assets/4d5235fc-2458-42ed-b4f8-2c3cdb7749fd) |
+| ![게시글 조회](https://github.com/user-attachments/assets/1654ffb9-8fd6-45c7-b0ae-8ad1046d2cd7) | ![게시글 추가](https://github.com/user-attachments/assets/c8ee759e-0db2-4b31-bbdd-f46e97cf9409) |
 
 | 게시글 수정                                                                                     | 게시글 삭제                                                                                     |
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| ![게시글 수정](https://github.com/user-attachments/assets/a5984af4-ce9a-4ede-a4f9-0eb360a8a315) | ![게시글 삭제](https://github.com/user-attachments/assets/c2dec205-d5e7-4a8a-b904-9115db283d60) |
+| ![게시글 수정](https://github.com/user-attachments/assets/d7cea0ca-4161-4ac0-bb9a-8600131d86f8) | ![게시글 삭제](https://github.com/user-attachments/assets/c2dec205-d5e7-4a8a-b904-9115db283d60) |
 
 ### 게시글 좋아요, 좋아요 취소
 
@@ -466,11 +466,11 @@
 
 | 댓글 조회                                                                                     | 댓글 추가                                                                                     |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| ![댓글 조회](https://github.com/user-attachments/assets/14fd5327-a282-4127-bf9a-7c9f47177548) | ![댓글 추가](https://github.com/user-attachments/assets/e309cc06-9ba3-48e0-a6f6-3c2df7625834) |
+| ![댓글 조회](https://github.com/user-attachments/assets/14fd5327-a282-4127-bf9a-7c9f47177548) | ![댓글 추가](https://github.com/user-attachments/assets/02431c44-014b-40e6-a2eb-bae4eff22938) |
 
 | 댓글 수정                                                                                     | 댓글 삭제                                                                                     |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| ![댓글 수정](https://github.com/user-attachments/assets/02c0c0c7-a08e-4454-8bc6-482f7bbe9202) | ![댓글 삭제](https://github.com/user-attachments/assets/0aca2078-fc97-46bd-a285-2bb8a6a2bfce) |
+| ![댓글 수정](https://github.com/user-attachments/assets/7f177f60-ceb9-475f-a304-7c0b8f8464ff) | ![댓글 삭제](https://github.com/user-attachments/assets/0aca2078-fc97-46bd-a285-2bb8a6a2bfce) |
 
 ## 프로젝트 후기
 

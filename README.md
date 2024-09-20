@@ -363,6 +363,7 @@
 
 | 할 일 목록 삭제 |
 | --------------- |
+| ![deleteTaskList](https://github.com/user-attachments/assets/66bcee6b-ab06-46f9-99ce-607f5f4eb9a8) |
 
 ### 리포트
 
